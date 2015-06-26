@@ -1,0 +1,27 @@
+//
+//  README
+//  TMG Shape Displays
+//
+//  Created by Daniel Windham on 07/07/2015.
+//  Copyright 2015 MIT Media Lab. All rights reserved.
+//
+
+
+This codebase is designed for use with Xcode and openFrameworks 0.8.0. We do not
+recommend trying to use it in other environments.
+
+
+# Setup Instructions:
+
+1. Clone this repository into an openFrameworks 0.8.0 build. Specifically, this
+   needs to be located inside a directory that is inside the openFrameworks
+   apps/ directory, e.g. of_v0.8.0_osx_release/apps/pinDisplays/omniFORM. This
+   file nesting depth is necessary for relative file paths to work.
+2. Follow the instructions in the file `localConfigsTemplate.h` to create a local
+   configuration file.
+3. Download to the openFrameworks addons/ directory any OF addons that you are
+   missing. You can find these addons by google searching their name. You can
+   determine which addons you are missing by trying to build the project and
+   observing errors like "no such file or directory: .../addons/ofx<ADDON>/...".
+4. If the project will not build after following these steps, please let us
+   know.

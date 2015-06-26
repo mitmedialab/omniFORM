@@ -1,0 +1,14 @@
+ofx3DModelLoader
+ofxAssimpModelLoader
+ofxKinect
+ofxNetwork
+ofxOpenCv
+ofxOsc
+ofxXmlSettings
+ofxAnimatable
+ofxBox2d
+ofxBullet
+ofxFTGL
+ofxMovieExporter
+ofxTimeline
+ofxUI
