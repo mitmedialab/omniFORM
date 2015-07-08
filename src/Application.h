@@ -20,4 +20,12 @@ public:
     virtual void drawGraphicsForShapeDisplay() {};
     virtual string appInstructionsText() {return "";};
     virtual void keyPressed(int key) {};
+    void setHeightsFromShapeDisplayRef(const unsigned char heights[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
+        heightsFromShapeDisplay = (const unsigned char *) heights;
+        hasHeightsFromShapeDisplay = true;
+    };
+
+protected:
+    const unsigned char *heightsFromShapeDisplay;
+    bool hasHeightsFromShapeDisplay = false;
 };

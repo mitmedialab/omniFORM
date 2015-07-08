@@ -62,6 +62,14 @@ void AppManager::setup(){
     demoApp = new DemoApp();
     applications["demo"] = demoApp;
 
+    // if heights can be read back from the shape display, give applications
+    // read access to them
+    if (shapeIOManager->heightsFromShapeDisplayAvailable) {
+        for (map<string, Application *>::iterator iter = applications.begin(); iter != applications.end(); iter++) {
+            iter->second->setHeightsFromShapeDisplayRef(heightsFromShapeDisplay);
+        }
+    }
+
     // set default application
     currentApplication = applications["demo"];
 }
