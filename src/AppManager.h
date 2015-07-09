@@ -10,6 +10,7 @@
 
 #include "ofMain.h"
 #include "constants.h"
+#include "PinConfigs.h"
 #include "ShapeIOManager.h"
 #include "InformIOManager.h"
 #include "TransformIOManager.h"

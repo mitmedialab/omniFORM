@@ -156,41 +156,16 @@ void SerialShapeIOManager::clearShapeDisplayHeights(int value) {
 //
 //--------------------------------------------------------------
 
-void SerialShapeIOManager::setGlobalGainP(float value) {
-    if (value != gainP) {
-        configsHaveChanged = true;
-        gainP = value;
-    }
+void SerialShapeIOManager::setPinConfigs(PinConfigs configs[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
+    throw "not implemented";
 }
 
-void SerialShapeIOManager::setGlobalGainI(float value) {
-    if (value != gainI) {
+void SerialShapeIOManager::setGlobalPinConfigs(PinConfigs configs) {
+    if (configs != pinConfigs) {
         configsHaveChanged = true;
-        gainI = value;
+        pinConfigs = configs;
     }
 }
-
-void SerialShapeIOManager::setGlobalMaxI(int value) {
-    if (value != maxI) {
-        configsHaveChanged = true;
-        maxI = value;
-    }
-}
-
-void SerialShapeIOManager::setGlobalDeadZone(int value) {
-    if (value != deadZone) {
-        configsHaveChanged = true;
-        deadZone = value;
-    }
-}
-
-void SerialShapeIOManager::setGlobalMaxSpeed(int value) {
-    if (value != maxSpeed) {
-        configsHaveChanged = true;
-        maxSpeed = value;
-    }
-}
-
 
 //--------------------------------------------------------------
 //
@@ -387,11 +362,11 @@ void SerialShapeIOManager::sendHeightsToBoardAndRequestFeedback(unsigned char bo
 // that appear broken; invalid values can crop up over time from firmware issues
 // and connection noise.
 void SerialShapeIOManager::sendAllConfigValues() {
-    sendValueToAllBoards(TERM_ID_GAIN_P, (unsigned char) (gainP * 25));
-    sendValueToAllBoards(TERM_ID_GAIN_I, (unsigned char) (gainI * 100));
-    sendValueToAllBoards(TERM_ID_MAX_I, (unsigned char) maxI);
-    sendValueToAllBoards(TERM_ID_DEAD_ZONE, (unsigned char) deadZone);
-    sendValueToAllBoards(TERM_ID_MAX_SPEED, (unsigned char) (maxSpeed / 2));
+    sendValueToAllBoards(TERM_ID_GAIN_P, (unsigned char) (pinConfigs.gainP * 25));
+    sendValueToAllBoards(TERM_ID_GAIN_I, (unsigned char) (pinConfigs.gainI * 100));
+    sendValueToAllBoards(TERM_ID_MAX_I, (unsigned char) pinConfigs.maxI);
+    sendValueToAllBoards(TERM_ID_DEAD_ZONE, (unsigned char) pinConfigs.deadZone);
+    sendValueToAllBoards(TERM_ID_MAX_SPEED, (unsigned char) (pinConfigs.maxSpeed / 2));
     timeOfLastConfigsRefresh = ofGetElapsedTimeMillis();
     configsHaveChanged = false;
 }

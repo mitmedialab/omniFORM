@@ -38,11 +38,13 @@ void AppManager::setup(){
     }
 
     // initialize shape display pin configs
-    shapeIOManager->setGlobalGainP(DEFAULT_GAIN_P);
-    shapeIOManager->setGlobalGainI(DEFAULT_GAIN_I);
-    shapeIOManager->setGlobalMaxI(DEFAULT_MAX_I);
-    shapeIOManager->setGlobalDeadZone(DEFAULT_DEAD_ZONE);
-    shapeIOManager->setGlobalMaxSpeed(DEFAULT_MAX_SPEED);
+    PinConfigs pinConfigs;
+    pinConfigs.gainP = DEFAULT_GAIN_P;
+    pinConfigs.gainI = DEFAULT_GAIN_I;
+    pinConfigs.maxI = DEFAULT_MAX_I;
+    pinConfigs.deadZone = DEFAULT_DEAD_ZONE;
+    pinConfigs.maxSpeed = DEFAULT_MAX_SPEED;
+    shapeIOManager->setGlobalPinConfigs(pinConfigs);
 
     // clear height buffers
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {

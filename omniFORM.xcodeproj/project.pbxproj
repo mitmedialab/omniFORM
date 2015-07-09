@@ -733,6 +733,7 @@
 		65BAC5A3B9C9387859A2B0E0 /* pushpack1.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = pushpack1.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/Compiler/pushpack1.h; sourceTree = SOURCE_ROOT; };
 		65D1BE531B4C6B8D0080F4DD /* localConfigsTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localConfigsTemplate.h; sourceTree = "<group>"; };
 		65D1BE561B4C7AA30080F4DD /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		65D1BE5D1B5010FA0080F4DD /* PinConfigs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinConfigs.h; sourceTree = "<group>"; };
 		65D85FDA1B46E1C200212690 /* SerialShapeIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SerialShapeIO.cpp; sourceTree = "<group>"; };
 		65D85FDC1B46E1CC00212690 /* SerialShapeIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerialShapeIO.h; sourceTree = "<group>"; };
 		65D85FE21B4750E200212690 /* keycodeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keycodeConstants.h; sourceTree = "<group>"; };
@@ -1875,6 +1876,7 @@
 		6572FCBC1B3DD547001BBF38 /* ShapeDisplayManagers */ = {
 			isa = PBXGroup;
 			children = (
+				65D1BE5D1B5010FA0080F4DD /* PinConfigs.h */,
 				6572FCAE1B3CB06E001BBF38 /* ShapeIOManager.h */,
 				65DA78911B438B5A008F98F4 /* SerialShapeIOManager.cpp */,
 				65DA78931B438B66008F98F4 /* SerialShapeIOManager.h */,

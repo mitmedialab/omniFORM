@@ -10,6 +10,7 @@
 
 #include "ofMain.h"
 #include "constants.h"
+#include "PinConfigs.h"
 
 
 class ShapeIOManager {
@@ -22,19 +23,9 @@ public:
     virtual void getHeightsFromShapeDisplay(unsigned char heights[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) = 0;
     virtual void clearShapeDisplayHeights(int value=0) = 0;
 
-    // per-pin setters for display config values
-    virtual void setGainP(float value, ofVec2f pin) = 0;
-    virtual void setGainI(float value, ofVec2f pin) = 0;
-    virtual void setMaxI(int value, ofVec2f pin) = 0;
-    virtual void setDeadZone(int value, ofVec2f pin) = 0;
-    virtual void setMaxSpeed(int value, ofVec2f pin) = 0;
-
-    // global setters for display config values
-    virtual void setGlobalGainP(float value) = 0;
-    virtual void setGlobalGainI(float value) = 0;
-    virtual void setGlobalMaxI(int value) = 0;
-    virtual void setGlobalDeadZone(int value) = 0;
-    virtual void setGlobalMaxSpeed(int value) = 0;
+    // setters for pin config values
+    virtual void setPinConfigs(PinConfigs configs[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) = 0;
+    virtual void setGlobalPinConfigs(PinConfigs configs) = 0;
 
     // can heights be read from the display?
     const bool heightsFromShapeDisplayAvailable = SHAPE_DISPLAY_CAN_TALK_BACK;

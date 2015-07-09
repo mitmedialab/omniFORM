@@ -33,19 +33,9 @@ public:
     void getHeightsFromShapeDisplay(unsigned char heights[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]);
     void clearShapeDisplayHeights(int value=0);
 
-    // per-pin setters for display config values
-    void setGainP(float value, ofVec2f pin) {throw "not implemented";};
-    void setGainI(float value, ofVec2f pin) {throw "not implemented";};
-    void setMaxI(int value, ofVec2f pin) {throw "not implemented";};
-    void setDeadZone(int value, ofVec2f pin) {throw "not implemented";};
-    void setMaxSpeed(int value, ofVec2f pin) {throw "not implemented";};
-    
-    // global setters for display config values
-    void setGlobalGainP(float value);
-    void setGlobalGainI(float value);
-    void setGlobalMaxI(int value);
-    void setGlobalDeadZone(int value);
-    void setGlobalMaxSpeed(int value);
+    // setters for pin config values
+    void setPinConfigs(PinConfigs configs[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]);
+    void setGlobalPinConfigs(PinConfigs configs);
 
     // should pins that appear stuck be turned off at regular intervals?
     bool enableStuckPinSafetyToggle = false;
@@ -90,12 +80,8 @@ protected:
     unsigned char heightsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     unsigned char heightsFromShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
 
-    // pin behavior configuration
-    float gainP;
-    float gainI;
-    int maxI;
-    int deadZone;
-    int maxSpeed;
+    // pin behavior configurations
+    PinConfigs pinConfigs;
 
     // initialization flags
     bool boardsAreConfigured = false;
