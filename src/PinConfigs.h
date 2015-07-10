@@ -8,9 +8,12 @@
 
 #pragma once
 
+#include "utils.h"
+
 
 // struct for easily passing around pin configs. accompanying == and != logic.
 struct PinConfigs {
+    double timeOfUpdate;
     float gainP;
     float gainI;
     int maxI;

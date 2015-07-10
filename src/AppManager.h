@@ -10,6 +10,7 @@
 
 #include "ofMain.h"
 #include "constants.h"
+#include "utils.h"
 #include "PinConfigs.h"
 #include "ShapeIOManager.h"
 #include "InformIOManager.h"
@@ -47,6 +48,7 @@ private:
     unsigned char heightsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     unsigned char heightsFromShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     ofFbo graphicsForShapeDisplay;
+    double timeOfLastPinConfigsUpdate = -1;
     int projectorOffsetX = 1000;
 
     map<string, Application *> applications;

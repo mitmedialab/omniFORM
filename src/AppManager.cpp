@@ -39,12 +39,14 @@ void AppManager::setup(){
 
     // initialize shape display pin configs
     PinConfigs pinConfigs;
+    pinConfigs.timeOfUpdate = elapsedTimeInSeconds();
     pinConfigs.gainP = DEFAULT_GAIN_P;
     pinConfigs.gainI = DEFAULT_GAIN_I;
     pinConfigs.maxI = DEFAULT_MAX_I;
     pinConfigs.deadZone = DEFAULT_DEAD_ZONE;
     pinConfigs.maxSpeed = DEFAULT_MAX_SPEED;
     shapeIOManager->setGlobalPinConfigs(pinConfigs);
+    timeOfLastPinConfigsUpdate = elapsedTimeInSeconds();
 
     // clear height buffers
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
