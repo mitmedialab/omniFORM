@@ -27,6 +27,7 @@ public:
     virtual void keyPressed(int key) {};
 
     double timeOfLastPinConfigsUpdate = -1;
+    const string name = "Application";
 
 protected:
     unsigned char heightsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];

@@ -45,8 +45,6 @@ void DemoApp::drawGraphicsForShapeDisplay() {
 
 string DemoApp::appInstructionsText() {
     string instructions = "\
-        Demo App \n\
-        \n\
         Waves propagate from the display center. You can adjust the waves' \n\
         frequency and wavelength using the 'a', 's', 'd', and 'f' keys. \n\
         \n\

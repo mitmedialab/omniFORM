@@ -139,7 +139,10 @@ void AppManager::draw(){
     // draw text
     int menuLeftCoordinate = 21;
     int menuHeight = 350;
+    ofDrawBitmapString(currentApplication->name, menuLeftCoordinate, menuHeight);
+    menuHeight += 30;
     ofDrawBitmapString(currentApplication->appInstructionsText(), menuLeftCoordinate, menuHeight);
+    menuHeight += 20;
 
     // draw graphics onto projector
     graphicsForShapeDisplay.draw(projectorOffsetX, SHAPE_DISPLAY_PROJECTOR_OFFSET_Y, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_X, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_Y);

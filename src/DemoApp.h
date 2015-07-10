@@ -18,6 +18,8 @@ public:
     string appInstructionsText();
     void keyPressed(int key);
 
+    const string name = "Demo";
+
 private:
     float normalizedPhase = 0;
     float frequency = 0.5;
