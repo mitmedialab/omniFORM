@@ -47,7 +47,7 @@ protected:
     // manage the connection to the shape display
     void connectToDisplay();
     void disconnectFromDisplay(bool clearHeights=false);
-    virtual void openSerialConnections(); // implement in child classes
+    void openSerialConnections();
     void closeSerialConnections();
 
     // setup hardware-specific board configuration
