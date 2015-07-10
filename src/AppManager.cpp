@@ -53,6 +53,7 @@ void AppManager::setup(){
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++ ) {
             heightsForShapeDisplay[x][y] = 0;
             heightsFromShapeDisplay[x][y] = 0;
+            pinConfigsForShapeDisplay[x][y] = pinConfigs;
         }
     }
 
@@ -92,9 +93,14 @@ void AppManager::update(){
         shapeIOManager->getHeightsFromShapeDisplay(heightsFromShapeDisplay);
     }
 
+    bool pinConfigsAreStale;
     if (!paused) {
         currentApplication->update(dt);
         currentApplication->getHeightsForShapeDisplay(heightsForShapeDisplay);
+        pinConfigsAreStale = timeOfLastPinConfigsUpdate < currentApplication->timeOfLastPinConfigsUpdate;
+        if (pinConfigsAreStale) {
+            currentApplication->getPinConfigsForShapeDisplay(pinConfigsForShapeDisplay);
+        }
     }
 
     // render graphics
@@ -105,6 +111,10 @@ void AppManager::update(){
     graphicsForShapeDisplay.end();
     
     shapeIOManager->sendHeightsToShapeDisplay(heightsForShapeDisplay);
+    if (pinConfigsAreStale) {
+        shapeIOManager->setPinConfigs(pinConfigsForShapeDisplay);
+        timeOfLastPinConfigsUpdate = elapsedTimeInSeconds();
+    }
 }
 
 void AppManager::draw(){

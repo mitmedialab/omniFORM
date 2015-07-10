@@ -47,6 +47,7 @@ private:
 
     unsigned char heightsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     unsigned char heightsFromShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
+    PinConfigs pinConfigsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     ofFbo graphicsForShapeDisplay;
     double timeOfLastPinConfigsUpdate = -1;
     int projectorOffsetX = 1000;

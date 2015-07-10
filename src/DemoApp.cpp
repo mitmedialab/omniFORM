@@ -42,6 +42,13 @@ void DemoApp::getHeightsForShapeDisplay(unsigned char heights[SHAPE_DISPLAY_SIZE
     copy(inputIter, inputIter + SHAPE_DISPLAY_SIZE_2D, outputIter);
 };
 
+void DemoApp::getPinConfigsForShapeDisplay(PinConfigs configs[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
+    // copy pin configs data into buffer
+    PinConfigs *inputIter = &pinConfigsForShapeDisplay[0][0];
+    PinConfigs *outputIter = &configs[0][0];
+    copy(inputIter, inputIter + SHAPE_DISPLAY_SIZE_2D, outputIter);
+};
+
 void DemoApp::drawGraphicsForShapeDisplay() {
     color.setHsb(fmod(normalizedPhase * 180, 180), 255, 255);
     ofSetColor(color);
