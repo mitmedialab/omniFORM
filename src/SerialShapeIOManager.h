@@ -57,7 +57,7 @@ protected:
     // pin height data processors
     void toggleStuckPins();
     void clipAllHeightValuesToBeWithinRange();
-    void readyHeightDataForArduino();
+    void readyDataForArduinos();
 
     // central update manager
     void update();
