@@ -37,8 +37,9 @@ void DemoApp::update(float dt) {
 
 void DemoApp::getHeightsForShapeDisplay(unsigned char heights[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
     // copy height data into buffer
-    int heightsArraySize = SHAPE_DISPLAY_SIZE_X * SHAPE_DISPLAY_SIZE_Y * sizeof(unsigned char);
-    memcpy(heights, heightsForShapeDisplay, heightsArraySize);
+    unsigned char *inputIter = &heightsForShapeDisplay[0][0];
+    unsigned char *outputIter = &heights[0][0];
+    copy(inputIter, inputIter + SHAPE_DISPLAY_SIZE_2D, outputIter);
 };
 
 void DemoApp::drawGraphicsForShapeDisplay() {
