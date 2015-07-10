@@ -136,6 +136,7 @@
 		6572FCBE1B3DD616001BBF38 /* InformIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCBD1B3DD616001BBF38 /* InformIOManager.cpp */; };
 		6572FCC11B3DD632001BBF38 /* TransformIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCC01B3DD632001BBF38 /* TransformIOManager.cpp */; };
 		6572FCC41B3DD671001BBF38 /* CooperformIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCC31B3DD671001BBF38 /* CooperformIOManager.cpp */; };
+		65D1BE601B5033530080F4DD /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D1BE5F1B5033530080F4DD /* utils.cpp */; };
 		65D85FDB1B46E1C200212690 /* SerialShapeIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D85FDA1B46E1C200212690 /* SerialShapeIO.cpp */; };
 		65DA78921B438B5A008F98F4 /* SerialShapeIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65DA78911B438B5A008F98F4 /* SerialShapeIOManager.cpp */; };
 		665F78A820EA2D9F938D6AA8 /* btDefaultCollisionConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51582A6ED5B9BE7C59A62DF5 /* btDefaultCollisionConfiguration.cpp */; };
@@ -734,6 +735,8 @@
 		65D1BE531B4C6B8D0080F4DD /* localConfigsTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localConfigsTemplate.h; sourceTree = "<group>"; };
 		65D1BE561B4C7AA30080F4DD /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		65D1BE5D1B5010FA0080F4DD /* PinConfigs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinConfigs.h; sourceTree = "<group>"; };
+		65D1BE5E1B50334A0080F4DD /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		65D1BE5F1B5033530080F4DD /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
 		65D85FDA1B46E1C200212690 /* SerialShapeIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SerialShapeIO.cpp; sourceTree = "<group>"; };
 		65D85FDC1B46E1CC00212690 /* SerialShapeIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerialShapeIO.h; sourceTree = "<group>"; };
 		65D85FE21B4750E200212690 /* keycodeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keycodeConstants.h; sourceTree = "<group>"; };
@@ -3115,6 +3118,8 @@
 				65D1BE531B4C6B8D0080F4DD /* localConfigsTemplate.h */,
 				6572FCA71B3C961B001BBF38 /* constants.h */,
 				65D85FE21B4750E200212690 /* keycodeConstants.h */,
+				65D1BE5F1B5033530080F4DD /* utils.cpp */,
+				65D1BE5E1B50334A0080F4DD /* utils.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				6572FCA91B3CA8EE001BBF38 /* AppManager.cpp */,
 				6572FCAB1B3CA8F8001BBF38 /* AppManager.h */,
@@ -3610,6 +3615,7 @@
 				19BAA929C90DC149B11A3AD3 /* btTriangleMeshShape.cpp in Sources */,
 				BE0F0F2B64419F1C19ACA036 /* btUniformScalingShape.cpp in Sources */,
 				F9023D40FDA7B887775C4191 /* btContactProcessing.cpp in Sources */,
+				65D1BE601B5033530080F4DD /* utils.cpp in Sources */,
 				1799B0108983ED7D929BCD9F /* btGenericPoolAllocator.cpp in Sources */,
 				79B7AE02D2EF890BC3B5478A /* btGImpactBvh.cpp in Sources */,
 				AF5EB34078AD8B484DD655CF /* btGImpactCollisionAlgorithm.cpp in Sources */,
