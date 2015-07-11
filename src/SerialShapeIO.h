@@ -43,20 +43,20 @@ public:
     
     void writeMessage(unsigned char messageContent[MSG_SIZE_SEND]);
 
-    // if values can be read back from the shape display, set `readable = true`
-    // and override the methods below
-    bool readable;
+    // these methods depend on the serial connection being readable
     bool hasNewMessage();
     bool readMessage(unsigned char messageContent[MSG_SIZE_RECEIVE]);
     void writeMessageRequestFeedback(unsigned char messageContent[MSG_SIZE_SEND_AND_RECEIVE]);
 
+    bool readable;
+
 private:
-    ofSerial serial;
-    
     void start();
     void stop();
     void threadedFunction();
-    
+
+    ofSerial serial;
+
     vector<MessageSend> sendBuffer;
     vector<MessageReceive> receiveBuffer;
     vector<MessageSendAndReceive> sendBufferMessageWithFeedback;
