@@ -296,7 +296,7 @@ void SerialShapeIOManager::update() {
 
     // when config values have changed, resend them. periodically resend them
     // even when they haven't changed to correct any errors that cropped up
-    if (elapsedTimeInSeconds() > timeOfLastConfigsRefresh + PIN_CONFIGS_RESET_INTERVAL) {
+    if (elapsedTimeInSeconds() > timeOfLastConfigsRefresh + PIN_CONFIGS_RESET_FREQUENCY) {
         sendAllConfigValues();
     } else {
         sendUpdatedConfigValues();

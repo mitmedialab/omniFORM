@@ -57,7 +57,7 @@
 #define TERM_ID_MAX_SPEED (unsigned char) 252
 
 // frequency (in seconds) of resending pin config values
-#define PIN_CONFIGS_RESET_INTERVAL 1.5
+#define PIN_CONFIGS_RESET_FREQUENCY 1.5
 
 // inFORM serial configs
 #if SHAPE_DISPLAY_IN_USE==INFORM_DISPLAY
