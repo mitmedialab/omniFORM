@@ -230,7 +230,7 @@ void SerialShapeIOManager::clipAllHeightValuesToBeWithinRange() {
 // Copy data from storage in the 2D array to the corresponding arduino board
 // structures. Flip height values where needed to match the board's orientation.
 void SerialShapeIOManager::readyDataForArduinos() {
-    for (unsigned char i = 0; i < NUM_ARDUINOS; i++) {
+    for (int i = 0; i < NUM_ARDUINOS; i++) {
         for (int j = 0; j < NUM_PINS_ARDUINO; j++) {
             int x = pinBoards[i].pinCoordinates[j][0];
             int y = pinBoards[i].pinCoordinates[j][1];
@@ -273,12 +273,12 @@ void SerialShapeIOManager::update() {
 
     // send height data. if the display talks back, ask it what it's doing
     if (heightsFromShapeDisplayAvailable) {
-        for (unsigned char i = 0; i < NUM_ARDUINOS; i++) {
+        for (int i = 0; i < NUM_ARDUINOS; i++) {
             sendHeightsToBoardAndRequestFeedback(i + 1, pinBoards[i].heights, pinBoards[i].serialConnection);
         }
         readHeightsFromBoards(); // gets actual heights from arduino boards
     } else {
-        for (unsigned char i = 0; i < NUM_ARDUINOS; i++) {
+        for (int i = 0; i < NUM_ARDUINOS; i++) {
             sendHeightsToBoard(i + 1, pinBoards[i].heights, pinBoards[i].serialConnection);
         }
     }
