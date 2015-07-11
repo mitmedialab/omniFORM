@@ -22,7 +22,7 @@
 // constructor since it runs before the derived class is constructed.
 SerialShapeIOManager::SerialShapeIOManager() {
     timeOfLastConfigsUpdate = elapsedTimeInSeconds();
-    timeOfLastConfigsRefresh = ofGetElapsedTimeMillis();
+    timeOfLastConfigsRefresh = elapsedTimeInSeconds();
 
     // stuck pin safety toggling can only be implemented if we have height data
     // from the shape display telling us whether pins are stuck
@@ -186,7 +186,7 @@ void SerialShapeIOManager::toggleStuckPins() {
         throw "cannot toggle stuck pins without pin height data from the shape display";
     }
 
-    unsigned long long currentTime = ofGetElapsedTimeMillis();
+    double currentTime = elapsedTimeInSeconds();
 
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
@@ -198,12 +198,12 @@ void SerialShapeIOManager::toggleStuckPins() {
             if (pinEnabled[x][y]) {
                 if (pinDiscrepancy[x][y] < pinDiscrepancyToggleThreshold) {
                     pinStuckSinceTime[x][y] = currentTime;
-                } else if (currentTime - pinStuckSinceTime[x][y] > millisUntilPinToggledOff) {
+                } else if (currentTime - pinStuckSinceTime[x][y] > secondsUntilPinToggledOff) {
                     pinEnabled[x][y] = false;
                 }
             // reenable pin if it has been off for awhile; else, overwrite value
             } else {
-                if (currentTime - pinStuckSinceTime[x][y] > millisUntilPinToggledOn) {
+                if (currentTime - pinStuckSinceTime[x][y] > secondsUntilPinToggledOn) {
                     pinEnabled[x][y] = true;
                     pinStuckSinceTime[x][y] = currentTime;
                 } else {
@@ -296,7 +296,7 @@ void SerialShapeIOManager::update() {
 
     // when config values have changed, resend them. periodically resend them
     // even when they haven't changed to correct any errors that cropped up
-    if (ofGetElapsedTimeMillis() > timeOfLastConfigsRefresh + PIN_CONFIGS_RESET_INTERVAL) {
+    if (elapsedTimeInSeconds() > timeOfLastConfigsRefresh + PIN_CONFIGS_RESET_INTERVAL) {
         sendAllConfigValues();
     } else {
         sendUpdatedConfigValues();
@@ -415,7 +415,7 @@ void SerialShapeIOManager::sendAllConfigValues() {
         sendConfigsToBoard(i + 1, pinBoards[i].configs, pinBoards[i].serialConnection);
     }
     timeOfLastConfigsUpdate = elapsedTimeInSeconds();
-    timeOfLastConfigsRefresh = ofGetElapsedTimeMillis();
+    timeOfLastConfigsRefresh = elapsedTimeInSeconds();
 }
 
 // Read actual heights from the boards

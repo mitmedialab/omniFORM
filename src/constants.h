@@ -56,8 +56,8 @@
 #define TERM_ID_GRAVITY_COMP (unsigned char) 251
 #define TERM_ID_MAX_SPEED (unsigned char) 252
 
-// frequency (in ms) of resending pin config values
-#define PIN_CONFIGS_RESET_INTERVAL 1500
+// frequency (in seconds) of resending pin config values
+#define PIN_CONFIGS_RESET_INTERVAL 1.5
 
 // inFORM serial configs
 #if SHAPE_DISPLAY_IN_USE==INFORM_DISPLAY

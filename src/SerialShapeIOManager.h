@@ -95,13 +95,13 @@ protected:
 
     // pin behavior configuration trackers
     double timeOfLastConfigsUpdate;
-    unsigned long long timeOfLastConfigsRefresh;
+    double timeOfLastConfigsRefresh;
 
     // properties for detecting stuck pins to toggle
     int pinDiscrepancy[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     bool pinEnabled[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
-    unsigned long long pinStuckSinceTime[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
+    double pinStuckSinceTime[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     const int pinDiscrepancyToggleThreshold = 100;
-    const int millisUntilPinToggledOff = 1000;
-    const int millisUntilPinToggledOn = 3000;
+    const float secondsUntilPinToggledOff = 1.0;
+    const float secondsUntilPinToggledOn = 3.0;
 };
