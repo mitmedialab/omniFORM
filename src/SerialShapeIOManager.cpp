@@ -21,8 +21,8 @@
 // their constructors. These initializations cannot be done from this
 // constructor since it runs before the derived class is constructed.
 SerialShapeIOManager::SerialShapeIOManager() {
+    timeOfLastConfigsUpdate = elapsedTimeInSeconds();
     timeOfLastConfigsRefresh = ofGetElapsedTimeMillis();
-    configsHaveChanged = false;
 
     // stuck pin safety toggling can only be implemented if we have height data
     // from the shape display telling us whether pins are stuck
@@ -159,13 +159,18 @@ void SerialShapeIOManager::clearShapeDisplayHeights(int value) {
 //--------------------------------------------------------------
 
 void SerialShapeIOManager::setPinConfigs(PinConfigs configs[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
-    throw "not implemented";
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            pinConfigs[x][y] = configs[x][y];
+        }
+    }
 }
 
 void SerialShapeIOManager::setGlobalPinConfigs(PinConfigs configs) {
-    if (configs != pinConfigs) {
-        configsHaveChanged = true;
-        pinConfigs = configs;
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            pinConfigs[x][y] = configs;
+        }
     }
 }
 
@@ -237,7 +242,13 @@ void SerialShapeIOManager::readyDataForArduinos() {
             
             // copy the height value to the board
             pinBoards[i].heights[j] = heightsForShapeDisplay[x][y];
-            
+
+            // if they've been updated, copy the pin configs to the board
+            if (pinBoards[i].configs[j].timeOfUpdate < pinConfigs[x][y].timeOfUpdate) {
+                pinBoards[i].configs[j] = pinConfigs[x][y];
+                pinBoards[i].timeOfLastConfigsUpdate = elapsedTimeInSeconds();
+            }
+
             // invert the values if needed (this affects boards mounted upside down)
             if (pinBoards[i].invertHeight) {
                 pinBoards[i].heights[j] = 255 - pinBoards[i].heights[j];
@@ -285,8 +296,10 @@ void SerialShapeIOManager::update() {
 
     // when config values have changed, resend them. periodically resend them
     // even when they haven't changed to correct any errors that cropped up
-    if (configsHaveChanged || ofGetElapsedTimeMillis() > timeOfLastConfigsRefresh + PIN_CONFIGS_RESET_INTERVAL) {
+    if (ofGetElapsedTimeMillis() > timeOfLastConfigsRefresh + PIN_CONFIGS_RESET_INTERVAL) {
         sendAllConfigValues();
+    } else {
+        sendUpdatedConfigValues();
     }
 }
 
@@ -360,19 +373,49 @@ void SerialShapeIOManager::sendHeightsToBoardAndRequestFeedback(unsigned char bo
     serialConnections[serialConnection]->writeMessageRequestFeedback(messageContents);
 }
 
+void SerialShapeIOManager::sendConfigsToBoard(unsigned char boardId, PinConfigs configs[NUM_PINS_ARDUINO], int serialConnection) {
+    unsigned char gainPValues[NUM_PINS_ARDUINO];
+    unsigned char gainIValues[NUM_PINS_ARDUINO];
+    unsigned char maxIValues[NUM_PINS_ARDUINO];
+    unsigned char deadZoneValues[NUM_PINS_ARDUINO];
+    unsigned char maxSpeedValues[NUM_PINS_ARDUINO];
+
+    for (int i = 0; i < NUM_PINS_ARDUINO; i++) {
+        gainPValues[i] = (unsigned char) (configs[i].gainP * 25);
+        gainIValues[i] = (unsigned char) (configs[i].gainI * 100);
+        maxIValues[i] = (unsigned char) configs[i].maxI;
+        deadZoneValues[i] = (unsigned char) configs[i].deadZone;
+        maxSpeedValues[i] = (unsigned char) (configs[i].maxSpeed / 2);
+    }
+
+    sendValuesToBoard(TERM_ID_GAIN_P, boardId, gainPValues, serialConnection);
+    sendValuesToBoard(TERM_ID_GAIN_I, boardId, gainIValues, serialConnection);
+    sendValuesToBoard(TERM_ID_MAX_I, boardId, maxIValues, serialConnection);
+    sendValuesToBoard(TERM_ID_DEAD_ZONE, boardId, deadZoneValues, serialConnection);
+    sendValuesToBoard(TERM_ID_MAX_SPEED, boardId, maxSpeedValues, serialConnection);
+}
+
+// Send configuration values that have been updated to the display
+void SerialShapeIOManager::sendUpdatedConfigValues() {
+    for (int i = 0; i < NUM_ARDUINOS; i++) {
+        if (timeOfLastConfigsUpdate < pinBoards[i].timeOfLastConfigsUpdate) {
+            sendConfigsToBoard(i + 1, pinBoards[i].configs, pinBoards[i].serialConnection);
+        }
+    }
+    timeOfLastConfigsUpdate = elapsedTimeInSeconds();
+}
+
 // Send all current configuration values to the display.
 //
 // This method should be called periodically to reset the display and fix pins
 // that appear broken; invalid values can crop up over time from firmware issues
 // and connection noise.
 void SerialShapeIOManager::sendAllConfigValues() {
-    sendValueToAllBoards(TERM_ID_GAIN_P, (unsigned char) (pinConfigs.gainP * 25));
-    sendValueToAllBoards(TERM_ID_GAIN_I, (unsigned char) (pinConfigs.gainI * 100));
-    sendValueToAllBoards(TERM_ID_MAX_I, (unsigned char) pinConfigs.maxI);
-    sendValueToAllBoards(TERM_ID_DEAD_ZONE, (unsigned char) pinConfigs.deadZone);
-    sendValueToAllBoards(TERM_ID_MAX_SPEED, (unsigned char) (pinConfigs.maxSpeed / 2));
+    for (int i = 0; i < NUM_ARDUINOS; i++) {
+        sendConfigsToBoard(i + 1, pinBoards[i].configs, pinBoards[i].serialConnection);
+    }
+    timeOfLastConfigsUpdate = elapsedTimeInSeconds();
     timeOfLastConfigsRefresh = ofGetElapsedTimeMillis();
-    configsHaveChanged = false;
 }
 
 // Read actual heights from the boards

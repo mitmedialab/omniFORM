@@ -10,6 +10,8 @@
 
 #include "ofMain.h"
 #include "constants.h"
+#include "utils.h"
+#include "PinConfigs.h"
 #include "ShapeIOManager.h"
 #include "SerialShapeIO.h"
 
@@ -18,7 +20,9 @@ class SerialPinBoard {
 public:
     unsigned char pinCoordinates[NUM_PINS_ARDUINO][2]; // what physical x and y does each pin on the board map to?
     unsigned char heights[NUM_PINS_ARDUINO]; // what height should each pin have?
+    PinConfigs configs[NUM_PINS_ARDUINO]; // what configs should each pin have?
     bool invertHeight; // is it mounted upside down? if so, the height is inverted
+    double timeOfLastConfigsUpdate = -1; // when were the configs last updated?
     int serialConnection; // what serial connection is it on?
 };
 
@@ -67,6 +71,8 @@ protected:
     void sendValuesToBoard(unsigned char termId, unsigned char boardId, unsigned char value[NUM_PINS_ARDUINO], int serialConnection);
     void sendHeightsToBoard(unsigned char boardId, unsigned char value[NUM_PINS_ARDUINO], int serialConnection);
     void sendHeightsToBoardAndRequestFeedback(unsigned char boardId, unsigned char value[NUM_PINS_ARDUINO], int serialConnection);
+    void sendConfigsToBoard(unsigned char boardId, PinConfigs configs[NUM_PINS_ARDUINO], int serialConnection);
+    void sendUpdatedConfigValues();
     void sendAllConfigValues();
 
     // read data received from shape display
@@ -81,14 +87,14 @@ protected:
     unsigned char heightsFromShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
 
     // pin behavior configurations
-    PinConfigs pinConfigs;
+    PinConfigs pinConfigs[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
 
     // initialization flags
     bool boardsAreConfigured = false;
     bool isConnected = false;
 
     // pin behavior configuration trackers
-    bool configsHaveChanged;
+    double timeOfLastConfigsUpdate;
     unsigned long long timeOfLastConfigsRefresh;
 
     // properties for detecting stuck pins to toggle
