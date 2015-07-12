@@ -20,8 +20,8 @@ void AppManager::setup(){
     #endif
 
     // initialize kinect
-    //kinectManager.setup();
-    
+    kinectManager = new KinectManager();
+
     // initialize communication with the shape display
     switch (SHAPE_DISPLAY_IN_USE) {
         case INFORM_DISPLAY:
@@ -80,7 +80,7 @@ void AppManager::setup(){
 }
 
 void AppManager::update(){
-    //kinectTracker.update();
+    kinectManager->update();
 
     // time elapsed since last update
     float frameRate = ofGetFrameRate();
@@ -136,6 +136,12 @@ void AppManager::draw(){
     ofRect(609, 1, 302, 302);
     graphicsForShapeDisplay.draw(610, 2, 300, 300);
     
+    ofRect(913, 1, 302, 302);
+    kinectManager->drawColorImage(914, 2, 300, 300);
+    
+    ofRect(913, 301, 302, 302);
+    kinectManager->drawDepthImage(914, 302, 300, 300);
+    
     // draw text
     int menuLeftCoordinate = 21;
     int menuHeight = 350;
@@ -149,9 +155,9 @@ void AppManager::draw(){
 }
 
 void AppManager::exit() {
-    // shut down the kinect
-    //kinectManager.exit();
-    
+    // delete kinectManager to shut down the kinect
+    delete kinectManager;
+
     // delete shapeIOManager to shut down the shape display
     delete shapeIOManager;
 }

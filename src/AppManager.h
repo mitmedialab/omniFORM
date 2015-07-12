@@ -16,6 +16,7 @@
 #include "InformIOManager.h"
 #include "TransformIOManager.h"
 #include "CooperformIOManager.h"
+#include "KinectManager.h"
 #include "Application.h"
 #include "DemoApp.h"
 
@@ -41,7 +42,7 @@ public:
 private:
     // interface to the shape display
     ShapeIOManager *shapeIOManager;
-    //KinectManager kinectManager;
+    KinectManager *kinectManager;
 
     bool paused = false;
 

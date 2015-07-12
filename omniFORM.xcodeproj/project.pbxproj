@@ -140,6 +140,7 @@
 		65D85FDB1B46E1C200212690 /* SerialShapeIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D85FDA1B46E1C200212690 /* SerialShapeIO.cpp */; };
 		65DA78921B438B5A008F98F4 /* SerialShapeIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65DA78911B438B5A008F98F4 /* SerialShapeIOManager.cpp */; };
 		65EBD67E1B5040050011F279 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65EBD67D1B5040050011F279 /* Application.cpp */; };
+		65EBD6841B51BB010011F279 /* KinectManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65EBD6831B51BB010011F279 /* KinectManager.cpp */; };
 		665F78A820EA2D9F938D6AA8 /* btDefaultCollisionConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51582A6ED5B9BE7C59A62DF5 /* btDefaultCollisionConfiguration.cpp */; };
 		66C304988306B1B89D60604E /* btInternalEdgeUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F263930B8C55B4097B34D228 /* btInternalEdgeUtility.cpp */; };
 		66CA411C5A9664E27326BF36 /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C085E327DAB912CFA2A443D /* ofxTCPServer.cpp */; };
@@ -744,6 +745,8 @@
 		65DA78911B438B5A008F98F4 /* SerialShapeIOManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SerialShapeIOManager.cpp; sourceTree = "<group>"; };
 		65DA78931B438B66008F98F4 /* SerialShapeIOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerialShapeIOManager.h; sourceTree = "<group>"; };
 		65EBD67D1B5040050011F279 /* Application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
+		65EBD6831B51BB010011F279 /* KinectManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KinectManager.cpp; sourceTree = "<group>"; };
+		65EBD6851B51BB080011F279 /* KinectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KinectManager.h; sourceTree = "<group>"; };
 		65EEFA3DA3526E9CDD9C21F9 /* ofxOscBundle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscBundle.cpp; path = ../../../addons/ofxOsc/src/ofxOscBundle.cpp; sourceTree = SOURCE_ROOT; };
 		664D65407BE633C038FA9498 /* ofxUIFPSSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIFPSSlider.h; path = ../../../addons/ofxUI/src/ofxUIFPSSlider.h; sourceTree = SOURCE_ROOT; };
 		665780A3005496E3A4A0D9EF /* compat.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = compat.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/legacy/compat.hpp; sourceTree = SOURCE_ROOT; };
@@ -1919,6 +1922,15 @@
 				6572FCC51B3DD67D001BBF38 /* CooperformIOManager.h */,
 			);
 			name = cooperForm;
+			sourceTree = "<group>";
+		};
+		65EBD67F1B51BAB50011F279 /* Peripherals */ = {
+			isa = PBXGroup;
+			children = (
+				65EBD6831B51BB010011F279 /* KinectManager.cpp */,
+				65EBD6851B51BB080011F279 /* KinectManager.h */,
+			);
+			name = Peripherals;
 			sourceTree = "<group>";
 		};
 		6D3DC808E69BE2836B456B03 /* Gimpact */ = {
@@ -3126,6 +3138,7 @@
 				6572FCA91B3CA8EE001BBF38 /* AppManager.cpp */,
 				6572FCAB1B3CA8F8001BBF38 /* AppManager.h */,
 				6572FCBC1B3DD547001BBF38 /* ShapeDisplayManagers */,
+				65EBD67F1B51BAB50011F279 /* Peripherals */,
 				65EBD67D1B5040050011F279 /* Application.cpp */,
 				6572FCAF1B3CB102001BBF38 /* Application.h */,
 				6572FCB01B3CB10F001BBF38 /* DemoApp.cpp */,
@@ -3583,6 +3596,7 @@
 				DC5FB35A8341B64056AEF64A /* btUnionFind.cpp in Sources */,
 				9506974E1B365695CB5B9E33 /* SphereTriangleDetector.cpp in Sources */,
 				12EAACCF76A165E8C6DC2AC5 /* btBox2dShape.cpp in Sources */,
+				65EBD6841B51BB010011F279 /* KinectManager.cpp in Sources */,
 				BA1E2B2E0EB2A7BEBE203D68 /* btBoxShape.cpp in Sources */,
 				B433D152CF40B02121485833 /* btBvhTriangleMeshShape.cpp in Sources */,
 				D6B843078290D593076C23B3 /* btCapsuleShape.cpp in Sources */,

@@ -27,3 +27,7 @@ void Application::setHeightsFromShapeDisplayRef(const unsigned char heights[SHAP
     heightsFromShapeDisplay = (const unsigned char *) heights;
     hasHeightsFromShapeDisplay = true;
 };
+
+void Application::setKinectManager(KinectManager *manager) {
+    kinectManager = manager;
+}
