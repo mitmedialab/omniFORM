@@ -140,8 +140,11 @@ void AppManager::draw(){
     kinectManager->drawColorImage(914, 2, 300, 300);
     
     ofRect(913, 301, 302, 302);
-    kinectManager->drawDepthImage(914, 302, 300, 300);
-    
+    //kinectManager->drawDepthImage(914, 302, 300, 300);
+    ofImage depthImage;
+    depthImage.setFromPixels(kinectManager->getDepthPixels(), KINECT_X, KINECT_Y, OF_IMAGE_GRAYSCALE);
+    depthImage.draw(914, 302, 300, 300);
+
     // draw text
     int menuLeftCoordinate = 21;
     int menuHeight = 350;
