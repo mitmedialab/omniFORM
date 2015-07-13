@@ -154,7 +154,10 @@ void AppManager::draw(){
     menuHeight += 20;
 
     // draw graphics onto projector
-    graphicsForShapeDisplay.draw(projectorOffsetX, SHAPE_DISPLAY_PROJECTOR_OFFSET_Y, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_X, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_Y);
+    bool shouldDrawProjectorGraphics = false;
+    if (shouldDrawProjectorGraphics) {
+        graphicsForShapeDisplay.draw(projectorOffsetX, SHAPE_DISPLAY_PROJECTOR_OFFSET_Y, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_X, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_Y);
+    };
 }
 
 void AppManager::exit() {
