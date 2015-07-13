@@ -17,8 +17,8 @@ recommend trying to use it in other environments.
    needs to be located inside a directory that is inside the openFrameworks
    apps/ directory, e.g. of_v0.8.0_osx_release/apps/pinDisplays/omniFORM. This
    file nesting depth is necessary for relative file paths to work.
-2. Follow the instructions in the file `localConfigsTemplate.h` to create a local
-   configuration file.
+2. Follow the instructions in the file `localConfigsTemplate.h` (in the Xcode
+   file group Constants) to create a local configuration file.
 3. Download to the openFrameworks addons/ directory any OF addons that you are
    missing. You can find these addons by google searching their name. You can
    determine which addons you are missing by trying to build the project and

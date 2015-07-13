@@ -1924,6 +1924,37 @@
 			name = cooperForm;
 			sourceTree = "<group>";
 		};
+		65DA217C1B543D1C00D31BD4 /* Applications */ = {
+			isa = PBXGroup;
+			children = (
+				65EBD67D1B5040050011F279 /* Application.cpp */,
+				6572FCAF1B3CB102001BBF38 /* Application.h */,
+				6572FCB01B3CB10F001BBF38 /* DemoApp.cpp */,
+				6572FCB21B3CB119001BBF38 /* DemoApp.h */,
+			);
+			name = Applications;
+			sourceTree = "<group>";
+		};
+		65DA217D1B543D3F00D31BD4 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				6572FCA81B3C962E001BBF38 /* localConfigs.h */,
+				65D1BE531B4C6B8D0080F4DD /* localConfigsTemplate.h */,
+				6572FCA71B3C961B001BBF38 /* constants.h */,
+				65D85FE21B4750E200212690 /* keycodeConstants.h */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
+		65DA217E1B543D7F00D31BD4 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				65D1BE5F1B5033530080F4DD /* utils.cpp */,
+				65D1BE5E1B50334A0080F4DD /* utils.h */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		65EBD67F1B51BAB50011F279 /* Peripherals */ = {
 			isa = PBXGroup;
 			children = (
@@ -3128,21 +3159,14 @@
 			isa = PBXGroup;
 			children = (
 				65D1BE561B4C7AA30080F4DD /* README */,
-				6572FCA81B3C962E001BBF38 /* localConfigs.h */,
-				65D1BE531B4C6B8D0080F4DD /* localConfigsTemplate.h */,
-				6572FCA71B3C961B001BBF38 /* constants.h */,
-				65D85FE21B4750E200212690 /* keycodeConstants.h */,
-				65D1BE5F1B5033530080F4DD /* utils.cpp */,
-				65D1BE5E1B50334A0080F4DD /* utils.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				6572FCA91B3CA8EE001BBF38 /* AppManager.cpp */,
 				6572FCAB1B3CA8F8001BBF38 /* AppManager.h */,
+				65DA217D1B543D3F00D31BD4 /* Constants */,
+				65DA217E1B543D7F00D31BD4 /* Utilities */,
 				6572FCBC1B3DD547001BBF38 /* ShapeDisplayManagers */,
 				65EBD67F1B51BAB50011F279 /* Peripherals */,
-				65EBD67D1B5040050011F279 /* Application.cpp */,
-				6572FCAF1B3CB102001BBF38 /* Application.h */,
-				6572FCB01B3CB10F001BBF38 /* DemoApp.cpp */,
-				6572FCB21B3CB119001BBF38 /* DemoApp.h */,
+				65DA217C1B543D1C00D31BD4 /* Applications */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
