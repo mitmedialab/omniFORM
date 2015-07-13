@@ -11,7 +11,15 @@
 
 void DemoApp::update(float dt) {
     normalizedPhase += dt * frequency;
+    normalizedPhase = fmod(normalizedPhase, 2);
     float phase = 2 * pi * normalizedPhase;
+
+    float height;
+    if (normalizedPhase < 1) {
+        height = HEIGHT_DISPLAY_RANGE * normalizedPhase + LOW_HEIGHT_THRESHOLD;
+    } else {
+        height = HEIGHT_DISPLAY_RANGE * (2 - normalizedPhase) + LOW_HEIGHT_THRESHOLD;
+    }
 
     // sinc math function sin(x+k)/x where:
     //   x is normalized distance from display center plus an offset
@@ -29,8 +37,8 @@ void DemoApp::update(float dt) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             float distance = center.distance(ofPoint(x, y));
             distance = distanceScalar * distance + distanceOffset;
-            float height = sin(distance - phase) / distance;
-            heightsForShapeDisplay[x][y] = heightScalar * height + heightOffset;
+            //float height = sin(distance - phase) / distance;
+            heightsForShapeDisplay[x][y] = height;//heightScalar * height + heightOffset;
         }
     }
 };

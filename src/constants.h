@@ -165,7 +165,7 @@ const string SERIAL_PORTS[NUM_SERIAL_CONNECTIONS] = {
 
 #define SHAPE_DISPLAY_CAN_TALK_BACK 1
 
-#define LOW_HEIGHT_THRESHOLD 57
+#define LOW_HEIGHT_THRESHOLD 0
 #define HIGH_HEIGHT_THRESHOLD 244 // warning: above 245 is the address range
 
 #endif

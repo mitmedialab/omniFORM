@@ -261,7 +261,7 @@ void SerialShapeIOManager::readyHeightDataForArduino() {
             
             // invert the values if needed (this affects boards mounted upside down)
             if (pinBoards[i].invertHeight) {
-                pinBoards[i].heights[j] = 255 - pinBoards[i].heights[j];
+                pinBoards[i].heights[j] = HIGH_HEIGHT_THRESHOLD - pinBoards[i].heights[j];
             }
         }
     }
