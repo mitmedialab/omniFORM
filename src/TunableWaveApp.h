@@ -11,8 +11,12 @@
 #include "Application.h"
 
 
+enum TuningMethod {KEY_PRESS_TUNING, KINECT_LOCATION_TUNING};
+
 class TunableWaveApp : public Application {
 public:
+    TunableWaveApp();
+
     void update(float dt);
     void drawGraphicsForShapeDisplay();
     string appInstructionsText();
@@ -21,10 +25,13 @@ public:
     const string name = "Demo";
 
 private:
+    void setTuningMethod(TuningMethod method);
     void updateHeights();
-
+    void updateWaveParametersWithKinect();
+    
+    TuningMethod tuningMethod = KEY_PRESS_TUNING;
     float normalizedPhase = 0;
-    float frequency = 0.5;
-    float numCrests = 4;
+    float frequency;
+    float numCrests;
     ofColor color;
 };

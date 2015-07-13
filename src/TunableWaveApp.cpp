@@ -9,7 +9,28 @@
 #include "TunableWaveApp.h"
 
 
+TunableWaveApp::TunableWaveApp() {
+    setTuningMethod(KEY_PRESS_TUNING);
+};
+
+void TunableWaveApp::setTuningMethod(TuningMethod method) {
+    if (tuningMethod == method) {
+        return;
+    }
+
+    tuningMethod = method;
+
+    if (tuningMethod == KEY_PRESS_TUNING) {
+        frequency = 0.5;
+        numCrests = 4;
+    }
+}
+
 void TunableWaveApp::update(float dt) {
+    if (tuningMethod == KINECT_LOCATION_TUNING) {
+        updateWaveParametersWithKinect();
+    }
+
     normalizedPhase += dt * frequency;
     updateHeights();
 };
@@ -39,6 +60,11 @@ void TunableWaveApp::updateHeights() {
     }
 };
 
+void TunableWaveApp::updateWaveParametersWithKinect() {
+    frequency = 1.0;
+    numCrests = 1.0;
+};
+
 void TunableWaveApp::drawGraphicsForShapeDisplay() {
     color.setHsb(fmod(normalizedPhase * 180, 180), 255, 255);
     ofSetColor(color);
@@ -59,13 +85,21 @@ string TunableWaveApp::appInstructionsText() {
 };
 
 void TunableWaveApp::keyPressed(int key) {
-    if (key == 'a') {
-        frequency /= 1.26;
+    if (key == '1') {
+        setTuningMethod(KEY_PRESS_TUNING);
+    } else if (key == '2') {
+        setTuningMethod(KINECT_LOCATION_TUNING);
     } else if (key == 's') {
-        frequency *= 1.26;
+        if (tuningMethod == KEY_PRESS_TUNING) {
+            frequency *= 1.26;
+        }
     } else if (key == 'd') {
-        numCrests -= 0.5;
+        if (tuningMethod == KEY_PRESS_TUNING) {
+            numCrests -= 0.5;
+        }
     } else if (key == 'f') {
-        numCrests += 0.5;
+        if (tuningMethod == KEY_PRESS_TUNING) {
+            numCrests += 0.5;
+        }
     }
 };
