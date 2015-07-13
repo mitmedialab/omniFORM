@@ -1,15 +1,15 @@
 //
-//  DemoApp.cpp
+//  TunableWaveApp.cpp
 //  TMG Shape Displays
 //
 //  Created by Daniel Windham on 6/26/15.
 //  Copyright 2015 MIT Media Lab. All rights reserved.
 //
 
-#include "DemoApp.h"
+#include "TunableWaveApp.h"
 
 
-void DemoApp::update(float dt) {
+void TunableWaveApp::update(float dt) {
     normalizedPhase += dt * frequency;
     float phase = 2 * pi * normalizedPhase;
 
@@ -35,7 +35,7 @@ void DemoApp::update(float dt) {
     }
 };
 
-void DemoApp::drawGraphicsForShapeDisplay() {
+void TunableWaveApp::drawGraphicsForShapeDisplay() {
     color.setHsb(fmod(normalizedPhase * 180, 180), 255, 255);
     ofSetColor(color);
     ofPixels heightPixels;
@@ -43,7 +43,7 @@ void DemoApp::drawGraphicsForShapeDisplay() {
     ofImage(heightPixels).draw(0, 0, 300, 300);
 };
 
-string DemoApp::appInstructionsText() {
+string TunableWaveApp::appInstructionsText() {
     string instructions = "\
         Waves propagate from the display center. You can adjust the waves' \n\
         frequency and wavelength using the 'a', 's', 'd', and 'f' keys. \n\
@@ -54,7 +54,7 @@ string DemoApp::appInstructionsText() {
     return instructions;
 };
 
-void DemoApp::keyPressed(int key) {
+void TunableWaveApp::keyPressed(int key) {
     if (key == 'a') {
         frequency /= 1.26;
     } else if (key == 's') {

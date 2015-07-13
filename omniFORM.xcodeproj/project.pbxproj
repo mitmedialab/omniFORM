@@ -132,7 +132,7 @@
 		64F975DC016F17834FBB9F01 /* b2PrismaticJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAC7229CC8FEF0087C9482F1 /* b2PrismaticJoint.cpp */; };
 		6554C0B470F9C107638055B5 /* btSolve2LinearConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2B920D67B8599D94BC7121B /* btSolve2LinearConstraint.cpp */; };
 		6572FCAA1B3CA8EE001BBF38 /* AppManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCA91B3CA8EE001BBF38 /* AppManager.cpp */; };
-		6572FCB11B3CB10F001BBF38 /* DemoApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCB01B3CB10F001BBF38 /* DemoApp.cpp */; };
+		6572FCB11B3CB10F001BBF38 /* TunableWaveApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCB01B3CB10F001BBF38 /* TunableWaveApp.cpp */; };
 		6572FCBE1B3DD616001BBF38 /* InformIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCBD1B3DD616001BBF38 /* InformIOManager.cpp */; };
 		6572FCC11B3DD632001BBF38 /* TransformIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCC01B3DD632001BBF38 /* TransformIOManager.cpp */; };
 		6572FCC41B3DD671001BBF38 /* CooperformIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCC31B3DD671001BBF38 /* CooperformIOManager.cpp */; };
@@ -721,12 +721,12 @@
 		653CFAE31336DAA04B1F1503 /* ofxUI2DGraph.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUI2DGraph.h; path = ../../../addons/ofxUI/src/ofxUI2DGraph.h; sourceTree = SOURCE_ROOT; };
 		6572FCA71B3C961B001BBF38 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		6572FCA81B3C962E001BBF38 /* localConfigs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localConfigs.h; sourceTree = "<group>"; };
-		6572FCA91B3CA8EE001BBF38 /* AppManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppManager.cpp; sourceTree = "<group>"; };
-		6572FCAB1B3CA8F8001BBF38 /* AppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppManager.h; sourceTree = "<group>"; };
+		6572FCA91B3CA8EE001BBF38 /* AppManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = AppManager.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		6572FCAB1B3CA8F8001BBF38 /* AppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppManager.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		6572FCAE1B3CB06E001BBF38 /* ShapeIOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShapeIOManager.h; sourceTree = "<group>"; };
 		6572FCAF1B3CB102001BBF38 /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Application.h; sourceTree = "<group>"; };
-		6572FCB01B3CB10F001BBF38 /* DemoApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoApp.cpp; sourceTree = "<group>"; };
-		6572FCB21B3CB119001BBF38 /* DemoApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoApp.h; sourceTree = "<group>"; };
+		6572FCB01B3CB10F001BBF38 /* TunableWaveApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = TunableWaveApp.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		6572FCB21B3CB119001BBF38 /* TunableWaveApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TunableWaveApp.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		6572FCBD1B3DD616001BBF38 /* InformIOManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InformIOManager.cpp; sourceTree = "<group>"; };
 		6572FCBF1B3DD624001BBF38 /* InformIOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformIOManager.h; sourceTree = "<group>"; };
 		6572FCC01B3DD632001BBF38 /* TransformIOManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransformIOManager.cpp; sourceTree = "<group>"; };
@@ -1929,8 +1929,8 @@
 			children = (
 				65EBD67D1B5040050011F279 /* Application.cpp */,
 				6572FCAF1B3CB102001BBF38 /* Application.h */,
-				6572FCB01B3CB10F001BBF38 /* DemoApp.cpp */,
-				6572FCB21B3CB119001BBF38 /* DemoApp.h */,
+				6572FCB01B3CB10F001BBF38 /* TunableWaveApp.cpp */,
+				6572FCB21B3CB119001BBF38 /* TunableWaveApp.h */,
 			);
 			name = Applications;
 			sourceTree = "<group>";
@@ -3703,7 +3703,7 @@
 				1FF6CFD23D6FF9FA324587BB /* btMultiBodyConstraint.cpp in Sources */,
 				ECFC2EBDA52F8524D0D3D32D /* btMultiBodyConstraintSolver.cpp in Sources */,
 				BCCD23ACFADFF855451DF8E2 /* btMultiBodyDynamicsWorld.cpp in Sources */,
-				6572FCB11B3CB10F001BBF38 /* DemoApp.cpp in Sources */,
+				6572FCB11B3CB10F001BBF38 /* TunableWaveApp.cpp in Sources */,
 				72880FEA522506DC6CC5EA95 /* btMultiBodyJointLimitConstraint.cpp in Sources */,
 				2ED8CD6FF7F5E60BD74E6AEA /* btMultiBodyJointMotor.cpp in Sources */,
 				2802A7D943DBC69BD751B66E /* btMultiBodyPoint2Point.cpp in Sources */,

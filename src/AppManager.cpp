@@ -64,8 +64,8 @@ void AppManager::setup(){
     graphicsForShapeDisplay.end();
 
     // set up applications
-    demoApp = new DemoApp();
-    applications["demo"] = demoApp;
+    tunableWaveApp = new TunableWaveApp();
+    applications["demo"] = tunableWaveApp;
 
     // if heights can be read back from the shape display, give applications
     // read access to them

@@ -1,5 +1,5 @@
 //
-//  DemoApp.h
+//  TunableWaveApp.h
 //  TMG Shape Displays
 //
 //  Created by Daniel Windham on 6/26/15.
@@ -11,7 +11,7 @@
 #include "Application.h"
 
 
-class DemoApp : public Application {
+class TunableWaveApp : public Application {
 public:
     void update(float dt);
     void drawGraphicsForShapeDisplay();

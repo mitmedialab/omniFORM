@@ -18,7 +18,7 @@
 #include "CooperformIOManager.h"
 #include "KinectManager.h"
 #include "Application.h"
-#include "DemoApp.h"
+#include "TunableWaveApp.h"
 
 
 class AppManager : public ofBaseApp {
@@ -55,5 +55,5 @@ private:
 
     map<string, Application *> applications;
     Application *currentApplication;
-    DemoApp *demoApp;
+    TunableWaveApp *tunableWaveApp;
 };
