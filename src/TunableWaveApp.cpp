@@ -11,6 +11,10 @@
 
 void TunableWaveApp::update(float dt) {
     normalizedPhase += dt * frequency;
+    updateHeights();
+};
+
+void TunableWaveApp::updateHeights() {
     float phase = 2 * pi * normalizedPhase;
 
     // sinc math function sin(x+k)/x where:

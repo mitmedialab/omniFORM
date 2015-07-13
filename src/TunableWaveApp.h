@@ -21,6 +21,8 @@ public:
     const string name = "Demo";
 
 private:
+    void updateHeights();
+
     float normalizedPhase = 0;
     float frequency = 0.5;
     float numCrests = 4;
