@@ -10,11 +10,11 @@
 
 
 TunableWaveApp::TunableWaveApp() {
-    setTuningMethod(KEY_PRESS_TUNING);
+    setTuningMethod(KEY_PRESS_TUNING, true);
 };
 
-void TunableWaveApp::setTuningMethod(TuningMethod method) {
-    if (tuningMethod == method) {
+void TunableWaveApp::setTuningMethod(TuningMethod method, bool force) {
+    if (tuningMethod == method && !force) {
         return;
     }
 
@@ -89,6 +89,10 @@ void TunableWaveApp::keyPressed(int key) {
         setTuningMethod(KEY_PRESS_TUNING);
     } else if (key == '2') {
         setTuningMethod(KINECT_LOCATION_TUNING);
+    } else if (key == 'a') {
+        if (tuningMethod == KEY_PRESS_TUNING) {
+            frequency /= 1.26;
+        }
     } else if (key == 's') {
         if (tuningMethod == KEY_PRESS_TUNING) {
             frequency *= 1.26;

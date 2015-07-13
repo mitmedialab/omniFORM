@@ -25,7 +25,7 @@ public:
     const string name = "Demo";
 
 private:
-    void setTuningMethod(TuningMethod method);
+    void setTuningMethod(TuningMethod method, bool force=false);
     void updateHeights();
     void updateWaveParametersWithKinect();
     
