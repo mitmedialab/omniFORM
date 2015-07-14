@@ -169,13 +169,16 @@ void AppManager::exit() {
 // application.
 void AppManager::keyPressed(int key) {
     // keys used by app manager must be registered as reserved keys
-    const int reservedKeys[1] = {' '};
-    const int *reservedKeysEnd = reservedKeys + 1;
+    const int reservedKeysLength = 2;
+    const int reservedKeys[reservedKeysLength] = {' ', 'm'};
+    const int *reservedKeysEnd = reservedKeys + reservedKeysLength;
 
     // key press events handled by the application manager
     if (find(reservedKeys, reservedKeysEnd, key) != reservedKeysEnd) {
         if (key == ' ') {
             paused = !paused;
+        } else if (key == 'm') {
+            kinectManager->useMask = !kinectManager->useMask;
         }
 
     // forward unreserved keys to the application

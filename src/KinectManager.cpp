@@ -82,11 +82,16 @@ void KinectManager::subtractMask() {
 
 // loads png mask and converts to cv grayscale which we need to cvAnd method
 void KinectManager::loadAlphaMaskAndPrepForCvProcessing() {
-    // type is OF_IMAGE_COLOR_ALPHA
-    mask.loadImage("mask.png");
-    
-    // simple way to convert to differe image type,
-    // changing the transparent areas to white
+    // set the display-specific image mask
+    if (SHAPE_DISPLAY_IN_USE == TRANSFORM_DISPLAY) {
+        // type is OF_IMAGE_COLOR_ALPHA
+        mask.loadImage("mask_transform.png");
+    } else {
+        mask.setColor(255);
+    }
+
+    // simple way to convert to different image type, changing the transparent
+    // areas to white
     ofImage image;
     image.setFromPixels(mask.getPixelsRef());
     image.setImageType(OF_IMAGE_COLOR);

@@ -11,6 +11,7 @@
 #include <iostream>
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
+#include "constants.h"
 
 
 class KinectManager {
