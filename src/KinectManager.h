@@ -19,9 +19,8 @@ public:
     ~KinectManager();
 
     void update();
-    void updateCurrentFrame(unsigned char *pixels, int w, int h);
-    
-    // draw various images coordinates and size
+
+    // draw various images given coordinates and size
     void drawColorImage(int x, int y, int width, int height);
     void drawDepthImage(int x, int y, int width, int height);
     
@@ -38,17 +37,12 @@ public:
     int nearThreshold; // the near threshold, closest possible value is 255, farthest possible value 0
     int farThreshold; // the far threshold, closest possible value is 255, farthest possible value 0
     int contourMinimumSize; // the minimum size of a contour in pixels
-    bool isCurrentlyRecording;
-    bool playFromRecording;
     bool useMask = false;
     
     ofImage mask, colorMask;
     ofxCvColorImage maskColorCv;
     ofxCvGrayscaleImage maskCv;
 
-    // generate video pixels for recording kinect input
-    unsigned char *getRecordingPixels();
-    
     // get images as pixels
     unsigned char *getColorPixels();
     unsigned char *getDepthPixels();
@@ -64,17 +58,9 @@ public:
     int numAvailableDevices();
     bool isFrameNew();
     bool isConnected();
-    
-    ofFbo fbo;
-    unsigned char *returnPixels;
-    ofPixels ofPixels;
-    ofImage recordingImage, playingImage;
-    ofImage imageLeft;
-    ofImage imageRight;
-    
+
 private:
     void updateImagesFromKinect();
-    void updateImagesFromRecording();
     void flagImagesAsChanged();
     void calculateThresholdsAndModifyImages();
     void subtractMask();

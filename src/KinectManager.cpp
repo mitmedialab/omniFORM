@@ -31,17 +31,11 @@ KinectManager::KinectManager(int nearThreshold, int farThreshold, int contourMin
     depthThreshed.allocate(kinect.width, kinect.height);
     lastDepthThreshed.allocate(kinect.width, kinect.height);
     depthThreshedDiff.allocate(kinect.width, kinect.height);
-    fbo.allocate(kinect.width * 2, kinect.height, GL_RGB);
-    recordingImage.allocate(kinect.width * 2, kinect.height, OF_IMAGE_COLOR);
-    playingImage.allocate(kinect.width * 2, kinect.height, OF_IMAGE_COLOR);
-    
+
     nearThreshold = nearThreshold;
     farThreshold = farThreshold;
     contourMinimumSize = contourMinimumSize;
-    
-    isCurrentlyRecording = false;
-    playFromRecording = false;
-    
+
     loadAlphaMaskAndPrepForCvProcessing();
 }
 
@@ -50,47 +44,18 @@ KinectManager::~KinectManager() {
     kinect.close();
 }
 
-//--------------------------------------------------------------
-//
-// Update
-//
-// If playing from a recording, we set
-// the colorImg and depthImg from the video
-// and the rest of the class continues to reference
-// colorImg and depthImg, rather then needing to
-// reference different images depending on the input.
-//
-//--------------------------------------------------------------
-
 void KinectManager::update() {
     kinect.update();
     
     // there is a new frame and we are connected
-    if (kinect.isFrameNew() || playFromRecording) {
-        
-        // update from kinect OR recroding depending on mode
-        if (playFromRecording) {
-            updateImagesFromRecording();
-        } else {
-            updateImagesFromKinect();
-        }
-        
+    if (kinect.isFrameNew()) {
+        colorImg.setFromPixels(kinect.getPixels(), kinect.width, kinect.height);
+        depthImg.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
+
         lastDepthThreshed.setFromPixels(depthThreshed.getPixels(), kinect.width, kinect.height);
         // always update the depth image
         depthThreshed.setFromPixels(depthImg.getPixels(), kinect.width, kinect.height);
-        
-        // updates a buffer for the recorder
-        // if we are recording
-        if (isCurrentlyRecording) {
-            fbo.begin();
-            ofBackground(0);
-            kinect.draw(0, 0, 640, 480);
-            kinect.drawDepth(640, 0, 640, 480);
-            fbo.end();
-            fbo.readToPixels(ofPixels);
-            recordingImage.setFromPixels(ofPixels);
-        }
-        
+
         // subtract mask which is png alpha image called "mask.png"
         if (useMask) {
             subtractMask();
@@ -105,31 +70,6 @@ void KinectManager::update() {
         
         depthThreshedDiff.absDiff(lastDepthThreshed, depthThreshed);
     }
-}
-
-// we are using kinect
-void KinectManager::updateImagesFromKinect() {
-    colorImg.setFromPixels(kinect.getPixels(), kinect.width, kinect.height);
-    depthImg.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
-}
-
-// we are using recording
-void KinectManager::updateImagesFromRecording() {
-    // video will be double wide, grab each side
-    imageLeft.cropFrom(playingImage, 0, 0, 640, 480);
-    imageRight.cropFrom(playingImage, 640, 0, 640, 480);
-    
-    // TODO this is lossy we should convert in another way
-    // might cause pixelation around the edges of black / white bg
-    imageRight.setImageType(OF_IMAGE_GRAYSCALE);
-    
-    colorImg.setFromPixels(imageLeft.getPixelsRef());
-    depthImg.setFromPixels(imageRight.getPixelsRef());
-}
-
-// used by the player class to set the current frame from now playing movie
-void KinectManager::updateCurrentFrame(unsigned char *pixels, int w, int h) {
-    playingImage.setFromPixels(pixels, w, h, OF_IMAGE_COLOR);
 }
 
 void KinectManager::flagImagesAsChanged() {
@@ -265,12 +205,6 @@ ofPixels KinectManager::depthThresholdOFPixels() {
 // calculated using using pContourMinimumSize
 unsigned char *KinectManager::grayImagePixels() {
     return depthImg.getPixels();
-}
-
-// returns pixels
-// color image is on left and depth is on right
-unsigned char *KinectManager::getRecordingPixels() {
-    return recordingImage.getPixels();
 }
 
 
