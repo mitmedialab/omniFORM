@@ -9,7 +9,8 @@
 #include "KinectManager.h"
 
 
-KinectManager::KinectManager(int nearThreshold, int farThreshold, int contourMinimumSize) {
+KinectManager::KinectManager(int nearThreshold, int farThreshold, int contourMinimumSize) :
+        nearThreshold(nearThreshold), farThreshold(farThreshold), contourMinimumSize(contourMinimumSize) {
     if (kinect.numAvailableDevices() > 0) {
         kinect.setRegistration(true); // enable depth->video image calibration
         kinect.init();
@@ -31,10 +32,6 @@ KinectManager::KinectManager(int nearThreshold, int farThreshold, int contourMin
     depthThreshed.allocate(kinect.width, kinect.height);
     lastDepthThreshed.allocate(kinect.width, kinect.height);
     depthThreshedDiff.allocate(kinect.width, kinect.height);
-
-    nearThreshold = nearThreshold;
-    farThreshold = farThreshold;
-    contourMinimumSize = contourMinimumSize;
 
     loadAlphaMaskAndPrepForCvProcessing();
 }
