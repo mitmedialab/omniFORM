@@ -167,35 +167,24 @@ void KinectManager::drawDepthThreshedDiff(int x, int y, int width, int height) {
 //--------------------------------------------------------------
 
 // standard color image from kinect video camera
-unsigned char *KinectManager::getColorPixels() {
-    return colorImg.getPixels();
+void KinectManager::getColorPixels(unsigned char *pixels) {
+    int size = colorImg.getWidth() * colorImg.getHeight() * 3;
+    copy(colorImg.getPixels(), colorImg.getPixels() + size, pixels);
 }
 
 // kinect depth map
 // grayscale image where white = near, black = far
-unsigned char *KinectManager::getDepthPixels() {
-    return kinect.getDepthPixels();
+void KinectManager::getDepthPixels(unsigned char *pixels) {
+    int size = colorImg.getWidth() * colorImg.getHeight() * 1;
+    copy(depthImg.getPixels(), depthImg.getPixels() + size, pixels);
 }
 
 // kinect depth map WHERE
 // areas outside near and far threshold range are black.
 // This is currently used by the wave animation
-unsigned char *KinectManager::depthThreshedPixels() {
-    return depthThreshed.getPixels();
-}
-
-// kinect depth map WHERE
-// areas outside near and far threshold range are black.
-// This is currently used by the wave animation
-ofPixels KinectManager::depthThresholdOFPixels() {
-    return depthThreshed.getPixelsRef();
-}
-
-// kinect depth map WHERE
-// only black OR white (0 OR 255) is used.
-// calculated using using pContourMinimumSize
-unsigned char *KinectManager::grayImagePixels() {
-    return depthImg.getPixels();
+void KinectManager::getDepthThreshedPixels(unsigned char *pixels) {
+    int size = colorImg.getWidth() * colorImg.getHeight() * 1;
+    copy(depthThreshed.getPixels(), depthThreshed.getPixels() + size, pixels);
 }
 
 //--------------------------------------------------------------
