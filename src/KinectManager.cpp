@@ -60,11 +60,7 @@ void KinectManager::update() {
         
         // threshold calcutations convery depth map into black and white images
         calculateThresholdsAndModifyImages();
-        
-        // find contours which are between the size of 20 pixels and 1/3 the w * h pixels.
-        // if find holes is set to true, we will get interior contours as well.
-        contourFinder.findContours(depthImg, contourMinimumSize, (kinect.width * kinect.height) / 2, 10, false);
-        
+
         depthThreshedDiff.absDiff(lastDepthThreshed, depthThreshed);
     }
 }
@@ -144,13 +140,6 @@ void KinectManager::drawColorImage(int x, int y, int width, int height) {
     colorImg.draw(x, y, width, height);
 }
 
-// gray image with contour blobs drawn on top
-void KinectManager::drawThresholdImage(int x, int y, int width, int height){
-    ofSetColor(255);
-    depthImg.draw(x, y, width, height);
-    contourFinder.draw(x, y, width, height);
-}
-
 // draw from the live kinect
 void KinectManager::drawDepthImage(int x, int y, int width, int height){
     ofSetColor(255);
@@ -207,12 +196,6 @@ ofPixels KinectManager::depthThresholdOFPixels() {
 // calculated using using pContourMinimumSize
 unsigned char *KinectManager::grayImagePixels() {
     return depthImg.getPixels();
-}
-
-
-// get a reference to the contour finder
-ofxCvContourFinder *KinectManager::getContourFinder() {
-    return &contourFinder;
 }
 
 //--------------------------------------------------------------

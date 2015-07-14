@@ -25,8 +25,6 @@ public:
     void drawColorImage(int x, int y, int width, int height);
     void drawDepthImage(int x, int y, int width, int height);
     
-    void drawThresholdImage(int x, int y, int width, int height);
-    
     void drawDepthThreshedImage(int x, int y, int width, int height);
     void drawDepthThreshedDiff(int x, int y, int width, int height);
 
@@ -72,6 +70,4 @@ private:
     ofxCvGrayscaleImage depthImg; // grayscale depth image
     ofxCvGrayscaleImage grayThreshNear; // the near thresholded image
     ofxCvGrayscaleImage grayThreshFar; // the far thresholded image
-    
-    ofxCvContourFinder contourFinder;
 };
