@@ -43,9 +43,9 @@ public:
     ofxCvGrayscaleImage maskCv;
 
     // get images as pixels
-    void getColorPixels(unsigned char *pixels);
-    void getDepthPixels(unsigned char *pixels);
-    void getDepthThreshedPixels(unsigned char *pixels);
+    void getColorPixels(ofPixels &pixels);
+    void getDepthPixels(ofPixels &pixels);
+    void getDepthThreshedPixels(ofPixels &pixels);
     
     // get contour finder
     ofxCvContourFinder *getContourFinder();

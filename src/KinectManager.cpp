@@ -166,25 +166,19 @@ void KinectManager::drawDepthThreshedDiff(int x, int y, int width, int height) {
 //
 //--------------------------------------------------------------
 
-// standard color image from kinect video camera
-void KinectManager::getColorPixels(unsigned char *pixels) {
-    int size = colorImg.getWidth() * colorImg.getHeight() * 3;
-    copy(colorImg.getPixels(), colorImg.getPixels() + size, pixels);
+// color image
+void KinectManager::getColorPixels(ofPixels &pixels) {
+    pixels.setFromPixels(colorImg.getPixels(), kinect.width, kinect.height, 3);
 }
 
-// kinect depth map
-// grayscale image where white = near, black = far
-void KinectManager::getDepthPixels(unsigned char *pixels) {
-    int size = colorImg.getWidth() * colorImg.getHeight() * 1;
-    copy(depthImg.getPixels(), depthImg.getPixels() + size, pixels);
+// depth image with near and far threshold
+void KinectManager::getDepthPixels(ofPixels &pixels) {
+    pixels.setFromPixels(depthImg.getPixels(), kinect.width, kinect.height, 1);
 }
 
-// kinect depth map WHERE
-// areas outside near and far threshold range are black.
-// This is currently used by the wave animation
-void KinectManager::getDepthThreshedPixels(unsigned char *pixels) {
-    int size = colorImg.getWidth() * colorImg.getHeight() * 1;
-    copy(depthThreshed.getPixels(), depthThreshed.getPixels() + size, pixels);
+// depth image with far threshold only
+void KinectManager::getDepthThreshedPixels(ofPixels &pixels) {
+    pixels.setFromPixels(depthThreshed.getPixels(), kinect.width, kinect.height, 1);
 }
 
 //--------------------------------------------------------------
