@@ -63,6 +63,9 @@ void AppManager::setup(){
     ofClear(0);
     graphicsForShapeDisplay.end();
 
+    // zero timeOfLastUpdate tracker
+    timeOfLastUpdate = elapsedTimeInSeconds();
+
     // set up applications
     tunableWaveApp = new TunableWaveApp(kinectManager);
     applications["tunableWave"] = tunableWaveApp;
@@ -83,11 +86,9 @@ void AppManager::update(){
     kinectManager->update();
 
     // time elapsed since last update
-    float frameRate = ofGetFrameRate();
-    float dt = 0;
-    if (frameRate > 0) {
-        dt = 1.0f / frameRate;
-    }
+    float currentTime = elapsedTimeInSeconds();
+    double dt = currentTime - timeOfLastUpdate;
+    timeOfLastUpdate = currentTime;
 
     if (shapeIOManager->heightsFromShapeDisplayAvailable) {
         shapeIOManager->getHeightsFromShapeDisplay(heightsFromShapeDisplay);

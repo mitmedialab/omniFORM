@@ -45,6 +45,7 @@ private:
     KinectManager *kinectManager;
 
     bool paused = false;
+    double timeOfLastUpdate = -1;
 
     unsigned char heightsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     unsigned char heightsFromShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
