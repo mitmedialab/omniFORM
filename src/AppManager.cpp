@@ -66,7 +66,7 @@ void AppManager::setup(){
     // set up applications
     tunableWaveApp = new TunableWaveApp();
     tunableWaveApp->setKinectManager(kinectManager);
-    applications["demo"] = tunableWaveApp;
+    applications["tunableWave"] = tunableWaveApp;
 
     // if heights can be read back from the shape display, give applications
     // read access to them
@@ -77,7 +77,7 @@ void AppManager::setup(){
     }
 
     // set default application
-    currentApplication = applications["demo"];
+    currentApplication = applications["tunableWave"];
 }
 
 void AppManager::update(){
