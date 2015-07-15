@@ -33,10 +33,14 @@ public:
     const string name = "Application";
 
 protected:
+    void setHeightsFromBuffer();
+
     unsigned char heightsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     PinConfigs pinConfigsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     const unsigned char *heightsFromShapeDisplay;
     bool hasHeightsFromShapeDisplay = false;
 
     KinectManager * const kinectManager;
+
+    ofFbo heightsDrawingBuffer;
 };

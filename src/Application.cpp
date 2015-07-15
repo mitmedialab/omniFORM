@@ -9,7 +9,9 @@
 #include "Application.h"
 
 
-Application::Application(KinectManager *manager) : kinectManager(manager) {};
+Application::Application(KinectManager *manager) : kinectManager(manager) {
+    heightsDrawingBuffer.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y);
+};
 
 void Application::getHeightsForShapeDisplay(unsigned char heights[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
     // copy height data into buffer
@@ -28,4 +30,11 @@ void Application::getPinConfigsForShapeDisplay(PinConfigs configs[SHAPE_DISPLAY_
 void Application::setHeightsFromShapeDisplayRef(const unsigned char heights[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
     heightsFromShapeDisplay = (const unsigned char *) heights;
     hasHeightsFromShapeDisplay = true;
+};
+
+void Application::setHeightsFromBuffer() {
+    ofPixels pixels;
+    pixels.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
+    heightsDrawingBuffer.readToPixels(pixels);
+    copy(pixels.getPixels(), pixels.getPixels() + SHAPE_DISPLAY_SIZE_2D, (unsigned char *) heightsForShapeDisplay);
 };
