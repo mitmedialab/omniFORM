@@ -10,10 +10,12 @@
 
 
 Application::Application(KinectManager *manager) : kinectManager(manager) {
+    heightsForShapeDisplay.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
+    heightsForShapeDisplay.set(0);
     heightsDrawingBuffer.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y);
 };
 
-void Application::getHeightsForShapeDisplay(ofPixels heights) {
+void Application::getHeightsForShapeDisplay(ofPixels &heights) {
     heights = heightsForShapeDisplay;
 };
 

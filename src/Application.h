@@ -20,7 +20,7 @@ class Application {
 public:
     Application(KinectManager *kinectManager);
     
-    void getHeightsForShapeDisplay(ofPixels heights);
+    void getHeightsForShapeDisplay(ofPixels &heights);
     void getPinConfigsForShapeDisplay(PinConfigs configs[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]);
     void setHeightsFromShapeDisplayRef(const ofPixels *heights);
 
