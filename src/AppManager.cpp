@@ -48,7 +48,7 @@ void AppManager::setup(){
     shapeIOManager->setGlobalPinConfigs(pinConfigs);
     timeOfLastPinConfigsUpdate = elapsedTimeInSeconds();
 
-    // clear height buffers
+    // clear height and pin config buffers
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             heightsForShapeDisplay[x][y] = 0;
@@ -56,6 +56,12 @@ void AppManager::setup(){
             pinConfigsForShapeDisplay[x][y] = pinConfigs;
         }
     }
+
+    // allocate height pixels objects and clear contents
+    heightPixelsForShapeDisplay.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
+    heightPixelsForShapeDisplay.set(0);
+    heightPixelsFromShapeDisplay.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
+    heightPixelsFromShapeDisplay.set(0);
 
     // allocate shape display graphics and clear contents
     graphicsForShapeDisplay.allocate(SHAPE_DISPLAY_PROJECTOR_SIZE_X, SHAPE_DISPLAY_PROJECTOR_SIZE_X, GL_RGBA);
@@ -74,7 +80,7 @@ void AppManager::setup(){
     // read access to them
     if (shapeIOManager->heightsFromShapeDisplayAvailable) {
         for (map<string, Application *>::iterator iter = applications.begin(); iter != applications.end(); iter++) {
-            iter->second->setHeightsFromShapeDisplayRef(heightsFromShapeDisplay);
+            iter->second->setHeightsFromShapeDisplayRef(&heightPixelsFromShapeDisplay);
         }
     }
 
@@ -92,12 +98,15 @@ void AppManager::update(){
 
     if (shapeIOManager->heightsFromShapeDisplayAvailable) {
         shapeIOManager->getHeightsFromShapeDisplay(heightsFromShapeDisplay);
+        heightPixelsFromShapeDisplay.setFromPixels((unsigned char *) heightsFromShapeDisplay, SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
     }
 
     bool pinConfigsAreStale;
     if (!paused) {
         currentApplication->update(dt);
-        currentApplication->getHeightsForShapeDisplay(heightsForShapeDisplay);
+        currentApplication->getHeightsForShapeDisplay(heightPixelsForShapeDisplay);
+        copy(heightPixelsForShapeDisplay.getPixels(), heightPixelsForShapeDisplay.getPixels() + SHAPE_DISPLAY_SIZE_2D, (unsigned char *) heightsForShapeDisplay);
+
         pinConfigsAreStale = timeOfLastPinConfigsUpdate < currentApplication->timeOfLastPinConfigsUpdate;
         if (pinConfigsAreStale) {
             currentApplication->getPinConfigsForShapeDisplay(pinConfigsForShapeDisplay);

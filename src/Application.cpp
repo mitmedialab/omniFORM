@@ -13,11 +13,8 @@ Application::Application(KinectManager *manager) : kinectManager(manager) {
     heightsDrawingBuffer.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y);
 };
 
-void Application::getHeightsForShapeDisplay(unsigned char heights[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
-    // copy height data into buffer
-    unsigned char *inputIter = &heightsForShapeDisplay[0][0];
-    unsigned char *outputIter = &heights[0][0];
-    copy(inputIter, inputIter + SHAPE_DISPLAY_SIZE_2D, outputIter);
+void Application::getHeightsForShapeDisplay(ofPixels heights) {
+    heights = heightsForShapeDisplay;
 };
 
 void Application::getPinConfigsForShapeDisplay(PinConfigs configs[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
@@ -27,14 +24,7 @@ void Application::getPinConfigsForShapeDisplay(PinConfigs configs[SHAPE_DISPLAY_
     copy(inputIter, inputIter + SHAPE_DISPLAY_SIZE_2D, outputIter);
 };
 
-void Application::setHeightsFromShapeDisplayRef(const unsigned char heights[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
-    heightsFromShapeDisplay = (const unsigned char *) heights;
+void Application::setHeightsFromShapeDisplayRef(const ofPixels *heights) {
+    heightsFromShapeDisplay = heights;
     hasHeightsFromShapeDisplay = true;
-};
-
-void Application::setHeightsFromBuffer() {
-    ofPixels pixels;
-    pixels.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
-    heightsDrawingBuffer.readToPixels(pixels);
-    copy(pixels.getPixels(), pixels.getPixels() + SHAPE_DISPLAY_SIZE_2D, (unsigned char *) heightsForShapeDisplay);
 };

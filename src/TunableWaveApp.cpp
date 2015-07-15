@@ -55,7 +55,8 @@ void TunableWaveApp::updateHeights() {
             float distance = center.distance(ofPoint(x, y));
             distance = distanceScalar * distance + distanceOffset;
             float height = sin(distance - phase) / distance;
-            heightsForShapeDisplay[x][y] = heightScalar * height + heightOffset;
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            heightsForShapeDisplay[xy] = heightScalar * height + heightOffset;
         }
     }
 };
@@ -109,9 +110,7 @@ void TunableWaveApp::updateWaveParametersWithKinect() {
 void TunableWaveApp::drawGraphicsForShapeDisplay() {
     color.setHsb(fmod(normalizedPhase * 180, 180), 255, 255);
     ofSetColor(color);
-    ofPixels heightPixels;
-    heightPixels.setFromPixels((unsigned char *) heightsForShapeDisplay, SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
-    ofImage(heightPixels).draw(0, 0, 300, 300);
+    ofImage(heightsForShapeDisplay).draw(0, 0, 300, 300);
 };
 
 string TunableWaveApp::appInstructionsText() {
