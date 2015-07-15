@@ -116,10 +116,8 @@ void SerialShapeIOManager::printBoardConfiguration() {
 
 // Set the desired heights for the shape display
 void SerialShapeIOManager::sendHeightsToShapeDisplay(unsigned char heights[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
-    // copy new height data into buffer
-    unsigned char *inputIter = &heights[0][0];
-    unsigned char *outputIter = &heightsForShapeDisplay[0][0];
-    copy(inputIter, inputIter + SHAPE_DISPLAY_SIZE_2D, outputIter);
+    unsigned char *src = (unsigned char *) heights;
+    copy(src, src + SHAPE_DISPLAY_SIZE_2D, (unsigned char *) heightsForShapeDisplay);
 
     // update display
     update();
@@ -132,10 +130,8 @@ void SerialShapeIOManager::getHeightsFromShapeDisplay(unsigned char heights[SHAP
         throw ("height data from shape display is not available on " + shapeDisplayName);
     }
 
-    // copy shape display height data into buffer
-    unsigned char *inputIter = &heightsFromShapeDisplay[0][0];
-    unsigned char *outputIter = &heights[0][0];
-    copy(inputIter, inputIter + SHAPE_DISPLAY_SIZE_2D, outputIter);
+    unsigned char *src = (unsigned char *) heightsFromShapeDisplay;
+    copy(src, src + SHAPE_DISPLAY_SIZE_2D, (unsigned char *) heights);
 }
 
 // Set a single height for the display.

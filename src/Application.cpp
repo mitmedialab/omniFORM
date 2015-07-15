@@ -20,10 +20,8 @@ void Application::getHeightsForShapeDisplay(ofPixels &heights) {
 };
 
 void Application::getPinConfigsForShapeDisplay(PinConfigs configs[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
-    // copy pin configs data into buffer
-    PinConfigs *inputIter = &pinConfigsForShapeDisplay[0][0];
-    PinConfigs *outputIter = &configs[0][0];
-    copy(inputIter, inputIter + SHAPE_DISPLAY_SIZE_2D, outputIter);
+    PinConfigs *src = (PinConfigs *) pinConfigsForShapeDisplay;
+    copy(src, src + SHAPE_DISPLAY_SIZE_2D, (PinConfigs *) configs);
 };
 
 void Application::setHeightsFromShapeDisplayRef(const ofPixels *heights) {
