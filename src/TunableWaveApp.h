@@ -15,7 +15,7 @@ enum TuningMethod {KEY_PRESS_TUNING, KINECT_LOCATION_TUNING};
 
 class TunableWaveApp : public Application {
 public:
-    TunableWaveApp();
+    TunableWaveApp(KinectManager *manager);
 
     void update(float dt);
     void drawGraphicsForShapeDisplay();

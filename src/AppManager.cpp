@@ -64,8 +64,7 @@ void AppManager::setup(){
     graphicsForShapeDisplay.end();
 
     // set up applications
-    tunableWaveApp = new TunableWaveApp();
-    tunableWaveApp->setKinectManager(kinectManager);
+    tunableWaveApp = new TunableWaveApp(kinectManager);
     applications["tunableWave"] = tunableWaveApp;
 
     // if heights can be read back from the shape display, give applications

@@ -18,10 +18,11 @@
 
 class Application {
 public:
+    Application(KinectManager *kinectManager);
+    
     void getHeightsForShapeDisplay(unsigned char heights[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]);
     void getPinConfigsForShapeDisplay(PinConfigs configs[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]);
     void setHeightsFromShapeDisplayRef(const unsigned char heights[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]);
-    void setKinectManager(KinectManager *manager);
 
     virtual void update(float dt) {};
     virtual void drawGraphicsForShapeDisplay() {};
@@ -37,5 +38,5 @@ protected:
     const unsigned char *heightsFromShapeDisplay;
     bool hasHeightsFromShapeDisplay = false;
 
-    KinectManager *kinectManager;
+    KinectManager * const kinectManager;
 };

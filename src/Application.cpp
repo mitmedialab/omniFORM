@@ -9,6 +9,8 @@
 #include "Application.h"
 
 
+Application::Application(KinectManager *manager) : kinectManager(manager) {};
+
 void Application::getHeightsForShapeDisplay(unsigned char heights[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]) {
     // copy height data into buffer
     unsigned char *inputIter = &heightsForShapeDisplay[0][0];
@@ -27,7 +29,3 @@ void Application::setHeightsFromShapeDisplayRef(const unsigned char heights[SHAP
     heightsFromShapeDisplay = (const unsigned char *) heights;
     hasHeightsFromShapeDisplay = true;
 };
-
-void Application::setKinectManager(KinectManager *manager) {
-    kinectManager = manager;
-}

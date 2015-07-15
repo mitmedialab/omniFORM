@@ -9,7 +9,7 @@
 #include "TunableWaveApp.h"
 
 
-TunableWaveApp::TunableWaveApp() {
+TunableWaveApp::TunableWaveApp(KinectManager *manager) : Application(manager) {
     setTuningMethod(KEY_PRESS_TUNING, true);
 };
 
