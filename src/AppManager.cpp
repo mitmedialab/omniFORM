@@ -96,16 +96,36 @@ void AppManager::update(){
     double dt = currentTime - timeOfLastUpdate;
     timeOfLastUpdate = currentTime;
 
+    // copy heights from shape display to pixels object
     if (shapeIOManager->heightsFromShapeDisplayAvailable) {
         shapeIOManager->getHeightsFromShapeDisplay(heightsFromShapeDisplay);
-        heightPixelsFromShapeDisplay.setFromPixels((unsigned char *) heightsFromShapeDisplay, SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
+
+        // note: manually looping over all pixels is important! the underlying
+        // ofPixels char array is stored as unsigned char[y][x], while the
+        // shape display heights are stored as unsigned char[x][y]
+        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+            for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+                int xy = heightPixelsFromShapeDisplay.getPixelIndex(x, y);
+                heightPixelsFromShapeDisplay[xy] = heightsFromShapeDisplay[x][y];
+            }
+        }
     }
 
+    // copy heights and pin configs from application
     bool pinConfigsAreStale;
     if (!paused) {
         currentApplication->update(dt);
         currentApplication->getHeightsForShapeDisplay(heightPixelsForShapeDisplay);
-        copy(heightPixelsForShapeDisplay.getPixels(), heightPixelsForShapeDisplay.getPixels() + SHAPE_DISPLAY_SIZE_2D, (unsigned char *) heightsForShapeDisplay);
+
+        // note: manually looping over all pixels is important! the underlying
+        // ofPixels char array is stored as unsigned char[y][x], while the
+        // shape display heights are stored as unsigned char[x][y]
+        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+            for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+                int xy = heightPixelsForShapeDisplay.getPixelIndex(x, y);
+                heightsForShapeDisplay[x][y] = heightPixelsForShapeDisplay[xy];
+            }
+        }
 
         pinConfigsAreStale = timeOfLastPinConfigsUpdate < currentApplication->timeOfLastPinConfigsUpdate;
         if (pinConfigsAreStale) {
