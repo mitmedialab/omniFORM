@@ -114,13 +114,13 @@ void TunableWaveApp::drawGraphicsForShapeDisplay() {
 };
 
 string TunableWaveApp::appInstructionsText() {
-    string instructions = "\
-        Waves propagate from the display center. You can adjust the waves' \n\
-        frequency and wavelength using the 'a', 's', 'd', and 'f' keys. \n\
-        \n\
-        frequency: " + ofToString(frequency, 2) + "\n\
-        number of waves: " + ofToString(numCrests, 1) + "\n\
-        ";
+    string instructions = (string) "" +
+        "Waves propagate from the display center. You can adjust the waves'\n" +
+        "frequency and wavelength using the 'a', 's', 'd', and 'f' keys.\n" +
+        "\n" +
+        "frequency: " + ofToString(frequency, 2) + "\n" +
+        "number of waves: " + ofToString(numCrests, 1) + "\n" +
+        "";
     return instructions;
 };
 

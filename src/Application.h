@@ -29,8 +29,9 @@ public:
     virtual string appInstructionsText() {return "";};
     virtual void keyPressed(int key) {};
 
+    virtual string getName() {return "Application";};
+
     double timeOfLastPinConfigsUpdate = -1;
-    const string name = "Application";
 
 protected:
     ofPixels heightsForShapeDisplay;

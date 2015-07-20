@@ -175,7 +175,7 @@ void AppManager::draw(){
     // draw text
     int menuLeftCoordinate = 21;
     int menuHeight = 350;
-    ofDrawBitmapString(currentApplication->name, menuLeftCoordinate, menuHeight);
+    ofDrawBitmapString(currentApplication->getName(), menuLeftCoordinate, menuHeight);
     menuHeight += 30;
     ofDrawBitmapString(currentApplication->appInstructionsText(), menuLeftCoordinate, menuHeight);
     menuHeight += 20;

@@ -22,7 +22,7 @@ public:
     string appInstructionsText();
     void keyPressed(int key);
 
-    const string name = "Tunable Wave";
+    virtual string getName() {return "Tunable Wave";};
 
 private:
     void setTuningMethod(TuningMethod method, bool force=false);
