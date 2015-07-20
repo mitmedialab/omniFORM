@@ -115,19 +115,33 @@ void TunableWaveApp::drawGraphicsForShapeDisplay() {
 
 string TunableWaveApp::appInstructionsText() {
     string instructions = (string) "" +
-        "Waves propagate from the display center. You can adjust the waves'\n" +
-        "frequency and wavelength using the 'a', 's', 'd', and 'f' keys.\n" +
+        "Waves propagate from the display center. Choose between manual and\n" +
+        "kinect-driven parameter control:\n" +
         "\n" +
-        "frequency: " + ofToString(frequency, 2) + "\n" +
-        "number of waves: " + ofToString(numCrests, 1) + "\n" +
+        (tuningMethod == KEY_PRESS_TUNING ? "* " : "  ") +
+            "'q' : manual parameter control:\n" +
+        (tuningMethod == KINECT_LOCATION_TUNING ? "* " : "  ") +
+            "'w' : kinect parameter control:\n" +
         "";
+
+    if (tuningMethod == KEY_PRESS_TUNING) {
+        instructions += (string) "" +
+            "\n" +
+            "You can adjust the waves' frequency and wavelength using the\n" +
+            "'a', 's', 'd', and 'f' keys.\n" +
+            "\n" +
+            "frequency: " + ofToString(frequency, 2) + "\n" +
+            "number of waves: " + ofToString(numCrests, 1) + "\n" +
+            "";
+    }
+
     return instructions;
 };
 
 void TunableWaveApp::keyPressed(int key) {
-    if (key == '1') {
+    if (key == 'q') {
         setTuningMethod(KEY_PRESS_TUNING);
-    } else if (key == '2') {
+    } else if (key == 'w') {
         setTuningMethod(KINECT_LOCATION_TUNING);
     } else if (key == 'a') {
         if (tuningMethod == KEY_PRESS_TUNING) {
