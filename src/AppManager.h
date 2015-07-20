@@ -19,6 +19,7 @@
 #include "KinectManager.h"
 #include "Application.h"
 #include "TunableWaveApp.h"
+#include "LeverApp.h"
 
 
 class AppManager : public ofBaseApp {
@@ -60,4 +61,5 @@ private:
     map<string, Application *> applications;
     Application *currentApplication;
     TunableWaveApp *tunableWaveApp;
+    LeverApp *leverApp;
 };
