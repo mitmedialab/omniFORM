@@ -199,8 +199,10 @@ void AppManager::exit() {
 // application.
 void AppManager::keyPressed(int key) {
     // keys used by app manager must be registered as reserved keys
-    const int reservedKeysLength = 2;
-    const int reservedKeys[reservedKeysLength] = {' ', 'm'};
+    const int reservedKeysLength = 11;
+    const int reservedKeys[reservedKeysLength] = {
+        ' ', 'm', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+    };
     const int *reservedKeysEnd = reservedKeys + reservedKeysLength;
 
     // key press events handled by the application manager
@@ -209,6 +211,8 @@ void AppManager::keyPressed(int key) {
             paused = !paused;
         } else if (key == 'm') {
             kinectManager->useMask = !kinectManager->useMask;
+        } else if (key == '1') {
+            currentApplication = applications["tunableWave"];
         }
 
     // forward unreserved keys to the application
