@@ -48,8 +48,8 @@ void TunableWaveApp::updateHeights() {
     float distanceScalar = pi * (numCrests * 2 - 1) / maxDistance;
     float distanceOffset = 2 * pi;
     float maxAmplitude = 0.15;
-    float heightScalar = HEIGHT_DISPLAY_RANGE / (2 * maxAmplitude);
-    int heightOffset = HEIGHT_DISPLAY_RANGE / 2 + LOW_HEIGHT_THRESHOLD;
+    float heightScalar = HEIGHT_RANGE / (2 * maxAmplitude);
+    int heightOffset = HEIGHT_RANGE / 2 + HEIGHT_MIN;
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             float distance = center.distance(ofPoint(x, y));

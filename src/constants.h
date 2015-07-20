@@ -134,8 +134,8 @@ const string SERIAL_PORTS[NUM_SERIAL_CONNECTIONS] = {
 
 #define SHAPE_DISPLAY_CAN_TALK_BACK 0
 
-#define LOW_HEIGHT_THRESHOLD 15
-#define HIGH_HEIGHT_THRESHOLD 240
+#define HEIGHT_MIN 15
+#define HEIGHT_MAX 240
 
 // TRANSFORM shape display
 #elif SHAPE_DISPLAY_IN_USE==TRANSFORM_DISPLAY
@@ -145,8 +145,8 @@ const string SERIAL_PORTS[NUM_SERIAL_CONNECTIONS] = {
 
 #define SHAPE_DISPLAY_CAN_TALK_BACK 1
 
-#define LOW_HEIGHT_THRESHOLD 50
-#define HIGH_HEIGHT_THRESHOLD 210
+#define HEIGHT_MIN 50
+#define HEIGHT_MAX 210
 
 #define PINBLOCK_0_X_OFFSET 13
 #define PINBLOCK_0_WIDTH 16
@@ -165,14 +165,14 @@ const string SERIAL_PORTS[NUM_SERIAL_CONNECTIONS] = {
 
 #define SHAPE_DISPLAY_CAN_TALK_BACK 1
 
-#define LOW_HEIGHT_THRESHOLD 57
-#define HIGH_HEIGHT_THRESHOLD 244 // warning: above 245 is the address range
+#define HEIGHT_MIN 57
+#define HEIGHT_MAX 244 // warning: above 245 is the address range
 
 #endif
 
 // shape display derived dimensions, for convenience
 #define SHAPE_DISPLAY_SIZE_2D (SHAPE_DISPLAY_SIZE_X * SHAPE_DISPLAY_SIZE_Y)
-#define HEIGHT_DISPLAY_RANGE (HIGH_HEIGHT_THRESHOLD - LOW_HEIGHT_THRESHOLD)
+#define HEIGHT_RANGE (HEIGHT_MAX - HEIGHT_MIN)
 
 
 // Shape display default pin configs
