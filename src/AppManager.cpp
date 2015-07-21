@@ -77,6 +77,8 @@ void AppManager::setup(){
     applications["tunableWave"] = tunableWaveApp;
     leverApp = new LeverApp(kinectManager);
     applications["lever"] = leverApp;
+    BOSApp = new class BOSApp(kinectManager);
+    applications["BOS"] = BOSApp;
 
     // if heights can be read back from the shape display, give applications
     // read access to them
@@ -217,6 +219,8 @@ void AppManager::keyPressed(int key) {
             currentApplication = applications["tunableWave"];
         } else if (key == '2') {
             currentApplication = applications["lever"];
+		} else if (key == '3') {
+            currentApplication = applications["BOS"];
         }
 
     // forward unreserved keys to the application
