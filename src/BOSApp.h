@@ -22,8 +22,7 @@ public:
     string appInstructionsText();
     void keyPressed(int key);
 
-
-   const string name = "Body Object Space";
+    string getName() {return "Body Object Space";};
 
 //private:
     void setTuningMethod(XTuningMethod method, bool force=false);

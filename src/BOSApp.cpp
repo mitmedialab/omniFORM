@@ -63,7 +63,7 @@ void BOSApp::update(float dt) {
 
 
 
-void BOSApp::updateHeights(){
+void BOSApp::updateHeights() {
     
     heightsDrawingBuffer.begin();
     ofBackground(0);
@@ -72,11 +72,9 @@ void BOSApp::updateHeights(){
     // draw doughnut
     ofFill();
     ofSetColor(255);
-    ofCircle(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2,scaler);
-    ofNoFill();
+    ofCircle(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2, scaler);
     ofSetColor(0);
-    ofCircle(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2,scaler/2);
-    
+    ofCircle(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2, scaler / 2);
     
     heightsDrawingBuffer.end();
     heightsDrawingBuffer.readToPixels(heightsForShapeDisplay);
@@ -107,7 +105,7 @@ void BOSApp::updateScaleParametersWithKinect() {
     // Get cloest Y
     for (int y = tableMaskLine; y >= 0; y--) {
         for (int x = 0; x < KINECT_X; x++) {
-            if (depthPixels[x + (y * KINECT_X)] > 0){
+            if (depthPixels[x + (y * KINECT_X)] > 0) {
                 closestY = y;
                 closestX = x;
                 break;
@@ -122,7 +120,7 @@ void BOSApp::updateScaleParametersWithKinect() {
     
     for (int y = 0; y < KINECT_Y; y++) {
         for (int x = 0; x < KINECT_X; x++) {
-            if (depthPixels[x + (y * KINECT_X)] < 200){
+            if (depthPixels[x + (y * KINECT_X)] < 200) {
                 if (bosEnabled) {
                     bosEnabled=false;
                 } else {
@@ -135,9 +133,9 @@ void BOSApp::updateScaleParametersWithKinect() {
     }
     
     
-    if(bosEnabled){
+    if (bosEnabled) {
         
-        if (closestY > -1){
+        if (closestY > -1) {
             float normalized = 1.0 * (tableMaskLine - closestY) / tableMaskLine;
             scaler = 5 * normalized;
         } else {
@@ -187,7 +185,7 @@ void BOSApp::updateWaveParametersWithKinect() {
     // Get cloest Y
     for (int y = tableMaskLine; y >= 0; y--) {
         for (int x = 0; x < KINECT_X; x++) {
-            if (depthPixels[x + (y * KINECT_X)] > 0){
+            if (depthPixels[x + (y * KINECT_X)] > 0) {
                 closestY = y;
                 closestX = x;
                 break;
@@ -203,7 +201,7 @@ void BOSApp::updateWaveParametersWithKinect() {
     float maxFreq = 5.5;
     
     // Compare pixel distance from Y baseline (table), set freqeuncy
-    if (closestY > -1){
+    if (closestY > -1) {
         float normalized = 1.0 * (tableMaskLine - closestY) / tableMaskLine;
         float k = pow(2.8f, -dropoffRate + 2 * dropoffRate * normalized);
         frequency = minFreq + (maxFreq - minFreq) * k / (1 + k);
@@ -222,33 +220,25 @@ void BOSApp::drawGraphicsForShapeDisplay() {
 };
 
 string BOSApp::appInstructionsText() {
-    string instructions = "\
-        Body position is coupled to the scale of the rendered object, jump to disable or enable BOS' \n\
-        \n\
-        BOS: " + ofToString(bosEnabled, 2) + "\n\
-        ";
+    string instructions = (string) "" +
+        "Body position is coupled to the scale of the rendered object, jump\n" +
+        "to disable or enable BOS\n" +
+        "\n" +
+        "BOS: " + (bosEnabled ? "enabled" : "disabled") + "\n" +
+        "";
     return instructions;
 };
 
 void BOSApp::keyPressed(int key) {
-    if (key == '1') {
-
-    } else if (key == '2') {
-    } else if (key == 'a') {
-            frequency /= 1.26;
-        
+    if (key == 'a') {
+        frequency /= 1.26;
     } else if (key == 's') {
-            frequency *= 1.26;
+        frequency *= 1.26;
     } else if (key == 'd') {
-            numCrests -= 0.5;
+        numCrests -= 0.5;
     } else if (key == 'f') {
-            numCrests += 0.5;
+        numCrests += 0.5;
     } else if (key == 'b') {
-        if (bosEnabled) {
-            bosEnabled=false;
-        } else {
-            bosEnabled=true;
-        }
+        bosEnabled = !bosEnabled;
     }
-    
 };
