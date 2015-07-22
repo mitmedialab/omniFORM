@@ -69,6 +69,18 @@ void LeverApp::setNormedOrigin(float _yNormedOrigin, float _zNormedOrigin) {
     thetaMax = thetaFromNormedYAndZ(1, 1);
 }
 
+float LeverApp::zNormedFromY(float yNormed) {
+    return zNormedFromY(yNormed, theta);
+}
+
+float LeverApp::zNormedFromY(float yNormed, float _theta) {
+    return tan(_theta) * (yNormed - yNormedOrigin) + zNormedOrigin;
+}
+
+float LeverApp::thetaFromNormedYAndZ(float yNormed, float zNormed) {
+    return atan((zNormed - zNormedOrigin) / (yNormed - yNormedOrigin));
+}
+
 void LeverApp::update(float dt) {
     normalizedPhase += dt * frequency;
     float phase = 2 * pi * normalizedPhase;
@@ -85,18 +97,6 @@ void LeverApp::update(float dt) {
             heightsForShapeDisplay[xy] = z;
         }
     }
-}
-
-float LeverApp::zNormedFromY(float yNormed) {
-    return zNormedFromY(yNormed, theta);
-}
-
-float LeverApp::zNormedFromY(float yNormed, float _theta) {
-    return tan(_theta) * (yNormed - yNormedOrigin) + zNormedOrigin;
-}
-
-float LeverApp::thetaFromNormedYAndZ(float yNormed, float zNormed) {
-    return atan((zNormed - zNormedOrigin) / (yNormed - yNormedOrigin));
 }
 
 void LeverApp::drawGraphicsForShapeDisplay() {
