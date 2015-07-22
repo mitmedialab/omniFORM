@@ -57,16 +57,15 @@ void KinectManager::update() {
     colorImg.setFromPixels(kinect.getPixels(), kinect.width, kinect.height);
     depthImg.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
     
-    lastDepthThreshed.setFromPixels(depthThreshed.getPixels(), kinect.width, kinect.height);
-    // always update the depth image
-    depthThreshed.setFromPixels(depthImg.getPixels(), kinect.width, kinect.height);
-    
-    // subtract mask which is png alpha image called "mask.png"
+    // subtract masked regions out of depth data
     if (useMask) {
-        subtractMask();
+        maskDepthImage();
     }
     
-    // threshold calcutations convery depth map into black and white images
+    lastDepthThreshed.setFromPixels(depthThreshed.getPixels(), kinect.width, kinect.height);
+    depthThreshed.setFromPixels(depthImg.getPixels(), kinect.width, kinect.height);
+
+    // threshold calcutations convert depth map into black and white images
     calculateThresholdsAndModifyImages();
     
     depthThreshedDiff.absDiff(lastDepthThreshed, depthThreshed);
@@ -76,11 +75,11 @@ void KinectManager::flagImagesAsChanged() {
     colorImg.flagImageChanged();
     depthImg.flagImageChanged();
     depthThreshed.flagImageChanged();
+    depthThreshedDiff.flagImageChanged();
 }
 
-void KinectManager::subtractMask() {
+void KinectManager::maskDepthImage() {
     cvAnd(depthImg.getCvImage(), maskCv.getCvImage(), depthImg.getCvImage(), NULL);
-    //cvAnd(grayThreshNear.getCvImage(), grayThreshFar.getCvImage(), depthImg.getCvImage(), NULL);
 }
 
 // loads png mask and converts to cv grayscale which we need to cvAnd method
@@ -103,16 +102,16 @@ void KinectManager::loadAlphaMaskAndPrepForCvProcessing() {
 }
 
 void KinectManager::calculateThresholdsAndModifyImages() {
-    depthImg.erode_3x3();
-    depthImg.dilate_3x3();
+    depthThreshed.erode_3x3();
+    depthThreshed.dilate_3x3();
     
     // we do two thresholds - one for the far plane and one for the near plane
     // we then do a cvAnd to get the pixels which are a union of the two thresholds
-    grayThreshNear = depthImg;
-    grayThreshFar = depthImg;
+    grayThreshNear = depthThreshed;
+    grayThreshFar = depthThreshed;
     grayThreshNear.threshold(nearThreshold, true);
     grayThreshFar.threshold(farThreshold);
-    cvAnd(grayThreshNear.getCvImage(), grayThreshFar.getCvImage(), depthImg.getCvImage(), NULL);
+    cvAnd(grayThreshNear.getCvImage(), grayThreshFar.getCvImage(), depthThreshed.getCvImage(), NULL);
     
     // find depth map excluding thresholded data
     // this causes the 10 finger effect and could be related to our discussion
@@ -123,8 +122,8 @@ void KinectManager::calculateThresholdsAndModifyImages() {
     // their hand will be black (since black is used for out of range areas)
     // however since their hands shadow is also black this will cause the 10 finger effect.
     //
-    //cvAnd(grayThreshNear.getCvImage(), depthThreshed.getCvImage(), depthThreshed.getCvImage(), NULL);
-    cvAnd(grayThreshFar.getCvImage(), depthThreshed.getCvImage(), depthThreshed.getCvImage(), NULL);
+    // //cvAnd(grayThreshNear.getCvImage(), depthThreshed.getCvImage(), depthThreshed.getCvImage(), NULL);
+    //cvAnd(grayThreshFar.getCvImage(), depthThreshed.getCvImage(), depthThreshed.getCvImage(), NULL);
     
     //    ofPixelsRef depthPixels = depthThreshed.getPixelsRef();
     //    for (int x = 0; x < depthPixels.getWidth(); x++) {

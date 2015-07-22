@@ -44,7 +44,7 @@ private:
     void updateImagesFromKinect();
     void flagImagesAsChanged();
     void calculateThresholdsAndModifyImages();
-    void subtractMask();
+    void maskDepthImage();
     void loadAlphaMaskAndPrepForCvProcessing();
 
     ofxKinect kinect;
