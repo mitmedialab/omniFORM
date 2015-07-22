@@ -216,6 +216,7 @@
 		A29D8C96AE042ECEAA1BD4F3 /* NetworkingUtilsWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A5B1FAD3F30C8065C396ACB /* NetworkingUtilsWin.cpp */; };
 		A2E3224BF9B63DAA802A0F18 /* b2Distance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83DBE901C4B79B39C15DC46 /* b2Distance.cpp */; };
 		A2E6B252D682A7FB048A1644 /* b2RevoluteJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D48FA57F2101B998AFF455C /* b2RevoluteJoint.cpp */; };
+		A58CC4081B5ED98D00125458 /* BOSApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A58CC4061B5ED98D00125458 /* BOSApp.cpp */; };
 		A6C06E9FD6A3797307495948 /* btDbvtBroadphase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E50115CC9A65604366E2A0A4 /* btDbvtBroadphase.cpp */; };
 		AA96B9029B06C36D86624217 /* btGeneric6DofConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CE87390D9B0F491A48A60 /* btGeneric6DofConstraint.cpp */; };
 		ABBE3E2B77BFFE9DECF1FA11 /* btSoftSoftCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E6A42C0788E557889A1833 /* btSoftSoftCollisionAlgorithm.cpp */; };
@@ -985,6 +986,8 @@
 		A53D126FAA18A596595C0C6F /* b2Math.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = b2Math.h; path = ../../../addons/ofxBox2d/libs/Box2D/Common/b2Math.h; sourceTree = SOURCE_ROOT; };
 		A5663FFE9C8ACE440C6C4946 /* FTPoint.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = FTPoint.h; path = ../../../addons/ofxFTGL/libs/FTGL/include/FTGL/FTPoint.h; sourceTree = SOURCE_ROOT; };
 		A58B4921777493FB8B87E964 /* btShapeHull.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = btShapeHull.cpp; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletCollision/CollisionShapes/btShapeHull.cpp; sourceTree = SOURCE_ROOT; };
+		A58CC4061B5ED98D00125458 /* BOSApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BOSApp.cpp; sourceTree = "<group>"; };
+		A58CC4071B5ED98D00125458 /* BOSApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOSApp.h; sourceTree = "<group>"; };
 		A5ABFE78A4763CEE5578021C /* mat_aos.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = mat_aos.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/vectormath/sse/mat_aos.h; sourceTree = SOURCE_ROOT; };
 		A5D215DC62B5519F9D1498F4 /* btTransformUtil.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btTransformUtil.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/LinearMath/btTransformUtil.h; sourceTree = SOURCE_ROOT; };
 		A5F5BD0D10F33490D47EDB03 /* lfg.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = lfg.h; path = ../../../addons/ofxMovieExporter/libs/libav/include/libavutil/lfg.h; sourceTree = SOURCE_ROOT; };
@@ -1936,6 +1939,8 @@
 				6572FCB21B3CB119001BBF38 /* TunableWaveApp.h */,
 				65E8204C1B5D434A007FC2AA /* LeverApp.cpp */,
 				65E8204E1B5D4353007FC2AA /* LeverApp.h */,
+				A58CC4061B5ED98D00125458 /* BOSApp.cpp */,
+				A58CC4071B5ED98D00125458 /* BOSApp.h */,
 			);
 			name = Applications;
 			sourceTree = "<group>";
@@ -3592,6 +3597,7 @@
 				F5F07D23AB07B4CDBDE57453 /* btBroadphaseProxy.cpp in Sources */,
 				32FEA744CD4CCCA656A89F7C /* btCollisionAlgorithm.cpp in Sources */,
 				CCEAE4C8DC718ABBA8889AFC /* btDbvt.cpp in Sources */,
+				A58CC4081B5ED98D00125458 /* BOSApp.cpp in Sources */,
 				A6C06E9FD6A3797307495948 /* btDbvtBroadphase.cpp in Sources */,
 				36BBEA581081D7DD198EB5B7 /* btDispatcher.cpp in Sources */,
 				D596B4C0EA4546DB259B3326 /* btMultiSapBroadphase.cpp in Sources */,

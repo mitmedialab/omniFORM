@@ -35,7 +35,7 @@ void BOSApp::update(float dt) {
     updateHeights();
 };
 
-//void BOSApp::updateHeights() {
+//void TunableWaveApp::updateHeights() {
 //    float phase = 2 * pi * normalizedPhase;
 //
 //    // sinc math function sin(x+k)/x where:
@@ -61,6 +61,8 @@ void BOSApp::update(float dt) {
 //    }
 //};
 
+
+
 void BOSApp::updateHeights(){
     
     heightsDrawingBuffer.begin();
@@ -80,9 +82,9 @@ void BOSApp::updateHeights(){
     heightsDrawingBuffer.readToPixels(heightsForShapeDisplay);
     
     int x, y;
-    unsigned char height;
+    int height = 200;
     int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-    heightsForShapeDisplay[xy] = max(height, heightsForShapeDisplay[xy]);
+    heightsForShapeDisplay[xy] = max(height, (int) heightsForShapeDisplay[xy]);
     if (heightsForShapeDisplay[xy] == 0) {
         heightsForShapeDisplay[xy] = height;
     }

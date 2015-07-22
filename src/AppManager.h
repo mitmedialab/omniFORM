@@ -20,6 +20,7 @@
 #include "Application.h"
 #include "TunableWaveApp.h"
 #include "LeverApp.h"
+#include "BOSApp.h"
 
 
 class AppManager : public ofBaseApp {
@@ -62,4 +63,6 @@ private:
     Application *currentApplication;
     TunableWaveApp *tunableWaveApp;
     LeverApp *leverApp;
+    BOSApp *bosApp;
+
 };

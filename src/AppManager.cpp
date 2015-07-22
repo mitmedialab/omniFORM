@@ -77,8 +77,8 @@ void AppManager::setup(){
     applications["tunableWave"] = tunableWaveApp;
     leverApp = new LeverApp(kinectManager);
     applications["lever"] = leverApp;
-    BOSApp = new class BOSApp(kinectManager);
-    applications["BOS"] = BOSApp;
+    bosApp = new BOSApp(kinectManager);
+    applications["BOS"] = bosApp;
 
     // if heights can be read back from the shape display, give applications
     // read access to them
