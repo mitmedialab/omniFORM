@@ -10,27 +10,9 @@
 
 
 BOSApp::BOSApp(KinectManager *manager) : Application(manager) {
-    setTuningMethod(XKEY_PRESS_TUNING, true);
 };
 
-void BOSApp::setTuningMethod(XTuningMethod method, bool force) {
-    if (tuningMethod == method && !force) {
-        return;
-    }
-
-    tuningMethod = method;
-
-    if (tuningMethod == XKEY_PRESS_TUNING) {
-        frequency = 0.5;
-        numCrests = 4;
-    }
-}
-
 void BOSApp::update(float dt) {
-    if (tuningMethod == XKINECT_LOCATION_TUNING) {
-        updateWaveParametersWithKinect();
-    }
-
     normalizedPhase += dt * frequency;
     updateHeights();
 };
@@ -78,16 +60,7 @@ void BOSApp::updateHeights() {
     
     heightsDrawingBuffer.end();
     heightsDrawingBuffer.readToPixels(heightsForShapeDisplay);
-    
-    int x, y;
-    int height = 200;
-    int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-    heightsForShapeDisplay[xy] = max(height, (int) heightsForShapeDisplay[xy]);
-    if (heightsForShapeDisplay[xy] == 0) {
-        heightsForShapeDisplay[xy] = height;
-    }
-    return;
-    
+
 }
 
 

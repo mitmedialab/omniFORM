@@ -11,8 +11,6 @@
 #include "Application.h"
 
 
-enum XTuningMethod {XKEY_PRESS_TUNING, XKINECT_LOCATION_TUNING};
-
 class BOSApp : public Application {
 public:
     BOSApp(KinectManager *manager);
@@ -25,14 +23,12 @@ public:
     string getName() {return "Body Object Space";};
 
 //private:
-    void setTuningMethod(XTuningMethod method, bool force=false);
     void updateHeights();
     void updateWaveParametersWithKinect();
     void generateWave();
     void convertTouchToWave();
     void updateScaleParametersWithKinect();
 
-    XTuningMethod tuningMethod = XKEY_PRESS_TUNING;
     float normalizedPhase = 0;
     float frequency;
     float numCrests;
