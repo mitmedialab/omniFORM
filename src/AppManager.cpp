@@ -173,8 +173,8 @@ void AppManager::draw(){
     ofRect(913, 1, 302, 302);
     kinectManager->drawColorImage(914, 2, 300, 300);
     
-    ofRect(913, 301, 302, 302);
-    kinectManager->drawDepthImage(914, 302, 300, 300);
+    ofRect(913, 305, 302, 302);
+    kinectManager->drawDepthImage(914, 306, 300, 300);
 
     // draw text
     int menuLeftCoordinate = 21;

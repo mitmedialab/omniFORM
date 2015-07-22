@@ -16,7 +16,7 @@ int main( ){
     // inFORM and TRANSFORM window setup
     #if SHAPE_DISPLAY_IN_USE==INFORM_DISPLAY || SHAPE_DISPLAY_IN_USE==TRANSFORM_DISPLAY
         ofAppGlutWindow window;
-        ofSetupOpenGL(&window, 1024, 768, OF_WINDOW);
+        ofSetupOpenGL(&window, 1216, 768, OF_WINDOW);
 
     // cooperForm window setup
     #elif SHAPE_DISPLAY_IN_USE==COOPERFORM_DISPLAY
