@@ -27,11 +27,6 @@
 // thetaMax = tan^-1((1 - zNormedOrigin) / (1 - yNormedOrigin))
 
 LeverApp::LeverApp(KinectManager *manager) : Application(manager) {
-    clearHeights();
-    setNormedOrigin(0.5, 0.5);
-
-    frequency = 0.5;
-
     int shapeDisplayCenterX = SHAPE_DISPLAY_SIZE_X / 2;
     xMin = shapeDisplayCenterX - 2;
     xMax = shapeDisplayCenterX + 2;
@@ -45,6 +40,11 @@ LeverApp::LeverApp(KinectManager *manager) : Application(manager) {
     xRange = xMax - xMin;
     yRange = yMax - yMin;
     zRange = zMax - zMin;
+
+    frequency = 0.5;
+    setNormedOrigin(0.5, 0.5);
+
+    clearHeights();
 }
 
 void LeverApp::clearHeights(int height) {
