@@ -28,6 +28,8 @@
 // thetaMin = tan^-1(-zNormedOrigin / (1 - yNormedOrigin))
 // thetaMax = tan^-1((1 - zNormedOrigin) / (1 - yNormedOrigin))
 
+enum LeverThetaMode {FIXED, OSCILLATING, TOUCH_CONTROLLED};
+
 class LeverApp : public Application {
 public:
     LeverApp(KinectManager *manager);
@@ -42,10 +44,14 @@ public:
 private:
     void clearHeights(int height=0);
     void setNormedOrigin(float _yNormedOrigin=-1, float _zNormedOrigin=-1);
+    void updateTheta();
+    void updateThetaFromTouch();
 
     float zNormedFromY(float yNormed);
     float zNormedFromY(float yNormed, float _theta);
     float thetaFromNormedYAndZ(float yNormed, float zNormed);
+
+    LeverThetaMode thetaMode;
 
     float normalizedPhase = 0;
     float frequency;
@@ -60,4 +66,5 @@ private:
     int xMin, xMax, xRange;
     int yMin, yMax, yRange;
     int zMin, zMax, zRange;
+    int zNoiseMagnitude;
 };

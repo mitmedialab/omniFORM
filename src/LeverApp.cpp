@@ -41,6 +41,9 @@ LeverApp::LeverApp(KinectManager *manager) : Application(manager) {
     yRange = yMax - yMin;
     zRange = zMax - zMin;
 
+    zNoiseMagnitude = 15;
+
+    thetaMode = FIXED;
     frequency = 0.5;
     setNormedOrigin(0.5, 0.5);
 
@@ -83,10 +86,8 @@ float LeverApp::thetaFromNormedYAndZ(float yNormed, float zNormed) {
 
 void LeverApp::update(float dt) {
     normalizedPhase += dt * frequency;
-    float phase = 2 * pi * normalizedPhase;
 
-    // vary lever angle up and down across time
-    theta = ((sin(phase) + 1) / 2) * (thetaMax - thetaMin) + thetaMin;
+    updateTheta();
 
     for (int y = yMin; y < yMax; y++) {
         float yNormed = (y - yMin) / (float) yRange;
@@ -99,6 +100,49 @@ void LeverApp::update(float dt) {
     }
 }
 
+void LeverApp::updateTheta() {
+    switch (thetaMode) {
+        case FIXED:
+            // lock theta at max value
+            theta = thetaMax;
+            break;
+
+        case OSCILLATING:
+            // vary lever angle up and down across time
+            theta = ((sin(2 * pi * normalizedPhase) + 1) / 2) * (thetaMax - thetaMin) + thetaMin;
+            break;
+
+        case TOUCH_CONTROLLED:
+            // simulate a rigid lever being depressed by the user
+            updateThetaFromTouch();
+            break;
+
+        default:
+            throw "unrecognized value for thetaMode in Lever App";
+    }
+}
+
+void LeverApp::updateThetaFromTouch() {
+    float thetaFit = thetaMax;
+    const ofPixels &heightsFromDisplay = *heightsFromShapeDisplay;
+
+    for (int y = yOrigin; y < yMax; y++) {
+        int lowestZ = zMax;
+        for (int x = xMin; x < xMax; x++) {
+            int xy = heightsFromDisplay.getPixelIndex(x, y);
+            int z = heightsFromDisplay[xy] + zNoiseMagnitude * 4;
+            lowestZ = min(lowestZ, z);
+        }
+        float yNormed = (y - yMin) / (float) yRange;
+        float zNormed = (lowestZ - zMin) / (float) zRange;
+
+        float minThetaAtY = thetaFromNormedYAndZ(yNormed, zNormed);
+        thetaFit = min(thetaFit, minThetaAtY);
+    }
+
+    theta = max(thetaMin, thetaFit);
+}
+
 void LeverApp::drawGraphicsForShapeDisplay() {
     ofSetColor(ofColor::blue);
     ofImage(heightsForShapeDisplay).draw(0, 0, 300, 300);
@@ -106,10 +150,24 @@ void LeverApp::drawGraphicsForShapeDisplay() {
 
 string LeverApp::appInstructionsText() {
     string instructions = (string) "" +
-        "A lever that oscillates up and down.\n" +
+        "Simulation of a lever. Choose whether to make the lever angle\n" +
+        "fixed, oscillating, or touch-controlled.\n" +
+        "\n" +
+        (thetaMode == FIXED ? "* " : "  ") + "'q' : fixed angle\n" +
+        (thetaMode == OSCILLATING ? "* " : "  ") + "'w' : oscillating angle\n" +
+        (thetaMode == TOUCH_CONTROLLED ? "* " : "  ") + "'e' : touch-controlled angle\n" +
+        "\n" +
+        "lever angle: " + ofToString(theta, 2) + "\n" +
         "";
     return instructions;
 }
 
 void LeverApp::keyPressed(int key) {
+    if (key == 'q') {
+        thetaMode = FIXED;
+    } else if (key == 'w') {
+        thetaMode = OSCILLATING;
+    } else if (key == 'e') {
+        thetaMode = TOUCH_CONTROLLED;
+    }
 }
