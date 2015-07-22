@@ -118,10 +118,8 @@ string TunableWaveApp::appInstructionsText() {
         "Waves propagate from the display center. Choose between manual and\n" +
         "kinect-driven parameter control:\n" +
         "\n" +
-        (tuningMethod == KEY_PRESS_TUNING ? "* " : "  ") +
-            "'q' : manual parameter control:\n" +
-        (tuningMethod == KINECT_LOCATION_TUNING ? "* " : "  ") +
-            "'w' : kinect parameter control:\n" +
+        (tuningMethod == KEY_PRESS_TUNING ? "* " : "  ") + "'q' : manual parameter control\n" +
+        (tuningMethod == KINECT_LOCATION_TUNING ? "* " : "  ") + "'w' : kinect parameter control\n" +
         "";
 
     if (tuningMethod == KEY_PRESS_TUNING) {
