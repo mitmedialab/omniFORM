@@ -57,7 +57,7 @@ private:
     float thetaMax;
     float theta;
 
-    float yOrigin, zOrigin;
+    int yOrigin, zOrigin;
     int xMin, xMax, xRange;
     int yMin, yMax, yRange;
     int zMin, zMax, zRange;
