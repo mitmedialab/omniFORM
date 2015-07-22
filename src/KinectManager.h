@@ -21,39 +21,24 @@ public:
 
     void update();
 
-    // draw various images given coordinates and size
-    void drawColorImage(int x, int y, int width, int height);
-    void drawDepthImage(int x, int y, int width, int height);
-    
-    void drawDepthThreshedImage(int x, int y, int width, int height);
-    void drawDepthThreshedDiff(int x, int y, int width, int height);
-
-    ofxCvGrayscaleImage depthThreshed;
-    ofxCvGrayscaleImage lastDepthThreshed;
-    ofxCvGrayscaleImage depthThreshedDiff;
-    ofxCvColorImage colorImg;
-    
-    int nearThreshold; // the near threshold, closest possible value is 255, farthest possible value 0
-    int farThreshold; // the far threshold, closest possible value is 255, farthest possible value 0
-    int contourMinimumSize; // the minimum size of a contour in pixels
-    bool useMask = false;
-    
-    ofImage mask, colorMask;
-    ofxCvColorImage maskColorCv;
-    ofxCvGrayscaleImage maskCv;
-
     // get images as pixels
     void getColorPixels(ofPixels &pixels);
     void getDepthPixels(ofPixels &pixels);
     void getDepthThreshedPixels(ofPixels &pixels);
-    
-    // get contour finder
-    ofxCvContourFinder *getContourFinder();
+    void getDepthThreshedDiffPixels(ofPixels &pixels);
+
+    // draw various images given coordinates and size
+    void drawColorImage(int x, int y, int width, int height);
+    void drawDepthImage(int x, int y, int width, int height);
+    void drawDepthThreshedImage(int x, int y, int width, int height);
+    void drawDepthThreshedDiff(int x, int y, int width, int height);
     
     // getter pass through methods
     int numAvailableDevices();
     bool isFrameNew();
     bool isConnected();
+
+    bool useMask = false;
 
 private:
     void updateImagesFromKinect();
@@ -63,8 +48,21 @@ private:
     void loadAlphaMaskAndPrepForCvProcessing();
 
     ofxKinect kinect;
-    
+
+    ofxCvColorImage colorImg;
     ofxCvGrayscaleImage depthImg; // grayscale depth image
     ofxCvGrayscaleImage grayThreshNear; // the near thresholded image
     ofxCvGrayscaleImage grayThreshFar; // the far thresholded image
+    ofxCvGrayscaleImage depthThreshed;
+    ofxCvGrayscaleImage lastDepthThreshed;
+    ofxCvGrayscaleImage depthThreshedDiff;
+
+    ofImage mask;
+    ofImage colorMask;
+    ofxCvColorImage maskColorCv;
+    ofxCvGrayscaleImage maskCv;
+
+    int nearThreshold; // the near threshold, closest possible value is 255, farthest possible value 0
+    int farThreshold; // the far threshold, closest possible value is 255, farthest possible value 0
+    int contourMinimumSize; // the minimum size of a contour in pixels
 };

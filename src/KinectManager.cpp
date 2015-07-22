@@ -9,8 +9,8 @@
 #include "KinectManager.h"
 
 
-KinectManager::KinectManager(int nearThreshold, int farThreshold, int contourMinimumSize) :
-        nearThreshold(nearThreshold), farThreshold(farThreshold), contourMinimumSize(contourMinimumSize) {
+KinectManager::KinectManager(int nearThreshold, int farThreshold, int contourMinimumSize)
+: nearThreshold(nearThreshold), farThreshold(farThreshold), contourMinimumSize(contourMinimumSize) {
     if (kinect.numAvailableDevices() > 0) {
         kinect.setRegistration(true); // enable depth->video image calibration
         kinect.init();
@@ -24,7 +24,7 @@ KinectManager::KinectManager(int nearThreshold, int farThreshold, int contourMin
         ofLogNotice() << "zero plane pixel size: " << kinect.getZeroPlanePixelSize() << "mm";
         ofLogNotice() << "zero plane dist: " << kinect.getZeroPlaneDistance() << "mm";
     }
-    
+
     colorImg.allocate(kinect.width, kinect.height);
     depthImg.allocate(kinect.width, kinect.height);
     grayThreshNear.allocate(kinect.width, kinect.height);
@@ -32,6 +32,11 @@ KinectManager::KinectManager(int nearThreshold, int farThreshold, int contourMin
     depthThreshed.allocate(kinect.width, kinect.height);
     lastDepthThreshed.allocate(kinect.width, kinect.height);
     depthThreshedDiff.allocate(kinect.width, kinect.height);
+
+    colorImg.set(0);
+    depthImg.set(0);
+    depthThreshed.set(0);
+    depthThreshedDiff.set(0);
 
     loadAlphaMaskAndPrepForCvProcessing();
 }
@@ -43,26 +48,28 @@ KinectManager::~KinectManager() {
 
 void KinectManager::update() {
     kinect.update();
+
+    if (!kinect.isFrameNew()) {
+        return;
+    }
     
     // there is a new frame and we are connected
-    if (kinect.isFrameNew()) {
-        colorImg.setFromPixels(kinect.getPixels(), kinect.width, kinect.height);
-        depthImg.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
-
-        lastDepthThreshed.setFromPixels(depthThreshed.getPixels(), kinect.width, kinect.height);
-        // always update the depth image
-        depthThreshed.setFromPixels(depthImg.getPixels(), kinect.width, kinect.height);
-
-        // subtract mask which is png alpha image called "mask.png"
-        if (useMask) {
-            subtractMask();
-        }
-        
-        // threshold calcutations convery depth map into black and white images
-        calculateThresholdsAndModifyImages();
-
-        depthThreshedDiff.absDiff(lastDepthThreshed, depthThreshed);
+    colorImg.setFromPixels(kinect.getPixels(), kinect.width, kinect.height);
+    depthImg.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
+    
+    lastDepthThreshed.setFromPixels(depthThreshed.getPixels(), kinect.width, kinect.height);
+    // always update the depth image
+    depthThreshed.setFromPixels(depthImg.getPixels(), kinect.width, kinect.height);
+    
+    // subtract mask which is png alpha image called "mask.png"
+    if (useMask) {
+        subtractMask();
     }
+    
+    // threshold calcutations convery depth map into black and white images
+    calculateThresholdsAndModifyImages();
+    
+    depthThreshedDiff.absDiff(lastDepthThreshed, depthThreshed);
 }
 
 void KinectManager::flagImagesAsChanged() {
@@ -130,6 +137,33 @@ void KinectManager::calculateThresholdsAndModifyImages() {
 
 //--------------------------------------------------------------
 //
+// Get various kinect images as pixels
+//
+//--------------------------------------------------------------
+
+// color image
+void KinectManager::getColorPixels(ofPixels &pixels) {
+    pixels.setFromPixels(colorImg.getPixels(), kinect.width, kinect.height, 3);
+}
+
+// depth image with near and far threshold
+void KinectManager::getDepthPixels(ofPixels &pixels) {
+    pixels.setFromPixels(depthImg.getPixels(), kinect.width, kinect.height, 1);
+}
+
+// depth image with far threshold only
+void KinectManager::getDepthThreshedPixels(ofPixels &pixels) {
+    pixels.setFromPixels(depthThreshed.getPixels(), kinect.width, kinect.height, 1);
+}
+
+// depth image with far threshold only
+void KinectManager::getDepthThreshedDiffPixels(ofPixels &pixels) {
+    pixels.setFromPixels(depthThreshedDiff.getPixels(), kinect.width, kinect.height, 1);
+}
+
+
+//--------------------------------------------------------------
+//
 // Draw various images
 //
 //--------------------------------------------------------------
@@ -156,30 +190,9 @@ void KinectManager::drawDepthThreshedImage(int x, int y, int width, int height) 
 // (only data from movements)
 void KinectManager::drawDepthThreshedDiff(int x, int y, int width, int height) {
     ofSetColor(255);
-    depthThreshedDiff.draw(x,y, width, height);
+    depthThreshedDiff.draw(x, y, width, height);
 }
 
-
-//--------------------------------------------------------------
-//
-// Get various kinect images as pixels
-//
-//--------------------------------------------------------------
-
-// color image
-void KinectManager::getColorPixels(ofPixels &pixels) {
-    pixels.setFromPixels(colorImg.getPixels(), kinect.width, kinect.height, 3);
-}
-
-// depth image with near and far threshold
-void KinectManager::getDepthPixels(ofPixels &pixels) {
-    pixels.setFromPixels(depthImg.getPixels(), kinect.width, kinect.height, 1);
-}
-
-// depth image with far threshold only
-void KinectManager::getDepthThreshedPixels(ofPixels &pixels) {
-    pixels.setFromPixels(depthThreshed.getPixels(), kinect.width, kinect.height, 1);
-}
 
 //--------------------------------------------------------------
 //
