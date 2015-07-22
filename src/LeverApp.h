@@ -49,7 +49,6 @@ private:
 
     float normalizedPhase = 0;
     float frequency;
-    ofColor color;
 
     float yNormedOrigin;
     float zNormedOrigin;

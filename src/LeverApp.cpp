@@ -100,8 +100,7 @@ float LeverApp::thetaFromNormedYAndZ(float yNormed, float zNormed) {
 }
 
 void LeverApp::drawGraphicsForShapeDisplay() {
-    color.setHsb(fmod(normalizedPhase * 180, 180), 255, 255);
-    ofSetColor(color);
+    ofSetColor(ofColor::blue);
     ofImage(heightsForShapeDisplay).draw(0, 0, 300, 300);
 }
 
