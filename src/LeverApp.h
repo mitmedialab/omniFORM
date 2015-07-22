@@ -39,7 +39,7 @@ public:
     string appInstructionsText();
     void keyPressed(int key);
 
-    virtual string getName() {return "Lever";};
+    string getName() {return "Lever";};
 
 private:
     void clearHeights(int height=0);
