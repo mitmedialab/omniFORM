@@ -14,6 +14,7 @@ BOSApp::BOSApp(KinectManager *manager) : Application(manager) {
 
 void BOSApp::update(float dt) {
     normalizedPhase += dt * frequency;
+    updateScaleParametersWithKinect();
     updateHeights();
 };
 
