@@ -38,7 +38,7 @@ KinectManager::KinectManager(int nearThreshold, int farThreshold, int contourMin
     depthThreshed.set(0);
     depthThreshedDiff.set(0);
 
-    loadAlphaMaskAndPrepForCvProcessing();
+    loadAlphaMask();
 }
 
 KinectManager::~KinectManager() {
@@ -72,26 +72,25 @@ void KinectManager::update() {
 }
 
 void KinectManager::maskDepthImage() {
-    cvAnd(depthImg.getCvImage(), maskCv.getCvImage(), depthImg.getCvImage(), NULL);
+    cvAnd(depthImg.getCvImage(), imageMask.getCvImage(), depthImg.getCvImage(), NULL);
 }
 
 // loads png mask and converts to cv grayscale which we need to cvAnd method
-void KinectManager::loadAlphaMaskAndPrepForCvProcessing() {
+void KinectManager::loadAlphaMask() {
+    ofImage mask;
+
     // set the display-specific image mask
     if (SHAPE_DISPLAY_IN_USE == TRANSFORM_DISPLAY) {
-        // type is OF_IMAGE_COLOR_ALPHA
         mask.loadImage("mask_transform.png");
+        mask.setImageType(OF_IMAGE_COLOR);
     } else {
+        mask.allocate(KINECT_X, KINECT_Y, OF_IMAGE_COLOR);
         mask.setColor(255);
     }
 
-    // simple way to convert to different image type, changing the transparent
-    // areas to white
-    ofImage image;
-    image.setFromPixels(mask.getPixelsRef());
-    image.setImageType(OF_IMAGE_COLOR);
-    maskColorCv.setFromPixels(image.getPixels(), mask.getWidth(), mask.getHeight());
-    maskCv = maskColorCv;
+    ofxCvColorImage maskCv;
+    maskCv.setFromPixels(mask.getPixels(), mask.getWidth(), mask.getHeight());
+    imageMask = maskCv;
 }
 
 void KinectManager::calculateThresholdsAndModifyImages() {

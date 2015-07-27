@@ -44,7 +44,7 @@ private:
     void updateImagesFromKinect();
     void calculateThresholdsAndModifyImages();
     void maskDepthImage();
-    void loadAlphaMaskAndPrepForCvProcessing();
+    void loadAlphaMask();
 
     ofxKinect kinect;
 
@@ -56,10 +56,7 @@ private:
     ofxCvGrayscaleImage lastDepthThreshed;
     ofxCvGrayscaleImage depthThreshedDiff;
 
-    ofImage mask;
-    ofImage colorMask;
-    ofxCvColorImage maskColorCv;
-    ofxCvGrayscaleImage maskCv;
+    ofxCvGrayscaleImage imageMask;
 
     int nearThreshold; // the near threshold, closest possible value is 255, farthest possible value 0
     int farThreshold; // the far threshold, closest possible value is 255, farthest possible value 0
