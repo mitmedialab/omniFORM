@@ -42,7 +42,6 @@ public:
 
 private:
     void updateImagesFromKinect();
-    void flagImagesAsChanged();
     void calculateThresholdsAndModifyImages();
     void maskDepthImage();
     void loadAlphaMaskAndPrepForCvProcessing();

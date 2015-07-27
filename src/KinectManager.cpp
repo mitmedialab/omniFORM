@@ -71,13 +71,6 @@ void KinectManager::update() {
     depthThreshedDiff.absDiff(lastDepthThreshed, depthThreshed);
 }
 
-void KinectManager::flagImagesAsChanged() {
-    colorImg.flagImageChanged();
-    depthImg.flagImageChanged();
-    depthThreshed.flagImageChanged();
-    depthThreshedDiff.flagImageChanged();
-}
-
 void KinectManager::maskDepthImage() {
     cvAnd(depthImg.getCvImage(), maskCv.getCvImage(), depthImg.getCvImage(), NULL);
 }
