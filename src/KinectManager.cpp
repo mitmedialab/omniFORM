@@ -9,8 +9,8 @@
 #include "KinectManager.h"
 
 
-KinectManager::KinectManager(int nearThreshold, int farThreshold, int contourMinimumSize)
-: nearThreshold(nearThreshold), farThreshold(farThreshold), contourMinimumSize(contourMinimumSize) {
+KinectManager::KinectManager(int nearThreshold, int farThreshold)
+: nearThreshold(nearThreshold), farThreshold(farThreshold) {
     if (kinect.numAvailableDevices() > 0) {
         kinect.setRegistration(true); // enable depth->video image calibration
         kinect.init();

@@ -16,7 +16,7 @@
 
 class KinectManager {
 public:
-    KinectManager(int nearThreshold = 230, int farThreshold = 70, int contourMinimumSize = 20);
+    KinectManager(int nearThreshold = 230, int farThreshold = 70);
     ~KinectManager();
 
     void update();
@@ -41,7 +41,6 @@ public:
     bool useMask = false;
 
 private:
-    void updateImagesFromKinect();
     void calculateThresholdsAndModifyImages();
     void maskDepthImage();
     void loadAlphaMask();
@@ -60,5 +59,4 @@ private:
 
     int nearThreshold; // the near threshold, closest possible value is 255, farthest possible value 0
     int farThreshold; // the far threshold, closest possible value is 255, farthest possible value 0
-    int contourMinimumSize; // the minimum size of a contour in pixels
 };
