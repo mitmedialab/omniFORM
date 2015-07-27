@@ -66,7 +66,7 @@ void KinectManager::update() {
     depthThreshed.setFromPixels(depthImg.getPixels(), kinect.width, kinect.height);
 
     // threshold calcutations convert depth map into black and white images
-    calculateThresholdsAndModifyImages();
+    thresholdImages();
     
     depthThreshedDiff.absDiff(lastDepthThreshed, depthThreshed);
 }
@@ -93,7 +93,7 @@ void KinectManager::loadAlphaMask() {
     imageMask = maskCv;
 }
 
-void KinectManager::calculateThresholdsAndModifyImages() {
+void KinectManager::thresholdImages() {
     depthThreshed.erode_3x3();
     depthThreshed.dilate_3x3();
     

@@ -41,7 +41,7 @@ public:
     bool useMask = false;
 
 private:
-    void calculateThresholdsAndModifyImages();
+    void thresholdImages();
     void maskDepthImage();
     void loadAlphaMask();
 
