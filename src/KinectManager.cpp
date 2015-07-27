@@ -46,6 +46,23 @@ KinectManager::~KinectManager() {
     kinect.close();
 }
 
+void KinectManager::loadAlphaMask() {
+    ofImage mask;
+
+    // set the display-specific image mask
+    if (SHAPE_DISPLAY_IN_USE == TRANSFORM_DISPLAY) {
+        mask.loadImage("mask_transform.png");
+        mask.setImageType(OF_IMAGE_COLOR);
+    } else {
+        mask.allocate(KINECT_X, KINECT_Y, OF_IMAGE_COLOR);
+        mask.setColor(255);
+    }
+
+    ofxCvColorImage maskCv;
+    maskCv.setFromPixels(mask.getPixels(), mask.getWidth(), mask.getHeight());
+    imageMask = maskCv;
+}
+
 void KinectManager::update() {
     kinect.update();
 
@@ -73,24 +90,6 @@ void KinectManager::update() {
 
 void KinectManager::maskDepthImage() {
     cvAnd(depthImg.getCvImage(), imageMask.getCvImage(), depthImg.getCvImage(), NULL);
-}
-
-// loads png mask and converts to cv grayscale which we need to cvAnd method
-void KinectManager::loadAlphaMask() {
-    ofImage mask;
-
-    // set the display-specific image mask
-    if (SHAPE_DISPLAY_IN_USE == TRANSFORM_DISPLAY) {
-        mask.loadImage("mask_transform.png");
-        mask.setImageType(OF_IMAGE_COLOR);
-    } else {
-        mask.allocate(KINECT_X, KINECT_Y, OF_IMAGE_COLOR);
-        mask.setColor(255);
-    }
-
-    ofxCvColorImage maskCv;
-    maskCv.setFromPixels(mask.getPixels(), mask.getWidth(), mask.getHeight());
-    imageMask = maskCv;
 }
 
 void KinectManager::thresholdImages() {

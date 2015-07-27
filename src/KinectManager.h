@@ -41,21 +41,20 @@ public:
     bool useMask = false;
 
 private:
-    void thresholdImages();
-    void maskDepthImage();
     void loadAlphaMask();
+    void maskDepthImage();
+    void thresholdImages();
 
     ofxKinect kinect;
 
     ofxCvColorImage colorImg;
     ofxCvGrayscaleImage depthImg; // grayscale depth image
+    ofxCvGrayscaleImage imageMask;
     ofxCvGrayscaleImage grayThreshNear; // the near thresholded image
     ofxCvGrayscaleImage grayThreshFar; // the far thresholded image
     ofxCvGrayscaleImage depthThreshed;
     ofxCvGrayscaleImage lastDepthThreshed;
     ofxCvGrayscaleImage depthThreshedDiff;
-
-    ofxCvGrayscaleImage imageMask;
 
     int nearThreshold; // the near threshold, closest possible value is 255, farthest possible value 0
     int farThreshold; // the far threshold, closest possible value is 255, farthest possible value 0
