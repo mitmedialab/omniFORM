@@ -12,3 +12,7 @@
 double elapsedTimeInSeconds() {
     return clock() / (double) CLOCKS_PER_SEC;
 }
+
+
+
+

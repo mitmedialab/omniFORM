@@ -79,6 +79,8 @@ void AppManager::setup(){
     applications["lever"] = leverApp;
     bosApp = new BOSApp(kinectManager);
     applications["BOS"] = bosApp;
+    fftApp = new FFTApp(kinectManager);
+    applications["FFT"] = fftApp;
 
     // if heights can be read back from the shape display, give applications
     // read access to them
@@ -89,7 +91,7 @@ void AppManager::setup(){
     }
 
     // set default application
-    currentApplication = applications["tunableWave"];
+    currentApplication = applications["FFT"];
 }
 
 void AppManager::update(){
@@ -248,6 +250,9 @@ void AppManager::keyPressed(int key) {
             currentApplication = applications["lever"];
         } else if (key == '3') {
             currentApplication = applications["BOS"];
+        }
+        else if (key == '3') {
+            currentApplication = applications["FFT"];
         }
 
     // forward unreserved keys to the application

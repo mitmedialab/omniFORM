@@ -50,6 +50,8 @@ void TunableWaveApp::updateHeights() {
     float maxAmplitude = 0.15;
     float heightScalar = HEIGHT_RANGE / (2 * maxAmplitude);
     int heightOffset = HEIGHT_RANGE / 2 + HEIGHT_MIN;
+    
+    
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             float distance = center.distance(ofPoint(x, y));
@@ -59,6 +61,7 @@ void TunableWaveApp::updateHeights() {
             heightsForShapeDisplay[xy] = heightScalar * height + heightOffset;
         }
     }
+    
 };
 
 void TunableWaveApp::updateWaveParametersWithKinect() {

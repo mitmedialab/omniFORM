@@ -216,6 +216,8 @@
 		A29D8C96AE042ECEAA1BD4F3 /* NetworkingUtilsWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A5B1FAD3F30C8065C396ACB /* NetworkingUtilsWin.cpp */; };
 		A2E3224BF9B63DAA802A0F18 /* b2Distance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83DBE901C4B79B39C15DC46 /* b2Distance.cpp */; };
 		A2E6B252D682A7FB048A1644 /* b2RevoluteJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D48FA57F2101B998AFF455C /* b2RevoluteJoint.cpp */; };
+		A50737A81B673E0F008FA744 /* FFTApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A50737A71B673E0F008FA744 /* FFTApp.cpp */; };
+		A50737AE1B674028008FA744 /* fft.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A50737AC1B674028008FA744 /* fft.cpp */; };
 		A58CC4081B5ED98D00125458 /* BOSApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A58CC4061B5ED98D00125458 /* BOSApp.cpp */; };
 		A6C06E9FD6A3797307495948 /* btDbvtBroadphase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E50115CC9A65604366E2A0A4 /* btDbvtBroadphase.cpp */; };
 		AA96B9029B06C36D86624217 /* btGeneric6DofConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CE87390D9B0F491A48A60 /* btGeneric6DofConstraint.cpp */; };
@@ -982,6 +984,10 @@
 		A2EE5E80B134EA52A8B369D2 /* eigen.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = eigen.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/eigen.hpp; sourceTree = SOURCE_ROOT; };
 		A3341C3FB67B9B0DB4C1A3AD /* avassert.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = avassert.h; path = ../../../addons/ofxMovieExporter/libs/libav/include/libavutil/avassert.h; sourceTree = SOURCE_ROOT; };
 		A407544BF818F6B06F794B6A /* ofxMovieExporter.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMovieExporter.h; path = ../../../addons/ofxMovieExporter/src/ofxMovieExporter.h; sourceTree = SOURCE_ROOT; };
+		A50737A61B673DFA008FA744 /* FFTApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFTApp.h; sourceTree = "<group>"; };
+		A50737A71B673E0F008FA744 /* FFTApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFTApp.cpp; sourceTree = "<group>"; };
+		A50737AC1B674028008FA744 /* fft.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fft.cpp; sourceTree = "<group>"; };
+		A50737AD1B674028008FA744 /* fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fft.h; sourceTree = "<group>"; };
 		A50D78022165A0491D5BACDE /* ofxBox2dJoint.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxBox2dJoint.cpp; path = ../../../addons/ofxBox2d/src/ofxBox2dJoint.cpp; sourceTree = SOURCE_ROOT; };
 		A53D126FAA18A596595C0C6F /* b2Math.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = b2Math.h; path = ../../../addons/ofxBox2d/libs/Box2D/Common/b2Math.h; sourceTree = SOURCE_ROOT; };
 		A5663FFE9C8ACE440C6C4946 /* FTPoint.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = FTPoint.h; path = ../../../addons/ofxFTGL/libs/FTGL/include/FTGL/FTPoint.h; sourceTree = SOURCE_ROOT; };
@@ -1941,6 +1947,8 @@
 				65E8204E1B5D4353007FC2AA /* LeverApp.h */,
 				A58CC4061B5ED98D00125458 /* BOSApp.cpp */,
 				A58CC4071B5ED98D00125458 /* BOSApp.h */,
+				A50737A71B673E0F008FA744 /* FFTApp.cpp */,
+				A50737A61B673DFA008FA744 /* FFTApp.h */,
 			);
 			name = Applications;
 			sourceTree = "<group>";
@@ -1959,6 +1967,8 @@
 		65DA217E1B543D7F00D31BD4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A50737AC1B674028008FA744 /* fft.cpp */,
+				A50737AD1B674028008FA744 /* fft.h */,
 				65D1BE5F1B5033530080F4DD /* utils.cpp */,
 				65D1BE5E1B50334A0080F4DD /* utils.h */,
 			);
@@ -3670,6 +3680,7 @@
 				F9023D40FDA7B887775C4191 /* btContactProcessing.cpp in Sources */,
 				65D1BE601B5033530080F4DD /* utils.cpp in Sources */,
 				1799B0108983ED7D929BCD9F /* btGenericPoolAllocator.cpp in Sources */,
+				A50737A81B673E0F008FA744 /* FFTApp.cpp in Sources */,
 				79B7AE02D2EF890BC3B5478A /* btGImpactBvh.cpp in Sources */,
 				AF5EB34078AD8B484DD655CF /* btGImpactCollisionAlgorithm.cpp in Sources */,
 				5230ED9DCFB49C65A297C092 /* btGImpactQuantizedBvh.cpp in Sources */,
@@ -3757,6 +3768,7 @@
 				7252706DA14C1BE63950ADDA /* ofxUIFPS.cpp in Sources */,
 				22030CBDCC25D815E7ED6757 /* ofxUIFPSSlider.cpp in Sources */,
 				3D4EA8E172D3E4A30FEFA969 /* ofxUIImage.cpp in Sources */,
+				A50737AE1B674028008FA744 /* fft.cpp in Sources */,
 				7F2CD93F681F3C1547B3BF2C /* ofxUIImageButton.cpp in Sources */,
 				FBD0CD0AFE3849C14E829CAF /* ofxUIImageSampler.cpp in Sources */,
 				26874B150C8535AEA0F24C8C /* ofxUIImageSlider.cpp in Sources */,

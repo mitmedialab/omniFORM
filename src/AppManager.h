@@ -21,7 +21,7 @@
 #include "TunableWaveApp.h"
 #include "LeverApp.h"
 #include "BOSApp.h"
-
+#include "FFTApp.h"
 
 class AppManager : public ofBaseApp {
     
@@ -64,6 +64,8 @@ private:
     TunableWaveApp *tunableWaveApp;
     LeverApp *leverApp;
     BOSApp *bosApp;
+    FFTApp *fftApp;
+
 
     bool showGlobalGuiInstructions = false;
     bool showDebugGui = false;
