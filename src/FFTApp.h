@@ -34,7 +34,6 @@ public:
    
 private:
     
-    void updateHeights();
     void drawFFT();
     void updateWaveParametersWithKinect();
     void generateWave();

@@ -23,7 +23,7 @@ FFTApp::FFTApp(KinectManager *manager) : Application(manager) {
     soundStream.setDeviceID(0);
 
     soundStream.setup(this, 2, 0, 44100, BUFFER_SIZE, 4);
-    
+
     
     left = new float[BUFFER_SIZE];
     right = new float[BUFFER_SIZE];
@@ -55,36 +55,7 @@ FFTApp::FFTApp(KinectManager *manager) : Application(manager) {
 void FFTApp::update(float dt) {
     normalizedPhase += dt * frequency;
     updateScaleParametersWithKinect();
-    updateHeights();
-    
 };
-
-
-
-
-
-
-
-void FFTApp::updateHeights() {
-    
-    
-//    heightsDrawingBuffer.begin();
-//    ofBackground(0);
-//    
-//    
-//    // draw doughnut
-//    ofFill();
-//    ofSetColor(255);
-//    ofCircle(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2, scaler);
-//    ofSetColor(0);
-//    ofCircle(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2, scaler / 2);
-//    
-//    heightsDrawingBuffer.end();
-//    heightsDrawingBuffer.readToPixels(heightsForShapeDisplay);
-
-   
-
-}
 
 
 
@@ -111,18 +82,22 @@ void FFTApp::drawFFT(){
     
     /* draw the FFT */
     cout << "\n FFT: ";
+    
     for (int i = 1; i < 25; i++){
+        
         ofLine(200+(i*8),400,200+(i*8),400-magnitude[i]*10.0f);
 //        ofLine(i * 8,300,i * 8,300 - magnitude[i] * 10.0f);
         cout << (int)(magnitude[i]*10.0f) << " | ";
+        
     }
     
+    
+    
     /* draw the FFT Shape Display */
-    int i = 1;
-
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             
+            int i = 1;
             if(x == 47){
                 if (i < 25){
                 int xy = heightsForShapeDisplay.getPixelIndex(x, y);
@@ -133,9 +108,10 @@ void FFTApp::drawFFT(){
             
         }
     }
+    
 }
 
-//(int)(magnitude[i]*10.0f)
+//Outout of FFT =  (int)(magnitude[i]*10.0f)  = about 0 - 400
 
 
 
