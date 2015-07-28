@@ -14,9 +14,9 @@
 #define BUFFER_SIZE 64
 #define NUM_WINDOWS 128
 
-
 class FFTApp : public Application {
 public:
+    
     FFTApp(KinectManager *manager);
 
     void update(float dt);
@@ -25,11 +25,15 @@ public:
     void keyPressed(int key);
 
     string getName() {return "FFT BOS Visualizer";};
+
+    
     void audioReceived 	(float * input, int bufferSize, int nChannels);
     
     ofSoundStream soundStream;
-
+    
+   
 private:
+    
     void updateHeights();
     void drawFFT();
     void updateWaveParametersWithKinect();

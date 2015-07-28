@@ -18,10 +18,12 @@ FFTApp::FFTApp(KinectManager *manager) : Application(manager) {
     // 44100 samples per second
     // BUFFER_SIZE samples per buffer
     // 4 num buffers (latency)
+
     
     soundStream.setDeviceID(0);
+
+    soundStream.setup(this, 2, 0, 44100, BUFFER_SIZE, 4);
     
-    soundStream.setup(0, 2, 44100, BUFFER_SIZE, 4);
     
     left = new float[BUFFER_SIZE];
     right = new float[BUFFER_SIZE];
@@ -35,33 +37,52 @@ FFTApp::FFTApp(KinectManager *manager) : Application(manager) {
     }
     
     
+    left = new float[BUFFER_SIZE];
+    right = new float[BUFFER_SIZE];
+    
+    for (int i = 0; i < NUM_WINDOWS; i++)
+    {
+        for (int j = 0; j < BUFFER_SIZE/2; j++)
+        {
+            freq[i][j] = 0;
+        }
+    }
+    
 };
+
+
 
 void FFTApp::update(float dt) {
     normalizedPhase += dt * frequency;
     updateScaleParametersWithKinect();
     updateHeights();
     
-    drawFFT();
 };
+
+
+
+
 
 
 
 void FFTApp::updateHeights() {
     
-    heightsDrawingBuffer.begin();
-    ofBackground(0);
     
-    
-    // draw doughnut
-    ofFill();
-    ofSetColor(255);
-    ofCircle(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2, scaler);
-    ofSetColor(0);
-    ofCircle(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2, scaler / 2);
-    
-    heightsDrawingBuffer.end();
-    heightsDrawingBuffer.readToPixels(heightsForShapeDisplay);
+//    heightsDrawingBuffer.begin();
+//    ofBackground(0);
+//    
+//    
+//    // draw doughnut
+//    ofFill();
+//    ofSetColor(255);
+//    ofCircle(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2, scaler);
+//    ofSetColor(0);
+//    ofCircle(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2, scaler / 2);
+//    
+//    heightsDrawingBuffer.end();
+//    heightsDrawingBuffer.readToPixels(heightsForShapeDisplay);
+
+   
 
 }
 
@@ -89,10 +110,32 @@ void FFTApp::drawFFT(){
     }
     
     /* draw the FFT */
-    for (int i = 1; i < 24; i++){
+    cout << "\n FFT: ";
+    for (int i = 1; i < 25; i++){
         ofLine(200+(i*8),400,200+(i*8),400-magnitude[i]*10.0f);
+//        ofLine(i * 8,300,i * 8,300 - magnitude[i] * 10.0f);
+        cout << (int)(magnitude[i]*10.0f) << " | ";
+    }
+    
+    /* draw the FFT Shape Display */
+    int i = 1;
+
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            
+            if(x == 47){
+                if (i < 25){
+                int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+                heightsForShapeDisplay[xy] = (int)(magnitude[i]*10.0f);
+                i++;
+                }
+            }
+            
+        }
     }
 }
+
+//(int)(magnitude[i]*10.0f)
 
 
 
@@ -230,9 +273,15 @@ void FFTApp::updateWaveParametersWithKinect() {
 };
 
 void FFTApp::drawGraphicsForShapeDisplay() {
-    color.setHsb(fmod(normalizedPhase * 180, 180), 255, 255);
-    ofSetColor(color);
-    ofImage(heightsForShapeDisplay).draw(0, 0, 300, 300);
+    
+    drawFFT();
+
+    
+//    color.setHsb(fmod(normalizedPhase * 180, 180), 255, 255);
+//    ofSetColor(color);
+//    ofImage(heightsForShapeDisplay).draw(0, 0, 300, 300);
+//    
+
 };
 
 string FFTApp::appInstructionsText() {
