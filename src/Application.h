@@ -27,6 +27,7 @@ public:
     virtual void update(float dt) {};
     virtual void drawGraphicsForShapeDisplay() {};
     virtual string appInstructionsText() {return "";};
+    virtual void drawDebugGui(int x, int y) {};
     virtual void keyPressed(int key) {};
 
     virtual string getName() {return "Application";};

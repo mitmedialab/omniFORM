@@ -65,4 +65,6 @@ private:
     LeverApp *leverApp;
     BOSApp *bosApp;
 
+    bool showGlobalGuiInstructions = false;
+    bool showDebugGui = false;
 };

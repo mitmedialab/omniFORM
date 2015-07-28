@@ -172,23 +172,39 @@ void AppManager::draw(){
     
     ofRect(913, 1, 302, 302);
     kinectManager->drawColorImage(914, 2, 300, 300);
-    
-    ofRect(609, 305, 302, 302);
-    kinectManager->drawDepthImage(610, 306, 300, 300);
-    
-    ofRect(913, 305, 302, 302);
-    kinectManager->drawDepthThreshedImage(914, 306, 300, 300);
 
     // draw text
     int menuLeftCoordinate = 21;
     int menuHeight = 350;
-    ofDrawBitmapString(currentApplication->getName(), menuLeftCoordinate, menuHeight);
+    string title = currentApplication->getName() + (showDebugGui ? " - Debug" : "");
+    ofDrawBitmapString(title, menuLeftCoordinate, menuHeight);
     menuHeight += 30;
-    ofDrawBitmapString(currentApplication->appInstructionsText(), menuLeftCoordinate, menuHeight);
-    menuHeight += 20;
+    ofDrawBitmapString((string) "  '?' : " + (showGlobalGuiInstructions ? "hide" : "show") + " gui instructions", menuLeftCoordinate, menuHeight);
+    if (showGlobalGuiInstructions) {
+        menuHeight += 20;
+        ofDrawBitmapString((string) "  '.' : turn debug gui " + (showDebugGui ? "off" : "on"), menuLeftCoordinate, menuHeight);
+        menuHeight += 20;
+        ofDrawBitmapString((string) "  ' ' : " + (paused ? "play" : "pause"), menuLeftCoordinate, menuHeight);
+        menuHeight += 20;
+        ofDrawBitmapString((string) "  'm' : " + (kinectManager->useMask ? "disable" : "enable") + " kinect depth mask", menuLeftCoordinate, menuHeight);
+    }
+    menuHeight += 30;
+
+    if (showDebugGui) {
+        currentApplication->drawDebugGui(1, 305);
+    } else {
+        ofRect(609, 305, 302, 302);
+        kinectManager->drawDepthImage(610, 306, 300, 300);
+        
+        ofRect(913, 305, 302, 302);
+        kinectManager->drawDepthThreshedImage(914, 306, 300, 300);
+
+        ofDrawBitmapString(currentApplication->appInstructionsText(), menuLeftCoordinate, menuHeight);
+        menuHeight += 20;
+    }
 
     // draw graphics onto projector
-    bool shouldDrawProjectorGraphics = false;
+    bool shouldDrawProjectorGraphics = SHAPE_DISPLAY_IN_USE == INFORM_DISPLAY;
     if (shouldDrawProjectorGraphics) {
         graphicsForShapeDisplay.draw(projectorOffsetX, SHAPE_DISPLAY_PROJECTOR_OFFSET_Y, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_X, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_Y);
     };
@@ -206,15 +222,19 @@ void AppManager::exit() {
 // application.
 void AppManager::keyPressed(int key) {
     // keys used by app manager must be registered as reserved keys
-    const int reservedKeysLength = 11;
+    const int reservedKeysLength = 14;
     const int reservedKeys[reservedKeysLength] = {
-        ' ', 'm', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+        '/', '?', '.', ' ', 'm', '1', '2', '3', '4', '5', '6', '7', '8', '9'
     };
     const int *reservedKeysEnd = reservedKeys + reservedKeysLength;
 
     // key press events handled by the application manager
     if (find(reservedKeys, reservedKeysEnd, key) != reservedKeysEnd) {
-        if (key == ' ') {
+        if (key == '/' || key == '?') {
+            showGlobalGuiInstructions = !showGlobalGuiInstructions;
+        } else if (key == '.') {
+            showDebugGui = !showDebugGui;
+        } else if (key == ' ') {
             paused = !paused;
         } else if (key == 'm') {
             kinectManager->useMask = !kinectManager->useMask;
