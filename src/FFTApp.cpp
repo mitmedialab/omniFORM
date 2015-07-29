@@ -19,23 +19,10 @@ FFTApp::FFTApp(KinectManager *manager) : Application(manager) {
     // BUFFER_SIZE samples per buffer
     // 4 num buffers (latency)
 
-    
+
+    soundStream.listDevices();
     soundStream.setDeviceID(0);
-
-    soundStream.setup(this, 2, 0, 44100, BUFFER_SIZE, 4);
-
-    
-    left = new float[BUFFER_SIZE];
-    right = new float[BUFFER_SIZE];
-    
-    for (int i = 0; i < NUM_WINDOWS; i++)
-    {
-        for (int j = 0; j < BUFFER_SIZE/2; j++)
-        {
-            freq[i][j] = 0;
-        }
-    }
-    
+    soundStream.setup(baseApp, 0, 2, 44100, BUFFER_SIZE, 4);
     
     left = new float[BUFFER_SIZE];
     right = new float[BUFFER_SIZE];
@@ -73,46 +60,95 @@ void FFTApp::drawFFT(){
     
     /* do the FFT	*/
     myfft.powerSpectrum(0,(int)BUFFER_SIZE/2, left,BUFFER_SIZE,&magnitude[0],&phase[0],&power[0],&avg_power);
-    
+ 
+    cout << "\n FFT: ";
+
     /* start from 1 because mag[0] = DC component */
     /* and discard the upper half of the buffer */
+//    for(int j=1; j < BUFFER_SIZE/2; j++) {
+//        freq[index][j] = magnitude[j];
+//      cout << (int)(magnitude[j]*10.0f) << " | ";
+//
+//    }
+    
+    /* DEBUG - Random Numbers */
     for(int j=1; j < BUFFER_SIZE/2; j++) {
+        magnitude[j] = ofRandom(0,(250/10.0f));
         freq[index][j] = magnitude[j];
+        cout << (int)(magnitude[j]*10.0f) << " | ";
+        
     }
+    
+   
+    //  Draw and shift FFT along pins
+    //  For all of the columns in the current row,
+    for (int col = 0; col < SHAPE_DISPLAY_SIZE_Y; col++){
+        // save the current FFT into the row of the spectrogram memory.
+        spectrogramMemory[currentRow][col] = (int)(magnitude[col]*10.0f);
+    }
+    // For each of the x-values (rows of the inForm),
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++){
+        // map the rows of the spectrogram memory to the rows to the inForm so that they shift down in x over time.
+        int rowToRetrieve = (x + 1 + currentRow) % SHAPE_DISPLAY_SIZE_X;
+        // For each of the y-values (columns of the inForm),
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++){
+            // get the index for mapping the heights to the pixels
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            // and read the values from the spectrogram memory to the inForm pixels.
+            heightsForShapeDisplay[xy] = spectrogramMemory[rowToRetrieve][y];
+        }
+    }
+    // Once all the values have been mapped to the inForm, increment the current row of the spectrogram memory.
+    currentRow = (currentRow+1) % SHAPE_DISPLAY_SIZE_X;
+    
+    
+    
+    /* draw the FFT Shape Display - Luke */
+//    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+//        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+//            
+//            int i = 1;
+//            if(x == 47){
+//                if (i < 25){
+//                int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+//                heightsForShapeDisplay[xy] = (int)(((magnitude[i]*10.0f) / 5));
+//                i++;
+//                    
+//                }
+//            }
+//            
+//        }
+//    }
+    
+}
+
+//Outout of FFT =  (int)(magnitude[i]*10.0f)  = about 0 - 1000
+
+
+
+void FFTApp::drawDebugGui(int x, int y) {
+    
+    ofSetColor(100,100,100);
+    ofRect(0, 303, 1280, 600);
     
     /* draw the FFT */
     cout << "\n FFT: ";
     
+    ofSetColor(255,255,255);
+
     for (int i = 1; i < 25; i++){
         
-        ofLine(200+(i*8),400,200+(i*8),400-magnitude[i]*10.0f);
-//        ofLine(i * 8,300,i * 8,300 - magnitude[i] * 10.0f);
+     //   ofLine(15+(i*40),720,15+(i*40),720-300);
+       ofLine(15+(i*40),720,15+(i*40),720-(magnitude[i]*10.0f));
         cout << (int)(magnitude[i]*10.0f) << " | ";
         
     }
     
-    
-    
-    /* draw the FFT Shape Display */
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
-        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-            
-            int i = 1;
-            if(x == 47){
-                if (i < 25){
-                int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-                heightsForShapeDisplay[xy] = (int)(magnitude[i]*10.0f);
-                i++;
-                }
-            }
-            
-        }
-    }
+
+    string title = ("FFT BOS Visualizer - Debug");
+    ofDrawBitmapString(title, 30, 350);
     
 }
-
-//Outout of FFT =  (int)(magnitude[i]*10.0f)  = about 0 - 400
-
 
 
 
@@ -185,9 +221,6 @@ void FFTApp::updateScaleParametersWithKinect() {
 
 void FFTApp::convertTouchToWave() {
     
-    
-    
-    
 
 }
 
@@ -195,9 +228,6 @@ void FFTApp::generateWave() {
 
     
 }
-
-
-
 
 
 
@@ -283,3 +313,17 @@ void FFTApp::keyPressed(int key) {
         bosEnabled = !bosEnabled;
     }
 };
+
+void FFTApp::setBaseApp(ofBaseApp *_baseApp){
+    
+    //Assign private baseApp to Application baseApp
+    baseApp = _baseApp;
+    
+}
+
+void FFTApp::exit(){
+    soundStream.close();
+}
+
+
+

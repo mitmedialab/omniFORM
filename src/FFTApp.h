@@ -15,24 +15,30 @@
 #define NUM_WINDOWS 128
 
 class FFTApp : public Application {
+
 public:
     
     FFTApp(KinectManager *manager);
 
     void update(float dt);
     void drawGraphicsForShapeDisplay();
-    string appInstructionsText();
     void keyPressed(int key);
 
     string getName() {return "FFT BOS Visualizer";};
+    string appInstructionsText();
 
-    
-    void audioReceived 	(float * input, int bufferSize, int nChannels);
-    
+    void drawDebugGui(int x, int y);
+    void setBaseApp(ofBaseApp *_baseApp);
+    void exit();
+
+    void audioReceived 	(float *input, int bufferSize, int nChannels);
+   
     ofSoundStream soundStream;
-    
+
    
 private:
+    
+    ofBaseApp *baseApp;
     
     void drawFFT();
     void updateWaveParametersWithKinect();
@@ -49,9 +55,9 @@ private:
     ofColor color;
     
     //FFT Parameters
-    float * left;
-    float * right;
-    int 	bufferCounter;
+    float  *left;
+    float  *right;
+    int     bufferCounter;
     fft		myfft;
     
     float magnitude[BUFFER_SIZE];
@@ -60,4 +66,9 @@ private:
     
     float freq[NUM_WINDOWS][BUFFER_SIZE/2];
     float freq_phase[NUM_WINDOWS][BUFFER_SIZE/2];
+    
+    //Shape Display FFT Shift Parameters
+    int spectrogramMemory[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y] = {0};
+    int currentRow = 0;
+    
 };
