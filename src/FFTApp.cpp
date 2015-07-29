@@ -63,21 +63,23 @@ void FFTApp::drawFFT(){
  
     cout << "\n FFT: ";
 
+    
+    /* ACTUAL - FFT produces 0 magnitude */
     /* start from 1 because mag[0] = DC component */
     /* and discard the upper half of the buffer */
-//    for(int j=1; j < BUFFER_SIZE/2; j++) {
-//        freq[index][j] = magnitude[j];
-//      cout << (int)(magnitude[j]*10.0f) << " | ";
-//
-//    }
-    
-    /* DEBUG - Random Numbers */
     for(int j=1; j < BUFFER_SIZE/2; j++) {
-        magnitude[j] = ofRandom(0,(250/10.0f));
         freq[index][j] = magnitude[j];
-        cout << (int)(magnitude[j]*10.0f) << " | ";
-        
+      cout << (int)(magnitude[j]*10.0f) << " | ";
+
     }
+    
+    /* DEBUG - Use Random Numbers instead of FFT */
+//    for(int j=1; j < BUFFER_SIZE/2; j++) {
+//        magnitude[j] = ofRandom(0,(250/10.0f));
+//        freq[index][j] = magnitude[j];
+//        cout << (int)(magnitude[j]*10.0f) << " | ";
+//        
+//    }
     
    
     //  Draw and shift FFT along pins
