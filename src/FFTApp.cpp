@@ -19,10 +19,10 @@ FFTApp::FFTApp(KinectManager *manager) : Application(manager) {
     // BUFFER_SIZE samples per buffer
     // 4 num buffers (latency)
 
-
+    
     soundStream.listDevices();
     soundStream.setDeviceID(0);
-    soundStream.setup(baseApp, 0, 2, 44100, BUFFER_SIZE, 4);
+    soundStream.setup(FFTApp::baseApp, 0, 2, 44100, BUFFER_SIZE, 4);
     
     left = new float[BUFFER_SIZE];
     right = new float[BUFFER_SIZE];
@@ -44,23 +44,23 @@ void FFTApp::update(float dt) {
     updateScaleParametersWithKinect();
 };
 
-
-
 void FFTApp::drawFFT(){
-    
-    ofSetColor(255,255,255);
+    ofSetColor(255);
 
-    static int index=0;
+    static int index = 0;
     float avg_power = 0.0f;
     
-    if(index < 80)
+    if (index < 80) {
         index += 1;
-    else
+    } else {
         index = 0;
+    }
     
     /* do the FFT	*/
     myfft.powerSpectrum(0,(int)BUFFER_SIZE/2, left,BUFFER_SIZE,&magnitude[0],&phase[0],&power[0],&avg_power);
  
+    
+    
     cout << "\n FFT: ";
 
     
@@ -74,8 +74,12 @@ void FFTApp::drawFFT(){
     }
     
     /* DEBUG - Use Random Numbers instead of FFT */
-//    for(int j=1; j < BUFFER_SIZE/2; j++) {
-//        magnitude[j] = ofRandom(0,(250/10.0f));
+//    for(int j=0; j < BUFFER_SIZE/2; j++) {
+//        if (bosEnabled){
+//            magnitude[j] = ofRandom(0,(250/10.0f));
+//        } else {
+//            magnitude[j] = 50;
+//        }
 //        freq[index][j] = magnitude[j];
 //        cout << (int)(magnitude[j]*10.0f) << " | ";
 //        
@@ -86,7 +90,7 @@ void FFTApp::drawFFT(){
     //  For all of the columns in the current row,
     for (int col = 0; col < SHAPE_DISPLAY_SIZE_Y; col++){
         // save the current FFT into the row of the spectrogram memory.
-        spectrogramMemory[currentRow][col] = (int)(magnitude[col]*10.0f);
+        spectrogramMemory[currentRow][col] = (int)(magnitude[col]*10.0f*2);
     }
     // For each of the x-values (rows of the inForm),
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++){
@@ -105,7 +109,7 @@ void FFTApp::drawFFT(){
     
     
     
-    /* draw the FFT Shape Display - Luke */
+    // draw the FFT Shape Display - Luke
 //    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
 //        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
 //            
@@ -128,6 +132,8 @@ void FFTApp::drawFFT(){
 
 
 
+ofBaseApp *FFTApp::baseApp = NULL;
+
 void FFTApp::drawDebugGui(int x, int y) {
     
     ofSetColor(100,100,100);
@@ -139,10 +145,11 @@ void FFTApp::drawDebugGui(int x, int y) {
     ofSetColor(255,255,255);
 
     for (int i = 1; i < 25; i++){
+        cout << (unsigned int)(magnitude[i]*10.0f) << " | ";
         
      //   ofLine(15+(i*40),720,15+(i*40),720-300);
        ofLine(15+(i*40),720,15+(i*40),720-(magnitude[i]*10.0f));
-        cout << (int)(magnitude[i]*10.0f) << " | ";
+        cout << (unsigned int)(magnitude[i]*10.0f) << " | ";
         
     }
     

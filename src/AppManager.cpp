@@ -79,9 +79,10 @@ void AppManager::setup(){
     applications["lever"] = leverApp;
     bosApp = new BOSApp(kinectManager);
     applications["BOS"] = bosApp;
+    FFTApp::setBaseApp(this);
     fftApp = new FFTApp(kinectManager);
     applications["FFT"] = fftApp;
-
+    
     // if heights can be read back from the shape display, give applications
     // read access to them
     if (shapeIOManager->heightsFromShapeDisplayAvailable) {

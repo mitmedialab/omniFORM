@@ -28,19 +28,22 @@ public:
     string appInstructionsText();
 
     void drawDebugGui(int x, int y);
-    void setBaseApp(ofBaseApp *_baseApp);
+    static void setBaseApp(ofBaseApp *_baseApp);
     void exit();
 
     void audioReceived 	(float *input, int bufferSize, int nChannels);
    
     ofSoundStream soundStream;
+    static ofBaseApp *baseApp;
+    float  *left;
+    float  *right;
+    int     bufferCounter;
 
    
 private:
     
-    ofBaseApp *baseApp;
-    
     void drawFFT();
+    void _drawFFT();
     void updateWaveParametersWithKinect();
     void generateWave();
     void convertTouchToWave();
@@ -55,9 +58,6 @@ private:
     ofColor color;
     
     //FFT Parameters
-    float  *left;
-    float  *right;
-    int     bufferCounter;
     fft		myfft;
     
     float magnitude[BUFFER_SIZE];
