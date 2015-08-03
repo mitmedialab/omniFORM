@@ -62,6 +62,8 @@ private:
     int waveDist = 5;
     int waveCenterX = SHAPE_DISPLAY_SIZE_X/2;
     int waveCenterY = SHAPE_DISPLAY_SIZE_Y/2;
+    int kinectCenterX = KINECT_X/2;
+    int kinectCenterY = KINECT_Y/2;
     float currentWaveDist = 0;
 
     ofColor color;

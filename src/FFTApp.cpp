@@ -52,7 +52,7 @@ void FFTApp::update(float dt) {
     
     if (bosEnabled) {
         //pause shifting
-        //    updateScaleParametersWithKinect();
+        updateScaleParametersWithKinect();
         if(!waveComplete){generateWave();}
     } else {
         waveComplete = false;
@@ -175,37 +175,45 @@ void FFTApp::updateScaleParametersWithKinect() {
     ofPixels depthPixels;
     kinectManager->getDepthPixels(depthPixels);
     int tableMaskLine = KINECT_Y - 200;
-    int closestY = -1;
-    int closestX = KINECT_X / 2;
     
-    // Get cloest Y
-    for (int y = tableMaskLine; y >= 0; y--) {
+    //Get Average point of human (TODO: Make this multiuser)
+    
+    int xSum = 0;
+    int ySum = 0;
+    int count = 0;
+    
+    for (int y = 0; y <= tableMaskLine; y++) {
         for (int x = 0; x < KINECT_X; x++) {
             if (depthPixels[x + (y * KINECT_X)] > 0) {
-                closestY = y;
-                closestX = x;
-                break;
+                xSum += x;
+                ySum += y;
+                count ++;
             }
-        }
-        if (closestY > -1) {
-            break;
+
         }
     }
     
-    // Detect Z to toggle BOS
     
-//    for (int y = 0; y < KINECT_Y; y++) {
-//        for (int x = 0; x < KINECT_X; x++) {
-//            if (depthPixels[x + (y * KINECT_X)] < 200) {
-//                if (bosEnabled) {
-//                    bosEnabled=false;
-//                } else {
-//                    // delay somehow for 1 second
-//                    bosEnabled=true;
-//                }
-//            }
-//        }
-//    }
+    if (count > 0){
+        kinectCenterX = (int)(xSum/count);
+        kinectCenterY = (int)(ySum/count);
+        cout << "\n Center of Mass : X[";
+        cout << waveCenterX << "] : [" << waveCenterY << "]";
+        
+        
+        if (kinectCenterY > -1) {
+            float normalized = 1.0 * (tableMaskLine - kinectCenterY) / tableMaskLine;
+            currentWaveDist = 5 * normalized;
+        } else {
+            currentWaveDist = 15;
+        }
+        
+    } else {
+        cout << "\n NO HUMAN VISIBLE";
+        kinectCenterX = KINECT_X/2;
+        kinectCenterY = KINECT_Y/2;
+    }
+
     
     
     //Get if BOS is enabled, scale object
@@ -246,9 +254,6 @@ void FFTApp::setAvgCenter(){
     if (count > 0){
         waveCenterX = (int)(xSum/count);
         waveCenterY = (int)(ySum/count);
-        cout << "\n Center of Mass = ";
-        cout << waveCenterX << ":" << waveCenterY;
-
     } else {
         waveCenterX = SHAPE_DISPLAY_SIZE_X/2;
         waveCenterY = SHAPE_DISPLAY_SIZE_Y/2;
@@ -258,7 +263,9 @@ void FFTApp::setAvgCenter(){
 
 void FFTApp::generateWave() {
     
-    currentWaveDist++;
+    if (currentWaveDist < 15){
+        currentWaveDist++;
+    }
 //    cout << "\n Current Distance:";
 //    cout << currentWaveDist;
     
@@ -276,7 +283,7 @@ void FFTApp::generateWave() {
         }
     }
     
-    if (currentWaveDist > 200){
+    if (currentWaveDist > 100){
         waveComplete = true;
     }
     
