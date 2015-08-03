@@ -18,6 +18,7 @@
 #include "CooperformIOManager.h"
 #include "KinectManager.h"
 #include "Application.h"
+#include "SimpleWaveApp.h"
 #include "TunableWaveApp.h"
 #include "LeverApp.h"
 #include "BOSApp.h"
@@ -61,6 +62,7 @@ private:
 
     map<string, Application *> applications;
     Application *currentApplication;
+    SimpleWaveApp *simpleWaveApp;
     TunableWaveApp *tunableWaveApp;
     LeverApp *leverApp;
     BOSApp *bosApp;

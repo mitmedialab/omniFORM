@@ -73,6 +73,8 @@ void AppManager::setup(){
     timeOfLastUpdate = elapsedTimeInSeconds();
 
     // set up applications
+    simpleWaveApp = new SimpleWaveApp(kinectManager);
+    applications["simpleWave"] = simpleWaveApp;
     tunableWaveApp = new TunableWaveApp(kinectManager);
     applications["tunableWave"] = tunableWaveApp;
     leverApp = new LeverApp(kinectManager);

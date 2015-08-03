@@ -136,6 +136,7 @@
 		6572FCBE1B3DD616001BBF38 /* InformIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCBD1B3DD616001BBF38 /* InformIOManager.cpp */; };
 		6572FCC11B3DD632001BBF38 /* TransformIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCC01B3DD632001BBF38 /* TransformIOManager.cpp */; };
 		6572FCC41B3DD671001BBF38 /* CooperformIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCC31B3DD671001BBF38 /* CooperformIOManager.cpp */; };
+		658894FA1B70050900715CDA /* SimpleWaveApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658894F91B70050900715CDA /* SimpleWaveApp.cpp */; };
 		65D1BE601B5033530080F4DD /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D1BE5F1B5033530080F4DD /* utils.cpp */; };
 		65D85FDB1B46E1C200212690 /* SerialShapeIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D85FDA1B46E1C200212690 /* SerialShapeIO.cpp */; };
 		65DA78921B438B5A008F98F4 /* SerialShapeIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65DA78911B438B5A008F98F4 /* SerialShapeIOManager.cpp */; };
@@ -735,6 +736,8 @@
 		6572FCC21B3DD651001BBF38 /* TransformIOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformIOManager.h; sourceTree = "<group>"; };
 		6572FCC31B3DD671001BBF38 /* CooperformIOManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CooperformIOManager.cpp; sourceTree = "<group>"; };
 		6572FCC51B3DD67D001BBF38 /* CooperformIOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CooperformIOManager.h; sourceTree = "<group>"; };
+		658894F91B70050900715CDA /* SimpleWaveApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleWaveApp.cpp; sourceTree = "<group>"; };
+		658894FB1B70051300715CDA /* SimpleWaveApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleWaveApp.h; sourceTree = "<group>"; };
 		65BAC5A3B9C9387859A2B0E0 /* pushpack1.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = pushpack1.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/Compiler/pushpack1.h; sourceTree = SOURCE_ROOT; };
 		65D1BE531B4C6B8D0080F4DD /* localConfigsTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localConfigsTemplate.h; sourceTree = "<group>"; };
 		65D1BE561B4C7AA30080F4DD /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
@@ -1935,6 +1938,8 @@
 			children = (
 				65EBD67D1B5040050011F279 /* Application.cpp */,
 				6572FCAF1B3CB102001BBF38 /* Application.h */,
+				658894F91B70050900715CDA /* SimpleWaveApp.cpp */,
+				658894FB1B70051300715CDA /* SimpleWaveApp.h */,
 				6572FCB01B3CB10F001BBF38 /* TunableWaveApp.cpp */,
 				6572FCB21B3CB119001BBF38 /* TunableWaveApp.h */,
 				65E8204C1B5D434A007FC2AA /* LeverApp.cpp */,
@@ -3635,6 +3640,7 @@
 				BA1E2B2E0EB2A7BEBE203D68 /* btBoxShape.cpp in Sources */,
 				B433D152CF40B02121485833 /* btBvhTriangleMeshShape.cpp in Sources */,
 				D6B843078290D593076C23B3 /* btCapsuleShape.cpp in Sources */,
+				658894FA1B70050900715CDA /* SimpleWaveApp.cpp in Sources */,
 				7A210D544AB5D19084072A6C /* btCollisionShape.cpp in Sources */,
 				10D99DBE4F29E8E0C55A75E6 /* btCompoundShape.cpp in Sources */,
 				082E46CADC53BAE200F55234 /* btConcaveShape.cpp in Sources */,
