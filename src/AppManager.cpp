@@ -173,6 +173,11 @@ void AppManager::draw(){
     ofRect(913, 1, 302, 302);
     kinectManager->drawColorImage(914, 2, 300, 300);
 
+    // draw this app's debugging gui, if selected
+    if (showDebugGui) {
+        currentApplication->drawDebugGui(1, 305);
+    }
+
     // draw text
     int menuLeftCoordinate = 21;
     int menuHeight = 350;
@@ -190,9 +195,8 @@ void AppManager::draw(){
     }
     menuHeight += 30;
 
-    if (showDebugGui) {
-        currentApplication->drawDebugGui(1, 305);
-    } else {
+    // if there isn't already a debug gui, draw some more information
+    if (!showDebugGui) {
         ofRect(609, 305, 302, 302);
         kinectManager->drawDepthImage(610, 306, 300, 300);
         
