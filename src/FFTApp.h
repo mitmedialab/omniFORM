@@ -44,10 +44,9 @@ private:
     
     void drawFFT();
     void _drawFFT();
-    void updateWaveParametersWithKinect();
     void generateWave();
-    void convertTouchToWave();
     void updateScaleParametersWithKinect();
+    void setAvgCenter();
 
     float normalizedPhase = 0;
     float frequency;
