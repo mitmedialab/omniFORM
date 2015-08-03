@@ -184,7 +184,7 @@ void AppManager::draw(){
     string title = currentApplication->getName() + (showDebugGui ? " - Debug" : "");
     ofDrawBitmapString(title, menuLeftCoordinate, menuHeight);
     menuHeight += 30;
-    ofDrawBitmapString((string) "  '?' : " + (showGlobalGuiInstructions ? "hide" : "show") + " gui instructions", menuLeftCoordinate, menuHeight);
+    ofDrawBitmapString((string) "  '?' : " + (showGlobalGuiInstructions ? "hide" : "show") + " instructions", menuLeftCoordinate, menuHeight);
     if (showGlobalGuiInstructions) {
         menuHeight += 20;
         ofDrawBitmapString((string) "  '.' : turn debug gui " + (showDebugGui ? "off" : "on"), menuLeftCoordinate, menuHeight);
