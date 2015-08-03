@@ -40,92 +40,86 @@ FFTApp::FFTApp(KinectManager *manager) : Application(manager) {
 
 
 void FFTApp::update(float dt) {
+    
+    //check for BOS
+    if(leftHandClosed || rightHandClosed){
+        bosEnabled = true;
+    } else {
+        bosEnabled = false;
+    }
+    
     normalizedPhase += dt * frequency;
-    updateScaleParametersWithKinect();
+//    updateScaleParametersWithKinect();
+    
+    if (bosEnabled) {
+        //pause shifting
+        if(!waveComplete){generateWave();}
+    } else {
+        waveComplete = false;
+        currentWaveDist = 2.0;
+        drawFFT();
+    }
+    
 };
 
+
+
 void FFTApp::drawFFT(){
+    
     ofSetColor(255);
 
-    static int index = 0;
-    float avg_power = 0.0f;
     
-    if (index < 80) {
-        index += 1;
-    } else {
-        index = 0;
-    }
-    
-    /* do the FFT	*/
-    myfft.powerSpectrum(0,(int)BUFFER_SIZE/2, left,BUFFER_SIZE,&magnitude[0],&phase[0],&power[0],&avg_power);
- 
-    
-    
-    cout << "\n FFT: ";
-
-    
-    /* ACTUAL - FFT produces 0 magnitude */
-    /* start from 1 because mag[0] = DC component */
-    /* and discard the upper half of the buffer */
-    for(int j=1; j < BUFFER_SIZE/2; j++) {
-        freq[index][j] = magnitude[j];
-      cout << (int)(magnitude[j]*10.0f) << " | ";
-
-    }
-    
-    /* DEBUG - Use Random Numbers instead of FFT */
-//    for(int j=0; j < BUFFER_SIZE/2; j++) {
-//        if (bosEnabled){
-//            magnitude[j] = ofRandom(0,(250/10.0f));
-//        } else {
-//            magnitude[j] = 50;
-//        }
-//        freq[index][j] = magnitude[j];
-//        cout << (int)(magnitude[j]*10.0f) << " | ";
-//        
-//    }
-    
-   
-    //  Draw and shift FFT along pins
-    //  For all of the columns in the current row,
-    for (int col = 0; col < SHAPE_DISPLAY_SIZE_Y; col++){
-        // save the current FFT into the row of the spectrogram memory.
-        spectrogramMemory[currentRow][col] = (int)(magnitude[col]*10.0f*2);
-    }
-    // For each of the x-values (rows of the inForm),
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++){
-        // map the rows of the spectrogram memory to the rows to the inForm so that they shift down in x over time.
-        int rowToRetrieve = (x + 1 + currentRow) % SHAPE_DISPLAY_SIZE_X;
-        // For each of the y-values (columns of the inForm),
-        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++){
-            // get the index for mapping the heights to the pixels
-            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-            // and read the values from the spectrogram memory to the inForm pixels.
-            heightsForShapeDisplay[xy] = spectrogramMemory[rowToRetrieve][y];
+    if (!bosEnabled){
+        
+        static int index = 0;
+        float avg_power = 0.0f;
+        
+        if (index < 80) {
+            index += 1;
+        } else {
+            index = 0;
         }
+        
+        /* do the FFT	*/
+        myfft.powerSpectrum(0,(int)BUFFER_SIZE/2, left,BUFFER_SIZE,&magnitude[0],&phase[0],&power[0],&avg_power);
+     
+        
+        
+        cout << "\n FFT: ";
+
+        
+        /* ACTUAL - FFT produces 0 magnitude */
+        /* start from 1 because mag[0] = DC component */
+        /* and discard the upper half of the buffer */
+        for(int j=1; j < BUFFER_SIZE/2; j++) {
+            freq[index][j] = magnitude[j];
+          cout << (int)(magnitude[j]*10.0f) << " | ";
+
+        }
+        
+       
+        //  Draw and shift FFT along pins
+        //  For all of the columns in the current row,
+        for (int col = 0; col < SHAPE_DISPLAY_SIZE_Y; col++){
+            // save the current FFT into the row of the spectrogram memory.
+            spectrogramMemory[currentRow][col] = (int)(magnitude[col]*10.0f*2);
+        }
+        // For each of the x-values (rows of the inForm),
+        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++){
+            // map the rows of the spectrogram memory to the rows to the inForm so that they shift down in x over time.
+            int rowToRetrieve = (x + 1 + currentRow) % SHAPE_DISPLAY_SIZE_X;
+            // For each of the y-values (columns of the inForm),
+            for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++){
+                // get the index for mapping the heights to the pixels
+                int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+                // and read the values from the spectrogram memory to the inForm pixels.
+                heightsForShapeDisplay[xy] = spectrogramMemory[rowToRetrieve][y];
+            }
+        }
+        // Once all the values have been mapped to the inForm, increment the current row of the spectrogram memory.
+        currentRow = (currentRow+1) % SHAPE_DISPLAY_SIZE_X;
+    
     }
-    // Once all the values have been mapped to the inForm, increment the current row of the spectrogram memory.
-    currentRow = (currentRow+1) % SHAPE_DISPLAY_SIZE_X;
-    
-    
-    
-    // draw the FFT Shape Display - Luke
-//    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
-//        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-//            
-//            int i = 1;
-//            if(x == 47){
-//                if (i < 25){
-//                int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-//                heightsForShapeDisplay[xy] = (int)(((magnitude[i]*10.0f) / 5));
-//                i++;
-//                    
-//                }
-//            }
-//            
-//        }
-//    }
-    
 }
 
 //Outout of FFT =  (int)(magnitude[i]*10.0f)  = about 0 - 1000
@@ -206,7 +200,7 @@ void FFTApp::updateScaleParametersWithKinect() {
                 } else {
                     // delay somehow for 1 second
                     bosEnabled=true;
-                    generateWave();
+//                    generateWave();
                 }
             }
         }
@@ -234,7 +228,26 @@ void FFTApp::convertTouchToWave() {
 }
 
 void FFTApp::generateWave() {
-
+    
+    currentWaveDist++;
+    cout << "\n Current Distance:";
+    cout << currentWaveDist;
+    
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++){
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++){
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            int d = ofDist(waveCenterX, waveCenterY, x, y);
+            if (d==currentWaveDist){
+                heightsForShapeDisplay[xy] = 255;
+            } else {
+                heightsForShapeDisplay[xy] = 0;
+            }
+        }
+    }
+    
+    if (currentWaveDist > 200){
+        waveComplete = true;
+    }
     
 }
 
@@ -289,7 +302,6 @@ void FFTApp::updateWaveParametersWithKinect() {
 
 void FFTApp::drawGraphicsForShapeDisplay() {
     
-    drawFFT();
 
     
 //    color.setHsb(fmod(normalizedPhase * 180, 180), 255, 255);
@@ -304,6 +316,8 @@ string FFTApp::appInstructionsText() {
         "Sound is captured and presented as an FFT degrading over time\n" +
         "Making a fist or hitting B pauses time and enables Body maniupulation\n" +
         "\n" +
+        "LEFT HAND: " + (leftHandClosed ? "closed" : "open") + "\n"
+        "RIGHT HAND: " + (rightHandClosed ? "closed" : "open") + "\n\n"
         "BOS: " + (bosEnabled ? "enabled" : "disabled") + "\n" +
         "";
     return instructions;
@@ -320,6 +334,10 @@ void FFTApp::keyPressed(int key) {
         numCrests += 0.5;
     } else if (key == 'b') {
         bosEnabled = !bosEnabled;
+    } else if (key == '['){
+        leftHandClosed = !leftHandClosed;
+    } else if (key == ']'){
+        rightHandClosed = !rightHandClosed;
     }
 };
 

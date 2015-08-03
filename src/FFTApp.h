@@ -52,8 +52,18 @@ private:
     float normalizedPhase = 0;
     float frequency;
     float numCrests;
+    
+    //BOS Parameters
     bool bosEnabled = true;
     float scaler = 100.0;
+    bool leftHandClosed = false;
+    bool rightHandClosed = false;
+    bool wavePresent = false;
+    bool waveComplete = false;
+    int waveDist = 5;
+    int waveCenterX = SHAPE_DISPLAY_SIZE_X/2;
+    int waveCenterY = SHAPE_DISPLAY_SIZE_Y/2;
+    float currentWaveDist = 0;
 
     ofColor color;
     

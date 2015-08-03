@@ -40,15 +40,7 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
-
-    void audioReceived 	(float *input, int bufferSize, int nChannels) {
-        // samples are "interleaved"
-        for (int i = 0; i < bufferSize; i++){
-            fftApp->left[i] = input[i*2];
-            fftApp->right[i] = input[i*2+1];
-        }
-        fftApp->bufferCounter++;
-    }
+    void audioReceived 	(float *input, int bufferSize, int nChannels);
 
 private:
     // interface to the shape display

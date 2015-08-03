@@ -217,6 +217,17 @@ void AppManager::draw(){
     };
 }
 
+
+void AppManager::audioReceived 	(float *input, int bufferSize, int nChannels) {
+    // samples are "interleaved"
+    for (int i = 0; i < bufferSize; i++){
+        fftApp->left[i] = input[i*2];
+        fftApp->right[i] = input[i*2+1];
+    }
+    fftApp->bufferCounter++;
+}
+
+
 void AppManager::exit() {
     // delete kinectManager to shut down the kinect
     delete kinectManager;
