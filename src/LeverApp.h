@@ -32,7 +32,7 @@ enum LeverThetaMode {FIXED, OSCILLATING, TOUCH_CONTROLLED};
 
 class LeverApp : public Application {
 public:
-    LeverApp(KinectManager *manager);
+    LeverApp(ObjectDetector *detector);
 
     void update(float dt);
     void drawGraphicsForShapeDisplay();

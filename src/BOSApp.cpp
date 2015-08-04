@@ -9,7 +9,7 @@
 #include "BOSApp.h"
 
 
-BOSApp::BOSApp(KinectManager *manager) : Application(manager) {
+BOSApp::BOSApp(ObjectDetector *detector) : Application(detector) {
 };
 
 void BOSApp::update(float dt) {
@@ -71,7 +71,7 @@ void BOSApp::updateScaleParametersWithKinect() {
     
     //detect higher Z depth : Toggle BOS
     ofPixels depthPixels;
-    kinectManager->getDepthPixels(depthPixels);
+    objectDetector->getDepthPixels(depthPixels);
     int tableMaskLine = KINECT_Y - 200;
     int closestY = -1;
     int closestX = KINECT_X / 2;
@@ -144,7 +144,7 @@ void BOSApp::generateWave() {
 void BOSApp::updateWaveParametersWithKinect() {
     // Get Pixels from kinect
     ofPixels depthPixels;
-    kinectManager->getDepthPixels(depthPixels);
+    objectDetector->getDepthPixels(depthPixels);
     int tableMaskLine = KINECT_Y - 200;
     int closestY = -1;
     int closestX = KINECT_X / 2;

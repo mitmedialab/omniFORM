@@ -25,17 +25,26 @@ void AppManager::setup(){
     // initialize kinect
     kinectManager = new KinectManager();
 
+    // allocate kinect images
+    colorPixels.allocate(kinectManager->getImageWidth(), kinectManager->getImageHeight(), OF_IMAGE_COLOR);
+    colorPixels.set(0);
+    depthPixels.allocate(kinectManager->getImageWidth(), kinectManager->getImageHeight(), OF_IMAGE_GRAYSCALE);
+    depthPixels.set(0);
+
+    // create object detector
+    objectDetector = new ObjectDetector();
+
     // zero timeOfLastUpdate tracker
     timeOfLastUpdate = elapsedTimeInSeconds();
 
     // set up applications
-    simpleWaveApp = new SimpleWaveApp(kinectManager);
+    simpleWaveApp = new SimpleWaveApp(objectDetector);
     applications["simpleWave"] = simpleWaveApp;
-    tunableWaveApp = new TunableWaveApp(kinectManager);
+    tunableWaveApp = new TunableWaveApp(objectDetector);
     applications["tunableWave"] = tunableWaveApp;
-    leverApp = new LeverApp(kinectManager);
+    leverApp = new LeverApp(objectDetector);
     applications["lever"] = leverApp;
-    bosApp = new BOSApp(kinectManager);
+    bosApp = new BOSApp(objectDetector);
     applications["BOS"] = bosApp;
 
     // if heights can be read back from the shape display, give applications
@@ -102,6 +111,12 @@ void AppManager::setupShapeDisplayManagement() {
 
 void AppManager::update(){
     kinectManager->update();
+
+    if (kinectManager->isFrameNew()) {
+        kinectManager->getColorPixels(colorPixels);
+        kinectManager->getDepthPixels(depthPixels);
+        objectDetector->update(colorPixels, depthPixels);
+    }
 
     // time elapsed since last update
     float currentTime = elapsedTimeInSeconds();
@@ -179,7 +194,7 @@ void AppManager::draw(){
     graphicsForShapeDisplay.draw(610, 2, 300, 300);
     
     ofRect(913, 1, 302, 302);
-    kinectManager->drawColorImage(914, 2, 300, 300);
+    objectDetector->drawColorImage(914, 2, 300, 300);
 
     // draw this app's debugging gui, if selected
     if (showDebugGui) {
@@ -201,17 +216,17 @@ void AppManager::draw(){
         menuHeight += 20;
         ofDrawBitmapString((string) "  ' ' : " + (paused ? "play" : "pause"), menuLeftCoordinate, menuHeight);
         menuHeight += 20;
-        ofDrawBitmapString((string) "  'm' : " + (kinectManager->useMask ? "disable" : "enable") + " kinect depth mask", menuLeftCoordinate, menuHeight);
+        ofDrawBitmapString((string) "  'm' : " + (objectDetector->useMask ? "disable" : "enable") + " kinect depth mask", menuLeftCoordinate, menuHeight);
     }
     menuHeight += 30;
 
     // if there isn't already a debug gui, draw some more information
     if (!showDebugGui) {
         ofRect(609, 305, 302, 302);
-        kinectManager->drawDepthImage(610, 306, 300, 300);
+        objectDetector->drawDepthImage(610, 306, 300, 300);
         
         ofRect(913, 305, 302, 302);
-        kinectManager->drawDepthThreshedImage(914, 306, 300, 300);
+        objectDetector->drawDepthThreshedImage(914, 306, 300, 300);
 
         ofDrawBitmapString(currentApplication->appInstructionsText(), menuLeftCoordinate, menuHeight);
         menuHeight += 20;
@@ -230,6 +245,9 @@ void AppManager::exit() {
 
     // delete shapeIOManager to shut down the shape display
     delete shapeIOManager;
+
+    // clean up other objects created with `new` for good form
+    delete objectDetector;
 }
 
 // handle key presses. keys unused by app manager are forwarded to the current
@@ -251,7 +269,7 @@ void AppManager::keyPressed(int key) {
         } else if (key == ' ') {
             paused = !paused;
         } else if (key == 'm') {
-            kinectManager->useMask = !kinectManager->useMask;
+            objectDetector->useMask = !objectDetector->useMask;
         } else if (key == '1') {
             currentApplication = applications["tunableWave"];
         } else if (key == '2') {

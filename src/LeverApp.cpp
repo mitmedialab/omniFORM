@@ -26,7 +26,7 @@
 // thetaMin = tan^-1(-zNormedOrigin / (1 - yNormedOrigin))
 // thetaMax = tan^-1((1 - zNormedOrigin) / (1 - yNormedOrigin))
 
-LeverApp::LeverApp(KinectManager *manager) : Application(manager) {
+LeverApp::LeverApp(ObjectDetector *detector) : Application(detector) {
     int shapeDisplayCenterX = SHAPE_DISPLAY_SIZE_X / 2;
     xMin = shapeDisplayCenterX - 2;
     xMax = shapeDisplayCenterX + 2;

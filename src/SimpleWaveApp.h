@@ -17,7 +17,7 @@
 
 class SimpleWaveApp : public Application {
 public:
-    SimpleWaveApp(KinectManager *manager);
+    SimpleWaveApp(ObjectDetector *detector);
 
     void update(float dt);
     void drawGraphicsForShapeDisplay();

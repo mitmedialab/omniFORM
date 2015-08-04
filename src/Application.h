@@ -13,12 +13,12 @@
 #include "constants.h"
 #include "utils.h"
 #include "PinConfigs.h"
-#include "KinectManager.h"
+#include "ObjectDetector.h"
 
 
 class Application {
 public:
-    Application(KinectManager *kinectManager);
+    Application(ObjectDetector *detector);
     
     void getHeightsForShapeDisplay(ofPixels &heights);
     void getPinConfigsForShapeDisplay(PinConfigs configs[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]);
@@ -40,7 +40,7 @@ protected:
     const ofPixels *heightsFromShapeDisplay;
     bool hasHeightsFromShapeDisplay = false;
 
-    KinectManager * const kinectManager;
+    ObjectDetector * const objectDetector;
 
     ofFbo heightsDrawingBuffer;
 };

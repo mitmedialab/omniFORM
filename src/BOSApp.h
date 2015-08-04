@@ -13,7 +13,7 @@
 
 class BOSApp : public Application {
 public:
-    BOSApp(KinectManager *manager);
+    BOSApp(ObjectDetector *detector);
 
     void update(float dt);
     void drawGraphicsForShapeDisplay();

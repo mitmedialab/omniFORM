@@ -9,7 +9,7 @@
 #include "Application.h"
 
 
-Application::Application(KinectManager *manager) : kinectManager(manager) {
+Application::Application(ObjectDetector *detector) : objectDetector(detector) {
     heightsForShapeDisplay.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
     heightsForShapeDisplay.set(0);
     heightsDrawingBuffer.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y);

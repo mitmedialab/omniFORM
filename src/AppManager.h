@@ -17,6 +17,7 @@
 #include "TransformIOManager.h"
 #include "CooperformIOManager.h"
 #include "KinectManager.h"
+#include "ObjectDetector.h"
 #include "Application.h"
 #include "SimpleWaveApp.h"
 #include "TunableWaveApp.h"
@@ -49,6 +50,9 @@ private:
     ShapeIOManager *shapeIOManager;
     KinectManager *kinectManager;
 
+    // utilities
+    ObjectDetector *objectDetector;
+
     // applications
     map<string, Application *> applications;
     Application *currentApplication;
@@ -76,4 +80,6 @@ private:
     ofPixels heightPixelsFromShapeDisplay;
     PinConfigs pinConfigsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     ofFbo graphicsForShapeDisplay;
+    ofPixels colorPixels;
+    ofPixels depthPixels;
 };

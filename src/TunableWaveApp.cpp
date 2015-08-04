@@ -9,7 +9,7 @@
 #include "TunableWaveApp.h"
 
 
-TunableWaveApp::TunableWaveApp(KinectManager *manager) : Application(manager) {
+TunableWaveApp::TunableWaveApp(ObjectDetector *detector) : Application(detector) {
     setTuningMethod(KEY_PRESS_TUNING, true);
 };
 
@@ -64,7 +64,7 @@ void TunableWaveApp::updateHeights() {
 void TunableWaveApp::updateWaveParametersWithKinect() {
     // Get Pixels from kinect
     ofPixels depthPixels;
-    kinectManager->getDepthThreshedPixels(depthPixels);
+    objectDetector->getDepthThreshedPixels(depthPixels);
     int tableMaskLine = KINECT_Y - 200;
     int closestY = -1;
     int closestX = KINECT_X / 2;

@@ -13,7 +13,7 @@
 // free to copy it as a way to get started. Please don't add to or change this
 // file, though - keep it a simple example for new people meeting the codebase.
 
-SimpleWaveApp::SimpleWaveApp(KinectManager *manager) : Application(manager) {
+SimpleWaveApp::SimpleWaveApp(ObjectDetector *detector) : Application(detector) {
 }
 
 void SimpleWaveApp::update(float dt) {
