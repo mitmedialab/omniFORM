@@ -2,8 +2,8 @@
 //  KinectManager.cpp
 //  TMG Shape Displays
 //
-//  Created by Daniel Leithinger on 2/16/14.
-//  Copyright 2014 MIT Media Lab. All rights reserved.
+//  Created by Sean Follmer on 3/24/13.
+//  Copyright 2013 MIT Media Lab. All rights reserved.
 //
 
 #include "KinectManager.h"
