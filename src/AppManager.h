@@ -43,6 +43,8 @@ public:
     void gotMessage(ofMessage msg);
 
 private:
+    void setupShapeDisplayManagement();
+
     // interfaces to the peripherals
     ShapeIOManager *shapeIOManager;
     KinectManager *kinectManager;

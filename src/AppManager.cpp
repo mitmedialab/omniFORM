@@ -19,9 +19,39 @@ void AppManager::setup(){
     ofSetWindowPosition(0, 0);
     #endif
 
+    // initialize shape display and set up helper objects
+    setupShapeDisplayManagement();
+
     // initialize kinect
     kinectManager = new KinectManager();
 
+    // zero timeOfLastUpdate tracker
+    timeOfLastUpdate = elapsedTimeInSeconds();
+
+    // set up applications
+    simpleWaveApp = new SimpleWaveApp(kinectManager);
+    applications["simpleWave"] = simpleWaveApp;
+    tunableWaveApp = new TunableWaveApp(kinectManager);
+    applications["tunableWave"] = tunableWaveApp;
+    leverApp = new LeverApp(kinectManager);
+    applications["lever"] = leverApp;
+    bosApp = new BOSApp(kinectManager);
+    applications["BOS"] = bosApp;
+
+    // if heights can be read back from the shape display, give applications
+    // read access to them
+    if (shapeIOManager->heightsFromShapeDisplayAvailable) {
+        for (map<string, Application *>::iterator iter = applications.begin(); iter != applications.end(); iter++) {
+            iter->second->setHeightsFromShapeDisplayRef(&heightPixelsFromShapeDisplay);
+        }
+    }
+
+    // set default application
+    currentApplication = applications["tunableWave"];
+}
+
+// initialize the shape display and set up shape display helper objects
+void AppManager::setupShapeDisplayManagement() {
     // initialize communication with the shape display
     switch (SHAPE_DISPLAY_IN_USE) {
         case INFORM_DISPLAY:
@@ -63,35 +93,11 @@ void AppManager::setup(){
     heightPixelsFromShapeDisplay.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
     heightPixelsFromShapeDisplay.set(0);
 
-    // allocate shape display graphics and clear contents
+    // allocate shape display graphics container and clear contents
     graphicsForShapeDisplay.allocate(SHAPE_DISPLAY_PROJECTOR_SIZE_X, SHAPE_DISPLAY_PROJECTOR_SIZE_X, GL_RGBA);
     graphicsForShapeDisplay.begin();
     ofClear(0);
     graphicsForShapeDisplay.end();
-
-    // zero timeOfLastUpdate tracker
-    timeOfLastUpdate = elapsedTimeInSeconds();
-
-    // set up applications
-    simpleWaveApp = new SimpleWaveApp(kinectManager);
-    applications["simpleWave"] = simpleWaveApp;
-    tunableWaveApp = new TunableWaveApp(kinectManager);
-    applications["tunableWave"] = tunableWaveApp;
-    leverApp = new LeverApp(kinectManager);
-    applications["lever"] = leverApp;
-    bosApp = new BOSApp(kinectManager);
-    applications["BOS"] = bosApp;
-
-    // if heights can be read back from the shape display, give applications
-    // read access to them
-    if (shapeIOManager->heightsFromShapeDisplayAvailable) {
-        for (map<string, Application *>::iterator iter = applications.begin(); iter != applications.end(); iter++) {
-            iter->second->setHeightsFromShapeDisplayRef(&heightPixelsFromShapeDisplay);
-        }
-    }
-
-    // set default application
-    currentApplication = applications["tunableWave"];
 }
 
 void AppManager::update(){
