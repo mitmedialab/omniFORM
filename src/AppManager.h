@@ -43,23 +43,11 @@ public:
     void gotMessage(ofMessage msg);
 
 private:
-    // interface to the shape display
+    // interfaces to the peripherals
     ShapeIOManager *shapeIOManager;
     KinectManager *kinectManager;
 
-    bool paused = false;
-    double timeOfLastUpdate = -1;
-
-    unsigned char heightsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
-    unsigned char heightsFromShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
-    ofPixels heightPixelsForShapeDisplay;
-    ofPixels heightPixelsFromShapeDisplay;
-    PinConfigs pinConfigsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
-    ofFbo graphicsForShapeDisplay;
-
-    double timeOfLastPinConfigsUpdate = -1;
-    int projectorOffsetX = 1000;
-
+    // applications
     map<string, Application *> applications;
     Application *currentApplication;
     SimpleWaveApp *simpleWaveApp;
@@ -67,6 +55,23 @@ private:
     LeverApp *leverApp;
     BOSApp *bosApp;
 
+    // program state
+    bool paused = false;
+    double timeOfLastUpdate = -1;
+    double timeOfLastPinConfigsUpdate = -1;
+
+    // gui state
     bool showGlobalGuiInstructions = false;
     bool showDebugGui = false;
+
+    // projector configs
+    int projectorOffsetX = 1000;
+
+    // I/O data buffers
+    unsigned char heightsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
+    unsigned char heightsFromShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
+    ofPixels heightPixelsForShapeDisplay;
+    ofPixels heightPixelsFromShapeDisplay;
+    PinConfigs pinConfigsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
+    ofFbo graphicsForShapeDisplay;
 };
