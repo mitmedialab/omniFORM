@@ -317,12 +317,21 @@ void FFTApp::drawBodyLine() {
 
     // use all pixels within a distance delta of the line
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++){
+        int effectiveX = x;
+        if (SHAPE_DISPLAY_IN_USE == TRANSFORM_DISPLAY) {
+            int islandWidth = PINBLOCK_1_X_OFFSET - PINBLOCK_0_X_OFFSET - PINBLOCK_0_WIDTH;
+            if (x < PINBLOCK_0_WIDTH) {
+                effectiveX -= islandWidth;
+            } else if (x >= PINBLOCK_0_WIDTH + PINBLOCK_1_WIDTH) {
+                effectiveX += islandWidth;
+            }
+        }
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++){
             ofPoint nearestPointOnLine;
-            nearestPointOnLine.x = (slope / (slope * slope + 1)) * (slope * waveCenterX + (1 / slope) * x - waveCenterY + y);
+            nearestPointOnLine.x = (slope / (slope * slope + 1)) * (slope * waveCenterX + (1 / slope) * effectiveX - waveCenterY + y);
             nearestPointOnLine.y = slope * (nearestPointOnLine.x - waveCenterX) + waveCenterY;
 
-            if (nearestPointOnLine.distance(ofPoint(x, y)) < delta) {
+            if (nearestPointOnLine.distance(ofPoint(effectiveX, y)) < delta) {
                 int xy = heightsForShapeDisplay.getPixelIndex(x, y);
                 heightsForShapeDisplay[xy] = max(lineHeight, heightsForShapeDisplay[xy]);
             }
