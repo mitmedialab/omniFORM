@@ -53,9 +53,12 @@ void FFTApp::update(float dt) {
     if (bosEnabled) {
         //pause shifting
         updateScaleParametersWithKinect();
+        drawBodyLine();
         if(!waveComplete){generateWave();}
+        
     } else {
         waveComplete = false;
+        waveComplete2 = false;
         currentWaveDist = 2.0;
         drawFFT();
     }
@@ -107,7 +110,7 @@ void FFTApp::drawFFT(){
             // map the rows of the spectrogram memory to the rows to the inForm so that they shift down in x over time.
             int rowToRetrieve = (x + 1 + currentRow) % SHAPE_DISPLAY_SIZE_X;
             // For each of the y-values (columns of the inForm),
-            for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++){
+            for (int y = SHAPE_DISPLAY_SIZE_Y; y >= 0; y--){
                 // get the index for mapping the heights to the pixels
                 int xy = heightsForShapeDisplay.getPixelIndex(x, y);
                 // and read the values from the spectrogram memory to the inForm pixels.
@@ -173,7 +176,7 @@ void FFTApp::updateScaleParametersWithKinect() {
     
     //detect higher Z depth : Toggle BOS
     ofPixels depthPixels;
-    kinectManager->getDepthPixels(depthPixels);
+    kinectManager->getDepthThreshedPixels(depthPixels);
     int tableMaskLine = KINECT_Y - 200;
     
     //Get Average point of human (TODO: Make this multiuser)
@@ -198,15 +201,23 @@ void FFTApp::updateScaleParametersWithKinect() {
         kinectCenterX = (int)(xSum/count);
         kinectCenterY = (int)(ySum/count);
         cout << "\n Center of Mass : X[";
-        cout << waveCenterX << "] : [" << waveCenterY << "]";
+        cout << kinectCenterX << "] : [" << kinectCenterY << "]";
+        
+        relativeCenterX = ofMap(kinectCenterX, 200, 370, 0.0, 48.0);
+        relativeCenterY = ofMap(kinectCenterY, 245, 0, -55, 0.0);
         
         
-        if (kinectCenterY > -1) {
-            float normalized = 1.0 * (tableMaskLine - kinectCenterY) / tableMaskLine;
-            currentWaveDist = 5 * normalized;
-        } else {
-            currentWaveDist = 15;
-        }
+//        cout << "\n Relative Center of Mass : X[";
+//        cout << relativeCenterX << "] : [" << relativeCenterY << "]";
+
+//        if (waveComplete2 == true){
+//        if (kinectCenterY > -1) {
+//            float normalized = 1.0 * (tableMaskLine - kinectCenterY) / tableMaskLine;
+//            currentWaveDist = kinectCenterY/20;
+//        } else {
+//            currentWaveDist = 20;
+//        }
+//        }
         
     } else {
         cout << "\n NO HUMAN VISIBLE";
@@ -243,7 +254,7 @@ void FFTApp::setAvgCenter(){
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++){
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++){
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-            if ( heightsForShapeDisplay[xy] > 50){
+            if ( heightsForShapeDisplay[xy] > 70){
                 xSum += x;
                 ySum += y;
                 count ++;
@@ -252,19 +263,25 @@ void FFTApp::setAvgCenter(){
     }
     
     if (count > 0){
-        waveCenterX = (int)(xSum/count);
-        waveCenterY = (int)(ySum/count);
+//        waveCenterX = (int)(xSum/count);
+//        waveCenterY = (int)(ySum/count);
+        waveCenterX = SHAPE_DISPLAY_SIZE_X/2;
+        waveCenterY = SHAPE_DISPLAY_SIZE_Y/2;
     } else {
         waveCenterX = SHAPE_DISPLAY_SIZE_X/2;
         waveCenterY = SHAPE_DISPLAY_SIZE_Y/2;
     }
     
-}
+//    cout << "\n Wave Center of Mass : X[";
+//    cout << waveCenterX << "] : [" << waveCenterY << "]";
+   }
 
 void FFTApp::generateWave() {
     
-    if (currentWaveDist < 15){
+    if (currentWaveDist < 100){
         currentWaveDist++;
+    } else {
+        waveComplete2 = true;
     }
 //    cout << "\n Current Distance:";
 //    cout << currentWaveDist;
@@ -274,7 +291,7 @@ void FFTApp::generateWave() {
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
             int d = ofDist(waveCenterX, waveCenterY, x, y);
             if ( heightsForShapeDisplay[xy] < 10 || heightsForShapeDisplay[xy] == 255){
-                if (d==currentWaveDist){
+                if (d>(currentWaveDist-1.2) && d<(currentWaveDist+1.2)){
                     heightsForShapeDisplay[xy] = 255;
                 } else {
                     heightsForShapeDisplay[xy] = 0;
@@ -283,10 +300,54 @@ void FFTApp::generateWave() {
         }
     }
     
-    if (currentWaveDist > 100){
+    
+    if (currentWaveDist > 99){
         waveComplete = true;
     }
     
+}
+
+void FFTApp::drawBodyLine() {
+    
+    // y - y0 = m * (x - x0);
+    // y = mx + b
+    // y - mx = b
+    
+    float slope;
+    
+    if ((relativeCenterX - waveCenterX) == 0){
+        slope = 10000000000;
+    } else {
+        slope = (relativeCenterY - waveCenterY) / (relativeCenterX - waveCenterX);
+    }
+    
+    float delta = 1.1;
+    unsigned char lineHeight = 255;
+    
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++){
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++){
+            
+            ofPoint nearestPointOnLine;
+            nearestPointOnLine.x = (slope / (slope * slope + 1)) * (waveCenterX * slope + x / slope + waveCenterY + y);
+            nearestPointOnLine.y = slope * (nearestPointOnLine.x - x) + y;
+          
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            if ( heightsForShapeDisplay[xy] < 10 || heightsForShapeDisplay[xy] == 255){
+                float d = nearestPointOnLine.distance(ofPoint(x, y));
+                if (d < delta && y <= waveCenterY) {
+                    heightsForShapeDisplay[xy] = max(lineHeight, heightsForShapeDisplay[xy]);
+                } else {
+                    heightsForShapeDisplay[xy] = 0;
+                }
+            }
+            
+            
+         
+           
+        
+            
+        }
+    }
 }
 
 

@@ -47,6 +47,7 @@ private:
     void generateWave();
     void updateScaleParametersWithKinect();
     void setAvgCenter();
+    void drawBodyLine();
 
     float normalizedPhase = 0;
     float frequency;
@@ -59,11 +60,15 @@ private:
     bool rightHandClosed = false;
     bool wavePresent = false;
     bool waveComplete = false;
+    bool waveComplete2 = false;
+
     int waveDist = 5;
     int waveCenterX = SHAPE_DISPLAY_SIZE_X/2;
     int waveCenterY = SHAPE_DISPLAY_SIZE_Y/2;
     int kinectCenterX = KINECT_X/2;
     int kinectCenterY = KINECT_Y/2;
+    int relativeCenterX = KINECT_X/2;
+    int relativeCenterY = KINECT_Y/2;
     float currentWaveDist = 0;
 
     ofColor color;
