@@ -40,6 +40,10 @@ FFTApp::FFTApp(KinectManager *manager) : Application(manager) {
 
 
 void FFTApp::update(float dt) {
+    heightsForShapeDisplay.set(0);
+    updateScaleParametersWithKinect();
+    drawBodyLine();
+    return;
     
     //check for BOS
     if(leftHandClosed || rightHandClosed){
@@ -187,43 +191,30 @@ void FFTApp::updateScaleParametersWithKinect() {
     
     for (int y = 0; y <= tableMaskLine; y++) {
         for (int x = 0; x < KINECT_X; x++) {
-            if (depthPixels[x + (y * KINECT_X)] > 0) {
+            int xy = depthPixels.getPixelIndex(x, y);
+            if (depthPixels[xy] > 0) {
                 xSum += x;
                 ySum += y;
-                count ++;
+                count++;
             }
-
         }
     }
     
     
     if (count > 0){
-        kinectCenterX = (int)(xSum/count);
-        kinectCenterY = (int)(ySum/count);
+        kinectCenterX = xSum / count;
+        kinectCenterY = ySum / count;
         cout << "\n Center of Mass : X[";
         cout << kinectCenterX << "] : [" << kinectCenterY << "]";
-        
-        relativeCenterX = ofMap(kinectCenterX, 200, 370, 0.0, 48.0);
-        relativeCenterY = ofMap(kinectCenterY, 245, 0, -55, 0.0);
-        
-        
-//        cout << "\n Relative Center of Mass : X[";
-//        cout << relativeCenterX << "] : [" << relativeCenterY << "]";
 
-//        if (waveComplete2 == true){
-//        if (kinectCenterY > -1) {
-//            float normalized = 1.0 * (tableMaskLine - kinectCenterY) / tableMaskLine;
-//            currentWaveDist = kinectCenterY/20;
-//        } else {
-//            currentWaveDist = 20;
-//        }
-//        }
-        
     } else {
         cout << "\n NO HUMAN VISIBLE";
         kinectCenterX = KINECT_X/2;
         kinectCenterY = KINECT_Y/2;
     }
+    
+    relativeCenterX = ofMap(kinectCenterX, 200, 370, 0.0, 48.0);
+    relativeCenterY = ofMap(kinectCenterY, 0, 245, -55, 0.0);
 
     
     
@@ -318,34 +309,23 @@ void FFTApp::drawBodyLine() {
     if ((relativeCenterX - waveCenterX) == 0){
         slope = 10000000000;
     } else {
-        slope = (relativeCenterY - waveCenterY) / (relativeCenterX - waveCenterX);
+        slope = 1.0 * (relativeCenterY - waveCenterY) / (relativeCenterX - waveCenterX);
     }
     
     float delta = 1.1;
     unsigned char lineHeight = 255;
-    
+
+    // use all pixels within a distance delta of the line
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++){
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++){
-            
             ofPoint nearestPointOnLine;
-            nearestPointOnLine.x = (slope / (slope * slope + 1)) * (waveCenterX * slope + x / slope + waveCenterY + y);
-            nearestPointOnLine.y = slope * (nearestPointOnLine.x - x) + y;
-          
-            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-            if ( heightsForShapeDisplay[xy] < 10 || heightsForShapeDisplay[xy] == 255){
-                float d = nearestPointOnLine.distance(ofPoint(x, y));
-                if (d < delta && y <= waveCenterY) {
-                    heightsForShapeDisplay[xy] = max(lineHeight, heightsForShapeDisplay[xy]);
-                } else {
-                    heightsForShapeDisplay[xy] = 0;
-                }
+            nearestPointOnLine.x = (slope / (slope * slope + 1)) * (slope * waveCenterX + (1 / slope) * x - waveCenterY + y);
+            nearestPointOnLine.y = slope * (nearestPointOnLine.x - waveCenterX) + waveCenterY;
+
+            if (nearestPointOnLine.distance(ofPoint(x, y)) < delta) {
+                int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+                heightsForShapeDisplay[xy] = max(lineHeight, heightsForShapeDisplay[xy]);
             }
-            
-            
-         
-           
-        
-            
         }
     }
 }
