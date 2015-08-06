@@ -8,7 +8,6 @@
 
 #pragma once
 
-#include <iostream>
 #include "ofMain.h"
 #include "constants.h"
 #include "utils.h"

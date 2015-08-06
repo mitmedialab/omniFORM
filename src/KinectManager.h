@@ -8,7 +8,6 @@
 
 #pragma once
 
-#include <iostream>
 #include "ofxKinect.h"
 #include "constants.h"
 
