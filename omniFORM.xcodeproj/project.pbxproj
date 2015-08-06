@@ -163,6 +163,7 @@
 		65CC08071B73D10B00F89B9B /* BlobManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65CC07EA1B73D10B00F89B9B /* BlobManager.cpp */; };
 		65CC08081B73D10B00F89B9B /* ContourFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65CC07EC1B73D10B00F89B9B /* ContourFinder.cpp */; };
 		65CC08091B73D10B00F89B9B /* Tracking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65CC07EE1B73D10B00F89B9B /* Tracking.cpp */; };
+		65CC080C1B73D5B200F89B9B /* Hand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65CC080B1B73D5B200F89B9B /* Hand.cpp */; };
 		65D1BE601B5033530080F4DD /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D1BE5F1B5033530080F4DD /* utils.cpp */; };
 		65D85FDB1B46E1C200212690 /* SerialShapeIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D85FDA1B46E1C200212690 /* SerialShapeIO.cpp */; };
 		65DA78921B438B5A008F98F4 /* SerialShapeIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65DA78911B438B5A008F98F4 /* SerialShapeIOManager.cpp */; };
@@ -826,6 +827,8 @@
 		65CC07EE1B73D10B00F89B9B /* Tracking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tracking.cpp; sourceTree = "<group>"; };
 		65CC07EF1B73D10B00F89B9B /* Tracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracking.h; sourceTree = "<group>"; };
 		65CC07F01B73D10B00F89B9B /* nuiComputerVision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nuiComputerVision.h; sourceTree = "<group>"; };
+		65CC080B1B73D5B200F89B9B /* Hand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hand.cpp; sourceTree = "<group>"; };
+		65CC080D1B73D5BB00F89B9B /* Hand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hand.h; sourceTree = "<group>"; };
 		65D1BE531B4C6B8D0080F4DD /* localConfigsTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localConfigsTemplate.h; sourceTree = "<group>"; };
 		65D1BE561B4C7AA30080F4DD /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		65D1BE5D1B5010FA0080F4DD /* PinConfigs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinConfigs.h; sourceTree = "<group>"; };
@@ -2141,6 +2144,15 @@
 			path = Tracking;
 			sourceTree = "<group>";
 		};
+		65CC080A1B73D59E00F89B9B /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				65CC080B1B73D5B200F89B9B /* Hand.cpp */,
+				65CC080D1B73D5BB00F89B9B /* Hand.h */,
+			);
+			name = Shapes;
+			sourceTree = "<group>";
+		};
 		65DA217C1B543D1C00D31BD4 /* Applications */ = {
 			isa = PBXGroup;
 			children = (
@@ -3393,6 +3405,7 @@
 				65DA217E1B543D7F00D31BD4 /* Utilities */,
 				6572FCBC1B3DD547001BBF38 /* ShapeDisplayManagers */,
 				65EBD67F1B51BAB50011F279 /* Peripherals */,
+				65CC080A1B73D59E00F89B9B /* Shapes */,
 				65DA217C1B543D1C00D31BD4 /* Applications */,
 			);
 			path = src;
@@ -3894,6 +3907,7 @@
 				5CDEDA74F9B738330E66CBE9 /* btScaledBvhTriangleMeshShape.cpp in Sources */,
 				0211831FC2DC19B14A12C128 /* btShapeHull.cpp in Sources */,
 				CC09DBF8C3D856935D8952A7 /* btSphereShape.cpp in Sources */,
+				65CC080C1B73D5B200F89B9B /* Hand.cpp in Sources */,
 				C387D62C44C032BB7B950F00 /* btStaticPlaneShape.cpp in Sources */,
 				1D209B4E4AAA703227570B0C /* btStridingMeshInterface.cpp in Sources */,
 				B75013A0364FF11A0E5874F6 /* btTetrahedronShape.cpp in Sources */,
