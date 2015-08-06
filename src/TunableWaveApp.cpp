@@ -9,8 +9,13 @@
 #include "TunableWaveApp.h"
 
 
-TunableWaveApp::TunableWaveApp(ObjectDetector *detector) : Application(detector) {
+TunableWaveApp::TunableWaveApp() {
+    objectDetector = new ObjectDetector();
     setTuningMethod(KEY_PRESS_TUNING, true);
+};
+
+TunableWaveApp::~TunableWaveApp() {
+    delete objectDetector;
 };
 
 void TunableWaveApp::setTuningMethod(TuningMethod method, bool force) {
@@ -27,6 +32,10 @@ void TunableWaveApp::setTuningMethod(TuningMethod method, bool force) {
 }
 
 void TunableWaveApp::update(float dt) {
+    if (hasPixelsFromKinect) {
+        objectDetector->update(*colorPixelsFromKinect, *depthPixelsFromKinect);
+    }
+
     if (tuningMethod == KINECT_LOCATION_TUNING) {
         updateWaveParametersWithKinect();
     }
@@ -131,6 +140,10 @@ string TunableWaveApp::appInstructionsText() {
             "frequency: " + ofToString(frequency, 2) + "\n" +
             "number of waves: " + ofToString(numCrests, 1) + "\n" +
             "";
+    } else if (tuningMethod == KINECT_LOCATION_TUNING) {
+        instructions += (string) "" +
+        "  'm' : " + (objectDetector->useMask ? "disable" : "enable") + " kinect depth mask\n" +
+        "";
     }
 
     return instructions;
@@ -157,5 +170,7 @@ void TunableWaveApp::keyPressed(int key) {
         if (tuningMethod == KEY_PRESS_TUNING) {
             numCrests += 0.5;
         }
+    } else if (key == 'm') {
+        objectDetector->useMask = !objectDetector->useMask;
     }
 };

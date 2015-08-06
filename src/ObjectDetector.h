@@ -20,7 +20,7 @@ class ObjectDetector {
 public:
     ObjectDetector(int nearThreshold = DEFAULT_NEAR_THRESHOLD, int farThreshold = DEFAULT_FAR_THRESHOLD);
 
-    void update(const ofPixels colorPixels, const ofPixels depthPixels);
+    void update(const ofPixels &colorPixels, const ofPixels &depthPixels);
 
     void setDepthThresholds(int near, int far);
 

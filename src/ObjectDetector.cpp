@@ -50,7 +50,7 @@ void ObjectDetector::loadAlphaMask() {
     imageMask = maskCv;
 }
 
-void ObjectDetector::update(const ofPixels colorPixels, const ofPixels depthPixels) {
+void ObjectDetector::update(const ofPixels &colorPixels, const ofPixels &depthPixels) {
     // update input images
     colorImg.setFromPixels(colorPixels.getPixels(), imageWidth, imageHeight);
     depthImg.setFromPixels(depthPixels.getPixels(), imageWidth, imageHeight);

@@ -9,13 +9,15 @@
 #pragma once
 
 #include "Application.h"
+#include "ObjectDetector.h"
 
 
 enum TuningMethod {KEY_PRESS_TUNING, KINECT_LOCATION_TUNING};
 
 class TunableWaveApp : public Application {
 public:
-    TunableWaveApp(ObjectDetector *detector);
+    TunableWaveApp();
+    ~TunableWaveApp();
 
     void update(float dt);
     void drawGraphicsForShapeDisplay();
@@ -28,6 +30,8 @@ private:
     void setTuningMethod(TuningMethod method, bool force=false);
     void updateHeights();
     void updateWaveParametersWithKinect();
+
+    ObjectDetector *objectDetector;
     
     TuningMethod tuningMethod = KEY_PRESS_TUNING;
     float normalizedPhase = 0;

@@ -12,16 +12,16 @@
 #include "constants.h"
 #include "utils.h"
 #include "PinConfigs.h"
-#include "ObjectDetector.h"
 
 
 class Application {
 public:
-    Application(ObjectDetector *detector);
+    Application();
     
     void getHeightsForShapeDisplay(ofPixels &heights);
     void getPinConfigsForShapeDisplay(PinConfigs configs[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y]);
     void setHeightsFromShapeDisplayRef(const ofPixels *heights);
+    void setPixelsFromKinectRefs(const ofPixels *colorPixels, const ofPixels *depthPixels);
 
     virtual void update(float dt) {};
     virtual void drawGraphicsForShapeDisplay() {};
@@ -39,7 +39,9 @@ protected:
     const ofPixels *heightsFromShapeDisplay;
     bool hasHeightsFromShapeDisplay = false;
 
-    ObjectDetector * const objectDetector;
+    const ofPixels *colorPixelsFromKinect;
+    const ofPixels *depthPixelsFromKinect;
+    bool hasPixelsFromKinect = false;
 
     ofFbo heightsDrawingBuffer;
 };

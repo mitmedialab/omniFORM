@@ -9,11 +9,21 @@
 #include "BOSApp.h"
 
 
-BOSApp::BOSApp(ObjectDetector *detector) : Application(detector) {
-};
+BOSApp::BOSApp() {
+    objectDetector = new ObjectDetector();
+}
+
+BOSApp::~BOSApp() {
+    delete objectDetector;
+}
 
 void BOSApp::update(float dt) {
     normalizedPhase += dt * frequency;
+
+    if (hasPixelsFromKinect) {
+        objectDetector->update(*colorPixelsFromKinect, *depthPixelsFromKinect);
+    }
+
     updateScaleParametersWithKinect();
     updateHeights();
 };
@@ -199,6 +209,8 @@ string BOSApp::appInstructionsText() {
         "to disable or enable BOS\n" +
         "\n" +
         "BOS: " + (bosEnabled ? "enabled" : "disabled") + "\n" +
+        "\n" +
+        "  'm' : " + (objectDetector->useMask ? "disable" : "enable") + " kinect depth mask\n" +
         "";
     return instructions;
 };
@@ -212,6 +224,8 @@ void BOSApp::keyPressed(int key) {
         numCrests -= 0.5;
     } else if (key == 'f') {
         numCrests += 0.5;
+    } else if (key == 'm') {
+        objectDetector->useMask = !objectDetector->useMask;
     } else if (key == 'b') {
         bosEnabled = !bosEnabled;
     }

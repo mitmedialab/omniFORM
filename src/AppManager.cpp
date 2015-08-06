@@ -31,27 +31,29 @@ void AppManager::setup(){
     depthPixels.allocate(kinectManager->getImageWidth(), kinectManager->getImageHeight(), OF_IMAGE_GRAYSCALE);
     depthPixels.set(0);
 
-    // create object detector
-    objectDetector = new ObjectDetector();
-
     // zero timeOfLastUpdate tracker
     timeOfLastUpdate = elapsedTimeInSeconds();
 
     // set up applications
-    simpleWaveApp = new SimpleWaveApp(objectDetector);
+    simpleWaveApp = new SimpleWaveApp();
     applications["simpleWave"] = simpleWaveApp;
-    tunableWaveApp = new TunableWaveApp(objectDetector);
+    tunableWaveApp = new TunableWaveApp();
     applications["tunableWave"] = tunableWaveApp;
-    leverApp = new LeverApp(objectDetector);
+    leverApp = new LeverApp();
     applications["lever"] = leverApp;
-    bosApp = new BOSApp(objectDetector);
+    bosApp = new BOSApp();
     applications["BOS"] = bosApp;
 
-    // if heights can be read back from the shape display, give applications
-    // read access to them
-    if (shapeIOManager->heightsFromShapeDisplayAvailable) {
-        for (map<string, Application *>::iterator iter = applications.begin(); iter != applications.end(); iter++) {
-            iter->second->setHeightsFromShapeDisplayRef(&heightPixelsFromShapeDisplay);
+    // give applications read access to input data
+    for (map<string, Application *>::iterator iter = applications.begin(); iter != applications.end(); iter++) {
+        Application *app = iter->second;
+
+        // kinect color and depth data
+        app->setPixelsFromKinectRefs(&colorPixels, &depthPixels);
+
+        // shape display heights, if they are accessible
+        if (shapeIOManager->heightsFromShapeDisplayAvailable) {
+            app->setHeightsFromShapeDisplayRef(&heightPixelsFromShapeDisplay);
         }
     }
 
@@ -115,7 +117,6 @@ void AppManager::update(){
     if (kinectManager->isFrameNew()) {
         kinectManager->getColorPixels(colorPixels);
         kinectManager->getDepthPixels(depthPixels);
-        objectDetector->update(colorPixels, depthPixels);
     }
 
     // time elapsed since last update
@@ -194,7 +195,7 @@ void AppManager::draw(){
     graphicsForShapeDisplay.draw(610, 2, 300, 300);
     
     ofRect(913, 1, 302, 302);
-    objectDetector->drawColorImage(914, 2, 300, 300);
+    ofImage(colorPixels).draw(914, 2, 300, 300);
 
     // draw this app's debugging gui, if selected
     if (showDebugGui) {
@@ -215,18 +216,13 @@ void AppManager::draw(){
         ofDrawBitmapString((string) "  '.' : turn debug gui " + (showDebugGui ? "off" : "on"), menuLeftCoordinate, menuHeight);
         menuHeight += 20;
         ofDrawBitmapString((string) "  ' ' : " + (paused ? "play" : "pause"), menuLeftCoordinate, menuHeight);
-        menuHeight += 20;
-        ofDrawBitmapString((string) "  'm' : " + (objectDetector->useMask ? "disable" : "enable") + " kinect depth mask", menuLeftCoordinate, menuHeight);
     }
     menuHeight += 30;
 
     // if there isn't already a debug gui, draw some more information
     if (!showDebugGui) {
-        ofRect(609, 305, 302, 302);
-        objectDetector->drawDepthImage(610, 306, 300, 300);
-        
         ofRect(913, 305, 302, 302);
-        objectDetector->drawDepthThreshedImage(914, 306, 300, 300);
+        ofImage(depthPixels).draw(914, 306, 300, 300);
 
         ofDrawBitmapString(currentApplication->appInstructionsText(), menuLeftCoordinate, menuHeight);
         menuHeight += 20;
@@ -245,18 +241,15 @@ void AppManager::exit() {
 
     // delete shapeIOManager to shut down the shape display
     delete shapeIOManager;
-
-    // clean up other objects created with `new` for good form
-    delete objectDetector;
 }
 
 // handle key presses. keys unused by app manager are forwarded to the current
 // application.
 void AppManager::keyPressed(int key) {
     // keys used by app manager must be registered as reserved keys
-    const int reservedKeysLength = 14;
+    const int reservedKeysLength = 13;
     const int reservedKeys[reservedKeysLength] = {
-        '/', '?', '.', ' ', 'm', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+        '/', '?', '.', ' ', '1', '2', '3', '4', '5', '6', '7', '8', '9'
     };
     const int *reservedKeysEnd = reservedKeys + reservedKeysLength;
 
@@ -268,8 +261,6 @@ void AppManager::keyPressed(int key) {
             showDebugGui = !showDebugGui;
         } else if (key == ' ') {
             paused = !paused;
-        } else if (key == 'm') {
-            objectDetector->useMask = !objectDetector->useMask;
         } else if (key == '1') {
             currentApplication = applications["tunableWave"];
         } else if (key == '2') {

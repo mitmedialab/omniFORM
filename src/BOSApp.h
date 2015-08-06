@@ -9,12 +9,14 @@
 #pragma once
 
 #include "Application.h"
+#include "ObjectDetector.h"
 
 
 class BOSApp : public Application {
 public:
-    BOSApp(ObjectDetector *detector);
-
+    BOSApp();
+    ~BOSApp();
+    
     void update(float dt);
     void drawGraphicsForShapeDisplay();
     string appInstructionsText();
@@ -28,6 +30,8 @@ public:
     void generateWave();
     void convertTouchToWave();
     void updateScaleParametersWithKinect();
+
+    ObjectDetector *objectDetector;
 
     float normalizedPhase = 0;
     float frequency;

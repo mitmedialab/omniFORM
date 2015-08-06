@@ -17,8 +17,6 @@
 
 class SimpleWaveApp : public Application {
 public:
-    SimpleWaveApp(ObjectDetector *detector);
-
     void update(float dt);
     void drawGraphicsForShapeDisplay();
     string appInstructionsText();

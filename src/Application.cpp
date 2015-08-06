@@ -9,7 +9,7 @@
 #include "Application.h"
 
 
-Application::Application(ObjectDetector *detector) : objectDetector(detector) {
+Application::Application() {
     heightsForShapeDisplay.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
     heightsForShapeDisplay.set(0);
     heightsDrawingBuffer.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y);
@@ -27,4 +27,10 @@ void Application::getPinConfigsForShapeDisplay(PinConfigs configs[SHAPE_DISPLAY_
 void Application::setHeightsFromShapeDisplayRef(const ofPixels *heights) {
     heightsFromShapeDisplay = heights;
     hasHeightsFromShapeDisplay = true;
+};
+
+void Application::setPixelsFromKinectRefs(const ofPixels *colorPixels, const ofPixels *depthPixels) {
+    colorPixelsFromKinect = colorPixels;
+    depthPixelsFromKinect = depthPixels;
+    hasPixelsFromKinect = true;
 };
