@@ -24,6 +24,7 @@ public:
     void update(const ofPixels &colorPixels, const ofPixels &depthPixels);
 
     void setDepthThresholds(int near, int far);
+    void thresholdImage(ofxCvGrayscaleImage &src, ofxCvGrayscaleImage &dst, int near=-1, int far=-1);
 
     // get images as pixels
     void getColorPixels(ofPixels &pixels);
@@ -44,15 +45,14 @@ private:
     
     void loadAlphaMask();
     void maskDepthImage();
-    void thresholdImages();
 
     ofxCvColorImage inputColorImg;
     ofxCvGrayscaleImage inputDepthImg;
     ofxCvColorImage colorImg;
     ofxCvGrayscaleImage depthImg;
     ofxCvGrayscaleImage imageMask;
-    ofxCvGrayscaleImage grayThreshNear;
-    ofxCvGrayscaleImage grayThreshFar;
+    ofxCvGrayscaleImage nearThresholdHelper;
+    ofxCvGrayscaleImage farThresholdHelper;
     ofxCvGrayscaleImage depthThreshed;
     ofxCvGrayscaleImage lastDepthThreshed;
     ofxCvGrayscaleImage depthThreshedDiff;

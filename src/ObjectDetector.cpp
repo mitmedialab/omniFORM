@@ -29,8 +29,8 @@ void ObjectDetector::setup() {
 
     colorImg.allocate(imageWidth, imageHeight);
     depthImg.allocate(imageWidth, imageHeight);
-    grayThreshNear.allocate(imageWidth, imageHeight);
-    grayThreshFar.allocate(imageWidth, imageHeight);
+    nearThresholdHelper.allocate(imageWidth, imageHeight);
+    farThresholdHelper.allocate(imageWidth, imageHeight);
     depthThreshed.allocate(imageWidth, imageHeight);
     lastDepthThreshed.allocate(imageWidth, imageHeight);
     depthThreshedDiff.allocate(imageWidth, imageHeight);
@@ -78,10 +78,11 @@ void ObjectDetector::update(const ofPixels &colorPixels, const ofPixels &depthPi
     }
     
     lastDepthThreshed.setFromPixels(depthThreshed.getPixels(), imageWidth, imageHeight);
-    depthThreshed.setFromPixels(depthImg.getPixels(), imageWidth, imageHeight);
 
-    // threshold calcutations convert depth map into black and white images
-    thresholdImages();
+    depthThreshed.setFromPixels(depthImg.getPixels(), imageWidth, imageHeight);
+    depthThreshed.erode_3x3();
+    depthThreshed.dilate_3x3();
+    thresholdImage(depthThreshed, depthThreshed);
     
     depthThreshedDiff.absDiff(lastDepthThreshed, depthThreshed);
 }
@@ -90,36 +91,16 @@ void ObjectDetector::maskDepthImage() {
     cvAnd(depthImg.getCvImage(), imageMask.getCvImage(), depthImg.getCvImage(), NULL);
 }
 
-void ObjectDetector::thresholdImages() {
-    depthThreshed.erode_3x3();
-    depthThreshed.dilate_3x3();
-    
-    // we do two thresholds - one for the far plane and one for the near plane
-    // we then do a cvAnd to get the pixels which are a union of the two thresholds
-    grayThreshNear = depthThreshed;
-    grayThreshFar = depthThreshed;
-    grayThreshNear.threshold(nearThreshold, true);
-    grayThreshFar.threshold(farThreshold);
-    cvAnd(grayThreshNear.getCvImage(), grayThreshFar.getCvImage(), depthThreshed.getCvImage(), NULL);
-    
-    // find depth map excluding thresholded data
-    // this causes the 10 finger effect and could be related to our discussion
-    // today about dynamic thresholding
-    //
-    // if we threshold with the near value, and the user moves the hand just past the near point
-    // and thus out of range
-    // their hand will be black (since black is used for out of range areas)
-    // however since their hands shadow is also black this will cause the 10 finger effect.
-    //
-    // //cvAnd(grayThreshNear.getCvImage(), depthThreshed.getCvImage(), depthThreshed.getCvImage(), NULL);
-    //cvAnd(grayThreshFar.getCvImage(), depthThreshed.getCvImage(), depthThreshed.getCvImage(), NULL);
-    
-    //    ofPixelsRef depthPixels = depthThreshed.getPixelsRef();
-    //    for (int x = 0; x < depthPixels.getWidth(); x++) {
-    //        for (int y = 0; y < depthPixels.getHeight(); y++) {
-    //            depthPixels.setColor((depthPixels.getColor(x,y).getBrightness() + mFarThreshold) * 255.f / (mNearThreshold - mFarThreshold));
-    //        }
-    //    }
+void ObjectDetector::thresholdImage(ofxCvGrayscaleImage &src, ofxCvGrayscaleImage &dst, int near, int far) {
+    // use stored threshold values unless instructed otherwise
+    far >= 0 || (far = farThreshold);
+    near >= far || (near = nearThreshold);
+
+    nearThresholdHelper = src;
+    farThresholdHelper = src;
+    nearThresholdHelper.threshold(near, true);
+    farThresholdHelper.threshold(far);
+    cvAnd(nearThresholdHelper.getCvImage(), farThresholdHelper.getCvImage(), dst.getCvImage(), NULL);
 }
 
 
