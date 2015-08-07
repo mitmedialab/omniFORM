@@ -9,8 +9,23 @@
 #include "ObjectDetector.h"
 
 
-ObjectDetector::ObjectDetector(int nearThreshold, int farThreshold) {
+ObjectDetector::ObjectDetector(int nearThreshold, int farThreshold)
+: roiX(0), roiY(0), imageWidth(inputImageWidth), imageHeight(inputImageHeight) {
     setDepthThresholds(nearThreshold, farThreshold);
+    setup();
+}
+
+ObjectDetector::ObjectDetector(int roiX, int roiY, int roiWidth, int roiHeight, int nearThreshold, int farThreshold)
+: roiX(roiX), roiY(roiY), imageWidth(roiWidth), imageHeight(roiHeight) {
+    setDepthThresholds(nearThreshold, farThreshold);
+    setup();
+}
+
+void ObjectDetector::setup() {
+    inputColorImg.allocate(inputImageWidth, inputImageHeight);
+    inputColorImg.setROI(roiX, roiY, imageWidth, imageHeight);
+    inputDepthImg.allocate(inputImageWidth, inputImageHeight);
+    inputDepthImg.setROI(roiX, roiY, imageWidth, imageHeight);
 
     colorImg.allocate(imageWidth, imageHeight);
     depthImg.allocate(imageWidth, imageHeight);
@@ -51,9 +66,11 @@ void ObjectDetector::loadAlphaMask() {
 }
 
 void ObjectDetector::update(const ofPixels &colorPixels, const ofPixels &depthPixels) {
-    // update input images
-    colorImg.setFromPixels(colorPixels.getPixels(), imageWidth, imageHeight);
-    depthImg.setFromPixels(depthPixels.getPixels(), imageWidth, imageHeight);
+    // update color and depth images
+    inputColorImg.setFromPixels(colorPixels.getPixels(), inputImageWidth, inputImageHeight);
+    inputDepthImg.setFromPixels(depthPixels.getPixels(), inputImageWidth, inputImageHeight);
+    colorImg.setFromPixels(inputColorImg.getRoiPixelsRef());
+    depthImg.setFromPixels(inputDepthImg.getRoiPixelsRef());
 
     // subtract masked regions out of depth data
     if (useMask) {

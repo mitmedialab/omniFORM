@@ -19,6 +19,7 @@ const int DEFAULT_FAR_THRESHOLD = 70;
 class ObjectDetector {
 public:
     ObjectDetector(int nearThreshold = DEFAULT_NEAR_THRESHOLD, int farThreshold = DEFAULT_FAR_THRESHOLD);
+    ObjectDetector(int roiX, int roiY, int roiWidth, int roiHeight, int nearThreshold = DEFAULT_NEAR_THRESHOLD, int farThreshold = DEFAULT_FAR_THRESHOLD);
 
     void update(const ofPixels &colorPixels, const ofPixels &depthPixels);
 
@@ -39,10 +40,14 @@ public:
     bool useMask = false;
 
 private:
+    void setup();
+    
     void loadAlphaMask();
     void maskDepthImage();
     void thresholdImages();
 
+    ofxCvColorImage inputColorImg;
+    ofxCvGrayscaleImage inputDepthImg;
     ofxCvColorImage colorImg;
     ofxCvGrayscaleImage depthImg;
     ofxCvGrayscaleImage imageMask;
@@ -52,8 +57,12 @@ private:
     ofxCvGrayscaleImage lastDepthThreshed;
     ofxCvGrayscaleImage depthThreshedDiff;
 
-    const int imageWidth = KINECT_X;
-    const int imageHeight = KINECT_Y;
+    const int inputImageWidth = KINECT_X;
+    const int inputImageHeight = KINECT_Y;
+    const int roiX;
+    const int roiY;
+    const int imageWidth;
+    const int imageHeight;
 
     int nearThreshold; // the near threshold, closest possible value is 255, farthest possible value 0
     int farThreshold; // the far threshold, closest possible value is 255, farthest possible value 0
