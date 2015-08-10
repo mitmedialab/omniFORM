@@ -45,11 +45,15 @@ private:
     
     void loadAlphaMask();
     void maskInputDepthImage();
+    void blurImage(ofxCvImage &img);
 
     ofxCvColorImage inputColorImg;
+    ofxCvColorImage colorImgRaw;
+    ofxCvColorImage colorImgBlurred;
     ofxCvGrayscaleImage inputDepthImg;
-    ofxCvColorImage colorImg;
-    ofxCvGrayscaleImage depthImg;
+    ofxCvGrayscaleImage depthImgRaw;
+    ofxCvGrayscaleImage depthImgBlurred;
+
     ofxCvGrayscaleImage imageMask;
     ofxCvGrayscaleImage nearThresholdHelper;
     ofxCvGrayscaleImage farThresholdHelper;

@@ -27,8 +27,10 @@ void ObjectDetector::setup() {
     inputDepthImg.allocate(inputImageWidth, inputImageHeight);
     inputDepthImg.setROI(roiX, roiY, imageWidth, imageHeight);
 
-    colorImg.allocate(imageWidth, imageHeight);
-    depthImg.allocate(imageWidth, imageHeight);
+    colorImgRaw.allocate(imageWidth, imageHeight);
+    depthImgRaw.allocate(imageWidth, imageHeight);
+    colorImgBlurred.allocate(imageWidth, imageHeight);
+    depthImgBlurred.allocate(imageWidth, imageHeight);
     nearThresholdHelper.allocate(imageWidth, imageHeight);
     farThresholdHelper.allocate(imageWidth, imageHeight);
     depthThreshed.allocate(imageWidth, imageHeight);
@@ -69,23 +71,31 @@ void ObjectDetector::update(const ofPixels &colorPixels, const ofPixels &depthPi
     if (useMask) {
         maskInputDepthImage();
     }
-    
-    // update derived color and depth images
-    colorImg.setFromPixels(inputColorImg.getRoiPixelsRef());
-    depthImg.setFromPixels(inputDepthImg.getRoiPixelsRef());
-    
-    lastDepthThreshed.setFromPixels(depthThreshed.getPixels(), imageWidth, imageHeight);
 
-    depthThreshed.setFromPixels(depthImg.getPixels(), imageWidth, imageHeight);
-    depthThreshed.erode_3x3();
-    depthThreshed.dilate_3x3();
-    thresholdImage(depthThreshed, depthThreshed);
-    
+    // update derived color and depth images
+    colorImgRaw.setFromPixels(inputColorImg.getRoiPixelsRef());
+    depthImgRaw.setFromPixels(inputDepthImg.getRoiPixelsRef());
+
+    // reduce noise by blurring images (this is best practice for computer vision)
+    colorImgBlurred = colorImgRaw;
+    depthImgBlurred = depthImgRaw;
+    blurImage(colorImgBlurred);
+    blurImage(depthImgBlurred);
+
+    lastDepthThreshed.setFromPixels(depthThreshed.getPixels(), imageWidth, imageHeight);
+    thresholdImage(depthImgBlurred, depthThreshed);
     depthThreshedDiff.absDiff(lastDepthThreshed, depthThreshed);
 }
 
 void ObjectDetector::maskInputDepthImage() {
     cvAnd(inputDepthImg.getCvImage(), imageMask.getCvImage(), inputDepthImg.getCvImage(), NULL);
+}
+
+void ObjectDetector::blurImage(ofxCvImage &img) {
+    img.dilate();
+    img.erode();
+    img.erode();
+    img.dilate();
 }
 
 void ObjectDetector::thresholdImage(ofxCvGrayscaleImage &src, ofxCvGrayscaleImage &dst, int near, int far) {
@@ -109,12 +119,12 @@ void ObjectDetector::thresholdImage(ofxCvGrayscaleImage &src, ofxCvGrayscaleImag
 
 // color image
 void ObjectDetector::getColorPixels(ofPixels &pixels) {
-    pixels.setFromPixels(colorImg.getPixels(), imageWidth, imageHeight, 3);
+    pixels.setFromPixels(colorImgRaw.getPixels(), imageWidth, imageHeight, 3);
 }
 
 // depth image with near and far threshold
 void ObjectDetector::getDepthPixels(ofPixels &pixels) {
-    pixels.setFromPixels(depthImg.getPixels(), imageWidth, imageHeight, 1);
+    pixels.setFromPixels(depthImgRaw.getPixels(), imageWidth, imageHeight, 1);
 }
 
 // depth image with far threshold only
@@ -137,13 +147,13 @@ void ObjectDetector::getDepthThreshedDiffPixels(ofPixels &pixels) {
 // color image
 void ObjectDetector::drawColorImage(int x, int y, int width, int height) {
     ofSetColor(255);
-    colorImg.draw(x, y, width, height);
+    colorImgRaw.draw(x, y, width, height);
 }
 
 // depth image
 void ObjectDetector::drawDepthImage(int x, int y, int width, int height){
     ofSetColor(255);
-    depthImg.draw(x, y, width, height);
+    depthImgRaw.draw(x, y, width, height);
 }
 
 // black and white image from within threshold range
