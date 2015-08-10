@@ -22,20 +22,28 @@ ObjectDetector::ObjectDetector(int roiX, int roiY, int roiWidth, int roiHeight, 
 }
 
 void ObjectDetector::setup() {
+    // allocate and set the region of interest on our input image buffers
     inputColorImg.allocate(inputImageWidth, inputImageHeight);
     inputColorImg.setROI(roiX, roiY, imageWidth, imageHeight);
     inputDepthImg.allocate(inputImageWidth, inputImageHeight);
     inputDepthImg.setROI(roiX, roiY, imageWidth, imageHeight);
 
-    colorImgRaw.allocate(imageWidth, imageHeight);
-    depthImgRaw.allocate(imageWidth, imageHeight);
-    colorImgBlurred.allocate(imageWidth, imageHeight);
-    depthImgBlurred.allocate(imageWidth, imageHeight);
-    nearThresholdHelper.allocate(imageWidth, imageHeight);
-    farThresholdHelper.allocate(imageWidth, imageHeight);
-    depthThreshed.allocate(imageWidth, imageHeight);
-    lastDepthThreshed.allocate(imageWidth, imageHeight);
-    depthThreshedDiff.allocate(imageWidth, imageHeight);
+    // allocate all other images
+    ofxCvImage *roiSizedImages[] = {
+        &colorImgRaw,
+        &depthImgRaw,
+        &colorImgBlurred,
+        &depthImgBlurred,
+        &nearThresholdHelper,
+        &farThresholdHelper,
+        &depthThreshed,
+        &lastDepthThreshed,
+        &depthThreshedDiff
+    };
+    int numImages = sizeof(roiSizedImages) / sizeof(roiSizedImages[0]);
+    for (int i = 0; i < numImages; i++) {
+        roiSizedImages[i]->allocate(imageWidth, imageHeight);
+    }
 
     loadAlphaMask();
 }
