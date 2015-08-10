@@ -42,6 +42,8 @@ public:
 
 private:
     void setup();
+
+    void updateImages(const ofPixels &colorPixels, const ofPixels &depthPixels);
     
     void loadAlphaMask();
     void maskInputDepthImage();

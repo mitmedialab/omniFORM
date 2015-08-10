@@ -63,6 +63,10 @@ void ObjectDetector::loadAlphaMask() {
 }
 
 void ObjectDetector::update(const ofPixels &colorPixels, const ofPixels &depthPixels) {
+    updateImages(colorPixels, depthPixels);
+}
+
+void ObjectDetector::updateImages(const ofPixels &colorPixels, const ofPixels &depthPixels) {
     // refresh input images
     inputColorImg.setFromPixels(colorPixels.getPixels(), inputImageWidth, inputImageHeight);
     inputDepthImg.setFromPixels(depthPixels.getPixels(), inputImageWidth, inputImageHeight);
