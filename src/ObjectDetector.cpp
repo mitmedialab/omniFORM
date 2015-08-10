@@ -35,11 +35,6 @@ void ObjectDetector::setup() {
     lastDepthThreshed.allocate(imageWidth, imageHeight);
     depthThreshedDiff.allocate(imageWidth, imageHeight);
 
-    colorImg.set(0);
-    depthImg.set(0);
-    depthThreshed.set(0);
-    depthThreshedDiff.set(0);
-
     loadAlphaMask();
 }
 
