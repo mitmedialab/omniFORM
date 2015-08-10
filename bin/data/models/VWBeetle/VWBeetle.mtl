@@ -1,0 +1,680 @@
+# 
+# Wavefront material file
+# Converted by the DEEP Exploration  Deep Exploration 5.5 5.5.3.2642 Release
+# Right Hemisphere, LTD
+# http://www.righthemisphere.com/
+# 
+
+newmtl Green
+Ka 0 0 0
+Kd 0.32549 0.768628 0.709804
+Ks 1 1 1
+illum 2
+Ns 2048
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl E:\\ramon\\aarreglados\\LAKEREM.jpg
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Interior
+Ka 0.1 0.1 0.1
+Kd 0.670588 0.666667 0.619608
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Door
+Ka 0 0 0
+Kd 0.32549 0.768628 0.709804
+Ks 1 1 1
+illum 2
+Ns 2048
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl crome
+Ka 0 0 0
+Kd 0.188235 0.137255 0.0588235
+Ks 1 1 1
+illum 2
+Ns 548.748
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Interior0
+Ka 0.1 0.1 0.1
+Kd 0.670588 0.666667 0.619608
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Glass
+Ka 0 0 0
+Kd 0.00392157 0.133333 0.156863
+Ks 1 1 1
+illum 2
+Ns 73.5167
+d 0.5
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Black
+Ka 0.1 0.1 0.1
+Kd 0.184314 0.184314 0.184314
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl interior1
+Ka 0.1 0.1 0.1
+Kd 0.596078 0.592157 0.498039
+Ks 0.9 0.9 0.9
+illum 2
+Ns 10.5561
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl QuaPan
+Ka 0.1 0.1 0.1
+Kd 0.184314 0.184314 0.184314
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Black0
+Ka 0.1 0.1 0.1
+Kd 0.184314 0.184314 0.184314
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Grey
+Ka 0 0 0
+Kd 0.215686 0.215686 0.215686
+Ks 1 1 1
+illum 2
+Ns 32
+map_Kd 
+map_bump VWBWhelB.png
+bump VWBWhelB.png
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Picture
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 16
+map_Kd VWBPicT.png
+map_bump VWBPicT.png
+bump VWBPicT.png
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl tire
+Ka 0 0 0
+Kd 0.215686 0.215686 0.215686
+Ks 1 1 1
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl white
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 157.586
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl E:\\ramon\\aarreglados\\LAKEREM.jpg
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl tube
+Ka 0 0 0
+Kd 0.278431 0.321569 0.356863
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl E:\\ramon\\aarreglados\\LAKEREM.jpg
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl black1
+Ka 0 0 0
+Kd 0.0901961 0.0901961 0.0901961
+Ks 1 1 1
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl white0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 157.586
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Glass0
+Ka 0 0 0
+Kd 0.968628 0.964706 0.960784
+Ks 1 1 1
+illum 2
+Ns 2048
+d 0
+map_Kd 
+map_bump VWBFarB.png
+bump VWBFarB.png
+map_opacity VWBFarB.png
+map_d VWBFarB.png
+refl E:\\ramon\\aarreglados\\LAKEREM.jpg
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Crome0
+Ka 0 0 0
+Kd 0.188235 0.129412 0.0392157
+Ks 1 1 1
+illum 2
+Ns 548.748
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl E:\\ramon\\aarreglados\\LAKEREM.jpg
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Headlight
+Ka 0 0 0
+Kd 0.188235 0.129412 0.0392157
+Ks 1 1 1
+illum 2
+Ns 548.748
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Crome1
+Ka 0 0 0
+Kd 0.188235 0.129412 0.0392157
+Ks 1 1 1
+illum 2
+Ns 548.748
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Orange
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 2048
+map_Kd taillight.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Tailight
+Ka 0 0 0
+Kd 0.188235 0.129412 0.0392157
+Ks 1 1 1
+illum 2
+Ns 548.748
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Place
+Ka 0.1 0.1 0.1
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd LICENSE.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Black2
+Ka 0.1 0.1 0.1
+Kd 0.215686 0.215686 0.215686
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Green0
+Ka 0 0 0
+Kd 0.32549 0.768628 0.709804
+Ks 1 1 1
+illum 2
+Ns 2048
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Place0
+Ka 0.1 0.1 0.1
+Kd 0.7 0.7 0.7
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd E:\\ramon\\aarreglados\\VWBMat1T.jpg
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl blue
+Ka 0 0 0
+Kd 0.32549 0.768628 0.709804
+Ks 1 1 1
+illum 2
+Ns 2048
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl E:\\ramon\\aarreglados\\LAKEREM.jpg
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Frplace
+Ka 0 0 0
+Kd 0.32549 0.768628 0.709804
+Ks 1 1 1
+illum 2
+Ns 2048
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Red_1
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 445.722
+map_Kd BRAKELIGHT.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Red_2
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 2048
+map_Kd BRAKELIGHT.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl E:\\ramon\\aarreglados\\LAKEREM.jpg
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Turquese_blue
+Ka 0 0 0
+Kd 0.32549 0.768628 0.709804
+Ks 1 1 1
+illum 2
+Ns 2048
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Black3
+Ka 0.1 0.1 0.1
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Cream
+Ka 0.1 0.1 0.1
+Kd 0.984314 0.878431 0.807843
+Ks 0.9 0.9 0.9
+illum 2
+Ns 157.586
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Interior_grids
+Ka 0.1 0.1 0.1
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd VWBSalpT.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Gray
+Ka 0.1 0.1 0.1
+Kd 0.7 0.7 0.7
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Km
+Ka 0.1 0.1 0.1
+Kd 0.7 0.7 0.7
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd E:\\ramon\\aarreglados\\VWBCunkT.jpg
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Intsys
+Ka 0.1 0.1 0.1
+Kd 0.7 0.7 0.7
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Crome2
+Ka 0 0 0
+Kd 0.188235 0.129412 0.0392157
+Ks 1 1 1
+illum 2
+Ns 548.748
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Gray_2
+Ka 0.572549 0.572549 0.572549
+Kd 0.294118 0.294118 0.294118
+Ks 0.505882 0.505882 0.505882
+illum 2
+Ns 388.023
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Gray0
+Ka 0.1 0.1 0.1
+Kd 0.7 0.7 0.7
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Gear
+Ka 0.1 0.1 0.1
+Kd 0.7 0.7 0.7
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 

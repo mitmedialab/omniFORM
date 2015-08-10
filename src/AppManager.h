@@ -31,6 +31,7 @@
 #include "LeverApp.h"
 #include "MetaMaterialsApp.h"
 #include "BOSApp.h"
+#include "TeleoperationApp.h"
 
 // debugging applications
 #include "AxisCheckerApp.h"
@@ -74,6 +75,7 @@ private:
     LeverApp *leverApp;
     MetaMaterialsApp *metaMaterialsApp;
     BOSApp *bosApp;
+    TeleoperationApp *teleoperationApp;
 
     // debugging applications
     AxisCheckerApp *axisCheckerApp;

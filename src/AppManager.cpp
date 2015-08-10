@@ -45,6 +45,8 @@ void AppManager::setup(){
     applications["metaMaterials"] = metaMaterialsApp;
     bosApp = new BOSApp();
     applications["BOS"] = bosApp;
+    teleoperationApp = new TeleoperationApp();
+    applications["teleoperation"] = teleoperationApp;
 
     // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
@@ -294,6 +296,8 @@ void AppManager::keyPressed(int key) {
             setCurrentApplication("BOS");
         } else if (key == '4') {
             setCurrentApplication("metaMaterials");
+        } else if (key == '5') {
+            setCurrentApplication("teleoperation");
         }
 
     // forward unreserved keys to the application
