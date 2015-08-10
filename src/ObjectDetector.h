@@ -11,6 +11,8 @@
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
 #include "constants.h"
+#include "nuiComputerVision.h"
+#include "Hand.h"
 
 
 const int DEFAULT_NEAR_THRESHOLD = 230;
@@ -25,6 +27,8 @@ public:
 
     void setDepthThresholds(int near, int far);
     void thresholdImage(ofxCvGrayscaleImage &src, ofxCvGrayscaleImage &dst, int near=-1, int far=-1);
+
+    void findHands(vector<Hand> &hands);
 
     // get images as pixels
     void getColorPixels(ofPixels &pixels);
@@ -48,6 +52,8 @@ private:
     void loadAlphaMask();
     void maskInputDepthImage();
     void blurImage(ofxCvImage &img);
+    
+    ContourFinder handContourFinder;
 
     ofxCvColorImage inputColorImg;
     ofxCvColorImage colorImgRaw;

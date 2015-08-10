@@ -45,6 +45,9 @@ void ObjectDetector::setup() {
         roiSizedImages[i]->allocate(imageWidth, imageHeight);
     }
 
+    handContourFinder.bTrackBlobs = true;
+    handContourFinder.bTrackFingers = true;
+
     loadAlphaMask();
 }
 
@@ -120,6 +123,26 @@ void ObjectDetector::thresholdImage(ofxCvGrayscaleImage &src, ofxCvGrayscaleImag
     nearThresholdHelper.threshold(near, true);
     farThresholdHelper.threshold(far);
     cvAnd(nearThresholdHelper.getCvImage(), farThresholdHelper.getCvImage(), dst.getCvImage(), NULL);
+}
+
+void ObjectDetector::findHands(vector<Hand> &hands) {
+    // find candidate hand contours
+    int minBlobArea = 75;
+    int maxBlobArea = depthThreshed.getPixelsRef().size() / 2;
+    handContourFinder.findContours(depthThreshed, minBlobArea, maxBlobArea, 20, 20.0, false);
+
+    // clear out old hand objects
+    hands.clear();
+
+    // construct hand objects out of valid hand blobs
+    for (vector<Blob>::iterator itr = handContourFinder.blobs.begin(); itr < handContourFinder.blobs.end(); itr++) {
+        hands.push_back(Hand(*itr, depthThreshed.width, depthThreshed.height));
+
+        // if the hand blob is invalid, delete it
+        if (!hands.back().hasValidHandBlob()){
+            hands.pop_back();
+        }
+    }
 }
 
 
