@@ -44,7 +44,7 @@ private:
     void setup();
     
     void loadAlphaMask();
-    void maskDepthImage();
+    void maskInputDepthImage();
 
     ofxCvColorImage inputColorImg;
     ofxCvGrayscaleImage inputDepthImg;

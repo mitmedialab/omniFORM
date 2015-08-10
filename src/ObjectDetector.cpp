@@ -61,16 +61,18 @@ void ObjectDetector::loadAlphaMask() {
 }
 
 void ObjectDetector::update(const ofPixels &colorPixels, const ofPixels &depthPixels) {
-    // update color and depth images
+    // refresh input images
     inputColorImg.setFromPixels(colorPixels.getPixels(), inputImageWidth, inputImageHeight);
     inputDepthImg.setFromPixels(depthPixels.getPixels(), inputImageWidth, inputImageHeight);
-    colorImg.setFromPixels(inputColorImg.getRoiPixelsRef());
-    depthImg.setFromPixels(inputDepthImg.getRoiPixelsRef());
 
     // subtract masked regions out of depth data
     if (useMask) {
-        maskDepthImage();
+        maskInputDepthImage();
     }
+    
+    // update derived color and depth images
+    colorImg.setFromPixels(inputColorImg.getRoiPixelsRef());
+    depthImg.setFromPixels(inputDepthImg.getRoiPixelsRef());
     
     lastDepthThreshed.setFromPixels(depthThreshed.getPixels(), imageWidth, imageHeight);
 
@@ -82,8 +84,8 @@ void ObjectDetector::update(const ofPixels &colorPixels, const ofPixels &depthPi
     depthThreshedDiff.absDiff(lastDepthThreshed, depthThreshed);
 }
 
-void ObjectDetector::maskDepthImage() {
-    cvAnd(depthImg.getCvImage(), imageMask.getCvImage(), depthImg.getCvImage(), NULL);
+void ObjectDetector::maskInputDepthImage() {
+    cvAnd(inputDepthImg.getCvImage(), imageMask.getCvImage(), inputDepthImg.getCvImage(), NULL);
 }
 
 void ObjectDetector::thresholdImage(ofxCvGrayscaleImage &src, ofxCvGrayscaleImage &dst, int near, int far) {
