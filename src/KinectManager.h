@@ -22,6 +22,8 @@ public:
     void getColorPixels(ofPixels &pixels);
     void getDepthPixels(ofPixels &pixels);
 
+    void setDepthClipping(int near, int far);
+
     int numAvailableDevices();
     bool isFrameNew();
     bool isConnected();

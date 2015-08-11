@@ -53,6 +53,15 @@ void KinectManager::getDepthPixels(ofPixels &pixels) {
     pixels = depthPixels;
 }
 
+void KinectManager::setDepthClipping(int near, int far) {
+    if (near < 500 || far > 4000) {
+        cout << "[notice ] KinectManager: depth clipping values outside the " <<
+                "range 500 - 4000 are likely to produce noisy data" << endl;
+    }
+
+    kinect.setDepthClipping(near, far);
+}
+
 int KinectManager::numAvailableDevices(){
     return kinect.numAvailableDevices();
 }

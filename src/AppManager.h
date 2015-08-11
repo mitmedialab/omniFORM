@@ -45,6 +45,8 @@ public:
 
 private:
     void setupShapeDisplayManagement();
+    void setCurrentApplication(string appName);
+    void updateDepthInputBoundaries();
 
     // interfaces to the peripherals
     ShapeIOManager *shapeIOManager;

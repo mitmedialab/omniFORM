@@ -58,7 +58,7 @@ void AppManager::setup(){
     }
 
     // set default application
-    currentApplication = applications["tunableWave"];
+    setCurrentApplication("tunableWave");
 }
 
 // initialize the shape display and set up shape display helper objects
@@ -235,6 +235,29 @@ void AppManager::draw(){
     };
 }
 
+void AppManager::setCurrentApplication(string appName) {
+    if (applications.find(appName) == applications.end()) {
+        throw "no application exists with name " + appName;
+    }
+
+    currentApplication = applications[appName];
+    updateDepthInputBoundaries();
+}
+
+void AppManager::updateDepthInputBoundaries() {
+    pair<int, int> boundaries = currentApplication->getDepthInputBoundaries();
+    int near = boundaries.first;
+    int far = boundaries.second;
+
+    // use default values if retrieved values don't make sense
+    if (near <= 0 || far < near) {
+        near = KINECT_NEAR_CLIP_DEFAULT;
+        far = KINECT_FAR_CLIP_DEFAULT;
+    }
+
+    kinectManager->setDepthClipping(near, far);
+}
+
 void AppManager::exit() {
     // delete kinectManager to shut down the kinect
     delete kinectManager;
@@ -262,11 +285,11 @@ void AppManager::keyPressed(int key) {
         } else if (key == ' ') {
             paused = !paused;
         } else if (key == '1') {
-            currentApplication = applications["tunableWave"];
+            setCurrentApplication("tunableWave");
         } else if (key == '2') {
-            currentApplication = applications["lever"];
+            setCurrentApplication("lever");
         } else if (key == '3') {
-            currentApplication = applications["BOS"];
+            setCurrentApplication("BOS");
         }
 
     // forward unreserved keys to the application

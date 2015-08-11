@@ -31,6 +31,10 @@ public:
 
     virtual string getName() {return "Application";};
 
+    // near and far boundary values for depth data captured, specified in millimeters.
+    // return negative values to use the default boundaries.
+    virtual pair<int, int> getDepthInputBoundaries() {return pair<int, int>(-1, -1);};
+
     double timeOfLastPinConfigsUpdate = -1;
 
 protected:
