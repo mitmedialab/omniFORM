@@ -61,7 +61,7 @@ void ObjectDetector::loadAlphaMask() {
 
     // set the display-specific image mask
     if (SHAPE_DISPLAY_IN_USE == TRANSFORM_DISPLAY) {
-        mask.loadImage("mask_transform.png");
+        mask.loadImage("masks/transformMask.png");
         mask.setImageType(OF_IMAGE_COLOR);
     } else {
         mask.allocate(KINECT_X, KINECT_Y, OF_IMAGE_COLOR);
