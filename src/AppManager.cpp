@@ -180,16 +180,12 @@ void AppManager::draw(){
     ofSetColor(255);
     
     // draw shape and color I/O images
-    
-    ofPixels heightPixels;
 
     ofRect(1, 1, 302, 302);
-    heightPixels.setFromPixels((unsigned char *) heightsFromShapeDisplay, SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
-    ofImage(heightPixels).draw(2, 2, 300, 300);
+    ofImage(heightPixelsFromShapeDisplay).draw(2, 2, 300, 300);
     
     ofRect(305, 1, 302, 302);
-    heightPixels.setFromPixels((unsigned char *) heightsForShapeDisplay, SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
-    ofImage(heightPixels).draw(306, 2, 300, 300);
+    ofImage(heightPixelsForShapeDisplay).draw(306, 2, 300, 300);
     
     ofRect(609, 1, 302, 302);
     graphicsForShapeDisplay.draw(610, 2, 300, 300);
