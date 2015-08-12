@@ -159,6 +159,7 @@ string LeverApp::appInstructionsText() {
         "\n" +
         "lever angle: " + ofToString(theta, 2) + "\n" +
         "";
+
     return instructions;
 }
 
