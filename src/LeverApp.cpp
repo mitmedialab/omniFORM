@@ -143,9 +143,9 @@ void LeverApp::updateThetaFromTouch() {
     theta = max(thetaMin, thetaFit);
 }
 
-void LeverApp::drawGraphicsForShapeDisplay() {
+void LeverApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
     ofSetColor(ofColor::blue);
-    ofImage(heightsForShapeDisplay).draw(0, 0, 300, 300);
+    ofImage(heightsForShapeDisplay).draw(x, y, width, height);
 }
 
 string LeverApp::appInstructionsText() {

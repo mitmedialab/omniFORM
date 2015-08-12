@@ -24,7 +24,7 @@ public:
     void setPixelsFromKinectRefs(const ofPixels *colorPixels, const ofPixels *depthPixels);
 
     virtual void update(float dt) {};
-    virtual void drawGraphicsForShapeDisplay() {};
+    virtual void drawGraphicsForShapeDisplay(int x, int y, int width, int height) {};
     virtual string appInstructionsText() {return "";};
     virtual void drawDebugGui(int x, int y) {};
     virtual void keyPressed(int key) {};

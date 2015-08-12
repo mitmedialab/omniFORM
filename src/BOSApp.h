@@ -18,7 +18,7 @@ public:
     ~BOSApp();
     
     void update(float dt);
-    void drawGraphicsForShapeDisplay();
+    void drawGraphicsForShapeDisplay(int x, int y, int width, int height);
     string appInstructionsText();
     void keyPressed(int key);
 

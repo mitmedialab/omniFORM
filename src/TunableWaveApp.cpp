@@ -108,10 +108,10 @@ void TunableWaveApp::updateWaveParametersWithKinect() {
     numCrests = 10.0 * closestX / KINECT_X;
 };
 
-void TunableWaveApp::drawGraphicsForShapeDisplay() {
+void TunableWaveApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
     color.setHsb(fmod(normalizedPhase * 180, 180), 255, 255);
     ofSetColor(color);
-    ofImage(heightsForShapeDisplay).draw(0, 0, 300, 300);
+    ofImage(heightsForShapeDisplay).draw(x, y, width, height);
 };
 
 string TunableWaveApp::appInstructionsText() {
