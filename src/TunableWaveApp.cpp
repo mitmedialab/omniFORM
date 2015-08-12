@@ -72,8 +72,7 @@ void TunableWaveApp::updateHeights() {
 
 void TunableWaveApp::updateWaveParametersWithKinect() {
     // Get Pixels from kinect
-    ofPixels depthPixels;
-    objectDetector->getDepthThreshedPixels(depthPixels);
+    const ofPixels &depthPixels = objectDetector->depthThreshedPixels();
     int tableMaskLine = 200;
     int closestY = -1;
     int closestX = KINECT_X / 2;

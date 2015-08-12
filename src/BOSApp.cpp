@@ -80,8 +80,7 @@ void BOSApp::updateHeights() {
 void BOSApp::updateScaleParametersWithKinect() {
     
     //detect higher Z depth : Toggle BOS
-    ofPixels depthPixels;
-    objectDetector->getDepthPixels(depthPixels);
+    const ofPixels &depthPixels = objectDetector->depthPixels();
     int tableMaskLine = KINECT_Y - 200;
     int closestY = -1;
     int closestX = KINECT_X / 2;
@@ -153,8 +152,7 @@ void BOSApp::generateWave() {
 
 void BOSApp::updateWaveParametersWithKinect() {
     // Get Pixels from kinect
-    ofPixels depthPixels;
-    objectDetector->getDepthPixels(depthPixels);
+    const ofPixels &depthPixels = objectDetector->depthPixels();
     int tableMaskLine = KINECT_Y - 200;
     int closestY = -1;
     int closestX = KINECT_X / 2;

@@ -31,10 +31,10 @@ public:
     void findHands(vector<Hand> &hands);
 
     // get images as pixels
-    void getColorPixels(ofPixels &pixels);
-    void getDepthPixels(ofPixels &pixels);
-    void getDepthThreshedPixels(ofPixels &pixels);
-    void getDepthThreshedDiffPixels(ofPixels &pixels);
+    const ofPixels &colorPixels();
+    const ofPixels &depthPixels();
+    const ofPixels &depthThreshedPixels();
+    const ofPixels &depthThreshedDiffPixels();
 
     // draw various images given coordinates and size
     void drawColorImage(int x, int y, int width, int height);

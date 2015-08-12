@@ -153,23 +153,24 @@ void ObjectDetector::findHands(vector<Hand> &hands) {
 //--------------------------------------------------------------
 
 // color image
-void ObjectDetector::getColorPixels(ofPixels &pixels) {
-    pixels.setFromPixels(colorImgRaw.getPixels(), imageWidth, imageHeight, 3);
+const ofPixels &ObjectDetector::colorPixels() {
+    return colorImgRaw.getPixelsRef();
 }
 
-// depth image with near and far threshold
-void ObjectDetector::getDepthPixels(ofPixels &pixels) {
-    pixels.setFromPixels(depthImgRaw.getPixels(), imageWidth, imageHeight, 1);
+// depth image
+const ofPixels &ObjectDetector::depthPixels() {
+    return depthImgRaw.getPixelsRef();
 }
 
-// depth image with far threshold only
-void ObjectDetector::getDepthThreshedPixels(ofPixels &pixels) {
-    pixels.setFromPixels(depthThreshed.getPixels(), imageWidth, imageHeight, 1);
+// black and white image from within threshold range
+const ofPixels &ObjectDetector::depthThreshedPixels() {
+    return depthThreshed.getPixelsRef();
 }
 
-// depth image with far threshold only
-void ObjectDetector::getDepthThreshedDiffPixels(ofPixels &pixels) {
-    pixels.setFromPixels(depthThreshedDiff.getPixels(), imageWidth, imageHeight, 1);
+// black and white difference image from within threshold range
+// (only data from movements)
+const ofPixels &ObjectDetector::depthThreshedDiffPixels() {
+    return depthThreshedDiff.getPixelsRef();
 }
 
 
