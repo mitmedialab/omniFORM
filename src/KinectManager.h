@@ -19,6 +19,8 @@ public:
 
     void update();
 
+    void orientInputImages();
+
     void getColorPixels(ofPixels &pixels);
     void getDepthPixels(ofPixels &pixels);
 

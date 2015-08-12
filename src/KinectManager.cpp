@@ -42,6 +42,21 @@ void KinectManager::update() {
     if (isFrameNew()) {
         colorPixels.setFromPixels(kinect.getPixels(), kinect.width, kinect.height, OF_IMAGE_COLOR);
         depthPixels.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height, OF_IMAGE_GRAYSCALE);
+
+        orientInputImages();
+    }
+}
+
+void KinectManager::orientInputImages() {
+    if (SHAPE_DISPLAY_IN_USE == INFORM_DISPLAY) {
+        colorPixels.rotate90(2);
+        depthPixels.rotate90(2);
+    } else if (SHAPE_DISPLAY_IN_USE == TRANSFORM_DISPLAY) {
+        colorPixels.rotate90(2);
+        depthPixels.rotate90(2);
+    } else if (SHAPE_DISPLAY_IN_USE == COOPERFORM_DISPLAY) {
+        colorPixels.rotate90(2);
+        depthPixels.rotate90(2);
     }
 }
 

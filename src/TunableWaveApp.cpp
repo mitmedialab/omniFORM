@@ -74,7 +74,7 @@ void TunableWaveApp::updateWaveParametersWithKinect() {
     // Get Pixels from kinect
     ofPixels depthPixels;
     objectDetector->getDepthThreshedPixels(depthPixels);
-    int tableMaskLine = KINECT_Y - 200;
+    int tableMaskLine = 200;
     int closestY = -1;
     int closestX = KINECT_X / 2;
 
@@ -86,7 +86,7 @@ void TunableWaveApp::updateWaveParametersWithKinect() {
 //    }
     
     // Get cloest Y
-    for (int y = tableMaskLine; y >= 0; y--) {
+    for (int y = tableMaskLine; y < KINECT_Y; y++) {
         for (int x = 0; x < KINECT_X; x++) {
             if (depthPixels[x + (y * KINECT_X)] > 0){
                 closestY = y;
