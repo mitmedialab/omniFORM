@@ -269,18 +269,21 @@ const string SERIAL_PORTS[NUM_SERIAL_CONNECTIONS] = {
 
 #define	KINECT_NEAR_CLIP_DEFAULT 500 // 0.50 m - minimum accurate distance
 #define	KINECT_FAR_CLIP_DEFAULT 840 // 0.84 m - table surface
+#define INPUT_IMAGE_PIXELS_PER_PIN 9.5; // measured at table surface
 
 // TRANSFORM Kinect
 #elif SHAPE_DISPLAY_IN_USE==TRANSFORM_DISPLAY
 
 #define	KINECT_NEAR_CLIP_DEFAULT 188 // 1.88 m - 2 meters above the ground
 #define	KINECT_FAR_CLIP_DEFAULT 2900 // 2.90 m - TRANSFORM surface
+#define INPUT_IMAGE_PIXELS_PER_PIN 5.5; // measured at TRANSFORM surface
 
 // cooperForm Kinect
 #elif SHAPE_DISPLAY_IN_USE==COOPERFORM_DISPLAY
 
 #define	KINECT_NEAR_CLIP_DEFAULT 500 // 0.50 m - minimum accurate distance
 #define	KINECT_FAR_CLIP_DEFAULT 1040 // 1.04 m - touch screen surface
+#define INPUT_IMAGE_PIXELS_PER_PIN 10.9; // measured at touch screen surface
 
 #endif
 
