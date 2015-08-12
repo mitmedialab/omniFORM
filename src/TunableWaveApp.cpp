@@ -77,13 +77,6 @@ void TunableWaveApp::updateWaveParametersWithKinect() {
     int closestY = -1;
     int closestX = KINECT_X / 2;
 
-//     Mask out all pixels before y Baseline
-//    for (int y = 0; y < tableMaskLine; y++) {
-//        for (int x = 0; x < KINECT_X; x++) {
-//            depthPixels[x + (y * KINECT_X)] = 0;
-//        }
-//    }
-    
     // Get cloest Y
     for (int y = tableMaskLine; y < KINECT_Y; y++) {
         for (int x = 0; x < KINECT_X; x++) {
