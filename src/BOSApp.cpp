@@ -71,6 +71,7 @@ void BOSApp::updateHeights() {
     
     heightsDrawingBuffer.end();
     heightsDrawingBuffer.readToPixels(heightsForShapeDisplay);
+    heightsForShapeDisplay.setNumChannels(1);
 
 }
 
