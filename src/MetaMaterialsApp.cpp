@@ -41,8 +41,6 @@ void MetaMaterialsApp::clearHeights(int height) {
     }
 }
 
-
-
 void MetaMaterialsApp::update(float dt) {
     
     switch (currentMaterial) {
@@ -65,9 +63,7 @@ void MetaMaterialsApp::update(float dt) {
     
 }
 
-
-
-
+// CELLULAR ATOMATA META MATERIAL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 void MetaMaterialsApp::updateCellAt(){
     
@@ -154,6 +150,19 @@ int MetaMaterialsApp::neighbors(int x, int y) {
 }
 
 
+
+// BASIC WAVE META MATERIAL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+
+
+// BUBBLES META MATERIAL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+
+
 void MetaMaterialsApp::refreshMaterials(){
     
     switch (currentMaterial) {
@@ -215,7 +224,10 @@ void MetaMaterialsApp::keyPressed(int key) {
     } else if (key == OF_KEY_RIGHT){
         
         currentMaterial = CELLAT;
+        
     } else if (key == 'r'){
+        
         refreshMaterials();
+        
     }
 }
