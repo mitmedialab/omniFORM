@@ -43,6 +43,8 @@ void AppManager::setup(){
     applications["lever"] = leverApp;
     bosApp = new BOSApp();
     applications["BOS"] = bosApp;
+
+    // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
     applications["axisChecker"] = axisCheckerApp;
 

@@ -8,21 +8,30 @@
 
 #pragma once
 
+// basics
 #include "ofMain.h"
 #include "constants.h"
 #include "utils.h"
+
+// shape display managers
 #include "PinConfigs.h"
 #include "ShapeIOManager.h"
 #include "InformIOManager.h"
 #include "TransformIOManager.h"
 #include "CooperformIOManager.h"
+
+// major classes
 #include "KinectManager.h"
 #include "ObjectDetector.h"
 #include "Application.h"
+
+// applications
 #include "SimpleWaveApp.h"
 #include "TunableWaveApp.h"
 #include "LeverApp.h"
 #include "BOSApp.h"
+
+// debugging applications
 #include "AxisCheckerApp.h"
 
 
@@ -63,6 +72,8 @@ private:
     TunableWaveApp *tunableWaveApp;
     LeverApp *leverApp;
     BOSApp *bosApp;
+
+    // debugging applications
     AxisCheckerApp *axisCheckerApp;
 
     // program state
