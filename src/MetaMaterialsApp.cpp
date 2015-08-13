@@ -100,7 +100,7 @@ void MetaMaterialsApp::updateCellAt(){
                 heightsForShapeDisplay[xy] = 0;
 
             }
-            world[x][y][1] = 0;
+//            world[x][y][1] = 0;
             
         }
     }
@@ -154,6 +154,31 @@ int MetaMaterialsApp::neighbors(int x, int y) {
 }
 
 
+void MetaMaterialsApp::refreshMaterials(){
+    
+    switch (currentMaterial) {
+        case CELLAT:
+            // Cellular Atomata Material
+            for (int i = 0; i < sx * sy * density; i++) {
+                int x = int(ofRandom(sx));
+                int y = int(ofRandom(sy));
+                world[x][y][1] = 1;
+            }
+            break;
+            
+        case WAVE:
+            // Basic Wave Material
+            break;
+            
+        case BUBBLES:
+            // Bubbles Material
+            break;
+            
+        default:
+            throw "unrecognized value for refreshMaterials in MetaMaterials App";
+    }
+   
+}
 
 
 void MetaMaterialsApp::drawDebugGui(int x, int y) {
@@ -190,5 +215,7 @@ void MetaMaterialsApp::keyPressed(int key) {
     } else if (key == OF_KEY_RIGHT){
         
         currentMaterial = CELLAT;
+    } else if (key == 'r'){
+        refreshMaterials();
     }
 }

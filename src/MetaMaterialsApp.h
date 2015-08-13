@@ -24,15 +24,14 @@ public:
     string getName() {return "MetaMaterials";};
 
 private:
+    
     void clearHeights(int height=0);
+    void refreshMaterials();
     int materialCount = 0;
     string currentMatName = ("Cellular Atomata");
+    CurrentMaterial currentMaterial;
 
 
-    void setNormedOrigin(float _yNormedOrigin=-1, float _zNormedOrigin=-1);
-    void updateThetaFromTouch();
-    
-    
     //METAMATERIALS:
     
     //CELLAT:
@@ -41,9 +40,9 @@ private:
     int neighbors(int x, int y);
     int sx, sy;
     float density ;
-    int world[128][24][2];
-    int columns = 128;
-    int rows = 24;
+    int world[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y][2];
+    int columns = SHAPE_DISPLAY_SIZE_X;
+    int rows = SHAPE_DISPLAY_SIZE_Y;
     
     //WAVE:
     //
@@ -51,11 +50,14 @@ private:
     //BUBBLES:
     //
     
+    
+    //for "Touch"
     float zNormedFromY(float yNormed);
     float zNormedFromY(float yNormed, float _theta);
     float thetaFromNormedYAndZ(float yNormed, float zNormed);
+    void setNormedOrigin(float _yNormedOrigin=-1, float _zNormedOrigin=-1);
+    void updateThetaFromTouch();
 
-    CurrentMaterial currentMaterial;
 
 
 };
