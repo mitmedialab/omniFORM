@@ -30,7 +30,8 @@ Hand::Hand(const Blob &blob, int borderWidth, int borderHeight) {
 }
 
 // determine which border the hand touches.
-// @todo: this function assumes that the hand is touching only one border
+// TODO: this function assumes that the hand is touching only one border.
+// TODO: this application assumes valid hands always touch a border!
 void Hand::calculateTouchedBorder(int borderWidth, int borderHeight) {
     if (boundingRect.getBottomRight().y == borderHeight - 1) {
         touchedBorder = BOTTOM;
