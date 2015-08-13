@@ -2,7 +2,7 @@
 //  MetaMaterialsApp.h
 //  TMG Shape Displays
 //
-//  Created by Daniel Windham on 7/20/15.
+//  Created by Luke Vink on 8/13/15.
 //  Copyright 2015 MIT Media Lab. All rights reserved.
 //
 
@@ -30,7 +30,6 @@ private:
 
 
     void setNormedOrigin(float _yNormedOrigin=-1, float _zNormedOrigin=-1);
-    void updateMaterial();
     void updateThetaFromTouch();
     
     

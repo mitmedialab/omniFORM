@@ -45,11 +45,6 @@ void MetaMaterialsApp::clearHeights(int height) {
 
 void MetaMaterialsApp::update(float dt) {
     
-    updateMaterial();
-
-}
-
-void MetaMaterialsApp::updateMaterial() {
     switch (currentMaterial) {
         case CELLAT:
             // Cellular Atomata Material
@@ -67,7 +62,10 @@ void MetaMaterialsApp::updateMaterial() {
         default:
             throw "unrecognized value for updateMaterial in MetaMaterials App";
     }
+    
 }
+
+
 
 
 
