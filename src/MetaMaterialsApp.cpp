@@ -21,7 +21,7 @@ MetaMaterialsApp::MetaMaterialsApp() {
     ofSetFrameRate(12);
     sx = SHAPE_DISPLAY_SIZE_X;
     sy = SHAPE_DISPLAY_SIZE_Y;
-    density = 0.5;
+    density = 0.1;
     
     // Set random cells to 'on'
     for (int i = 0; i < sx * sy * density; i++) {
@@ -194,7 +194,6 @@ void MetaMaterialsApp::drawDebugGui(int x, int y) {
     
     ofSetColor(100,100,100);
     ofRect(0, 303, 1280, 600);
-    
     debugCellAt();
     
 }
@@ -209,8 +208,12 @@ string MetaMaterialsApp::appInstructionsText() {
     string instructions = (string) "" +
         "Cycle through various types of MetaMaterials\n" +
         "Use Left and Right keys to switch Materials\n" +
+        "Use R Key to refresh Materials\n" +
         "\n" +
-        "Current Material: " + currentMatName + "\n" +
+        "CURRENT MATERIAL: " + currentMatName + "\n" +
+        "\n" +
+        "Use +/- to change initial density\n" +
+        "Birth Density:" + ofToString(density) + "\n" +
         "";
 
     return instructions;
@@ -218,16 +221,14 @@ string MetaMaterialsApp::appInstructionsText() {
 
 void MetaMaterialsApp::keyPressed(int key) {
     if (key == OF_KEY_LEFT){
-        
         currentMaterial = CELLAT;
-        
     } else if (key == OF_KEY_RIGHT){
-        
         currentMaterial = CELLAT;
-        
     } else if (key == 'r'){
-        
         refreshMaterials();
-        
+    } else if (key == '='){
+        density += 0.05;
+    } else if (key == '-'){
+        density -= 0.05;
     }
 }
