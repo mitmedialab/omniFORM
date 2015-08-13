@@ -29,6 +29,7 @@
 #include "SimpleWaveApp.h"
 #include "TunableWaveApp.h"
 #include "LeverApp.h"
+#include "MetaMaterialsApp.h"
 #include "BOSApp.h"
 
 // debugging applications
@@ -71,6 +72,7 @@ private:
     SimpleWaveApp *simpleWaveApp;
     TunableWaveApp *tunableWaveApp;
     LeverApp *leverApp;
+    MetaMaterialsApp *metaMaterialsApp;
     BOSApp *bosApp;
 
     // debugging applications

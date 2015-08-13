@@ -41,6 +41,8 @@ void AppManager::setup(){
     applications["tunableWave"] = tunableWaveApp;
     leverApp = new LeverApp();
     applications["lever"] = leverApp;
+    metaMaterialsApp = new MetaMaterialsApp();
+    applications["metaMaterials"] = metaMaterialsApp;
     bosApp = new BOSApp();
     applications["BOS"] = bosApp;
 
@@ -290,6 +292,8 @@ void AppManager::keyPressed(int key) {
             setCurrentApplication("lever");
         } else if (key == '3') {
             setCurrentApplication("BOS");
+        } else if (key == '4') {
+            setCurrentApplication("metaMaterials");
         }
 
     // forward unreserved keys to the application
