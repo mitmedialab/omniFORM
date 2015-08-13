@@ -137,6 +137,7 @@
 		6572FCC11B3DD632001BBF38 /* TransformIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCC01B3DD632001BBF38 /* TransformIOManager.cpp */; };
 		6572FCC41B3DD671001BBF38 /* CooperformIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCC31B3DD671001BBF38 /* CooperformIOManager.cpp */; };
 		658894FA1B70050900715CDA /* SimpleWaveApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658894F91B70050900715CDA /* SimpleWaveApp.cpp */; };
+		65CAFD761B7D0CD1002DA575 /* AxisCheckerApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65CAFD751B7D0CD1002DA575 /* AxisCheckerApp.cpp */; };
 		65CC07991B7115A900F89B9B /* ObjectDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65CC07981B7115A900F89B9B /* ObjectDetector.cpp */; };
 		65CC07F11B73D10B00F89B9B /* boxAlign.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65CC07B01B73D10A00F89B9B /* boxAlign.cpp */; };
 		65CC07F21B73D10B00F89B9B /* Calibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65CC07B21B73D10A00F89B9B /* Calibration.cpp */; };
@@ -766,6 +767,8 @@
 		658894F91B70050900715CDA /* SimpleWaveApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleWaveApp.cpp; sourceTree = "<group>"; };
 		658894FB1B70051300715CDA /* SimpleWaveApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleWaveApp.h; sourceTree = "<group>"; };
 		65BAC5A3B9C9387859A2B0E0 /* pushpack1.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = pushpack1.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/Compiler/pushpack1.h; sourceTree = SOURCE_ROOT; };
+		65CAFD751B7D0CD1002DA575 /* AxisCheckerApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisCheckerApp.cpp; sourceTree = "<group>"; };
+		65CAFD771B7D0CDC002DA575 /* AxisCheckerApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisCheckerApp.h; sourceTree = "<group>"; };
 		65CC07981B7115A900F89B9B /* ObjectDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectDetector.cpp; sourceTree = "<group>"; };
 		65CC079A1B7115B400F89B9B /* ObjectDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectDetector.h; sourceTree = "<group>"; };
 		65CC07B01B73D10A00F89B9B /* boxAlign.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = boxAlign.cpp; sourceTree = "<group>"; };
@@ -2023,6 +2026,15 @@
 			name = cooperForm;
 			sourceTree = "<group>";
 		};
+		65CAFD781B7D1072002DA575 /* DebuggingApps */ = {
+			isa = PBXGroup;
+			children = (
+				65CAFD751B7D0CD1002DA575 /* AxisCheckerApp.cpp */,
+				65CAFD771B7D0CDC002DA575 /* AxisCheckerApp.h */,
+			);
+			name = DebuggingApps;
+			sourceTree = "<group>";
+		};
 		65CC07AE1B73D10A00F89B9B /* NUIComputerVision */ = {
 			isa = PBXGroup;
 			children = (
@@ -2166,6 +2178,7 @@
 				65E8204E1B5D4353007FC2AA /* LeverApp.h */,
 				A58CC4061B5ED98D00125458 /* BOSApp.cpp */,
 				A58CC4071B5ED98D00125458 /* BOSApp.h */,
+				65CAFD781B7D1072002DA575 /* DebuggingApps */,
 			);
 			name = Applications;
 			sourceTree = "<group>";
@@ -4016,6 +4029,7 @@
 				65CC07F11B73D10B00F89B9B /* boxAlign.cpp in Sources */,
 				26874B150C8535AEA0F24C8C /* ofxUIImageSlider.cpp in Sources */,
 				65CC07F31B73D10B00F89B9B /* CalibrationUtils.cpp in Sources */,
+				65CAFD761B7D0CD1002DA575 /* AxisCheckerApp.cpp in Sources */,
 				65CC07F41B73D10B00F89B9B /* TUIO.cpp in Sources */,
 				FB8AA9FA6535767BE31806BC /* ofxUIImageToggle.cpp in Sources */,
 				7C3DC84C9BFCBD2866DB2B6C /* ofxUILabel.cpp in Sources */,

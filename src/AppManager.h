@@ -23,6 +23,7 @@
 #include "TunableWaveApp.h"
 #include "LeverApp.h"
 #include "BOSApp.h"
+#include "AxisCheckerApp.h"
 
 
 class AppManager : public ofBaseApp {
@@ -62,6 +63,7 @@ private:
     TunableWaveApp *tunableWaveApp;
     LeverApp *leverApp;
     BOSApp *bosApp;
+    AxisCheckerApp *axisCheckerApp;
 
     // program state
     bool paused = false;

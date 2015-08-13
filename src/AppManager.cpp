@@ -43,6 +43,8 @@ void AppManager::setup(){
     applications["lever"] = leverApp;
     bosApp = new BOSApp();
     applications["BOS"] = bosApp;
+    axisCheckerApp = new AxisCheckerApp();
+    applications["axisChecker"] = axisCheckerApp;
 
     // give applications read access to input data
     for (map<string, Application *>::iterator iter = applications.begin(); iter != applications.end(); iter++) {
