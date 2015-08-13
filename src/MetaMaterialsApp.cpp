@@ -2,7 +2,7 @@
 //  MetaMaterialsApp.cpp
 //  TMG Shape Displays
 //
-//  Created by Daniel Windham on 7/20/15.
+//  Created by Luke Vink on 8/13/15.
 //  Copyright 2015 MIT Media Lab. All rights reserved.
 //
 
