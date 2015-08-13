@@ -21,12 +21,12 @@ void CooperformIOManager::configureBoards() {
     
     // set up coordinates for 
     for (int i = 0; i < NUM_ARDUINOS; i++) {
-        int currentRow = (int)(i / 4);
-        currentRow = (rowOrder[currentRow]);
-        
+        int rowIndex = i / 4;
+        int currentRow = rowOrder[rowIndex];
+
         // one every module, the modules on the second row
         // are mounted upside down, so invert the height
-        pinBoards[i].invertHeight = ((currentRow % 3) == 2)? true : false;
+        pinBoards[i].invertHeight = ((rowIndex % 3) == 1)? true : false;
         
         for (int j = 0; j < NUM_PINS_ARDUINO; j++) {
             int currentColumn = ((i % 4) * NUM_PINS_ARDUINO) + j;
@@ -51,6 +51,14 @@ void CooperformIOManager::configureBoards() {
         }
         for (int count = 0; count < NUM_PINS_ARDUINO; count++) {
             pinBoards[i].pinCoordinates[count][1] = pinCoordinateRows[count];
+        }
+        
+        // last, orient the x-y coordinate axes to the desired external axes
+        for (int j = 0; j < NUM_PINS_ARDUINO; j++) {
+            unsigned char j0 = pinBoards[i].pinCoordinates[j][0];
+            unsigned char j1 = pinBoards[i].pinCoordinates[j][1];
+            pinBoards[i].pinCoordinates[j][0] = SHAPE_DISPLAY_SIZE_X - 1 - j1;
+            pinBoards[i].pinCoordinates[j][1] = SHAPE_DISPLAY_SIZE_Y - 1 - j0;
         }
     }
 
