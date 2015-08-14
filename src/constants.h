@@ -8,8 +8,11 @@
 
 #pragma once
 
+#include <string>
 #include "localConfigs.h"
 #include "keycodeConstants.h"
+
+using namespace std;
 
 
 // Shape display IDs
