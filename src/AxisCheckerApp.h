@@ -2,7 +2,7 @@
 //  AxisCheckerApp.h
 //  TMG Shape Displays
 //
-//  Created by Daniel Windham on 6/26/15.
+//  Created by Daniel Windham on 8/12/15.
 //  Copyright 2015 MIT Media Lab. All rights reserved.
 //
 
