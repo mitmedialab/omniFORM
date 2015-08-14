@@ -115,7 +115,7 @@ bool Hand::hasValidHandBlob() {
     return touchedBorder != NONE;
 }
 
-void Hand::drawDebug(int x, int y, int width, int height) {
+void Hand::drawDetectionResults(int x, int y, int width, int height) {
     float widthScalar = 1.0 * width / widthScale;
     float heightScalar = 1.0 * height / heightScale;
     ofPoint scalar2d(widthScalar, heightScalar);

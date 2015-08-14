@@ -17,7 +17,7 @@ class Hand {
 public:
     Hand(const Blob &blob, int borderWidth, int borderHeight);
     bool hasValidHandBlob();
-    void drawDebug(int x, int y, int width, int height);
+    void drawDetectionResults(int x, int y, int width, int height);
 
     Blob handBlob; // contains the tracked contour.
     ofPoint handTip; // the fingertip, calculated from angleBoundingRect of handBlob
