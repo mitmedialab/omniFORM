@@ -121,6 +121,7 @@ void Hand::drawDetectionResults(int x, int y, int width, int height) {
     ofPoint scalar2d(widthScalar, heightScalar);
     ofPoint offset(x, y);
 
+    // draw contours
     ofNoFill();
     ofSetColor(255,0,153);
     ofBeginShape();
@@ -130,12 +131,14 @@ void Hand::drawDetectionResults(int x, int y, int width, int height) {
     }
     ofEndShape(true);
 
-    ofSetColor(0, 255, 0);
-    ofEllipse(offset + scalar2d * handTip, widthScalar * 10, heightScalar * 10);
-
+    // draw orientation
     ofPushMatrix();
+    ofSetColor(0, 255, 0);
     ofTranslate(offset + scalar2d * handTip);
     ofRotate(handAngle, 0, 0, 1);
+    ofCircle(0, 0, min(widthScalar, heightScalar) * 10);
     ofLine(0, 0, min(widthScalar, heightScalar) * 100, 0);
     ofPopMatrix();
+
+    ofSetColor(255);
 }
