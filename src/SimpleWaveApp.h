@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Application.h"
+#include "TouchDetector.h"
 
 
 // This code is meant as an easy-to-understand example of an Application. Feel
@@ -17,6 +18,8 @@
 
 class SimpleWaveApp : public Application {
 public:
+    SimpleWaveApp();
+
     void update(float dt);
     void drawGraphicsForShapeDisplay(int x, int y, int width, int height);
     string appInstructionsText();
@@ -24,8 +27,12 @@ public:
 
     string getName() {return "Simple Wave";};
 
+    void drawDebugGui(int x, int y);
+
 private:
     void updateHeights();
+
+    TouchDetector *touchDetector;
     
     float normalizedPhase = 0;
     float frequency = 0.5;
