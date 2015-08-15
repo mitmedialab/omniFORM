@@ -28,7 +28,7 @@ private:
     void updateHeights();
     
     float normalizedPhase = 0;
-    float frequency;
-    float numCrests;
+    float frequency = 0.5;
+    float numCrests = 4;
     ofColor color;
 };
