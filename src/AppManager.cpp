@@ -47,6 +47,9 @@ void AppManager::setup(){
     applications["BOS"] = bosApp;
     teleoperationApp = new TeleoperationApp();
     applications["teleoperation"] = teleoperationApp;
+    
+    touchMaterialApp = new TouchMaterialApp();
+    applications["touchMaterial"] = touchMaterialApp;
 
     // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
@@ -66,7 +69,7 @@ void AppManager::setup(){
     }
 
     // set default application
-    setCurrentApplication("simpleWave");
+    setCurrentApplication("touchMaterial");
 }
 
 // initialize the shape display and set up shape display helper objects
@@ -298,6 +301,10 @@ void AppManager::keyPressed(int key) {
             setCurrentApplication("metaMaterials");
         } else if (key == '5') {
             setCurrentApplication("teleoperation");
+        } else if (key == '6') {
+            setCurrentApplication("simpleWave");
+        } else if (key == '7') {
+            setCurrentApplication("touchMaterial");
         }
 
     // forward unreserved keys to the application
