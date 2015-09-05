@@ -69,7 +69,7 @@ void AppManager::setup(){
     }
 
     // set default application
-    setCurrentApplication("touchMaterial");
+    setCurrentApplication("simpleWave");
 }
 
 // initialize the shape display and set up shape display helper objects
