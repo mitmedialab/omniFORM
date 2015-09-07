@@ -18,7 +18,7 @@ MetaMaterialsApp::MetaMaterialsApp() {
     //---------------------------------------------
 
     //CELLAT:
-    ofSetFrameRate(12);
+    //ofSetFrameRate(12);
     sx = SHAPE_DISPLAY_SIZE_X;
     sy = SHAPE_DISPLAY_SIZE_Y;
     density = 0.1;

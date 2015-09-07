@@ -91,7 +91,7 @@ private:
 
     // gui state
     bool showGlobalGuiInstructions = false;
-    bool showDebugGui = false;
+    bool showDebugGui = true;
 
     // projector configs
     int projectorOffsetX = 1000;

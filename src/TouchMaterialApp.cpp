@@ -10,7 +10,7 @@
 
 
 TouchMaterialApp::TouchMaterialApp() {
-    ofSetFrameRate(60);
+    //ofSetFrameRate(60);
     depression.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
     for(int x = 0; x< SHAPE_DISPLAY_SIZE_X; x++){
         for (int y =0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
@@ -33,8 +33,8 @@ TouchMaterialApp::TouchMaterialApp() {
     }
     
     touchDetector = new TouchDetector();
-    touchDetector->setDepressionSignificanceThreshold(30);
-    touchDetector->setStabilityTimeThreshold(0.2);
+    touchDetector->setDepressionSignificanceThreshold(10);
+    touchDetector->setStabilityTimeThreshold(0.3);
 }
 
 void TouchMaterialApp::update(float dt) {
@@ -63,6 +63,25 @@ void TouchMaterialApp::drawDebugGui(int x, int y) {
     ofImage(touchDetector->depressionPixels()).draw(x, y, 300, 300);
     ofImage(touchDetector->significantDepressionPixels()).draw(x + 302, y, 300, 300);
     ofImage(touchDetector->significantDepressionAmidstStabilityPixels()).draw(x + 604, y, 300, 300);
+    
+    
+    ofNoFill();
+    ofSetColor(255, 0, 0);
+    ofPushMatrix();
+    ofTranslate(x+604, y);
+    int boxSizeX = 300/SHAPE_DISPLAY_SIZE_X;
+    int boxSizeY = 300/SHAPE_DISPLAY_SIZE_Y;
+    for (int i = 0; i < SHAPE_DISPLAY_SIZE_X; i++) {
+        for (int j = 0; j < SHAPE_DISPLAY_SIZE_Y; j++) {
+            
+            if ( depression.getColor(i, j).r != 0){
+            
+            ofRect(i*boxSizeX, j*boxSizeY, boxSizeX, boxSizeY);
+            }
+            
+        }
+    }
+    ofPopMatrix();
 }
 
 void TouchMaterialApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
@@ -91,7 +110,7 @@ void TouchMaterialApp::waveSurfaceEmulation(){
     int defaultHeight = HEIGHT_MIN;
     
     
-    for(int i = NUM_WAVE_FRAME -1; i >0 ; i--){
+    for(int i = NUM_WAVE_FRAME -1; i > 0 ; i--){
         depressionStore[i] = depressionStore[i-1];
     }
     
