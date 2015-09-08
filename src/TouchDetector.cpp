@@ -23,6 +23,13 @@ TouchDetector::TouchDetector() {
             timeOfLastUpdate[x][y] = currentTime;
         }
     }
+    
+    
+    for(int i = 0; i< NUM_FRAME; i++){
+        storeOutput[i] = 0;
+        storeInput[i] = 0;
+    }
+    
 }
 
 void TouchDetector::update(const ofPixels &heightsForShapeDisplay, const ofPixels &heightsFromShapeDisplay) {
@@ -42,9 +49,21 @@ void TouchDetector::update(const ofPixels &heightsForShapeDisplay, const ofPixel
             }
         }
     }
+    
     previousHeightsForShapeDisplay = heightsForShapeDisplay;
 
     calculateTouches();
+    
+    
+    for(int i = NUM_FRAME-1; i >0; i--){
+        storeOutput[i] = storeOutput[i-1];
+        storeInput[i] = storeInput[i-1];
+    }
+    
+    
+    int xy = depressions.getPixelIndex(0, 0);
+    storeOutput[0] = heightsForShapeDisplay[xy];
+    storeInput[0] = heightsFromShapeDisplay[xy];
 }
 
 void TouchDetector::calculateTouches() {
@@ -74,6 +93,45 @@ void TouchDetector::setDepressionSignificanceThreshold(int threshold) {
 void TouchDetector::setStabilityTimeThreshold(float threshold) {
     stabilityTimeThreshold = threshold;
     calculateTouches();
+}
+
+void TouchDetector::drawStoredInputOutput(int x, int y) {
+    
+    ofPushMatrix();
+    ofTranslate(x, y);
+
+    ofFill();
+    ofSetColor(200);
+    ofRect(0, 0, NUM_FRAME*2, 255);
+    
+    ofSetColor(150);
+    ofLine(0, 255/2, NUM_FRAME*2, 255/2);
+    for (int i = 0; i < NUM_FRAME/10; i++) {
+        ofLine(i*2*10, 0, i*2*10, 255);
+    }
+    for (int i = 0; i < 255/10; i++) {
+        ofLine(0, i*10, NUM_FRAME*2, i*10);
+    }
+    
+    // draw output
+    ofSetColor(0, 255, 0);
+    for (int i = 0; i < NUM_FRAME-1; i++) {
+        ofLine(i*2, 255-storeOutput[i], (i+1)*2, 255-storeOutput[i+1]);
+    }
+    
+    // draw input
+    ofSetColor(255, 0, 0);
+    for (int i = 0; i < NUM_FRAME-1; i++) {
+        ofLine(i*2, 255-storeInput[i], (i+1)*2, 255-storeInput[i+1]);
+    }
+    
+    //ofTranslate(0, -255/2);
+    // draw depression
+    ofSetColor(0, 0, 255);
+    for (int i = 0; i < NUM_FRAME-1; i++) {
+        ofLine(i*2, 255-(storeInput[i]-storeOutput[i]), (i+1)*2, 255-(storeInput[i+1]-storeOutput[i+1]));
+    }
+    ofPopMatrix();
 }
 
 

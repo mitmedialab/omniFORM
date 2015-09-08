@@ -105,4 +105,11 @@ private:
     ofFbo graphicsForShapeDisplay;
     ofPixels colorPixels;
     ofPixels depthPixels;
+    
+    
+    
+
+
+    
+    
 };

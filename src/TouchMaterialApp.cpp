@@ -82,6 +82,8 @@ void TouchMaterialApp::drawDebugGui(int x, int y) {
         }
     }
     ofPopMatrix();
+    
+    touchDetector->drawStoredInputOutput(x, y+305);
 }
 
 void TouchMaterialApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {

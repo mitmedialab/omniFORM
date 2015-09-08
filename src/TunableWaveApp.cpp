@@ -12,6 +12,11 @@
 TunableWaveApp::TunableWaveApp() {
     objectDetector = new ObjectDetector();
     setTuningMethod(KEY_PRESS_TUNING, true);
+    
+    
+    touchDetector = new TouchDetector();
+    touchDetector->setDepressionSignificanceThreshold(10);
+    touchDetector->setStabilityTimeThreshold(0.3);
 };
 
 TunableWaveApp::~TunableWaveApp() {
@@ -40,8 +45,12 @@ void TunableWaveApp::update(float dt) {
         updateWaveParametersWithKinect();
     }
 
+    touchDetector->update(heightsForShapeDisplay, *heightsFromShapeDisplay);
+
+    
     normalizedPhase += dt * frequency;
     updateHeights();
+    
 };
 
 void TunableWaveApp::updateHeights() {
@@ -69,6 +78,10 @@ void TunableWaveApp::updateHeights() {
         }
     }
 };
+
+void TunableWaveApp::drawDebugGui(int x, int y){
+    touchDetector->drawStoredInputOutput(x, y+305);
+}
 
 void TunableWaveApp::updateWaveParametersWithKinect() {
     // Get Pixels from kinect
