@@ -28,7 +28,14 @@ TouchDetector::TouchDetector() {
     for(int i = 0; i< NUM_FRAME; i++){
         storeOutput[i] = 0;
         storeInput[i] = 0;
+        storeRawInput[i] = 0;
+        storePredictInput[i] = 0;
+        storePredictInputHigh[i] = 0;
+        storePredictInputLow[i] = 0;
+        
     }
+    
+
     
 }
 
@@ -58,12 +65,40 @@ void TouchDetector::update(const ofPixels &heightsForShapeDisplay, const ofPixel
     for(int i = NUM_FRAME-1; i >0; i--){
         storeOutput[i] = storeOutput[i-1];
         storeInput[i] = storeInput[i-1];
+        storeRawInput[i] = storeRawInput[i-1];
+        storePredictInput[i] = storePredictInput[i-1];
+        storePredictInputHigh[i] = storePredictInputHigh[i-1];
+        storePredictInputLow[i] = storePredictInputLow[i-1];
     }
+ 
     
     
     int xy = depressions.getPixelIndex(0, 0);
     storeOutput[0] = heightsForShapeDisplay[xy];
-    storeInput[0] = heightsFromShapeDisplay[xy];
+    storeRawInput[0] = heightsFromShapeDisplay[xy];
+    
+    
+    int sumIn = 0;
+    int sumOut = 0;
+    for(int i = NOISE_FILTER_FRAME; i >0; i--){
+        sumIn += storeRawInput[i];
+    }
+    for(int i = NOISE_FILTER_FRAME+3; i >0; i--){
+        sumOut += storeOutput[i];
+    }
+    
+    
+    storeInput[0] = sumIn/NOISE_FILTER_FRAME;
+    storePredictInput[0] = sumOut/(NOISE_FILTER_FRAME+3);
+    
+    
+    
+    int bandVal = 17;
+    int changeInTime = storePredictInput[0] - storePredictInput[1];
+    cout << changeInTime << endl;
+    storePredictInputHigh[0] = storePredictInput[0] + bandVal + abs(changeInTime);
+    storePredictInputLow[0] = storePredictInput[0] - bandVal - abs(changeInTime);
+    
 }
 
 void TouchDetector::calculateTouches() {
@@ -99,37 +134,50 @@ void TouchDetector::drawStoredInputOutput(int x, int y) {
     
     ofPushMatrix();
     ofTranslate(x, y);
+    
+    
 
     ofFill();
     ofSetColor(200);
-    ofRect(0, 0, NUM_FRAME*2, 255);
+    ofRect(0, 0, NUM_FRAME*GRAPH_SCALE_X, 255);
     
     ofSetColor(150);
-    ofLine(0, 255/2, NUM_FRAME*2, 255/2);
+    ofLine(0, 255/2, NUM_FRAME*GRAPH_SCALE_X, 255/2);
     for (int i = 0; i < NUM_FRAME/10; i++) {
-        ofLine(i*2*10, 0, i*2*10, 255);
+        ofLine(i*GRAPH_SCALE_X*10, 0, i*GRAPH_SCALE_X*10, 255);
     }
     for (int i = 0; i < 255/10; i++) {
-        ofLine(0, i*10, NUM_FRAME*2, i*10);
+        ofLine(0, i*10, NUM_FRAME*GRAPH_SCALE_X, i*10);
     }
+    
+    // draw predict
+    ofSetColor(0, 255, 255);
+    for (int i = 0; i < NUM_FRAME-1; i++) {
+        ofLine((i-5)*GRAPH_SCALE_X, 255-storePredictInputHigh[i], (i+1-5)*GRAPH_SCALE_X, 255-storePredictInputHigh[i+1]);
+        ofLine((i-5)*GRAPH_SCALE_X, 255-storePredictInputLow[i], (i+1-5)*GRAPH_SCALE_X, 255-storePredictInputLow[i+1]);
+    }
+
     
     // draw output
     ofSetColor(0, 255, 0);
     for (int i = 0; i < NUM_FRAME-1; i++) {
-        ofLine(i*2, 255-storeOutput[i], (i+1)*2, 255-storeOutput[i+1]);
+        ofLine(i*GRAPH_SCALE_X, 255-storeOutput[i], (i+1)*GRAPH_SCALE_X, 255-storeOutput[i+1]);
     }
     
     // draw input
     ofSetColor(255, 0, 0);
     for (int i = 0; i < NUM_FRAME-1; i++) {
-        ofLine(i*2, 255-storeInput[i], (i+1)*2, 255-storeInput[i+1]);
+        ofLine(i*GRAPH_SCALE_X, 255-storeInput[i], (i+1)*GRAPH_SCALE_X, 255-storeInput[i+1]);
     }
+    
+    
+    
     
     //ofTranslate(0, -255/2);
     // draw depression
     ofSetColor(0, 0, 255);
     for (int i = 0; i < NUM_FRAME-1; i++) {
-        ofLine(i*2, 255-(storeInput[i]-storeOutput[i]), (i+1)*2, 255-(storeInput[i+1]-storeOutput[i+1]));
+         ofLine(i*GRAPH_SCALE_X, 255-(storeRawInput[i]), (i+1)*GRAPH_SCALE_X, 255-(storeRawInput[i+1]));
     }
     ofPopMatrix();
 }

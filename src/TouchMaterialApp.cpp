@@ -10,7 +10,6 @@
 
 
 TouchMaterialApp::TouchMaterialApp() {
-    //ofSetFrameRate(60);
     depression.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
     for(int x = 0; x< SHAPE_DISPLAY_SIZE_X; x++){
         for (int y =0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
@@ -33,14 +32,13 @@ TouchMaterialApp::TouchMaterialApp() {
     }
     
     touchDetector = new TouchDetector();
-    touchDetector->setDepressionSignificanceThreshold(10);
+    touchDetector->setDepressionSignificanceThreshold(15);
     touchDetector->setStabilityTimeThreshold(0.3);
 }
 
 void TouchMaterialApp::update(float dt) {
     touchDetector->update(heightsForShapeDisplay, *heightsFromShapeDisplay);
     
-    normalizedPhase += dt * frequency;
     updateHeights();
 }
 
@@ -87,20 +85,12 @@ void TouchMaterialApp::drawDebugGui(int x, int y) {
 }
 
 void TouchMaterialApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
-    color.setHsb(fmod(normalizedPhase * 180, 180), 255, 255);
-    ofSetColor(color);
-    ofImage(heightsForShapeDisplay).draw(x, y, width, height);
 }
 
 string TouchMaterialApp::appInstructionsText() {
     string instructions = (string) "" +
-    "Waves propagate from the display center.\n" +
-    "\n" +
-    "You can adjust the waves' frequency and wavelength using the\n" +
-    "'a', 's', 'd', and 'f' keys.\n" +
-    "\n" +
-    "frequency: " + ofToString(frequency, 2) + "\n" +
-    "number of waves: " + ofToString(numCrests, 1) + "\n" +
+    "Touch Material App.\n" +
+    "Instruction to be updated\n" +
     "";
     
     return instructions;
@@ -183,11 +173,5 @@ void TouchMaterialApp::keyPressed(int key) {
         }
         
         
-    } else if (key == 's') {
-        frequency *= 1.26;
-    } else if (key == 'd') {
-        numCrests -= 0.5;
-    } else if (key == 'f') {
-        numCrests += 0.5;
     }
 }

@@ -1,8 +1,8 @@
 //
-//  TouchMaterialApp.h
+//  CharacterizingInOut.h
 //  omniFORM
 //
-//  Created by Ken Nakagaki on 9/4/15.
+//  Created by Tangible Media Group on 9/8/15.
 //
 //
 
@@ -10,21 +10,20 @@
 
 #include "Application.h"
 #include "TouchDetector.h"
-#include "utils.h"
 
 
 // This code is meant as an easy-to-understand example of an Application. Feel
 // free to copy it as a way to get started. Please don't add to or change this
 // file, though - keep it a simple example for new people meeting the codebase.
 
-class TouchMaterialApp : public Application {
+class CharacterizingIoApp : public Application {
     
 #define NUM_WAVE_FRAME 30
-
+    
     
 public:
     
-    TouchMaterialApp();
+    CharacterizingIoApp();
     
     void update(float dt);
     void drawGraphicsForShapeDisplay(int x, int y, int width, int height);
@@ -33,7 +32,7 @@ public:
     
     void waveSurfaceEmulation();
     
-    string getName() {return "Simple Wave";};
+    string getName() {return "Characterizing IO";};
     
     void drawDebugGui(int x, int y);
     
@@ -42,8 +41,15 @@ private:
     
     TouchDetector *touchDetector;
     
+
+    double timeOfLastUpdate;
+    
     ofColor color;
     
     ofPixels depression;
     ofPixels depressionStore[NUM_WAVE_FRAME];
+    
+    int modeHeight =0;
+    
+    int targetHeight = HEIGHT_MAX;
 };

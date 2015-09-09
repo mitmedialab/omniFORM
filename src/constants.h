@@ -202,11 +202,11 @@ const string SERIAL_PORTS[NUM_SERIAL_CONNECTIONS] = {
 // cooperForm pin config defaults
 #elif SHAPE_DISPLAY_IN_USE==COOPERFORM_DISPLAY
 
-#define DEFAULT_GAIN_P 1.5
+#define DEFAULT_GAIN_P 1.7 //1.5
 #define DEFAULT_GAIN_I 0.045
 #define DEFAULT_MAX_I 25 // 60?
-#define DEFAULT_DEAD_ZONE 2
-#define DEFAULT_MAX_SPEED 220
+#define DEFAULT_DEAD_ZONE 1 //2
+#define DEFAULT_MAX_SPEED 255 //220
 
 #endif
 
