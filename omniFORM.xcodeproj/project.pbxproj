@@ -219,6 +219,7 @@
 		890FEAB62511C010A6CE0502 /* btEmptyShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E935BD041847C8DBD0268D2 /* btEmptyShape.cpp */; };
 		8972575C69AE8DCC6BFB1908 /* btConvexInternalShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA65FFAA32AC6FBC97AC3586 /* btConvexInternalShape.cpp */; };
 		89F31F234274A62F3501E2EE /* b2Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B868B25E5784F27CBC75D45 /* b2Draw.cpp */; };
+		8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB602081BA21FB700B492C6 /* WaterApp.cpp */; };
 		8AEAD939664A354013C11990 /* btPolyhedralConvexShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A087F04909E756F31844F75E /* btPolyhedralConvexShape.cpp */; };
 		8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDE55D82BD962DAC0E94B708 /* ofxAssimpModelLoader.cpp */; };
 		8E85002F011615370741EE0E /* btPoint2PointConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C08F4628EB1392AEE93DC9D9 /* btPoint2PointConstraint.cpp */; };
@@ -996,6 +997,8 @@
 		8948367193E123EBE2ABE5C3 /* ofxBulletConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletConstants.h; path = ../../../addons/ofxBullet/src/ofxBulletConstants.h; sourceTree = SOURCE_ROOT; };
 		89E0E31FD053C3EEAD793170 /* btSolveProjectedGaussSeidel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btSolveProjectedGaussSeidel.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletDynamics/MLCPSolvers/btSolveProjectedGaussSeidel.h; sourceTree = SOURCE_ROOT; };
 		8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvShortImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp; sourceTree = SOURCE_ROOT; };
+		8AB602081BA21FB700B492C6 /* WaterApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WaterApp.cpp; sourceTree = "<group>"; };
+		8AB602091BA21FB700B492C6 /* WaterApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterApp.h; sourceTree = "<group>"; };
 		8AD61EE39BD51B3221FFC009 /* gim_geom_types.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = gim_geom_types.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletCollision/Gimpact/gim_geom_types.h; sourceTree = SOURCE_ROOT; };
 		8B25248CC7F2228B1CEF2EB1 /* libusb.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = libusb.h; path = "../../../addons/ofxKinect/libs/libusb-1.0/include/libusb-1.0/libusb.h"; sourceTree = SOURCE_ROOT; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
@@ -2191,6 +2194,8 @@
 				A58CC4071B5ED98D00125458 /* BOSApp.h */,
 				65CC080E1B73DCBE00F89B9B /* TeleoperationApp.cpp */,
 				65CC08101B73DCCE00F89B9B /* TeleoperationApp.h */,
+				8AB602081BA21FB700B492C6 /* WaterApp.cpp */,
+				8AB602091BA21FB700B492C6 /* WaterApp.h */,
 				65CAFD781B7D1072002DA575 /* DebuggingApps */,
 			);
 			name = Applications;
@@ -3797,6 +3802,7 @@
 				AE9254BC31C3409899D28DC9 /* ofxBox2dCircle.cpp in Sources */,
 				4D09B9611BCF4603581DFEE4 /* ofxBox2dEdge.cpp in Sources */,
 				65CC07F21B73D10B00F89B9B /* Calibration.cpp in Sources */,
+				8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */,
 				12548B44285B5C07EEA5379C /* ofxBox2dJoint.cpp in Sources */,
 				DFACEC3A1E9D23315321D7EA /* ofxBox2dPolygon.cpp in Sources */,
 				B103DF2084E0F38D03E0E6F1 /* ofxBox2dRect.cpp in Sources */,
