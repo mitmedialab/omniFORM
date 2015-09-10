@@ -47,10 +47,11 @@ void AppManager::setup(){
     applications["BOS"] = bosApp;
     teleoperationApp = new TeleoperationApp();
     applications["teleoperation"] = teleoperationApp;
-    
     touchMaterialApp = new TouchMaterialApp();
     applications["touchMaterial"] = touchMaterialApp;
-
+    waterApp = new WaterApp();
+    applications["water"] = waterApp;
+    
     // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
     applications["axisChecker"] = axisCheckerApp;
@@ -305,6 +306,8 @@ void AppManager::keyPressed(int key) {
             setCurrentApplication("simpleWave");
         } else if (key == '7') {
             setCurrentApplication("touchMaterial");
+        } else if (key == '8') {
+            setCurrentApplication("water");
         }
 
     // forward unreserved keys to the application

@@ -33,6 +33,7 @@
 #include "BOSApp.h"
 #include "TeleoperationApp.h"
 #include "TouchMaterialApp.h"
+#include "WaterApp.h"
 
 // debugging applications
 #include "AxisCheckerApp.h"
@@ -77,9 +78,8 @@ private:
     MetaMaterialsApp *metaMaterialsApp;
     BOSApp *bosApp;
     TeleoperationApp *teleoperationApp;
-    
     TouchMaterialApp *touchMaterialApp;
-    
+    WaterApp *waterApp;
 
     // debugging applications
     AxisCheckerApp *axisCheckerApp;
