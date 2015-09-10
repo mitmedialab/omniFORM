@@ -27,6 +27,7 @@ public:
     const ofPixels &depressionPixels();
     const ofPixels &significantDepressionPixels();
     const ofPixels &significantDepressionAmidstStabilityPixels();
+    const ofPixels &depressionsUsingFilterPixels();
 
 private:
     void calculateTouches();
@@ -36,6 +37,7 @@ private:
     ofPixels depressions;
     ofPixels significantDepressions;
     ofPixels significantDepressionsAmidstStability;
+    ofPixels depressionsUsingFilter;
 
     int depressionSignificanceThreshold = 20;
     float stabilityTimeThreshold = 0.2;
@@ -44,13 +46,13 @@ private:
     
     //testing to track difference between sending value and receiving value
     #define NUM_FRAME 800
-    int storeOutput[NUM_FRAME];
-    int storeInput[NUM_FRAME];
+    int storeOutput[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y][NUM_FRAME];
+    int storeInput[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y][NUM_FRAME];
     
     #define NOISE_FILTER_FRAME 10
-    int storeRawInput[NUM_FRAME];
-    int storePredictInput[NUM_FRAME];
+    int storeRawInput[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y][NUM_FRAME];
+    int storePredictInput[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y][NUM_FRAME];
     
-    int storePredictInputHigh[NUM_FRAME];
-    int storePredictInputLow[NUM_FRAME];
+    int storePredictInputHigh[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y][NUM_FRAME];
+    int storePredictInputLow[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y][NUM_FRAME];
 };

@@ -15,6 +15,8 @@ TouchDetector::TouchDetector() {
     depressions.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
     significantDepressions.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
     significantDepressionsAmidstStability.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
+    
+    depressionsUsingFilter.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_COLOR);
 
     // zero out last update times
     float currentTime = elapsedTimeInSeconds();
@@ -25,14 +27,18 @@ TouchDetector::TouchDetector() {
     }
     
     
-    for(int i = 0; i< NUM_FRAME; i++){
-        storeOutput[i] = 0;
-        storeInput[i] = 0;
-        storeRawInput[i] = 0;
-        storePredictInput[i] = 0;
-        storePredictInputHigh[i] = 0;
-        storePredictInputLow[i] = 0;
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            for(int i = 0; i< NUM_FRAME; i++){
+                storeOutput[x][y][i] = 0;
+                storeInput[x][y][i] = 0;
+                storeRawInput[x][y][i] = 0;
+                storePredictInput[x][y][i] = 0;
+                storePredictInputHigh[x][y][i] = 0;
+                storePredictInputLow[x][y][i] = 0;
         
+            }
+        }
     }
     
 
@@ -61,43 +67,53 @@ void TouchDetector::update(const ofPixels &heightsForShapeDisplay, const ofPixel
 
     calculateTouches();
     
-    
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
     for(int i = NUM_FRAME-1; i >0; i--){
-        storeOutput[i] = storeOutput[i-1];
-        storeInput[i] = storeInput[i-1];
-        storeRawInput[i] = storeRawInput[i-1];
-        storePredictInput[i] = storePredictInput[i-1];
-        storePredictInputHigh[i] = storePredictInputHigh[i-1];
-        storePredictInputLow[i] = storePredictInputLow[i-1];
+        storeOutput[x][y][i] = storeOutput[x][y][i-1];
+        storeInput[x][y][i] = storeInput[x][y][i-1];
+        storeRawInput[x][y][i] = storeRawInput[x][y][i-1];
+        storePredictInput[x][y][i] = storePredictInput[x][y][i-1];
+        storePredictInputHigh[x][y][i] = storePredictInputHigh[x][y][i-1];
+        storePredictInputLow[x][y][i] = storePredictInputLow[x][y][i-1];
     }
- 
-    
-    
-    int xy = depressions.getPixelIndex(0, 0);
-    storeOutput[0] = heightsForShapeDisplay[xy];
-    storeRawInput[0] = heightsFromShapeDisplay[xy];
-    
-    
-    int sumIn = 0;
-    int sumOut = 0;
-    for(int i = NOISE_FILTER_FRAME; i >0; i--){
-        sumIn += storeRawInput[i];
+         
+            int xy = depressions.getPixelIndex(x, y);
+            storeOutput[x][y][0] = heightsForShapeDisplay[xy];
+            storeRawInput[x][y][0] = heightsFromShapeDisplay[xy];
+            
+            int sumIn = 0;
+            int sumOut = 0;
+            for(int i = NOISE_FILTER_FRAME; i >0; i--){
+                sumIn += storeRawInput[x][y][i];
+            }
+            for(int i = NOISE_FILTER_FRAME+3; i >0; i--){
+                sumOut += storeOutput[x][y][i];
+            }
+            
+            
+            storeInput[x][y][0] = sumIn/NOISE_FILTER_FRAME;
+            storePredictInput[x][y][0] = sumOut/(NOISE_FILTER_FRAME+3);
+            
+            int bandVal = 17;
+            int latencyT = 5;
+            int changeInTime = storePredictInput[x][y][latencyT] - storePredictInput[x][y][latencyT+1];
+            storePredictInputHigh[x][y][0] = storePredictInput[x][y][latencyT] + bandVal + abs(changeInTime);
+            storePredictInputLow[x][y][0] = storePredictInput[x][y][latencyT] - bandVal - abs(changeInTime);
+            
+        }
+        
     }
-    for(int i = NOISE_FILTER_FRAME+3; i >0; i--){
-        sumOut += storeOutput[i];
-    }
-    
-    
-    storeInput[0] = sumIn/NOISE_FILTER_FRAME;
-    storePredictInput[0] = sumOut/(NOISE_FILTER_FRAME+3);
     
     
     
-    int bandVal = 17;
-    int changeInTime = storePredictInput[0] - storePredictInput[1];
-    cout << changeInTime << endl;
-    storePredictInputHigh[0] = storePredictInput[0] + bandVal + abs(changeInTime);
-    storePredictInputLow[0] = storePredictInput[0] - bandVal - abs(changeInTime);
+    
+    
+    
+    
+    
+    
+    
     
 }
 
@@ -105,6 +121,9 @@ void TouchDetector::calculateTouches() {
     float currentTime = elapsedTimeInSeconds();
     significantDepressions = depressions;
     significantDepressionsAmidstStability = depressions;
+    
+    
+    
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             int xy = depressions.getPixelIndex(x, y);
@@ -118,6 +137,28 @@ void TouchDetector::calculateTouches() {
             }
         }
     }
+    
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            int xy = depressionsUsingFilter.getPixelIndex(x, y);
+            ofColor c;
+            if (storeInput[x][y][0] < storePredictInputLow[x][y][0]) {
+                c.r =  storePredictInput[x][y][0] - storeInput[x][y][0];
+                c.g = 0;
+                c.b = 0;
+            } else if (storeInput[x][y][0] > storePredictInputHigh[x][y][0]){
+                c.r = 0;
+                c.g = storeInput[x][y][0] - storePredictInput[x][y][0] ;
+                c.b = 0;
+            } else {
+                c.r = 0;
+                c.g = 0;
+                c.b = 0;
+            }
+            depressionsUsingFilter.setColor(x, y, c);
+        }
+    }
+    
 }
 
 void TouchDetector::setDepressionSignificanceThreshold(int threshold) {
@@ -153,21 +194,21 @@ void TouchDetector::drawStoredInputOutput(int x, int y) {
     // draw predict
     ofSetColor(0, 255, 255);
     for (int i = 0; i < NUM_FRAME-1; i++) {
-        ofLine((i-5)*GRAPH_SCALE_X, 255-storePredictInputHigh[i], (i+1-5)*GRAPH_SCALE_X, 255-storePredictInputHigh[i+1]);
-        ofLine((i-5)*GRAPH_SCALE_X, 255-storePredictInputLow[i], (i+1-5)*GRAPH_SCALE_X, 255-storePredictInputLow[i+1]);
+        ofLine((i)*GRAPH_SCALE_X, 255-storePredictInputHigh[0][0][i], (i+1)*GRAPH_SCALE_X, 255-storePredictInputHigh[0][0][i+1]);
+        ofLine((i)*GRAPH_SCALE_X, 255-storePredictInputLow[0][0][i], (i+1)*GRAPH_SCALE_X, 255-storePredictInputLow[0][0][i+1]);
     }
 
     
     // draw output
     ofSetColor(0, 255, 0);
     for (int i = 0; i < NUM_FRAME-1; i++) {
-        ofLine(i*GRAPH_SCALE_X, 255-storeOutput[i], (i+1)*GRAPH_SCALE_X, 255-storeOutput[i+1]);
+        ofLine(i*GRAPH_SCALE_X, 255-storeOutput[0][0][i], (i+1)*GRAPH_SCALE_X, 255-storeOutput[0][0][i+1]);
     }
     
     // draw input
     ofSetColor(255, 0, 0);
     for (int i = 0; i < NUM_FRAME-1; i++) {
-        ofLine(i*GRAPH_SCALE_X, 255-storeInput[i], (i+1)*GRAPH_SCALE_X, 255-storeInput[i+1]);
+        ofLine(i*GRAPH_SCALE_X, 255-storeInput[0][0][i], (i+1)*GRAPH_SCALE_X, 255-storeInput[0][0][i+1]);
     }
     
     
@@ -177,7 +218,7 @@ void TouchDetector::drawStoredInputOutput(int x, int y) {
     // draw depression
     ofSetColor(0, 0, 255);
     for (int i = 0; i < NUM_FRAME-1; i++) {
-         ofLine(i*GRAPH_SCALE_X, 255-(storeRawInput[i]), (i+1)*GRAPH_SCALE_X, 255-(storeRawInput[i+1]));
+         ofLine(i*GRAPH_SCALE_X, 255-(storeRawInput[0][0][i]), (i+1)*GRAPH_SCALE_X, 255-(storeRawInput[0][0][i+1]));
     }
     ofPopMatrix();
 }
@@ -204,4 +245,8 @@ const ofPixels &TouchDetector::significantDepressionPixels() {
 // recently are set to zero
 const ofPixels &TouchDetector::significantDepressionAmidstStabilityPixels() {
     return significantDepressionsAmidstStability;
+}
+
+const ofPixels &TouchDetector::depressionsUsingFilterPixels() {
+    return depressionsUsingFilter;
 }
