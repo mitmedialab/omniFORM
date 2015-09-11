@@ -10,22 +10,15 @@
 
 
 TouchMaterialApp::TouchMaterialApp() {
-    depression.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
-    for(int x = 0; x< SHAPE_DISPLAY_SIZE_X; x++){
-        for (int y =0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
-            int xy = depression.getPixelIndex(x, y);
-            depression[xy] = HEIGHT_MIN;
-        }
-    }
-    
+
     
     for(int i = 0 ; i < NUM_WAVE_FRAME ; i++ ){
-        depressionStore[i].allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
+        depressionStore[i].allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_COLOR);
     for(int x = 0; x< SHAPE_DISPLAY_SIZE_X; x++){
         for (int y =0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
             int xy = depressionStore[i].getPixelIndex(x, y);
     
-        depressionStore[i][xy] = HEIGHT_MIN;
+        depressionStore[i][xy] = 0;
     
         }
     }
@@ -58,9 +51,9 @@ void TouchMaterialApp::updateHeights() {
 }
 
 void TouchMaterialApp::drawDebugGui(int x, int y) {
-    ofImage(touchDetector->depressionPixels()).draw(x, y, 300, 300);
-    ofImage(touchDetector->significantDepressionPixels()).draw(x + 302, y, 300, 300);
-    ofImage(touchDetector->significantDepressionAmidstStabilityPixels()).draw(x + 604, y, 300, 300);
+    ofImage(touchDetector->depressionsUsingFilterPixels()).draw(x, y, 300, 300);
+    //ofImage(touchDetector->significantDepressionPixels()).draw(x + 302, y, 300, 300);
+    //ofImage(touchDetector->depressionsUsingFilterPixels()).draw(x + 604, y, 300, 300);
     
     
     ofNoFill();
@@ -72,7 +65,7 @@ void TouchMaterialApp::drawDebugGui(int x, int y) {
     for (int i = 0; i < SHAPE_DISPLAY_SIZE_X; i++) {
         for (int j = 0; j < SHAPE_DISPLAY_SIZE_Y; j++) {
             
-            if ( depression.getColor(i, j).r != 0){
+            if ( depressionStore[0].getColor(i, j).r != 0){
             
             ofRect(i*boxSizeX, j*boxSizeY, boxSizeX, boxSizeY);
             }
@@ -98,7 +91,7 @@ string TouchMaterialApp::appInstructionsText() {
 
 
 void TouchMaterialApp::waveSurfaceEmulation(){
-     depression = touchDetector->significantDepressionAmidstStabilityPixels();
+     //depression = touchDetector->significantDepressionAmidstStabilityPixels();
     int defaultHeight = HEIGHT_MIN;
     
     
@@ -118,7 +111,7 @@ void TouchMaterialApp::waveSurfaceEmulation(){
 //            }
 //        }
 //    }
-    depressionStore[0] = depression;
+    depressionStore[0] = touchDetector->depressionsUsingFilterPixels();
     
     for (int x = 0; x <  SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
@@ -146,7 +139,6 @@ void TouchMaterialApp::waveSurfaceEmulation(){
                 }
                 }
             }
-            
         }
     }
     
@@ -154,7 +146,7 @@ void TouchMaterialApp::waveSurfaceEmulation(){
     for (int x = 0; x <  SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-            if (depression.getColor(x, y).r != 0) {
+            if (depressionStore[0].getColor(x, y).r != 0) {
                 heightsForShapeDisplay[xy] = defaultHeight;
             }
         }

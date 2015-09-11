@@ -44,6 +44,6 @@ private:
     
     ofColor color;
     
-    ofPixels depression;
+    //ofPixels depression;
     ofPixels depressionStore[NUM_WAVE_FRAME];
 };

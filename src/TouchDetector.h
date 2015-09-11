@@ -11,6 +11,7 @@
 #include "constants.h"
 #include "utils.h"
 
+#include "ofxXmlSettings.h"
 
 class TouchDetector {
 public:
@@ -28,6 +29,8 @@ public:
     const ofPixels &significantDepressionPixels();
     const ofPixels &significantDepressionAmidstStabilityPixels();
     const ofPixels &depressionsUsingFilterPixels();
+    
+    int getStoreInput(int x, int y, int i);
 
 private:
     void calculateTouches();
@@ -55,4 +58,9 @@ private:
     
     int storePredictInputHigh[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y][NUM_FRAME];
     int storePredictInputLow[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y][NUM_FRAME];
+    
+    
+    double aveT[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
+    int maxDiff[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
+    int minDiff[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
 };

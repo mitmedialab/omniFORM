@@ -42,7 +42,24 @@ TouchDetector::TouchDetector() {
     }
     
 
-    
+    ofxXmlSettings XML;
+    if (XML.loadFile("characterizationPin_TRANSFORM.xml")) {
+        int numberOfSavedPointsX = XML.getNumTags("X");
+        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+            XML.pushTag("X", x);
+            for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+                XML.pushTag("Y", y);
+                aveT[x][y] = XML.getValue("aveT", 0);
+                maxDiff[x][y] = XML.getValue("maxDiff", 0)+5;
+                minDiff[x][y] = XML.getValue("minDiff", 0);
+                XML.popTag();
+            }
+            XML.popTag();
+        }
+        //int numberOfSavedPoints =
+    } else {
+        ofLogError("fine did not load!");
+    }
 }
 
 void TouchDetector::update(const ofPixels &heightsForShapeDisplay, const ofPixels &heightsFromShapeDisplay) {
@@ -82,24 +99,26 @@ void TouchDetector::update(const ofPixels &heightsForShapeDisplay, const ofPixel
             storeOutput[x][y][0] = heightsForShapeDisplay[xy];
             storeRawInput[x][y][0] = heightsFromShapeDisplay[xy];
             
+            int adjustVal = 0 ; //cooperForm 3;
+            
             int sumIn = 0;
             int sumOut = 0;
             for(int i = NOISE_FILTER_FRAME; i >0; i--){
                 sumIn += storeRawInput[x][y][i];
             }
-            for(int i = NOISE_FILTER_FRAME+3; i >0; i--){
+            for(int i = NOISE_FILTER_FRAME+adjustVal; i >0; i--){
                 sumOut += storeOutput[x][y][i];
             }
             
             
             storeInput[x][y][0] = sumIn/NOISE_FILTER_FRAME;
-            storePredictInput[x][y][0] = sumOut/(NOISE_FILTER_FRAME+3);
+            storePredictInput[x][y][0] = sumOut/(NOISE_FILTER_FRAME +adjustVal);
             
-            int bandVal = 17;
-            int latencyT = 5;
+            //int bandVal = 17;
+            int latencyT =  6; //cooperForm 5;
             int changeInTime = storePredictInput[x][y][latencyT] - storePredictInput[x][y][latencyT+1];
-            storePredictInputHigh[x][y][0] = storePredictInput[x][y][latencyT] + bandVal + abs(changeInTime);
-            storePredictInputLow[x][y][0] = storePredictInput[x][y][latencyT] - bandVal - abs(changeInTime);
+            storePredictInputHigh[x][y][0] = storePredictInput[x][y][latencyT] + maxDiff[x][y] + abs(changeInTime);
+            storePredictInputLow[x][y][0] = storePredictInput[x][y][latencyT] +minDiff[x][y] - abs(changeInTime);
             
         }
         
@@ -249,4 +268,8 @@ const ofPixels &TouchDetector::significantDepressionAmidstStabilityPixels() {
 
 const ofPixels &TouchDetector::depressionsUsingFilterPixels() {
     return depressionsUsingFilter;
+}
+
+int TouchDetector::getStoreInput(int x, int y, int i) {
+    return storeInput[x][y][i];
 }
