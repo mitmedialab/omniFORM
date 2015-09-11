@@ -28,12 +28,16 @@ void WaterApp::update(float dt) {
     float timestep = 16;
     float waveSpeed = 0.02;
     float pinWidth = 1;
+    float dampConstant = 0.00015;
     for (int i = 0; i < 4; i++) {
         // compute new densities/velocities
         float densitySum = 0;
         for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-                float force = waveSpeed * waveSpeed * (getAdjacentDensitySum(x,y) - 4 * densities[x][y]) / (pinWidth * pinWidth);
+                float springForce = waveSpeed * waveSpeed * (getAdjacentDensitySum(x,y) - 4 * densities[x][y]) / (pinWidth * pinWidth);
+                float dampenForce = -dampConstant * velocities[x][y];
+                float force = springForce + dampenForce;
+                
                 velocities[x][y] = velocities[x][y] + force * timestep; // timestep goes here
                 
                 newDensities[x][y] = densities[x][y] + velocities[x][y] * timestep;
@@ -80,7 +84,7 @@ void WaterApp::keyPressed(int key) {
         int x = ofRandom(1, SHAPE_DISPLAY_SIZE_X - 1);
         int y = ofRandom(1, SHAPE_DISPLAY_SIZE_Y - 1);
         
-        addForceAt(x, y, 4, 10);
+        addForceAt(x, y, 4, 5);
     }
 };
 
