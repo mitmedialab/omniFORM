@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Application.h"
+#include "TouchDetector.h"
 
 class WaterApp : public Application {
 public:
@@ -23,6 +24,11 @@ public:
     string getName() {return "Water";};
     
 private:
+    
+    TouchDetector *touchDetector;
+    ofPixels depression;
+    
+    
     float densities[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     float velocities[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     

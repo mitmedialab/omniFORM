@@ -18,12 +18,28 @@ WaterApp::WaterApp() {
         }
     }
     
+    // initialize touch detector
+    touchDetector = new TouchDetector();
+    touchDetector->setDepressionSignificanceThreshold(17);
+    touchDetector->setStabilityTimeThreshold(0.2);
 };
 
 WaterApp::~WaterApp() {
 };
 
 void WaterApp::update(float dt) {
+    // get new waves from touch detector
+    touchDetector->update(heightsForShapeDisplay, *heightsFromShapeDisplay);
+    depression = touchDetector->significantDepressionAmidstStabilityPixels();
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            if (depression.getColor(x,y).r != 0)
+            {
+                addForceAt(x, y, 4, -2);
+            }
+        }
+    }
+    
     
     float timestep = 16;
     float waveSpeed = 0.02;
@@ -57,7 +73,7 @@ void WaterApp::update(float dt) {
     // send densities over to shape display
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-            float height = 75 + densities[x][y];
+            float height = 115 + densities[x][y];
             height = MAX(0, height);
             height = MIN(height, 255);
             
