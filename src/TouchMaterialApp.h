@@ -19,7 +19,7 @@
 
 class TouchMaterialApp : public Application {
     
-#define NUM_WAVE_FRAME 30
+
 
     
 public:
@@ -32,8 +32,9 @@ public:
     void keyPressed(int key);
     
     void waveSurfaceEmulation();
+    void elasticSurfaceEmulation();
     
-    string getName() {return "Simple Wave";};
+    string getName() {return "Touch Material";};
     
     void drawDebugGui(int x, int y);
     
@@ -43,7 +44,13 @@ private:
     TouchDetector *touchDetector;
     
     ofColor color;
+    ofPixels depression;
+
+    int emulationMode = 0;
+    int maxNumEmulationMode = 2;
     
-    //ofPixels depression;
-    ofPixels depressionStore[NUM_WAVE_FRAME];
+    #define NUM_WAVE_FRAME 50
+    ofPixels depressionStoreforWave[NUM_WAVE_FRAME];
+    
+    int defaultHeight;
 };

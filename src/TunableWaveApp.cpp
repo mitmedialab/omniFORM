@@ -82,9 +82,7 @@ void TunableWaveApp::updateHeights() {
 void TunableWaveApp::drawDebugGui(int x, int y){
     ofImage(touchDetector->depressionPixels()).draw(x, y, 300, 300);
     ofImage(touchDetector->significantDepressionPixels()).draw(x + 302, y, 300, 300);
-    //ofImage(touchDetector->significantDepressionAmidstStabilityPixels()).draw(x + 604, y, 300, 300);
-    ofImage(touchDetector->depressionsUsingFilterPixels()).draw(x + 604, y, 300, 300);
-    touchDetector->drawStoredInputOutput(x, y+305);
+    ofImage(touchDetector->significantDepressionAmidstStabilityPixels()).draw(x + 604, y, 300, 300);
 }
 
 void TunableWaveApp::updateWaveParametersWithKinect() {
