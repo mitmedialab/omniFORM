@@ -13,7 +13,7 @@ WaterApp::WaterApp() {
     // initialize densities and velocities arrays
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-            densities[x][y] = x;
+            densities[x][y] = 0;
             velocities[x][y] = 0;
         }
     }
@@ -26,35 +26,37 @@ WaterApp::~WaterApp() {
 void WaterApp::update(float dt) {
     
     float timestep = 16;
-    float waveSpeed = 0.01;
+    float waveSpeed = 0.02;
     float pinWidth = 1;
-    
-    float densitySum = 0;
-    // compute new densities/velocities
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
-        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-            float force = waveSpeed * waveSpeed * (getAdjacentDensitySum(x,y) - 4 * densities[x][y]) / (pinWidth * pinWidth);
-            velocities[x][y] = velocities[x][y] + force * timestep; // timestep goes here
-            newDensities[x][y] = densities[x][y] + velocities[x][y] * timestep;
-            densitySum += newDensities[x][y];
+    for (int i = 0; i < 4; i++) {
+        // compute new densities/velocities
+        float densitySum = 0;
+        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+            for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+                float force = waveSpeed * waveSpeed * (getAdjacentDensitySum(x,y) - 4 * densities[x][y]) / (pinWidth * pinWidth);
+                velocities[x][y] = velocities[x][y] + force * timestep; // timestep goes here
+                
+                newDensities[x][y] = densities[x][y] + velocities[x][y] * timestep;
+                densitySum += newDensities[x][y];
+            }
+        }
+        
+        float densityAverage = densitySum / (SHAPE_DISPLAY_SIZE_X * SHAPE_DISPLAY_SIZE_Y);
+        
+        // move new densities to densities array
+        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+            for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+                densities[x][y] = newDensities[x][y] - densityAverage;
+            }
         }
     }
-    
-    float averageDensity = densitySum / (SHAPE_DISPLAY_SIZE_X * SHAPE_DISPLAY_SIZE_Y);
-    
-    float restingHeight = 75;
-    
-    // move new densities to densities array
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
-        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-            densities[x][y] = newDensities[x][y] - averageDensity + restingHeight;
-        }
-    }
-    
     // send densities over to shape display
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-            float height = densities[x][y];
+            float height = 75 + densities[x][y];
+            height = MAX(0, height);
+            height = MIN(height, 255);
+            
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
             heightsForShapeDisplay[xy] = height;
         }
@@ -74,14 +76,40 @@ string WaterApp::appInstructionsText() {
 };
 
 void WaterApp::keyPressed(int key) {
-    if (key == 'r') {
-        //for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
-            for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-                densities[5][y] = 100;
-            }
-        //}
+    if (key == 'd') {
+        int x = ofRandom(1, SHAPE_DISPLAY_SIZE_X - 1);
+        int y = ofRandom(1, SHAPE_DISPLAY_SIZE_Y - 1);
+        
+        addForceAt(x, y, 4, 10);
     }
 };
+
+void WaterApp::addForceAt(int x, int y, float radius, float amount) {
+    int offset = ceil(radius);
+    for (int i = -offset; i <= offset; i++) {
+        for (int j = -offset; j <= offset; j++) {
+            float distSq = i * i + j * j;
+            
+            if (distSq > radius)
+                continue;
+            
+            float dist = sqrt(distSq);
+            
+            float force = amount * (radius - dist) / radius;
+            
+            int xIndex = x + i;
+            int yIndex = y + j;
+            
+            xIndex = MAX(0, xIndex);
+            yIndex = MAX(0, yIndex);
+            
+            xIndex = MIN(xIndex, SHAPE_DISPLAY_SIZE_X);
+            yIndex = MIN(yIndex, SHAPE_DISPLAY_SIZE_Y);
+            
+            velocities[xIndex][yIndex] += force;
+        }
+    }
+}
 
 float WaterApp::getAdjacentDensitySum(int x, int y) {
     float sum = 0;
@@ -89,4 +117,5 @@ float WaterApp::getAdjacentDensitySum(int x, int y) {
     sum += densities[MIN(x+1, SHAPE_DISPLAY_SIZE_X-1)][y];
     sum += densities[x][MAX(y-1, 0)];
     sum += densities[x][MIN(y+1, SHAPE_DISPLAY_SIZE_Y-1)];
+    return sum;
 };

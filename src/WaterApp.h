@@ -29,4 +29,6 @@ private:
     float newDensities[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     
     float getAdjacentDensitySum(int x, int y);
+    
+    void addForceAt(int x, int y, float radius, float amount);
 };
