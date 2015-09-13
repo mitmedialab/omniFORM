@@ -27,7 +27,7 @@ TouchMaterialApp::TouchMaterialApp() {
     }
     
     touchDetector = new TouchDetector();
-    touchDetector->setDepressionSignificanceThreshold(17);
+    touchDetector->setDepressionSignificanceThreshold(18);
     touchDetector->setStabilityTimeThreshold(0.3);
 }
 

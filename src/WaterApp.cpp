@@ -20,8 +20,8 @@ WaterApp::WaterApp() {
     
     // initialize touch detector
     touchDetector = new TouchDetector();
-    touchDetector->setDepressionSignificanceThreshold(17);
-    touchDetector->setStabilityTimeThreshold(0.2);
+    touchDetector->setDepressionSignificanceThreshold(18);
+    touchDetector->setStabilityTimeThreshold(0.3);
 };
 
 WaterApp::~WaterApp() {

@@ -41,5 +41,9 @@ private:
     int depressionSignificanceThreshold = 20;
     float stabilityTimeThreshold = 0.2;
     
+    #define STORE_FRAME 7
+    int storeHeightsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y][STORE_FRAME];
+    
+    bool initialRun = true;
 
 };
