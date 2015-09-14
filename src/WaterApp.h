@@ -23,10 +23,17 @@ public:
     
     string getName() {return "Water";};
     
+    
+    
 private:
     
     TouchDetector *touchDetector;
     ofPixels depression;
+    
+    float timestep = 16;
+    float waveSpeed = 0.005;//0.02;
+    float pinWidth = 1;
+    float dampConstant = 0.00015;
     
     
     float densities[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
@@ -37,4 +44,8 @@ private:
     float getAdjacentDensitySum(int x, int y);
     
     void addForceAt(int x, int y, float radius, float amount);
+    
+    void drawDebugGui(int x, int y);
+    
+    
 };
