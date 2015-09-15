@@ -31,10 +31,13 @@ private:
     ofPixels depression;
     
     float timestep = 16;
-    float waveSpeed = 0.005;//0.02;
+    float waveSpeed = 0.02;
     float pinWidth = 1;
     float dampConstant = 0.00015;
+    float adhesive = HEIGHT_MAX;
+    float addForceRatio = 0.01;
     
+    bool isTouchedLastFrame[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     
     float densities[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     float velocities[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];

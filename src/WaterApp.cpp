@@ -15,6 +15,7 @@ WaterApp::WaterApp() {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             densities[x][y] = 0;
             velocities[x][y] = 0;
+            isTouchedLastFrame[x][y] = false;
         }
     }
     
@@ -33,10 +34,22 @@ void WaterApp::update(float dt) {
     depression = touchDetector->significantDepressionAmidstStabilityPixels();
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-            if (depression.getColor(x,y).r != 0)
+            
+            
+            int depressionPin = depression.getColor(x,y).r;
+
+            
+            if (depressionPin != 0 && isTouchedLastFrame[x][y] == false)
             {
-                addForceAt(x, y, 4, -0.01*(depression.getColor(x,y).r-30));
+                addForceAt(x, y, 4, -addForceRatio*(depression.getColor(x,y).r-30));
+                
             }
+            if(depressionPin == 0){
+                isTouchedLastFrame[x][y] = false;
+            } else{
+                isTouchedLastFrame[x][y] = true;
+            }
+            
         }
     }
     
@@ -80,6 +93,31 @@ void WaterApp::update(float dt) {
             
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
             heightsForShapeDisplay[xy] = height;
+            
+            
+
+        }
+    }
+    
+    
+    
+    //Adding Adhesive stuff
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            if(depression.getColor(x,y).r != 0){
+                heightsForShapeDisplay[xy] = adhesive;
+                for(int xx = MAX(x-1,0); xx < MIN(SHAPE_DISPLAY_SIZE_X+1, x+2); xx++ ){
+                    for(int yy = MAX(y-1,0); yy < MIN(SHAPE_DISPLAY_SIZE_Y+1, y+2); yy++ ){
+                        int xxyy = heightsForShapeDisplay.getPixelIndex(xx, yy);
+                        heightsForShapeDisplay[xxyy] = MAX((heightsForShapeDisplay[xy]-depression.getColor(x,y).r + heightsForShapeDisplay[xxyy])/2,heightsForShapeDisplay[xxyy]) ;
+                    }
+                    
+                }
+                
+                
+                
+            }
         }
     }
     
@@ -96,11 +134,14 @@ string WaterApp::appInstructionsText() {
     instructions += (string) "" +
     "\n" +
     "You can adjust the water property using\n" +
-    "'a', 'q', 's', 'w', 'd' and 'e' keys.\n" +
+    "'a', 'q', 's', 'w', 'd', 'e', 'f' and 'r' keys.\n" +
     "\n" +
-    "timestep: " + ofToString(timestep, 2) + "\n" +
-    "waveSpeed: " + ofToString(waveSpeed, 3) + "\n" +
-    "dampConstant: " + ofToString(dampConstant, 5) + "\n" +
+    "timestep : " + ofToString(timestep, 2) + "   (a, q to control)\n" +
+    "waveSpeed: " + ofToString(waveSpeed, 3) + "   (s, w to control)\n" +
+    "dampConstant: " + ofToString(dampConstant, 5) + "   (d, e to control)\n" +
+    "adhesive: " + ofToString(adhesive, 1) + "   (f, r to control)\n" +
+    "addForceRatio: " + ofToString(addForceRatio, 3) + "   (t, g to control)\n" +
+    
     "";
 
     
@@ -135,6 +176,44 @@ void WaterApp::keyPressed(int key) {
         if (dampConstant<0.00005) {
             dampConstant = 0.00005;
         }
+    } else if (key == 'r'){
+        adhesive+= 5;
+        if (adhesive>HEIGHT_MAX) {
+            adhesive = HEIGHT_MAX;
+        }
+    } else if (key == 'f'){
+        adhesive-= 5;
+        if (adhesive<HEIGHT_MIN) {
+            adhesive = HEIGHT_MIN;
+        }
+    } else if (key == 't'){
+        addForceRatio+= 0.005;
+    } else if (key == 'g'){
+        addForceRatio-= 0.005;
+        if (addForceRatio<0.005) {
+            addForceRatio = 0.005;
+        }
+    } else if (key =='z'){ //reset to flat
+        // initialize densities and velocities arrays
+        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+            for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+                densities[x][y] = 0;
+                velocities[x][y] = 0;
+                isTouchedLastFrame[x][y] = false;
+            }
+        }
+    } else if (key == ']'){ // honey
+         timestep = 16;
+         waveSpeed = 0.005;
+         dampConstant = 0.001;
+         adhesive = 180;
+         addForceRatio = 0.02;
+    } else if (key == '['){
+        timestep = 16;
+        waveSpeed = 0.02;
+        dampConstant = 0.00015;
+        adhesive = 50;
+        addForceRatio = 0.02;
     }
 };
 

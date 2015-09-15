@@ -228,7 +228,7 @@ void AppManager::draw(){
     menuHeight += 30;
 
     // if there isn't already a debug gui, draw some more information
-    if (!showDebugGui) {
+    if (!showDebugGui || currentApplication == applications["water"]) {
         ofRect(913, 305, 302, 302);
         ofImage(depthPixels).draw(914, 306, 300, 300);
 

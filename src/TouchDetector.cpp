@@ -112,14 +112,10 @@ void TouchDetector::calculateTouches() {
                 minVal = MIN(minVal, storeHeightsForShapeDisplay[x][y][i]);
             }
             
-            if (abs(maxVal - minVal) < 9) {
+            if (abs(maxVal - minVal) < 7) {
                 stable = true;
             } else {
                 stable = false;
-            }
-            
-            if (x==0 && y ==0) {
-                cout << maxVal << "," << minVal << endl;
             }
             
              //stable = currentTime - timeOfLastUpdate[x][y] > stabilityTimeThreshold;
