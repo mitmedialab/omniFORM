@@ -219,6 +219,7 @@
 		890FEAB62511C010A6CE0502 /* btEmptyShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E935BD041847C8DBD0268D2 /* btEmptyShape.cpp */; };
 		8972575C69AE8DCC6BFB1908 /* btConvexInternalShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA65FFAA32AC6FBC97AC3586 /* btConvexInternalShape.cpp */; };
 		89F31F234274A62F3501E2EE /* b2Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B868B25E5784F27CBC75D45 /* b2Draw.cpp */; };
+		8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */; };
 		8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB602081BA21FB700B492C6 /* WaterApp.cpp */; };
 		8AB6021D1BA377D800B492C6 /* TouchMaterialApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */; };
 		8AEAD939664A354013C11990 /* btPolyhedralConvexShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A087F04909E756F31844F75E /* btPolyhedralConvexShape.cpp */; };
@@ -998,6 +999,8 @@
 		8948367193E123EBE2ABE5C3 /* ofxBulletConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletConstants.h; path = ../../../addons/ofxBullet/src/ofxBulletConstants.h; sourceTree = SOURCE_ROOT; };
 		89E0E31FD053C3EEAD793170 /* btSolveProjectedGaussSeidel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btSolveProjectedGaussSeidel.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletDynamics/MLCPSolvers/btSolveProjectedGaussSeidel.h; sourceTree = SOURCE_ROOT; };
 		8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvShortImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp; sourceTree = SOURCE_ROOT; };
+		8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StretchyApp.cpp; sourceTree = "<group>"; };
+		8AA4193C1BAA226300F1DD50 /* StretchyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StretchyApp.h; sourceTree = "<group>"; };
 		8AB602081BA21FB700B492C6 /* WaterApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WaterApp.cpp; sourceTree = "<group>"; };
 		8AB602091BA21FB700B492C6 /* WaterApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterApp.h; sourceTree = "<group>"; };
 		8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchMaterialApp.cpp; sourceTree = "<group>"; };
@@ -2197,6 +2200,8 @@
 				A5906E591B7D487B00C06C0D /* MetaMaterialsApp.h */,
 				A58CC4061B5ED98D00125458 /* BOSApp.cpp */,
 				A58CC4071B5ED98D00125458 /* BOSApp.h */,
+				8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */,
+				8AA4193C1BAA226300F1DD50 /* StretchyApp.h */,
 				65CC080E1B73DCBE00F89B9B /* TeleoperationApp.cpp */,
 				65CC08101B73DCCE00F89B9B /* TeleoperationApp.h */,
 				8AB602081BA21FB700B492C6 /* WaterApp.cpp */,
@@ -3851,6 +3856,7 @@
 				2A5D09413FD64EB3AF88EF02 /* b2GearJoint.cpp in Sources */,
 				14D76FD1B7F190398D120FA4 /* b2Joint.cpp in Sources */,
 				C1DDE2EB6202440187690701 /* b2MotorJoint.cpp in Sources */,
+				8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */,
 				D2969DE2782BAE96A0C7ADC1 /* b2MouseJoint.cpp in Sources */,
 				64F975DC016F17834FBB9F01 /* b2PrismaticJoint.cpp in Sources */,
 				9F9D49CFC30BA1589822E7AB /* b2PulleyJoint.cpp in Sources */,

@@ -51,6 +51,8 @@ void AppManager::setup(){
     applications["touchMaterial"] = touchMaterialApp;
     waterApp = new WaterApp();
     applications["water"] = waterApp;
+    stretchyApp = new StretchyApp();
+    applications["stretchy"] = stretchyApp;
     
     // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
@@ -228,7 +230,7 @@ void AppManager::draw(){
     menuHeight += 30;
 
     // if there isn't already a debug gui, draw some more information
-    if (!showDebugGui || currentApplication == applications["water"]) {
+    if (!showDebugGui || currentApplication == applications["water"] || currentApplication == applications["stretchy"]) {
         ofRect(913, 305, 302, 302);
         ofImage(depthPixels).draw(914, 306, 300, 300);
 
@@ -308,6 +310,8 @@ void AppManager::keyPressed(int key) {
             setCurrentApplication("touchMaterial");
         } else if (key == '8') {
             setCurrentApplication("water");
+        } else if (key == '9') {
+            setCurrentApplication("stretchy");
         }
 
     // forward unreserved keys to the application
