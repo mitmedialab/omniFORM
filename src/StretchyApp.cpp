@@ -42,10 +42,23 @@ void StretchyApp::update(float dt) {
             
             int depressionPin = depression.getColor(x,y).r;
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-            if (depressionPin != 0 )
+            if (depressionPin != 0 || isTouchedLastFrame[x][y] == true)
             {
                 //addForceAt(x, y, 4, -addForceRatio*(depression.getColor(x,y).r-touchThreshold));
-                addForceAt(x, y, 4, -addForceRatio*(neutralHeight-heightsFromShapeDisplay->getColor(x,y).r));
+                
+                
+                if (heightsForShapeDisplay[xy] - heightsFromShapeDisplay->getColor(x,y).r < 30) {
+                    
+                   
+                   isTouchedLastFrame[x][y] = false;
+                } else {
+                     addForceAt(x, y, 4, -addForceRatio*(neutralHeight-heightsFromShapeDisplay->getColor(x,y).r));
+                    
+                    isTouchedLastFrame[x][y] = true;
+                }
+                
+            } else {
+                isTouchedLastFrame[x][y] = false;
             }
             if(depressionPin == 0){
                 isTouchedLastFrame[x][y] = false;
@@ -116,8 +129,8 @@ void StretchyApp::update(float dt) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = heightsForShapeDisplay.getPixelIndex(x, y);
                 if(depression.getColor(x,y).r != 0){
-                    int k = heightsFromShapeDisplay[xy].getHeight() + 20;
-                    heightsForShapeDisplay[xy] = neutralHeight; //(unsigned char) k; //(heightsFromShapeDisplay[xy] + 20);
+                    int k = MAX(HEIGHT_MAX,heightsFromShapeDisplay->getColor(x,y).r + 30);
+                    heightsForShapeDisplay[xy] = k; //(unsigned char) k; //(heightsFromShapeDisplay[xy] + 20);
     
                 }
             }
@@ -221,23 +234,26 @@ void StretchyApp::keyPressed(int key) {
         }
     } else if (key == 'h'){
         springConstant-= 0.01;
-        if (springConstant<0.01) {
-            springConstant = 0.01;
+        if (springConstant<0) {
+            springConstant = 0.001;
         }
     } else if (key == 'u'){
-        blurFactor+=0.01;
+        blurFactor+=0.05;
+        if (blurFactor>0.95) {
+            blurFactor = 0.95;
+        }
     } else if (key == 'j'){
-        blurFactor-= 0.01;
-        if (blurFactor<0.01) {
-            blurFactor = 0.01;
+        blurFactor-= 0.05;
+        if (blurFactor<0.0) {
+            blurFactor = 0.0;
         }
     } else if (key == 'i'){
         springFactor+=0.01;
 
     } else if (key == 'k'){
         springFactor-= 0.01;
-        if (springFactor<0.01) {
-            springFactor = 0.01;
+        if (springFactor<0) {
+            springFactor = 0.001;
         }
     } else if (key =='z'){ //reset to flat
         // initialize densities and velocities arrays
