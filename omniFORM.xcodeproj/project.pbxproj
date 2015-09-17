@@ -220,6 +220,8 @@
 		8972575C69AE8DCC6BFB1908 /* btConvexInternalShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA65FFAA32AC6FBC97AC3586 /* btConvexInternalShape.cpp */; };
 		89F31F234274A62F3501E2EE /* b2Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B868B25E5784F27CBC75D45 /* b2Draw.cpp */; };
 		8A0AFCE71BAB39C200EF777A /* MaterialRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AFCE61BAB39C200EF777A /* MaterialRegion.cpp */; };
+		8A272BDD1BAB41D30081025A /* DisconnectedMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A272BDC1BAB41D30081025A /* DisconnectedMaterial.cpp */; };
+		8A272BE01BAB44510081025A /* RigidMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A272BDF1BAB44510081025A /* RigidMaterial.cpp */; };
 		8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */; };
 		8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB602081BA21FB700B492C6 /* WaterApp.cpp */; };
 		8AB6021D1BA377D800B492C6 /* TouchMaterialApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */; };
@@ -1001,6 +1003,10 @@
 		89E0E31FD053C3EEAD793170 /* btSolveProjectedGaussSeidel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btSolveProjectedGaussSeidel.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletDynamics/MLCPSolvers/btSolveProjectedGaussSeidel.h; sourceTree = SOURCE_ROOT; };
 		8A0AFCE61BAB39C200EF777A /* MaterialRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialRegion.cpp; sourceTree = "<group>"; };
 		8A0AFCE81BAB39C900EF777A /* MaterialRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialRegion.h; sourceTree = "<group>"; };
+		8A272BDC1BAB41D30081025A /* DisconnectedMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DisconnectedMaterial.cpp; sourceTree = "<group>"; };
+		8A272BDE1BAB41DB0081025A /* DisconnectedMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisconnectedMaterial.h; sourceTree = "<group>"; };
+		8A272BDF1BAB44510081025A /* RigidMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RigidMaterial.cpp; sourceTree = "<group>"; };
+		8A272BE11BAB44580081025A /* RigidMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigidMaterial.h; sourceTree = "<group>"; };
 		8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvShortImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp; sourceTree = SOURCE_ROOT; };
 		8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StretchyApp.cpp; sourceTree = "<group>"; };
 		8AA4193C1BAA226300F1DD50 /* StretchyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StretchyApp.h; sourceTree = "<group>"; };
@@ -2491,6 +2497,10 @@
 			children = (
 				8A0AFCE61BAB39C200EF777A /* MaterialRegion.cpp */,
 				8A0AFCE81BAB39C900EF777A /* MaterialRegion.h */,
+				8A272BDC1BAB41D30081025A /* DisconnectedMaterial.cpp */,
+				8A272BDE1BAB41DB0081025A /* DisconnectedMaterial.h */,
+				8A272BDF1BAB44510081025A /* RigidMaterial.cpp */,
+				8A272BE11BAB44580081025A /* RigidMaterial.h */,
 			);
 			name = Materials;
 			sourceTree = "<group>";
@@ -3793,6 +3803,7 @@
 				D3301F6A0B43BB293ED97C1D /* ofxCvShortImage.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
 				65CC08021B73D10B00F89B9B /* ofxGuiSwitch.cpp in Sources */,
+				8A272BDD1BAB41D30081025A /* DisconnectedMaterial.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
@@ -3849,6 +3860,7 @@
 				8A0AFCE71BAB39C200EF777A /* MaterialRegion.cpp in Sources */,
 				1BE4156E2DF3B30461C48C70 /* b2Timer.cpp in Sources */,
 				3E76A164B41BCEB11B15C175 /* b2Body.cpp in Sources */,
+				8A272BE01BAB44510081025A /* RigidMaterial.cpp in Sources */,
 				C3D8EF14A387EA959014AD91 /* b2ContactManager.cpp in Sources */,
 				FA7300BAC71DAC1ABAF6EE15 /* b2Fixture.cpp in Sources */,
 				6FCE95D2EF10ACCEC2724688 /* b2Island.cpp in Sources */,
