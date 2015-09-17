@@ -236,8 +236,8 @@ void WaterApp::addForceAt(int x, int y, float radius, float amount) {
             xIndex = MAX(0, xIndex);
             yIndex = MAX(0, yIndex);
             
-            xIndex = MIN(xIndex, SHAPE_DISPLAY_SIZE_X);
-            yIndex = MIN(yIndex, SHAPE_DISPLAY_SIZE_Y);
+            xIndex = MIN(xIndex, SHAPE_DISPLAY_SIZE_X-1);
+            yIndex = MIN(yIndex, SHAPE_DISPLAY_SIZE_Y-1);
             
             velocities[xIndex][yIndex] += force;
         }

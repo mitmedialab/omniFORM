@@ -41,11 +41,11 @@ void StretchyApp::update(float dt) {
             
             
             int depressionPin = depression.getColor(x,y).r;
-
-            
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
             if (depressionPin != 0 )
             {
-                addForceAt(x, y, 4, -addForceRatio*(depression.getColor(x,y).r-touchThreshold));
+                //addForceAt(x, y, 4, -addForceRatio*(depression.getColor(x,y).r-touchThreshold));
+                addForceAt(x, y, 4, -addForceRatio*(neutralHeight-heightsFromShapeDisplay->getColor(x,y).r));
             }
             if(depressionPin == 0){
                 isTouchedLastFrame[x][y] = false;
@@ -273,8 +273,8 @@ void StretchyApp::addForceAt(int x, int y, float radius, float amount) {
             xIndex = MAX(0, xIndex);
             yIndex = MAX(0, yIndex);
             
-            xIndex = MIN(xIndex, SHAPE_DISPLAY_SIZE_X);
-            yIndex = MIN(yIndex, SHAPE_DISPLAY_SIZE_Y);
+            xIndex = MIN(xIndex, SHAPE_DISPLAY_SIZE_X-1);
+            yIndex = MIN(yIndex, SHAPE_DISPLAY_SIZE_Y-1);
             
             velocities[xIndex][yIndex] += force;
         }
