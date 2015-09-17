@@ -219,6 +219,7 @@
 		890FEAB62511C010A6CE0502 /* btEmptyShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E935BD041847C8DBD0268D2 /* btEmptyShape.cpp */; };
 		8972575C69AE8DCC6BFB1908 /* btConvexInternalShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA65FFAA32AC6FBC97AC3586 /* btConvexInternalShape.cpp */; };
 		89F31F234274A62F3501E2EE /* b2Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B868B25E5784F27CBC75D45 /* b2Draw.cpp */; };
+		8A0AFCE71BAB39C200EF777A /* MaterialRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AFCE61BAB39C200EF777A /* MaterialRegion.cpp */; };
 		8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */; };
 		8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB602081BA21FB700B492C6 /* WaterApp.cpp */; };
 		8AB6021D1BA377D800B492C6 /* TouchMaterialApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */; };
@@ -998,6 +999,8 @@
 		892D95875430C1A060CBC20C /* btAlignedAllocator.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = btAlignedAllocator.cpp; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/LinearMath/btAlignedAllocator.cpp; sourceTree = SOURCE_ROOT; };
 		8948367193E123EBE2ABE5C3 /* ofxBulletConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletConstants.h; path = ../../../addons/ofxBullet/src/ofxBulletConstants.h; sourceTree = SOURCE_ROOT; };
 		89E0E31FD053C3EEAD793170 /* btSolveProjectedGaussSeidel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btSolveProjectedGaussSeidel.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletDynamics/MLCPSolvers/btSolveProjectedGaussSeidel.h; sourceTree = SOURCE_ROOT; };
+		8A0AFCE61BAB39C200EF777A /* MaterialRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialRegion.cpp; sourceTree = "<group>"; };
+		8A0AFCE81BAB39C900EF777A /* MaterialRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialRegion.h; sourceTree = "<group>"; };
 		8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvShortImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp; sourceTree = SOURCE_ROOT; };
 		8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StretchyApp.cpp; sourceTree = "<group>"; };
 		8AA4193C1BAA226300F1DD50 /* StretchyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StretchyApp.h; sourceTree = "<group>"; };
@@ -2483,6 +2486,15 @@
 			name = features2d;
 			sourceTree = "<group>";
 		};
+		8A0AFCE51BAB39A800EF777A /* Materials */ = {
+			isa = PBXGroup;
+			children = (
+				8A0AFCE61BAB39C200EF777A /* MaterialRegion.cpp */,
+				8A0AFCE81BAB39C900EF777A /* MaterialRegion.h */,
+			);
+			name = Materials;
+			sourceTree = "<group>";
+		};
 		8A58C7755BF3A5DD21BB2CEA /* libavdevice */ = {
 			isa = PBXGroup;
 			children = (
@@ -3449,6 +3461,7 @@
 				6572FCBC1B3DD547001BBF38 /* ShapeDisplayManagers */,
 				65EBD67F1B51BAB50011F279 /* Peripherals */,
 				65CC080A1B73D59E00F89B9B /* Shapes */,
+				8A0AFCE51BAB39A800EF777A /* Materials */,
 				65DA217C1B543D1C00D31BD4 /* Applications */,
 			);
 			path = src;
@@ -3833,6 +3846,7 @@
 				22A83FE368C671FA8DBD5E51 /* b2Math.cpp in Sources */,
 				CB503B33759F22A302B8FC6E /* b2Settings.cpp in Sources */,
 				0C7BD977292F7D20B41DF594 /* b2StackAllocator.cpp in Sources */,
+				8A0AFCE71BAB39C200EF777A /* MaterialRegion.cpp in Sources */,
 				1BE4156E2DF3B30461C48C70 /* b2Timer.cpp in Sources */,
 				3E76A164B41BCEB11B15C175 /* b2Body.cpp in Sources */,
 				C3D8EF14A387EA959014AD91 /* b2ContactManager.cpp in Sources */,
