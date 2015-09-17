@@ -33,12 +33,14 @@ private:
     float pinWidth = 1;
     float dampConstant = 0.00015;
     float adhesive = HEIGHT_MIN;
-    float addForceRatio = 0.05;
+    float addForceRatio = 0.4;
     
     // new for strechy
     float springConstant = 0.01;
     float blurFactor = 0.9;
     float springFactor = 0.1;
+    
+    int touchThreshold = 25;
     
     bool isTouchedLastFrame[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     

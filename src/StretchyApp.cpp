@@ -21,7 +21,7 @@ StretchyApp::StretchyApp() {
     
     // initialize touch detector
     touchDetector = new TouchDetector();
-    touchDetector->setDepressionSignificanceThreshold(30);
+    touchDetector->setDepressionSignificanceThreshold(touchThreshold);
     touchDetector->setStabilityTimeThreshold(0.3);
 };
 
@@ -29,8 +29,12 @@ StretchyApp::~StretchyApp() {
 };
 
 void StretchyApp::update(float dt) {
+    int neutralHeight = 150;
+    
     // get new waves from touch detector
     touchDetector->update(heightsForShapeDisplay, *heightsFromShapeDisplay);
+    
+    
     depression = touchDetector->significantDepressionAmidstStabilityPixels();
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
@@ -41,8 +45,7 @@ void StretchyApp::update(float dt) {
             
             if (depressionPin != 0 )
             {
-                addForceAt(x, y, 4, -addForceRatio*(depression.getColor(x,y).r-30));
-                
+                addForceAt(x, y, 4, -addForceRatio*(depression.getColor(x,y).r-touchThreshold));
             }
             if(depressionPin == 0){
                 isTouchedLastFrame[x][y] = false;
@@ -96,7 +99,7 @@ void StretchyApp::update(float dt) {
     // send densities over to shape display
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-            float height = 115 + densities[x][y];
+            float height = neutralHeight + densities[x][y];
             height = MAX(0, height);
             height = MIN(height, 255);
             
@@ -104,9 +107,22 @@ void StretchyApp::update(float dt) {
             heightsForShapeDisplay[xy] = height;
             
             
-
         }
     }
+    
+    //int i = heightsFromShapeDisplay[xy];
+    
+        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+            for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+                int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+                if(depression.getColor(x,y).r != 0){
+                    int k = heightsFromShapeDisplay[xy].getHeight() + 20;
+                    heightsForShapeDisplay[xy] = neutralHeight; //(unsigned char) k; //(heightsFromShapeDisplay[xy] + 20);
+    
+                }
+            }
+        }
+    
     
     
     
