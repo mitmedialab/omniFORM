@@ -53,6 +53,8 @@ void AppManager::setup(){
     applications["water"] = waterApp;
     stretchyApp = new StretchyApp();
     applications["stretchy"] = stretchyApp;
+    materialsRegionsApp = new MaterialsRegionsApp();
+    applications["materialsRegions"] = materialsRegionsApp;
     
     // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
@@ -280,9 +282,9 @@ void AppManager::exit() {
 // application.
 void AppManager::keyPressed(int key) {
     // keys used by app manager must be registered as reserved keys
-    const int reservedKeysLength = 13;
+    const int reservedKeysLength = 14;
     const int reservedKeys[reservedKeysLength] = {
-        '/', '?', '.', ' ', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+        '/', '?', '.', ' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', '`'
     };
     const int *reservedKeysEnd = reservedKeys + reservedKeysLength;
 
@@ -312,6 +314,8 @@ void AppManager::keyPressed(int key) {
             setCurrentApplication("water");
         } else if (key == '9') {
             setCurrentApplication("stretchy");
+        } else if (key == '`') {
+            setCurrentApplication("materialsRegions");
         }
 
     // forward unreserved keys to the application
