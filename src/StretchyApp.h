@@ -29,11 +29,11 @@ private:
     TouchDetector *touchDetector;
     ofPixels depression;
     
-    float timestep = 16;
+    float timestep = 10;
     float pinWidth = 1;
     float dampConstant = 0.00015;
     float adhesive = HEIGHT_MIN;
-    float addForceRatio = 0.4;
+    float addForceRatio = 0.3;
     
     // new for strechy
     float springConstant = 0.01;

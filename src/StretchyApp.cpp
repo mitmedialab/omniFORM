@@ -129,7 +129,7 @@ void StretchyApp::update(float dt) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = heightsForShapeDisplay.getPixelIndex(x, y);
                 if(depression.getColor(x,y).r != 0){
-                    int k = MAX(HEIGHT_MAX,heightsFromShapeDisplay->getColor(x,y).r + 30);
+                    int k = MIN(HEIGHT_MAX,heightsFromShapeDisplay->getColor(x,y).r + 30);
                     heightsForShapeDisplay[xy] = k; //(unsigned char) k; //(heightsFromShapeDisplay[xy] + 20);
     
                 }
@@ -178,9 +178,9 @@ string StretchyApp::appInstructionsText() {
     "dampConstant: " + ofToString(dampConstant, 5) + "   (d, e to control)\n" +
     "adhesive: " + ofToString(adhesive, 1) + "   (f, r to control)\n" +
     "addForceRatio: " + ofToString(addForceRatio, 3) + "   (t, g to control)\n" +
-    "springConstant: " + ofToString(springConstant, 3) + "   (y, h to control)\n" +
-    "blurFactor: " + ofToString(blurFactor, 3) + "   (u, j to control)\n" +
-    "springFactor: " + ofToString(springFactor, 3) + "   (i, k to control)\n" +
+    "springConstant: " + ofToString(springConstant, 5) + "   (y, h to control)\n" +
+    "blurFactor: " + ofToString(blurFactor, 5) + "   (u, j to control)\n" +
+    "springFactor: " + ofToString(springFactor, 5) + "   (i, k to control)\n" +
     
 
     "";
@@ -204,11 +204,11 @@ void StretchyApp::keyPressed(int key) {
             timestep = 1;
         }
     } else if (key == 'e'){
-        dampConstant+=0.00005;
+        dampConstant+=0.001;
     } else if (key == 'd'){
-        dampConstant-=0.00005;
-        if (dampConstant<0.00005) {
-            dampConstant = 0.00005;
+        dampConstant-=0.001;
+        if (dampConstant<0) {
+            dampConstant = 0;
         }
     } else if (key == 'r'){
         adhesive+= 5;
@@ -253,7 +253,7 @@ void StretchyApp::keyPressed(int key) {
     } else if (key == 'k'){
         springFactor-= 0.01;
         if (springFactor<0) {
-            springFactor = 0.001;
+            springFactor = 0.0001;
         }
     } else if (key =='z'){ //reset to flat
         // initialize densities and velocities arrays
@@ -328,6 +328,14 @@ void StretchyApp::drawDebugGui(int x, int y) {
             
         }
     }
+    
+    ofTranslate(0, 302);
+    for (int i = 0; i<5; i++) {
+        ofLine(300/5*i, 0, 300/5*i, 300);
+        ofLine( 0, 300/5*i, 300, 300/5*i);
+    }
+    
+    
     ofPopMatrix();
     
 };

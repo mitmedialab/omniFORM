@@ -30,7 +30,7 @@ private:
     TouchDetector *touchDetector;
     ofPixels depression;
     
-    float timestep = 16;
+    float timestep = 10;
     float waveSpeed = 0.02;
     float pinWidth = 1;
     float dampConstant = 0.00015;
