@@ -81,7 +81,7 @@ void WaterApp::update(float dt) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 densities[x][y] = newDensities[x][y]; // - densityAverage;
                 // cap densities
-                densities[x][y] = MAX(0, densities[x][y]);
+                densities[x][y] = MAX(-255, densities[x][y]);
                 densities[x][y] = MIN(densities[x][y], 255);
             }
         }
