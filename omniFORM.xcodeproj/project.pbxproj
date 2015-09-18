@@ -223,6 +223,7 @@
 		8A272BDD1BAB41D30081025A /* DisconnectedMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A272BDC1BAB41D30081025A /* DisconnectedMaterial.cpp */; };
 		8A272BE01BAB44510081025A /* RigidMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A272BDF1BAB44510081025A /* RigidMaterial.cpp */; };
 		8A272BF71BAB7DD70081025A /* StretchyMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A272BF51BAB7DD70081025A /* StretchyMaterial.cpp */; };
+		8A272BFA1BABBDB00081025A /* MaterialsRegionsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A272BF81BABBDB00081025A /* MaterialsRegionsApp.cpp */; };
 		8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */; };
 		8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB602081BA21FB700B492C6 /* WaterApp.cpp */; };
 		8AB6021D1BA377D800B492C6 /* TouchMaterialApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */; };
@@ -1010,6 +1011,8 @@
 		8A272BE11BAB44580081025A /* RigidMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigidMaterial.h; sourceTree = "<group>"; };
 		8A272BF51BAB7DD70081025A /* StretchyMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StretchyMaterial.cpp; sourceTree = "<group>"; };
 		8A272BF61BAB7DD70081025A /* StretchyMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StretchyMaterial.h; sourceTree = "<group>"; };
+		8A272BF81BABBDB00081025A /* MaterialsRegionsApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialsRegionsApp.cpp; sourceTree = "<group>"; };
+		8A272BF91BABBDB00081025A /* MaterialsRegionsApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialsRegionsApp.h; sourceTree = "<group>"; };
 		8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvShortImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp; sourceTree = SOURCE_ROOT; };
 		8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StretchyApp.cpp; sourceTree = "<group>"; };
 		8AA4193C1BAA226300F1DD50 /* StretchyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StretchyApp.h; sourceTree = "<group>"; };
@@ -2218,6 +2221,8 @@
 				65CC08101B73DCCE00F89B9B /* TeleoperationApp.h */,
 				8AB602081BA21FB700B492C6 /* WaterApp.cpp */,
 				8AB602091BA21FB700B492C6 /* WaterApp.h */,
+				8A272BF81BABBDB00081025A /* MaterialsRegionsApp.cpp */,
+				8A272BF91BABBDB00081025A /* MaterialsRegionsApp.h */,
 				65CAFD781B7D1072002DA575 /* DebuggingApps */,
 			);
 			name = Applications;
@@ -4063,6 +4068,7 @@
 				2251C952DA9775B84EB61158 /* btSoftBodyHelpers.cpp in Sources */,
 				00E83C2BF3CCF69D1AF53827 /* btSoftBodyRigidBodyCollisionConfiguration.cpp in Sources */,
 				969EA8FAE1BF0949CD33E10E /* btSoftRigidCollisionAlgorithm.cpp in Sources */,
+				8A272BFA1BABBDB00081025A /* MaterialsRegionsApp.cpp in Sources */,
 				1187D4583EDB841288F8A1AD /* btSoftRigidDynamicsWorld.cpp in Sources */,
 				ABBE3E2B77BFFE9DECF1FA11 /* btSoftSoftCollisionAlgorithm.cpp in Sources */,
 				A1E8F96BC4A9EA9AF9CD4DAB /* btAlignedAllocator.cpp in Sources */,
