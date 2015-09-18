@@ -79,7 +79,10 @@ void WaterApp::update(float dt) {
         // move new densities to densities array
         for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-                densities[x][y] = newDensities[x][y] - densityAverage;
+                densities[x][y] = newDensities[x][y]; // - densityAverage;
+                // cap densities
+                densities[x][y] = MAX(0, densities[x][y]);
+                densities[x][y] = MIN(densities[x][y], 255);
             }
         }
     }
