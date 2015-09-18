@@ -41,7 +41,7 @@ void WaterApp::update(float dt) {
             
             if (depressionPin != 0 && isTouchedLastFrame[x][y] == false)
             {
-                addForceAt(x, y, 4, -addForceRatio*(depression.getColor(x,y).r-30));
+                addForceAt(x, y, 2, -addForceRatio*(depression.getColor(x,y).r-30));
                 
             }
             if(depressionPin == 0){
@@ -79,7 +79,7 @@ void WaterApp::update(float dt) {
         // move new densities to densities array
         for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-                densities[x][y] = newDensities[x][y]; // - densityAverage;
+                densities[x][y] = newDensities[x][y] - densityAverage;
                 // cap densities
                 densities[x][y] = MAX(-255, densities[x][y]);
                 densities[x][y] = MIN(densities[x][y], 255);
