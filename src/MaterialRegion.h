@@ -19,6 +19,7 @@ public:
     void setNativeHeights(const ofPixels &heights);
     void setCurrentHeights(const ofPixels &heights);
     void getCurrentHeights(ofPixels &heights);
+    void setHeightsFromShapeDisplayRef(const ofPixels *heights);
     
     virtual void update(const ofPixels &depressionPixels) = 0;
     
@@ -26,4 +27,7 @@ protected:
     ofPixels region;
     ofPixels nativeHeights;
     ofPixels currentHeights;
+    
+    const ofPixels *heightsFromShapeDisplay;
+    bool hasHeightsFromShapeDisplay = false;
 };

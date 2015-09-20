@@ -74,7 +74,7 @@ void AppManager::setup(){
     }
 
     // set default application
-    setCurrentApplication("simpleWave");
+    setCurrentApplication("materialsRegions");
 }
 
 // initialize the shape display and set up shape display helper objects

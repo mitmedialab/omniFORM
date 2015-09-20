@@ -22,6 +22,8 @@ MaterialsRegionsApp::MaterialsRegionsApp() {
     loadInputMaps("ramps");
     
     setupMaterialRegions();
+    
+    
 }
 
 void MaterialsRegionsApp::loadInputMaps(string schemaName) {
@@ -73,6 +75,11 @@ void MaterialsRegionsApp::setupMaterialRegions() {
         materialRegion->setNativeHeights(nativeHeights);
         materialRegions.push_back(materialRegion);
     }
+    
+    // give applications read access to input data
+    for (vector<MaterialRegion *>::iterator iter = materialRegions.begin(); iter != materialRegions.end(); iter++) {
+                (*iter)->setHeightsFromShapeDisplayRef(heightsFromShapeDisplay);
+    }
 }
 
 void MaterialsRegionsApp::update(float dt) {
@@ -91,6 +98,26 @@ void MaterialsRegionsApp::drawDebugGui(int x, int y) {
     ofImage(touchDetector->depressionPixels()).draw(x, y, 300, 300);
     ofImage(touchDetector->significantDepressionPixels()).draw(x + 302, y, 300, 300);
     ofImage(touchDetector->significantDepressionAmidstStabilityPixels()).draw(x + 604, y, 300, 300);
+    
+    
+    ofPixels depression = touchDetector->significantDepressionAmidstStabilityPixels();
+    
+    ofNoFill();
+    ofSetColor(255, 0, 0);
+    ofPushMatrix();
+    ofTranslate(x+604, y);
+    int boxSizeX = 300/SHAPE_DISPLAY_SIZE_X;
+    int boxSizeY = 300/SHAPE_DISPLAY_SIZE_Y;
+    for (int i = 0; i < SHAPE_DISPLAY_SIZE_X; i++) {
+        for (int j = 0; j < SHAPE_DISPLAY_SIZE_Y; j++) {
+            
+            if ( depression.getColor(i, j).r != 0){
+                
+                ofRect(i*boxSizeX, j*boxSizeY, boxSizeX, boxSizeY);
+            }
+            
+        }
+    }
 }
 
 void MaterialsRegionsApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
@@ -112,3 +139,4 @@ void MaterialsRegionsApp::keyPressed(int key) {
     if (key == 'a') {
     }
 }
+

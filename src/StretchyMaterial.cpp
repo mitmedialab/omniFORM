@@ -10,7 +10,7 @@
 
 StretchyMaterial::StretchyMaterial(const ofPixels &regionMap)
 : MaterialRegion(regionMap) {
-    heightsFromShapeDisplay.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
+    //heightsFromShapeDisplay.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
     
     // initialize densities and velocities arrays
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
@@ -18,8 +18,8 @@ StretchyMaterial::StretchyMaterial(const ofPixels &regionMap)
             densities[x][y] = 0;
             velocities[x][y] = 0;
             isTouchedLastFrame[x][y] = false;
-            int xy = heightsFromShapeDisplay.getPixelIndex(x, y);
-            heightsFromShapeDisplay[xy] = 0;
+            //int xy = heightsFromShapeDisplay.getPixelIndex(x, y);
+            // heightsFromShapeDisplay[xy] = 0;
         }
     }
 };
@@ -36,21 +36,21 @@ void StretchyMaterial::update(const ofPixels &depressionPixels) {
                 continue;
             }
             
-            heightsFromShapeDisplay[xy] = currentHeights[xy] - depressionPixels[xy];
+            //heightsFromShapeDisplay[xy] = neutralHeight- depressionPixels[xy];
             
             
             int depressionPin = depressionPixels[xy];
             if (depressionPin != 0 || isTouchedLastFrame[x][y] == true)
             {
-                //addForceAt(x, y, 4, -addForceRatio*(depressionPixels[xy]-touchThreshold));
+                cout << "hight from shape display" << heightsFromShapeDisplay->getColor(x,y).r << endl;
                 
-                
-                if (currentHeights[xy] - heightsFromShapeDisplay[xy] < 30) {
+                if (currentHeights[xy] - heightsFromShapeDisplay->getColor(x,y).r < 30) {
                    isTouchedLastFrame[x][y] = false;
-                } else {
-                     addForceAt(x, y, 4, -addForceRatio*(neutralHeight-heightsFromShapeDisplay[xy]));
                     
+                } else {
+                    addForceAt(x, y, 4, -addForceRatio*(neutralHeight-heightsFromShapeDisplay->getColor(x,y).r));
                     isTouchedLastFrame[x][y] = true;
+                    
                 }
                 
             } else {
@@ -58,7 +58,7 @@ void StretchyMaterial::update(const ofPixels &depressionPixels) {
             }
             if(depressionPin == 0){
                 isTouchedLastFrame[x][y] = false;
-            } else{
+            } else {
                 isTouchedLastFrame[x][y] = true;
             }
             
@@ -139,8 +139,8 @@ void StretchyMaterial::update(const ofPixels &depressionPixels) {
                     continue;
                 }
                 
-                if(depressionPixels[xy] != 0){
-                    int k = MIN(HEIGHT_MAX,heightsFromShapeDisplay[xy] + 30);
+                if(depressionPixels[xy] != 0 || isTouchedLastFrame[x][y]){
+                    int k =  MIN(HEIGHT_MAX,heightsFromShapeDisplay->getColor(x,y).r + 30);
                     currentHeights[xy] = k; //(unsigned char) k; //(heightsFromShapeDisplay[xy] + 20);
     
                 }

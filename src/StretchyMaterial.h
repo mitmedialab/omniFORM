@@ -25,7 +25,7 @@ public:
     
 private:
     const ofPixels *depression;
-    ofPixels heightsFromShapeDisplay;
+    //ofPixels heightsFromShapeDisplay;
     
     float timestep = 16;
     float pinWidth = 1;
