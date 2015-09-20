@@ -11,7 +11,7 @@
 WaterApp::WaterApp() {
     
     // initialize densities and velocities arrays
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+    for (int x = cropX_MIN; x < cropX_MAX; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             densities[x][y] = 0;
             velocities[x][y] = 0;
@@ -22,7 +22,11 @@ WaterApp::WaterApp() {
     // initialize touch detector
     touchDetector = new TouchDetector();
     touchDetector->setDepressionSignificanceThreshold(30);
-    touchDetector->setStabilityTimeThreshold(0.3);
+    touchDetector->setStabilityTimeThreshold(10);
+    
+    for (int i = 0; i < SAMPLE_NUM; i++) {
+        testedSamples[i]= false;
+    }
 };
 
 WaterApp::~WaterApp() {
@@ -32,7 +36,7 @@ void WaterApp::update(float dt) {
     // get new waves from touch detector
     touchDetector->update(heightsForShapeDisplay, *heightsFromShapeDisplay);
     depression = touchDetector->significantDepressionAmidstStabilityPixels();
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+    for (int x = cropX_MIN; x < cropX_MAX; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             
             
@@ -41,7 +45,7 @@ void WaterApp::update(float dt) {
             
             if (depressionPin != 0 && isTouchedLastFrame[x][y] == false)
             {
-                addForceAt(x, y, 2, -addForceRatio*(depression.getColor(x,y).r-30));
+                addForceAt(x, y, radiousRatio, -addForceRatio*(depression.getColor(x,y).r-30));
                 
             }
             if(depressionPin == 0){
@@ -53,7 +57,6 @@ void WaterApp::update(float dt) {
         }
     }
     
-    
 //    float timestep = 16;
 //    float waveSpeed = 0.005;//0.02;
 //    float pinWidth = 1;
@@ -61,7 +64,7 @@ void WaterApp::update(float dt) {
     for (int i = 0; i < 4; i++) {
         // compute new densities/velocities
         float densitySum = 0;
-        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int x = 0; x < cropX_MAX; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 float springForce = waveSpeed * waveSpeed * (getAdjacentDensitySum(x,y) - 4 * densities[x][y]) / (pinWidth * pinWidth);
                 float dampenForce = -dampConstant * velocities[x][y];
@@ -74,10 +77,10 @@ void WaterApp::update(float dt) {
             }
         }
         
-        float densityAverage = densitySum / (SHAPE_DISPLAY_SIZE_X * SHAPE_DISPLAY_SIZE_Y);
+        float densityAverage = densitySum / ( (cropX_MAX-cropX_MIN) * SHAPE_DISPLAY_SIZE_Y);
         
         // move new densities to densities array
-        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int x = cropX_MIN; x < cropX_MAX; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 densities[x][y] = newDensities[x][y] - densityAverage;
                 // cap densities
@@ -88,7 +91,7 @@ void WaterApp::update(float dt) {
     }
     
     // send densities over to shape display
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+    for (int x = cropX_MIN; x < cropX_MAX; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             float height = 115 + densities[x][y];
             height = MAX(0, height);
@@ -105,12 +108,12 @@ void WaterApp::update(float dt) {
     
     
     //Adding Adhesive stuff
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+    for (int x = cropX_MIN; x < cropX_MAX; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
             if(depression.getColor(x,y).r != 0){
                 heightsForShapeDisplay[xy] = adhesive;
-                for(int xx = MAX(x-1,0); xx < MIN(SHAPE_DISPLAY_SIZE_X+1, x+2); xx++ ){
+                for(int xx = MAX(x-1,cropX_MIN); xx < MIN(cropX_MAX+1, x+2); xx++ ){
                     for(int yy = MAX(y-1,0); yy < MIN(SHAPE_DISPLAY_SIZE_Y+1, y+2); yy++ ){
                         int xxyy = heightsForShapeDisplay.getPixelIndex(xx, yy);
                         heightsForShapeDisplay[xxyy] = MAX((heightsForShapeDisplay[xy]-depression.getColor(x,y).r + heightsForShapeDisplay[xxyy])/2,heightsForShapeDisplay[xxyy]) ;
@@ -122,6 +125,22 @@ void WaterApp::update(float dt) {
                 
             }
         }
+    }
+    //Wall
+    
+    if(setWall){
+    for (int x = cropX_MIN; x < cropX_MAX; x++) {
+        int xy = heightsForShapeDisplay.getPixelIndex(x, 0);
+        heightsForShapeDisplay[xy] = HEIGHT_MAX;
+        xy = heightsForShapeDisplay.getPixelIndex(x, SHAPE_DISPLAY_SIZE_Y-1);
+        heightsForShapeDisplay[xy] = HEIGHT_MAX;
+    }
+    for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+        int xy = heightsForShapeDisplay.getPixelIndex(cropX_MIN, y);
+        heightsForShapeDisplay[xy] = HEIGHT_MAX;
+        xy = heightsForShapeDisplay.getPixelIndex(cropX_MAX-1, y);
+        heightsForShapeDisplay[xy] = HEIGHT_MAX;
+    }
     }
     
 };
@@ -144,7 +163,15 @@ string WaterApp::appInstructionsText() {
     "dampConstant: " + ofToString(dampConstant, 5) + "   (d, e to control)\n" +
     "adhesive: " + ofToString(adhesive, 1) + "   (f, r to control)\n" +
     "addForceRatio: " + ofToString(addForceRatio, 3) + "   (t, g to control)\n" +
+    "radiousRatio: " + ofToString(radiousRatio, 2) + "   (y, h to control)\n" +
     
+    "\n" +
+    "\n" +
+    "For User Study\n"
+    "'x' to select material sample randomly\n" +
+    "'c' to clear history of sample tested\n" +
+    
+    "'z' to set the pinHeight to neutral\n" +
     "";
 
     
@@ -154,7 +181,7 @@ string WaterApp::appInstructionsText() {
 
 void WaterApp::keyPressed(int key) {
     if (key == 'p') {
-        int x = ofRandom(1, SHAPE_DISPLAY_SIZE_X - 1);
+        int x = ofRandom(1, cropX_MAX - 1);
         int y = ofRandom(1, SHAPE_DISPLAY_SIZE_Y - 1);
         
         addForceAt(x, y, 4, 5);
@@ -196,27 +223,74 @@ void WaterApp::keyPressed(int key) {
         if (addForceRatio<0.005) {
             addForceRatio = 0.005;
         }
-    } else if (key =='z'){ //reset to flat
+    }else if (key == 'y'){
+        radiousRatio+= 0.1;
+    } else if (key == 'h'){
+        radiousRatio-= 0.1;
+        if (radiousRatio<0.1) {
+            radiousRatio = 0.1;
+        }
+    }  else if (key =='z'){ //reset to flat
         // initialize densities and velocities arrays
-        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int x = cropX_MIN; x < cropX_MAX; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 densities[x][y] = 0;
                 velocities[x][y] = 0;
                 isTouchedLastFrame[x][y] = false;
             }
         }
-    } else if (key == ']'){ // honey
-         timestep = 16;
-         waveSpeed = 0.005;
-         dampConstant = 0.001;
-         adhesive = 180;
-         addForceRatio = 0.02;
-    } else if (key == '['){
-        timestep = 16;
-        waveSpeed = 0.02;
-        dampConstant = 0.00015;
-        adhesive = 50;
-        addForceRatio = 0.02;
+    } else if (key == KEY_LEFT){
+        valueX_ID--;
+        if (valueX_ID <0) {
+            valueX_ID = 3;
+        }
+        dampConstant = valueX[valueX_ID];
+        
+    } else if (key == KEY_RIGHT){
+        valueX_ID++;
+        if (valueX_ID >3) {
+            valueX_ID = 0;
+        }
+        dampConstant = valueX[valueX_ID];
+        
+    } else if (key == KEY_UP){
+        valueY_ID--;
+        if (valueY_ID <0) {
+            valueY_ID = 3;
+        }
+        
+        waveSpeed = valueY[valueY_ID];
+        touchDetectorThresholdAccordingToWavespeed();
+        
+    } else if (key == KEY_DOWN){
+        valueY_ID++;
+        if (valueY_ID >3) {
+            valueY_ID = 0;
+        }
+        waveSpeed = valueY[valueY_ID];
+        touchDetectorThresholdAccordingToWavespeed();
+    } else if (key == 'n'){
+        setNeutral = !setNeutral;
+        if(setNeutral){
+            dampConstant = neutralValueX;
+            waveSpeed = neutralValueY;
+            touchDetector->setStabilityTimeThreshold(10);
+        } else {
+            dampConstant = valueX[valueX_ID];
+            waveSpeed = valueY[valueY_ID];
+            touchDetectorThresholdAccordingToWavespeed();
+        }
+    }   else if (key == 'x'){  //random
+        chooseRandomSamplesForUserStudy();
+        
+    } else if (key == 'c'){  //reset boolean for random
+        for (int i = 0; i < SAMPLE_NUM; i++) {
+            testedSamples[i]= false;
+        }
+        
+    } else if (key == ']'){  //reset boolean for random
+        setWall = !setWall;
+        
     }
 };
 
@@ -236,10 +310,10 @@ void WaterApp::addForceAt(int x, int y, float radius, float amount) {
             int xIndex = x + i;
             int yIndex = y + j;
             
-            xIndex = MAX(0, xIndex);
+            xIndex = MAX(cropX_MIN, xIndex);
             yIndex = MAX(0, yIndex);
             
-            xIndex = MIN(xIndex, SHAPE_DISPLAY_SIZE_X-1);
+            xIndex = MIN(xIndex, cropX_MAX-1);
             yIndex = MIN(yIndex, SHAPE_DISPLAY_SIZE_Y-1);
             
             velocities[xIndex][yIndex] += force;
@@ -249,8 +323,8 @@ void WaterApp::addForceAt(int x, int y, float radius, float amount) {
 
 float WaterApp::getAdjacentDensitySum(int x, int y) {
     float sum = 0;
-    sum += densities[MAX(x-1, 0)][y];
-    sum += densities[MIN(x+1, SHAPE_DISPLAY_SIZE_X-1)][y];
+    sum += densities[MAX(x-1, cropX_MIN)][y];
+    sum += densities[MIN(x+1, cropX_MAX-1)][y];
     sum += densities[x][MAX(y-1, 0)];
     sum += densities[x][MIN(y+1, SHAPE_DISPLAY_SIZE_Y-1)];
     return sum;
@@ -278,6 +352,102 @@ void WaterApp::drawDebugGui(int x, int y) {
             
         }
     }
+    
+    ofTranslate(0, 302);
+    drawUserStudyTable();
+    
     ofPopMatrix();
     
 };
+
+
+void WaterApp::drawUserStudyTable() {
+    
+    ofDrawBitmapString("dampening", 150, 30);
+    ofDrawBitmapString("waveSpeed", -10, 200);
+    
+    ofTranslate(50, 50);
+    int tableSize = 250;
+
+    ofFill();
+    ofSetColor(100, 100, 100);
+    for (int i = 0; i < SAMPLE_NUM; i++) {
+        if (testedSamples[i] == true) {
+            int x = i % 4;
+            int y = floor(i /4);
+            ofRect(tableSize/5*(x+1), tableSize/5*(y+1), tableSize/5, tableSize/5);
+        }
+    }
+    
+    ofNoFill();
+    ofSetColor(255, 0, 0);
+    
+    for (int i = 0; i<5; i++) {
+        ofLine(tableSize/5*(i+1), 0, tableSize/5*(i+1), tableSize);
+        ofLine( 0, tableSize/5*(i+1), tableSize, tableSize/5*(i+1));
+    }
+    
+    if(setNeutral){
+        ofEllipse(tableSize/2+tableSize/10, tableSize/2+tableSize/10, 10, 10);
+    } else {
+        ofEllipse((valueX_ID+1)*tableSize/5+tableSize/10, (valueY_ID+1)*tableSize/5+tableSize/10, 10, 10);
+    }
+    
+    for (int i = 0; i < 4; i++) {
+        ofDrawBitmapString(ofToString(valueX[i]), (i+1)*tableSize/5+tableSize/10-25, tableSize/10);
+        ofDrawBitmapString(ofToString(valueY[i]),  tableSize/10-20, (i+1)*tableSize/5+tableSize/10);
+    }
+    
+    ofSetColor(255, 255, 255);
+}
+
+void  WaterApp::touchDetectorThresholdAccordingToWavespeed(){
+    int th;
+    if(valueY_ID==0){
+        th =7;
+    } else if(valueY_ID==1){
+        th=9;
+    } else if(valueY_ID==2){
+        th = 11;
+    } else if(valueY_ID==3){
+        th = 14;
+    }
+    touchDetector->setStabilityTimeThreshold(th);
+
+}
+
+void WaterApp::chooseRandomSamplesForUserStudy(){
+    
+    cout<< "randomizing" << endl;
+    // check if every sample is tested
+    bool allTested = true;
+    for(int i = 0; i<SAMPLE_NUM; i++){
+        if (!testedSamples[i]) {
+            allTested = false;
+        }
+    }
+    
+    
+    // if there are remaining samples which is not tested
+    if(!allTested){
+        bool flag = false;
+        
+        while (flag == false) {
+            int randomNum = ofRandom(0,16);
+            if (testedSamples[randomNum] == false) {
+                valueX_ID = randomNum % 4;
+                valueY_ID = floor(randomNum /4);
+                
+                dampConstant = valueX[valueX_ID];
+                waveSpeed = valueY[valueY_ID];
+                touchDetectorThresholdAccordingToWavespeed();
+                
+                testedSamples[randomNum] = true;
+                cout<< "number of sample"<<randomNum << endl;
+                flag = true;
+            }
+        }
+        
+        
+    }
+}

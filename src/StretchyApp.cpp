@@ -11,7 +11,7 @@
 StretchyApp::StretchyApp() {
     
     // initialize densities and velocities arrays
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+    for (int x = cropX_MIN; x < cropX_MAX; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             densities[x][y] = 0;
             velocities[x][y] = 0;
@@ -22,7 +22,11 @@ StretchyApp::StretchyApp() {
     // initialize touch detector
     touchDetector = new TouchDetector();
     touchDetector->setDepressionSignificanceThreshold(touchThreshold);
-    touchDetector->setStabilityTimeThreshold(0.3);
+    touchDetector->setStabilityTimeThreshold(7);
+    
+    for (int i = 0; i < SAMPLE_NUM; i++) {
+        testedSamples[i]= false;
+    }
 };
 
 StretchyApp::~StretchyApp() {
@@ -36,7 +40,7 @@ void StretchyApp::update(float dt) {
     
     
     depression = touchDetector->significantDepressionAmidstStabilityPixels();
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+    for (int x = cropX_MIN; x < cropX_MAX; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             
             
@@ -52,7 +56,7 @@ void StretchyApp::update(float dt) {
                    
                    isTouchedLastFrame[x][y] = false;
                 } else {
-                     addForceAt(x, y, 4, -addForceRatio*(neutralHeight-heightsFromShapeDisplay->getColor(x,y).r));
+                     addForceAt(x, y, radiousRatio, -addForceRatio*(neutralHeight-heightsFromShapeDisplay->getColor(x,y).r));
                     
                     isTouchedLastFrame[x][y] = true;
                 }
@@ -83,7 +87,7 @@ void StretchyApp::update(float dt) {
     for (int i = 0; i < 4; i++) {
         // compute new densities/velocities
         float densitySum = 0;
-        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int x = cropX_MIN; x < cropX_MAX; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 
                 float springForce = -springConstant * densities[x][y];
@@ -99,10 +103,10 @@ void StretchyApp::update(float dt) {
             }
         }
         
-        float densityAverage = densitySum / (SHAPE_DISPLAY_SIZE_X * SHAPE_DISPLAY_SIZE_Y);
+        float densityAverage = densitySum / ((cropX_MAX-cropX_MIN) * SHAPE_DISPLAY_SIZE_Y);
         
         // move new densities to densities array
-        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int x = cropX_MIN; x < cropX_MAX; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 densities[x][y] = newDensities[x][y]; // - densityAverage;
             }
@@ -110,7 +114,7 @@ void StretchyApp::update(float dt) {
     }
     
     // send densities over to shape display
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+    for (int x = cropX_MIN; x < cropX_MAX; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             float height = neutralHeight + densities[x][y];
             height = MAX(0, height);
@@ -125,7 +129,7 @@ void StretchyApp::update(float dt) {
     
     //int i = heightsFromShapeDisplay[xy];
     
-        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int x = cropX_MIN; x < cropX_MAX; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = heightsForShapeDisplay.getPixelIndex(x, y);
                 if(depression.getColor(x,y).r != 0){
@@ -167,7 +171,7 @@ void StretchyApp::drawGraphicsForShapeDisplay(int x, int y, int width, int heigh
 };
 
 string StretchyApp::appInstructionsText() {
-    string instructions = (string) "Stretch app\n";
+    string instructions = (string) "Stretchy app\n";
     
     instructions += (string) "" +
     "\n" +
@@ -181,10 +185,17 @@ string StretchyApp::appInstructionsText() {
     "springConstant: " + ofToString(springConstant, 5) + "   (y, h to control)\n" +
     "blurFactor: " + ofToString(blurFactor, 5) + "   (u, j to control)\n" +
     "springFactor: " + ofToString(springFactor, 5) + "   (i, k to control)\n" +
+    "radiousRatio: " + ofToString(radiousRatio, 2) + "   (o, l to control)\n" +
+    "\n" +
+    "\n" +
+    "For User Study\n"
+    "'x' to select material sample randomly\n" +
+    "'c' to clear history of sample tested\n" +
     
-
+    "'z' to set the pinHeight to neutral\n" +
+    
     "";
-
+    
     
     return instructions;
 };
@@ -192,7 +203,7 @@ string StretchyApp::appInstructionsText() {
 
 void StretchyApp::keyPressed(int key) {
     if (key == 'p') {
-        int x = ofRandom(1, SHAPE_DISPLAY_SIZE_X - 1);
+        int x = ofRandom(1, cropX_MAX - 1);
         int y = ofRandom(1, SHAPE_DISPLAY_SIZE_Y - 1);
         
         addForceAt(x, y, 4, 5);
@@ -204,9 +215,9 @@ void StretchyApp::keyPressed(int key) {
             timestep = 1;
         }
     } else if (key == 'e'){
-        dampConstant+=0.001;
+        dampConstant+=0.0001;
     } else if (key == 'd'){
-        dampConstant-=0.001;
+        dampConstant-=0.0001;
         if (dampConstant<0) {
             dampConstant = 0;
         }
@@ -255,18 +266,69 @@ void StretchyApp::keyPressed(int key) {
         if (springFactor<0) {
             springFactor = 0.0001;
         }
+    } else if (key == 'o'){
+        radiousRatio+= 0.1;
+    } else if (key == 'l'){
+        radiousRatio-= 0.1;
+        if (radiousRatio<0.1) {
+            radiousRatio = 0.1;
+        }
     } else if (key =='z'){ //reset to flat
         // initialize densities and velocities arrays
-        for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int x = cropX_MIN; x < cropX_MAX; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 densities[x][y] = 0;
                 velocities[x][y] = 0;
                 isTouchedLastFrame[x][y] = false;
             }
         }
-    } else if (key == ']'){ // honey
-             } else if (key == '['){
+    } else if (key == KEY_LEFT){
+        valueX_ID--;
+        if (valueX_ID <0) {
+            valueX_ID = 3;
+        }
+        blurFactor = valueX[valueX_ID];
+    } else if (key == KEY_RIGHT){
+        valueX_ID++;
+        if (valueX_ID >3) {
+            valueX_ID = 0;
+        }
+        blurFactor = valueX[valueX_ID];
        
+    } else if (key == KEY_UP){
+        valueY_ID--;
+        if (valueY_ID <0) {
+            valueY_ID = 3;
+        }
+        springFactor = valueY[valueY_ID];
+        touchDetectorThresholdAccordingToWavespeed();
+        
+    } else if (key == KEY_DOWN){
+        valueY_ID++;
+        if (valueY_ID >3) {
+            valueY_ID = 0;
+        }
+        springFactor = valueY[valueY_ID];
+        touchDetectorThresholdAccordingToWavespeed();
+    } else if (key == 'n'){
+        setNeutral = !setNeutral;
+        if(setNeutral){
+        dampConstant = neutralValueX;
+        springConstant = neutralValueY;
+        touchDetector->setStabilityTimeThreshold(10);
+        } else {
+            dampConstant = valueX[valueX_ID];
+            springFactor = valueY[valueY_ID];
+            touchDetectorThresholdAccordingToWavespeed();
+        }
+    }  else if (key == 'x'){  //random
+        chooseRandomSamplesForUserStudy();
+
+    } else if (key == 'c'){  //reset boolean for random
+        for (int i = 0; i < SAMPLE_NUM; i++) {
+            testedSamples[i]= false;
+        }
+        
     }
 };
 
@@ -286,10 +348,10 @@ void StretchyApp::addForceAt(int x, int y, float radius, float amount) {
             int xIndex = x + i;
             int yIndex = y + j;
             
-            xIndex = MAX(0, xIndex);
+            xIndex = MAX(cropX_MIN, xIndex);
             yIndex = MAX(0, yIndex);
             
-            xIndex = MIN(xIndex, SHAPE_DISPLAY_SIZE_X-1);
+            xIndex = MIN(xIndex, cropX_MAX-1);
             yIndex = MIN(yIndex, SHAPE_DISPLAY_SIZE_Y-1);
             
             velocities[xIndex][yIndex] += force;
@@ -299,8 +361,8 @@ void StretchyApp::addForceAt(int x, int y, float radius, float amount) {
 
 float StretchyApp::getAdjacentDensitySum(int x, int y) {
     float sum = 0;
-    sum += densities[MAX(x-1, 0)][y];
-    sum += densities[MIN(x+1, SHAPE_DISPLAY_SIZE_X-1)][y];
+    sum += densities[MAX(x-1, cropX_MIN)][y];
+    sum += densities[MIN(x+1, cropX_MAX-1)][y];
     sum += densities[x][MAX(y-1, 0)];
     sum += densities[x][MIN(y+1, SHAPE_DISPLAY_SIZE_Y-1)];
     return sum;
@@ -330,12 +392,103 @@ void StretchyApp::drawDebugGui(int x, int y) {
     }
     
     ofTranslate(0, 302);
-    for (int i = 0; i<5; i++) {
-        ofLine(300/5*i, 0, 300/5*i, 300);
-        ofLine( 0, 300/5*i, 300, 300/5*i);
-    }
+    drawUserStudyTable();
     
     
     ofPopMatrix();
     
 };
+
+
+void StretchyApp::drawUserStudyTable() {
+    
+    ofDrawBitmapString("blurFactor", 150, 30);
+    ofDrawBitmapString("spring", -10, 200);
+    
+    ofTranslate(50, 50);
+    int tableSize = 250;
+    
+    ofFill();
+    ofSetColor(100, 100, 100);
+    for (int i = 0; i < SAMPLE_NUM; i++) {
+        if (testedSamples[i] == true) {
+            int x = i % 4;
+            int y = floor(i /4);
+            ofRect(tableSize/5*(x+1), tableSize/5*(y+1), tableSize/5, tableSize/5);
+        }
+    }
+    
+    ofNoFill();
+    ofSetColor(255, 0, 0);
+    
+    for (int i = 0; i<5; i++) {
+        ofLine(tableSize/5*(i+1), 0, tableSize/5*(i+1), tableSize);
+        ofLine( 0, tableSize/5*(i+1), tableSize, tableSize/5*(i+1));
+    }
+    if(setNeutral){
+        ofEllipse(tableSize/2+tableSize/10, tableSize/2+tableSize/10, 10, 10);
+    } else {
+        ofEllipse((valueX_ID+1)*tableSize/5+tableSize/10, (valueY_ID+1)*tableSize/5+tableSize/10, 10, 10);
+    }
+    
+    for (int i = 0; i < 4; i++) {
+        ofDrawBitmapString(ofToString(valueX[i]), (i+1)*tableSize/5+tableSize/10-25, tableSize/10);
+        ofDrawBitmapString(ofToString(valueY[i]),  tableSize/10-20, (i+1)*tableSize/5+tableSize/10);
+    }
+
+    ofSetColor(255, 255, 255);
+}
+
+void  StretchyApp::touchDetectorThresholdAccordingToWavespeed(){
+    int th;
+    if(valueY_ID==0){
+        th = 6;
+    } else if(valueY_ID==1){
+        th=9;
+    } else if(valueY_ID==2){
+        th = 11;
+    } else if(valueY_ID==3){
+        th = 14;
+    }
+    
+    
+    
+    touchDetector->setStabilityTimeThreshold(th);
+    
+}
+
+void StretchyApp::chooseRandomSamplesForUserStudy(){
+    
+    cout<< "randomizing" << endl;
+    // check if every sample is tested
+    bool allTested = true;
+    for(int i = 0; i<SAMPLE_NUM; i++){
+        if (!testedSamples[i]) {
+            allTested = false;
+        }
+    }
+    
+    
+    // if there are remaining samples which is not tested
+    if(!allTested){
+        bool flag = false;
+        
+        while (flag == false) {
+            int randomNum = ofRandom(0,16);
+            if (testedSamples[randomNum] == false) {
+                valueX_ID = randomNum % 4;
+                valueY_ID = floor(randomNum /4);
+                
+                blurFactor = valueX[valueX_ID];
+                springFactor = valueY[valueY_ID];
+                touchDetectorThresholdAccordingToWavespeed();
+                
+                testedSamples[randomNum] = true;
+                cout<< "number of sample"<<randomNum << endl;
+                flag = true;
+            }
+        }
+        
+        
+    }
+}
