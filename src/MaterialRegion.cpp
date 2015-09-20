@@ -66,3 +66,8 @@ void MaterialRegion::getCurrentHeights(ofPixels &heights) {
         }
     }
 }
+
+void MaterialRegion::setHeightsFromShapeDisplayRef(const ofPixels *heights) {
+    heightsFromShapeDisplay = heights;
+    hasHeightsFromShapeDisplay = true;
+}
