@@ -59,9 +59,17 @@ void MaterialsRegionsApp::setupMaterialRegions() {
         for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = regionsMap.getPixelIndex(x, y);
-                if (regionsMap[xy] == i) {
-                    regionMap[xy] = 255;
+                if (i==0) {
+                  if ( regionsMap[xy] < 150) {
+                      regionMap[xy] = 255;
+                  }
+                } else if(i==2){ //stretchy
+                    if ( regionsMap[xy] >= 150) {
+                        cout << "stetchy" << endl;
+                        regionMap[xy] = 255;
+                    }
                 }
+
             }
         }
         MaterialRegion *materialRegion;
