@@ -45,11 +45,9 @@ void StretchyMaterial::update(const ofPixels &depressionPixels) {
             int depressionPin = depressionPixels[xy];
             if (depressionPin != 0 || isTouchedLastFrame[x][y] == true)
             {
-                //cout << "hight from shape display" << (int)(*heightsFromShapeDisplay)[xy] << endl;
                 
                 if (currentHeights[xy] - (*heightsFromShapeDisplay)[xy] < 30) {
                    isTouchedLastFrame[x][y] = false;
-                    cout << "hight from shape display" << (int)(*heightsFromShapeDisplay)[xy] << endl;
                 } else {
                     addForceAt(x, y, 4, -addForceRatio*(nativeHeights[xy]-(*heightsFromShapeDisplay)[xy]));
                     isTouchedLastFrame[x][y] = true;
