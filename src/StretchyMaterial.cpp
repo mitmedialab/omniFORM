@@ -25,7 +25,10 @@ StretchyMaterial::StretchyMaterial(const ofPixels &regionMap)
 };
 
 void StretchyMaterial::update(const ofPixels &depressionPixels) {
+    
     int neutralHeight = 150;
+    
+    
     
     depression = &depressionPixels;
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
@@ -42,13 +45,13 @@ void StretchyMaterial::update(const ofPixels &depressionPixels) {
             int depressionPin = depressionPixels[xy];
             if (depressionPin != 0 || isTouchedLastFrame[x][y] == true)
             {
-                cout << "hight from shape display" << heightsFromShapeDisplay->getColor(x,y).r << endl;
+                //cout << "hight from shape display" << (int)(*heightsFromShapeDisplay)[xy] << endl;
                 
-                if (currentHeights[xy] - heightsFromShapeDisplay->getColor(x,y).r < 30) {
+                if (currentHeights[xy] - (*heightsFromShapeDisplay)[xy] < 30) {
                    isTouchedLastFrame[x][y] = false;
-                    
+                    cout << "hight from shape display" << (int)(*heightsFromShapeDisplay)[xy] << endl;
                 } else {
-                    addForceAt(x, y, 4, -addForceRatio*(neutralHeight-heightsFromShapeDisplay->getColor(x,y).r));
+                    addForceAt(x, y, 4, -addForceRatio*(nativeHeights[xy]-(*heightsFromShapeDisplay)[xy]));
                     isTouchedLastFrame[x][y] = true;
                     
                 }
@@ -119,7 +122,7 @@ void StretchyMaterial::update(const ofPixels &depressionPixels) {
                 continue;
             }
             
-            float height = neutralHeight + densities[x][y];
+            float height = nativeHeights[xy] + densities[x][y];
             height = MAX(0, height);
             height = MIN(height, 255);
             
@@ -140,7 +143,7 @@ void StretchyMaterial::update(const ofPixels &depressionPixels) {
                 }
                 
                 if(depressionPixels[xy] != 0 || isTouchedLastFrame[x][y]){
-                    int k =  MIN(HEIGHT_MAX,heightsFromShapeDisplay->getColor(x,y).r + 30);
+                    int k =  MIN(HEIGHT_MAX,(*heightsFromShapeDisplay)[xy] + 40);
                     currentHeights[xy] = k; //(unsigned char) k; //(heightsFromShapeDisplay[xy] + 20);
     
                 }

@@ -27,6 +27,9 @@ void Application::getPinConfigsForShapeDisplay(PinConfigs configs[SHAPE_DISPLAY_
 void Application::setHeightsFromShapeDisplayRef(const ofPixels *heights) {
     heightsFromShapeDisplay = heights;
     hasHeightsFromShapeDisplay = true;
+    
+    //function
+    heightsFromShapeDisplayHasBeenSet();
 };
 
 void Application::setPixelsFromKinectRefs(const ofPixels *colorPixels, const ofPixels *depthPixels) {
@@ -34,3 +37,7 @@ void Application::setPixelsFromKinectRefs(const ofPixels *colorPixels, const ofP
     depthPixelsFromKinect = depthPixels;
     hasPixelsFromKinect = true;
 };
+
+void Application::heightsFromShapeDisplayHasBeenSet(){
+    
+}
