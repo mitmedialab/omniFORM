@@ -76,10 +76,7 @@ void MaterialsRegionsApp::setupMaterialRegions() {
         materialRegions.push_back(materialRegion);
     }
     
-    // give applications read access to input data
-    for (vector<MaterialRegion *>::iterator iter = materialRegions.begin(); iter != materialRegions.end(); iter++) {
-                (*iter)->setHeightsFromShapeDisplayRef(heightsFromShapeDisplay);
-    }
+    heightsFromShapeDisplayHasBeenSet();
 }
 
 void MaterialsRegionsApp::update(float dt) {
@@ -137,6 +134,13 @@ string MaterialsRegionsApp::appInstructionsText() {
 
 void MaterialsRegionsApp::keyPressed(int key) {
     if (key == 'a') {
+    }
+}
+
+void MaterialsRegionsApp::heightsFromShapeDisplayHasBeenSet(){
+    // give applications read access to input data
+    for (vector<MaterialRegion *>::iterator iter = materialRegions.begin(); iter != materialRegions.end(); iter++) {
+        (*iter)->setHeightsFromShapeDisplayRef(heightsFromShapeDisplay);
     }
 }
 

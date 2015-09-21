@@ -25,6 +25,8 @@ public:
     void drawGraphicsForShapeDisplay(int x, int y, int width, int height);
     string appInstructionsText();
     void keyPressed(int key);
+    
+    void heightsFromShapeDisplayHasBeenSet();
 
     string getName() {return "Materials Regions";};
 

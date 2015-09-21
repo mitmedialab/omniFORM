@@ -28,6 +28,7 @@ public:
     virtual string appInstructionsText() {return "";};
     virtual void drawDebugGui(int x, int y) {};
     virtual void keyPressed(int key) {};
+    virtual void heightsFromShapeDisplayHasBeenSet();
 
     virtual string getName() {return "Application";};
 
