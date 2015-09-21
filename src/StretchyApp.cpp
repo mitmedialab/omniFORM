@@ -162,7 +162,7 @@ void StretchyApp::update(float dt) {
 };
 
 void StretchyApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
-    ofSetColor(ofColor::blue);
+    //ofSetColor(ofColor::blue);
     ofImage(heightsForShapeDisplay).draw(x, y, width, height);
 };
 

@@ -19,7 +19,7 @@ MaterialsRegionsApp::MaterialsRegionsApp() {
     nativeHeights.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
     graphics.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_COLOR);
     
-    loadInputMaps("ramps");
+    loadInputMaps("turtle2");
     
     setupMaterialRegions();
     
@@ -118,7 +118,8 @@ void MaterialsRegionsApp::drawDebugGui(int x, int y) {
 }
 
 void MaterialsRegionsApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
-    ofImage(heightsForShapeDisplay).draw(x, y, width, height);
+    ofSetColor(255, 255, 255);
+    ofImage(graphics).draw(x, y, width, height);
 }
 
 string MaterialsRegionsApp::appInstructionsText() {
