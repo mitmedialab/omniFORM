@@ -222,6 +222,7 @@
 		8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */; };
 		8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB602081BA21FB700B492C6 /* WaterApp.cpp */; };
 		8AB6021D1BA377D800B492C6 /* TouchMaterialApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */; };
+		8A9F088A1BB1C95F001E41B0 /* VideoApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A9F08881BB1C95F001E41B0 /* VideoApp.cpp */; };
 		8AEAD939664A354013C11990 /* btPolyhedralConvexShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A087F04909E756F31844F75E /* btPolyhedralConvexShape.cpp */; };
 		8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDE55D82BD962DAC0E94B708 /* ofxAssimpModelLoader.cpp */; };
 		8E85002F011615370741EE0E /* btPoint2PointConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C08F4628EB1392AEE93DC9D9 /* btPoint2PointConstraint.cpp */; };
@@ -1005,6 +1006,8 @@
 		8AB602091BA21FB700B492C6 /* WaterApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterApp.h; sourceTree = "<group>"; };
 		8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchMaterialApp.cpp; sourceTree = "<group>"; };
 		8AB6021C1BA377D800B492C6 /* TouchMaterialApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchMaterialApp.h; sourceTree = "<group>"; };
+		8A9F08881BB1C95F001E41B0 /* VideoApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoApp.cpp; sourceTree = "<group>"; };
+		8A9F08891BB1C95F001E41B0 /* VideoApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoApp.h; sourceTree = "<group>"; };
 		8AD61EE39BD51B3221FFC009 /* gim_geom_types.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = gim_geom_types.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletCollision/Gimpact/gim_geom_types.h; sourceTree = SOURCE_ROOT; };
 		8B25248CC7F2228B1CEF2EB1 /* libusb.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = libusb.h; path = "../../../addons/ofxKinect/libs/libusb-1.0/include/libusb-1.0/libusb.h"; sourceTree = SOURCE_ROOT; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
@@ -2206,6 +2209,8 @@
 				65CC08101B73DCCE00F89B9B /* TeleoperationApp.h */,
 				8AB602081BA21FB700B492C6 /* WaterApp.cpp */,
 				8AB602091BA21FB700B492C6 /* WaterApp.h */,
+				8A9F08881BB1C95F001E41B0 /* VideoApp.cpp */,
+				8A9F08891BB1C95F001E41B0 /* VideoApp.h */,
 				65CAFD781B7D1072002DA575 /* DebuggingApps */,
 			);
 			name = Applications;
@@ -4019,6 +4024,7 @@
 				72880FEA522506DC6CC5EA95 /* btMultiBodyJointLimitConstraint.cpp in Sources */,
 				2ED8CD6FF7F5E60BD74E6AEA /* btMultiBodyJointMotor.cpp in Sources */,
 				65E8204D1B5D434A007FC2AA /* LeverApp.cpp in Sources */,
+				8A9F088A1BB1C95F001E41B0 /* VideoApp.cpp in Sources */,
 				2802A7D943DBC69BD751B66E /* btMultiBodyPoint2Point.cpp in Sources */,
 				C4359BFDD11D7BFEBBD56FCA /* btDantzigLCP.cpp in Sources */,
 				9C434D3A308002B8B4AD6A45 /* btMLCPSolver.cpp in Sources */,
