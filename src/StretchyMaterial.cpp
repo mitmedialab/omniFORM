@@ -49,7 +49,7 @@ void StretchyMaterial::update(const ofPixels &depressionPixels) {
                 if (currentHeights[xy] - (*heightsFromShapeDisplay)[xy] < 30) {
                    isTouchedLastFrame[x][y] = false;
                 } else {
-                    addForceAt(x, y, 4, -addForceRatio*(nativeHeights[xy]-(*heightsFromShapeDisplay)[xy]));
+                    addForceAt(x, y, 4, -addForceRatio*(nativeHeights[xy]  -(*heightsFromShapeDisplay)[xy]));
                     isTouchedLastFrame[x][y] = true;
                     
                 }
@@ -84,10 +84,6 @@ void StretchyMaterial::update(const ofPixels &depressionPixels) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = region.getPixelIndex(x, y);
                 
-                if (!region[xy]) {
-                    continue;
-                }
-                
                 float springForce = -springConstant * densities[x][y];
                 float dampenForce = -dampConstant * velocities[x][y];
                 float force = springForce + dampenForce;
@@ -97,6 +93,8 @@ void StretchyMaterial::update(const ofPixels &depressionPixels) {
                 
                 
                 newDensities[x][y] = blurFactor * (getAdjacentDensitySum(x,y) / 4.f) + springFactor * (densities[x][y] + velocities[x][y] * timestep);
+                
+                
                 densitySum += newDensities[x][y];
             }
         }
@@ -107,6 +105,7 @@ void StretchyMaterial::update(const ofPixels &depressionPixels) {
         for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 densities[x][y] = newDensities[x][y]; // - densityAverage;
+                
             }
         }
     }
@@ -120,9 +119,10 @@ void StretchyMaterial::update(const ofPixels &depressionPixels) {
                 continue;
             }
             
-            float height = nativeHeights[xy] + densities[x][y];
-            height = MAX(0, height);
-            height = MIN(height, 255);
+            float height = nativeHeights[xy]  + densities[x][y];
+            
+            height = MAX(HEIGHT_MIN, height);
+            height = MIN(height, HEIGHT_MAX);
             
             currentHeights[xy] = height;
             
@@ -282,6 +282,7 @@ void StretchyMaterial::keyPressed(int key) {
                 isTouchedLastFrame[x][y] = false;
             }
         }
+        
     } else if (key == ']'){ // honey
              } else if (key == '['){
        
@@ -324,6 +325,12 @@ float StretchyMaterial::getAdjacentDensitySum(int x, int y) {
     return sum;
 }
 
+//bool StretchyMaterial::withinRegion(int x, int y) {
+//    if (!region[xy]) {
+//        return false;
+//    }
+//    
+//}
 
 void StretchyMaterial::drawDebugGui(int x, int y) {
     //ofImage(touchDetector->significantDepressionPixels()).draw(x + 302, y, 300, 300);

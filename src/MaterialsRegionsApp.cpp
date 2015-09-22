@@ -19,7 +19,7 @@ MaterialsRegionsApp::MaterialsRegionsApp() {
     nativeHeights.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, 1);
     graphics.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_COLOR);
     
-    loadInputMaps("turtle2");
+    loadInputMaps("xray");
     
     setupMaterialRegions();
     
@@ -59,13 +59,12 @@ void MaterialsRegionsApp::setupMaterialRegions() {
         for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = regionsMap.getPixelIndex(x, y);
-                if (i==0) {
-                  if ( regionsMap[xy] < 150) {
+                if (i==2) { //stretchy
+                  if ( regionsMap[xy] > 150) {
                       regionMap[xy] = 255;
                   }
-                } else if(i==2){ //stretchy
-                    if ( regionsMap[xy] >= 150) {
-                        cout << "stetchy" << endl;
+                } else if(i==0){
+                    if ( regionsMap[xy] <= 150) {
                         regionMap[xy] = 255;
                     }
                 }
@@ -143,6 +142,14 @@ string MaterialsRegionsApp::appInstructionsText() {
 
 void MaterialsRegionsApp::keyPressed(int key) {
     if (key == 'a') {
+        loadInputMaps("xray");
+        setupMaterialRegions();
+    } else if (key == 'b'){
+        loadInputMaps("body");
+        setupMaterialRegions();
+    } else if (key == 'c'){
+        loadInputMaps("turtle2");
+        setupMaterialRegions();
     }
 }
 

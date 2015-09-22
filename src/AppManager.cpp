@@ -244,7 +244,19 @@ void AppManager::draw(){
     bool shouldDrawProjectorGraphics = SHAPE_DISPLAY_IN_USE == COOPERFORM_DISPLAY;
     if (shouldDrawProjectorGraphics) {
         ofSetColor(255, 255, 255);
-        graphicsForShapeDisplay.draw(projectorOffsetX+1600, SHAPE_DISPLAY_PROJECTOR_OFFSET_Y, SHAPE_DISPLAY_PROJECTOR_SIZE_X, -SHAPE_DISPLAY_PROJECTOR_SIZE_Y);
+        int x1 = projectorOffsetX+1600;
+        int y1 = SHAPE_DISPLAY_PROJECTOR_OFFSET_Y;
+        int w = SHAPE_DISPLAY_PROJECTOR_SIZE_X;
+        int h = SHAPE_DISPLAY_PROJECTOR_SIZE_Y;
+        ofPushMatrix();
+        ofTranslate(x1, y1);
+        ofRotate(180);
+        ofTranslate(-840, -1025);
+        graphicsForShapeDisplay.draw(0,0, w, h);
+        ofSetColor(255, 0, 0);
+        ofNoFill();
+        ofRect(0, 0, w, h);
+        ofPopMatrix();
     };
 }
 

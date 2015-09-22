@@ -18,7 +18,13 @@ void DisconnectedMaterial::update(const ofPixels &depressionPixels) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             int xy = currentHeights.getPixelIndex(x, y);
             if (region[xy]) {
-                currentHeights[xy] = nativeHeights[xy];
+                if(nativeHeights[xy] < 60){
+                    currentHeights[xy] = HEIGHT_MIN;
+                } else {
+                    currentHeights[xy] = MIN(nativeHeights[xy] + 80,HEIGHT_MAX);
+                }
+                
+                
             }
         }
     }

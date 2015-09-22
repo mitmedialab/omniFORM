@@ -2100,6 +2100,7 @@
 		65CC07B81B73D10A00F89B9B /* Communication */ = {
 			isa = PBXGroup;
 			children = (
+				65CC080A1B73D59E00F89B9B /* Shapes */,
 				65CC07B91B73D10A00F89B9B /* TUIO.cpp */,
 				65CC07BA1B73D10A00F89B9B /* TUIO.h */,
 			);
@@ -2196,6 +2197,7 @@
 				65CC080D1B73D5BB00F89B9B /* Hand.h */,
 			);
 			name = Shapes;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		65DA217C1B543D1C00D31BD4 /* Applications */ = {
@@ -3480,7 +3482,6 @@
 				65DA217E1B543D7F00D31BD4 /* Utilities */,
 				6572FCBC1B3DD547001BBF38 /* ShapeDisplayManagers */,
 				65EBD67F1B51BAB50011F279 /* Peripherals */,
-				65CC080A1B73D59E00F89B9B /* Shapes */,
 				8A0AFCE51BAB39A800EF777A /* Materials */,
 				65DA217C1B543D1C00D31BD4 /* Applications */,
 			);
