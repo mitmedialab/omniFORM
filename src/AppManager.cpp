@@ -53,6 +53,8 @@ void AppManager::setup(){
     applications["water"] = waterApp;
     stretchyApp = new StretchyApp();
     applications["stretchy"] = stretchyApp;
+    videoApp = new VideoApp("videos/FINAL.mov");
+    applications["video"] = videoApp;
     
     // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
@@ -295,7 +297,7 @@ void AppManager::keyPressed(int key) {
         } else if (key == ' ') {
             paused = !paused;
         } else if (key == '1') {
-            setCurrentApplication("tunableWave");
+            setCurrentApplication("video");
         } else if (key == '2') {
             setCurrentApplication("lever");
         } else if (key == '3') {
