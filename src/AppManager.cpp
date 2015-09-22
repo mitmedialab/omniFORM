@@ -47,10 +47,13 @@ void AppManager::setup(){
     applications["BOS"] = bosApp;
     teleoperationApp = new TeleoperationApp();
     applications["teleoperation"] = teleoperationApp;
-    
     touchMaterialApp = new TouchMaterialApp();
     applications["touchMaterial"] = touchMaterialApp;
-
+    waterApp = new WaterApp();
+    applications["water"] = waterApp;
+    stretchyApp = new StretchyApp();
+    applications["stretchy"] = stretchyApp;
+    
     // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
     applications["axisChecker"] = axisCheckerApp;
@@ -227,7 +230,7 @@ void AppManager::draw(){
     menuHeight += 30;
 
     // if there isn't already a debug gui, draw some more information
-    if (!showDebugGui) {
+    if (!showDebugGui || currentApplication == applications["water"] || currentApplication == applications["stretchy"]) {
         ofRect(913, 305, 302, 302);
         ofImage(depthPixels).draw(914, 306, 300, 300);
 
@@ -305,6 +308,10 @@ void AppManager::keyPressed(int key) {
             setCurrentApplication("simpleWave");
         } else if (key == '7') {
             setCurrentApplication("touchMaterial");
+        } else if (key == '8') {
+            setCurrentApplication("water");
+        } else if (key == '9') {
+            setCurrentApplication("stretchy");
         }
 
     // forward unreserved keys to the application

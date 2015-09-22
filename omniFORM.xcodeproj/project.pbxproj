@@ -219,6 +219,9 @@
 		890FEAB62511C010A6CE0502 /* btEmptyShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E935BD041847C8DBD0268D2 /* btEmptyShape.cpp */; };
 		8972575C69AE8DCC6BFB1908 /* btConvexInternalShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA65FFAA32AC6FBC97AC3586 /* btConvexInternalShape.cpp */; };
 		89F31F234274A62F3501E2EE /* b2Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B868B25E5784F27CBC75D45 /* b2Draw.cpp */; };
+		8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */; };
+		8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB602081BA21FB700B492C6 /* WaterApp.cpp */; };
+		8AB6021D1BA377D800B492C6 /* TouchMaterialApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */; };
 		8AEAD939664A354013C11990 /* btPolyhedralConvexShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A087F04909E756F31844F75E /* btPolyhedralConvexShape.cpp */; };
 		8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDE55D82BD962DAC0E94B708 /* ofxAssimpModelLoader.cpp */; };
 		8E85002F011615370741EE0E /* btPoint2PointConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C08F4628EB1392AEE93DC9D9 /* btPoint2PointConstraint.cpp */; };
@@ -996,6 +999,12 @@
 		8948367193E123EBE2ABE5C3 /* ofxBulletConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletConstants.h; path = ../../../addons/ofxBullet/src/ofxBulletConstants.h; sourceTree = SOURCE_ROOT; };
 		89E0E31FD053C3EEAD793170 /* btSolveProjectedGaussSeidel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btSolveProjectedGaussSeidel.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletDynamics/MLCPSolvers/btSolveProjectedGaussSeidel.h; sourceTree = SOURCE_ROOT; };
 		8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvShortImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp; sourceTree = SOURCE_ROOT; };
+		8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StretchyApp.cpp; sourceTree = "<group>"; };
+		8AA4193C1BAA226300F1DD50 /* StretchyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StretchyApp.h; sourceTree = "<group>"; };
+		8AB602081BA21FB700B492C6 /* WaterApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WaterApp.cpp; sourceTree = "<group>"; };
+		8AB602091BA21FB700B492C6 /* WaterApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterApp.h; sourceTree = "<group>"; };
+		8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchMaterialApp.cpp; sourceTree = "<group>"; };
+		8AB6021C1BA377D800B492C6 /* TouchMaterialApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchMaterialApp.h; sourceTree = "<group>"; };
 		8AD61EE39BD51B3221FFC009 /* gim_geom_types.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = gim_geom_types.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletCollision/Gimpact/gim_geom_types.h; sourceTree = SOURCE_ROOT; };
 		8B25248CC7F2228B1CEF2EB1 /* libusb.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = libusb.h; path = "../../../addons/ofxKinect/libs/libusb-1.0/include/libusb-1.0/libusb.h"; sourceTree = SOURCE_ROOT; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
@@ -2177,6 +2186,8 @@
 		65DA217C1B543D1C00D31BD4 /* Applications */ = {
 			isa = PBXGroup;
 			children = (
+				8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */,
+				8AB6021C1BA377D800B492C6 /* TouchMaterialApp.h */,
 				65EBD67D1B5040050011F279 /* Application.cpp */,
 				6572FCAF1B3CB102001BBF38 /* Application.h */,
 				658894F91B70050900715CDA /* SimpleWaveApp.cpp */,
@@ -2189,8 +2200,12 @@
 				A5906E591B7D487B00C06C0D /* MetaMaterialsApp.h */,
 				A58CC4061B5ED98D00125458 /* BOSApp.cpp */,
 				A58CC4071B5ED98D00125458 /* BOSApp.h */,
+				8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */,
+				8AA4193C1BAA226300F1DD50 /* StretchyApp.h */,
 				65CC080E1B73DCBE00F89B9B /* TeleoperationApp.cpp */,
 				65CC08101B73DCCE00F89B9B /* TeleoperationApp.h */,
+				8AB602081BA21FB700B492C6 /* WaterApp.cpp */,
+				8AB602091BA21FB700B492C6 /* WaterApp.h */,
 				65CAFD781B7D1072002DA575 /* DebuggingApps */,
 			);
 			name = Applications;
@@ -3797,6 +3812,7 @@
 				AE9254BC31C3409899D28DC9 /* ofxBox2dCircle.cpp in Sources */,
 				4D09B9611BCF4603581DFEE4 /* ofxBox2dEdge.cpp in Sources */,
 				65CC07F21B73D10B00F89B9B /* Calibration.cpp in Sources */,
+				8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */,
 				12548B44285B5C07EEA5379C /* ofxBox2dJoint.cpp in Sources */,
 				DFACEC3A1E9D23315321D7EA /* ofxBox2dPolygon.cpp in Sources */,
 				B103DF2084E0F38D03E0E6F1 /* ofxBox2dRect.cpp in Sources */,
@@ -3840,6 +3856,7 @@
 				2A5D09413FD64EB3AF88EF02 /* b2GearJoint.cpp in Sources */,
 				14D76FD1B7F190398D120FA4 /* b2Joint.cpp in Sources */,
 				C1DDE2EB6202440187690701 /* b2MotorJoint.cpp in Sources */,
+				8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */,
 				D2969DE2782BAE96A0C7ADC1 /* b2MouseJoint.cpp in Sources */,
 				64F975DC016F17834FBB9F01 /* b2PrismaticJoint.cpp in Sources */,
 				9F9D49CFC30BA1589822E7AB /* b2PulleyJoint.cpp in Sources */,
@@ -3940,6 +3957,7 @@
 				C387D62C44C032BB7B950F00 /* btStaticPlaneShape.cpp in Sources */,
 				1D209B4E4AAA703227570B0C /* btStridingMeshInterface.cpp in Sources */,
 				B75013A0364FF11A0E5874F6 /* btTetrahedronShape.cpp in Sources */,
+				8AB6021D1BA377D800B492C6 /* TouchMaterialApp.cpp in Sources */,
 				88C3BC62F05B80E295F6AF70 /* btTriangleBuffer.cpp in Sources */,
 				341677E415F88E404B7F932D /* btTriangleCallback.cpp in Sources */,
 				B68A789D3C215D6412CB0100 /* btTriangleIndexVertexArray.cpp in Sources */,
