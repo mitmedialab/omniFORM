@@ -12,7 +12,7 @@
 
 class VideoApp : public Application {
 public:
-    VideoApp();
+    VideoApp(string filepath);
     ~VideoApp();
     
     void update(float dt);
@@ -23,10 +23,8 @@ public:
     string getName() {return "Video";};
     
     
-    
 private:
-    
     void drawDebugGui(int x, int y);
     
-    
+    ofVideoPlayer video;
 };
