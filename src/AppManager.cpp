@@ -241,9 +241,10 @@ void AppManager::draw(){
     }
 
     // draw graphics onto projector
-    bool shouldDrawProjectorGraphics = SHAPE_DISPLAY_IN_USE == INFORM_DISPLAY;
+    bool shouldDrawProjectorGraphics = SHAPE_DISPLAY_IN_USE == COOPERFORM_DISPLAY;
     if (shouldDrawProjectorGraphics) {
-        graphicsForShapeDisplay.draw(projectorOffsetX, SHAPE_DISPLAY_PROJECTOR_OFFSET_Y, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_X, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_Y);
+        graphicsForShapeDisplay.draw(projectorOffsetX+mouseX, SHAPE_DISPLAY_PROJECTOR_OFFSET_Y+mouseY, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_X, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_Y);
+        cout << mouseX << ", " << mouseY << endl;
     };
 }
 
