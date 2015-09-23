@@ -243,10 +243,22 @@ void AppManager::draw(){
     // draw graphics onto projector
     bool shouldDrawProjectorGraphics = SHAPE_DISPLAY_IN_USE == COOPERFORM_DISPLAY;
     if (shouldDrawProjectorGraphics) {
-        graphicsForShapeDisplay.draw(projectorOffsetX+mouseX, SHAPE_DISPLAY_PROJECTOR_OFFSET_Y+mouseY, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_X, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_Y);
-        cout << mouseX << ", " << mouseY << endl;
-    };
-}
+        ofSetColor(255, 255, 255);
+        int x1 = projectorOffsetX+1600;
+        int y1 = SHAPE_DISPLAY_PROJECTOR_OFFSET_Y;
+        int w = SHAPE_DISPLAY_PROJECTOR_SIZE_X;
+        int h = SHAPE_DISPLAY_PROJECTOR_SIZE_Y;
+        ofPushMatrix();
+        ofTranslate(x1, y1);
+        ofRotate(180);
+        ofTranslate(-840+1000, -1025 +280);
+        graphicsForShapeDisplay.draw(0,0, -w, h);
+        ofSetColor(255, 0, 0);
+        ofNoFill();
+        //ofRect(0, 0, w, h);
+        ofPopMatrix();
+    }
+};
 
 void AppManager::setCurrentApplication(string appName) {
     if (applications.find(appName) == applications.end()) {
