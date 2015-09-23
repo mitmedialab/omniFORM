@@ -26,5 +26,7 @@ public:
 private:
     void drawDebugGui(int x, int y);
     
-    ofVideoPlayer video;
+    ofVideoPlayer heightvideo;
+    ofVideoPlayer imagevideo;
+
 };

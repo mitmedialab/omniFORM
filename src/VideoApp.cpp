@@ -9,16 +9,25 @@
 #include "VideoApp.h"
 
 VideoApp::VideoApp(string filepath) {
-    video.loadMovie(filepath);
-    video.play();
+    string heightpath = "videos/height.mov";
+    string videopath = "videos/video.mov";
+
+    heightvideo.loadMovie(heightpath);
+    heightvideo.play();
+    
+    imagevideo.loadMovie(videopath);
+    imagevideo.play();
+
 };
 
 VideoApp::~VideoApp() {
 };
 
 void VideoApp::update(float dt) {
-    video.update();
-    heightsForShapeDisplay.setFromPixels(video.getPixels(), video.getWidth(), video.getHeight(), 3);
+    heightvideo.update();
+    imagevideo.update();
+    
+    heightsForShapeDisplay.setFromPixels(heightvideo.getPixels(), heightvideo.getWidth(), heightvideo.getHeight(), 3);
 };
 
 void VideoApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
