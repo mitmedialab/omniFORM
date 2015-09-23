@@ -22,10 +22,12 @@ public:
     
     string getName() {return "Video";};
     
-    
 private:
     void drawDebugGui(int x, int y);
     
+    float heightvideoPaused = 0;
+    float imagevideoPaused = 0;
+
     ofVideoPlayer heightvideo;
     ofVideoPlayer imagevideo;
 
