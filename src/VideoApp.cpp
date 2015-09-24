@@ -9,8 +9,8 @@
 #include "VideoApp.h"
 
 VideoApp::VideoApp(string filepath) {
-    string heightpath = "videos/height.mov";
-    string videopath = "videos/video.mov";
+    string heightpath = "videos/height1.mov";
+    string videopath = "videos/video1.mov";
 
     heightvideo.loadMovie(heightpath);
     heightvideo.play();
@@ -31,6 +31,8 @@ void VideoApp::update(float dt) {
     }
     
     heightsForShapeDisplay.setFromPixels(heightvideo.getPixels(), heightvideo.getWidth(), heightvideo.getHeight(), 3);
+    
+    cout << "currentFrame: " << heightvideo.getCurrentFrame() << ", totalFrames:" << heightvideo.getTotalNumFrames() <<endl;
 };
 
 void VideoApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
@@ -53,13 +55,36 @@ string VideoApp::appInstructionsText() {
 
 void VideoApp::keyPressed(int key) {
 
-    if (key == '[') {
+    if (key == 'z') {
+        string heightpath = "videos/height1.mov";
+        string videopath = "videos/video1.mov";
+        
+        heightvideo.loadMovie(heightpath);
+        heightvideo.play();
+        
+        imagevideo.loadMovie(videopath);
+        imagevideo.play();
+    } else if (key == 'x') {
+        string heightpath = "videos/height2.mov";
+        string videopath = "videos/video2.mov";
+        
+        heightvideo.loadMovie(heightpath);
+        heightvideo.play();
+        
+        imagevideo.loadMovie(videopath);
+        imagevideo.play();
 
-    }
-    if (key == ']') {
-
-    }
-    if (key == 'p') {
+    } else if (key == 'c') {
+        string heightpath = "videos/height3.mov";
+        string videopath = "videos/video3.mov";
+        
+        heightvideo.loadMovie(heightpath);
+        heightvideo.play();
+        
+        imagevideo.loadMovie(videopath);
+        imagevideo.play();
+        
+    } else if (key == 'p') {
         if(heightvideo.isPlaying()){
             heightvideoPaused = heightvideo.getPosition();
             imagevideoPaused = imagevideo.getPosition();
@@ -73,6 +98,27 @@ void VideoApp::keyPressed(int key) {
             imagevideo.setPosition( imagevideoPaused );
 
         }
+    } else if (key == KEY_LEFT){
+        int t = heightvideo.getTotalNumFrames();
+        int c = heightvideo.getCurrentFrame();
+        int frame = c-50;
+        if (frame<0) {
+            frame = t-1;
+        }
+        heightvideo.setFrame(frame);
+        imagevideo.setFrame(frame);
+        
+    } else if (key == KEY_RIGHT){
+        
+        int t = heightvideo.getTotalNumFrames();
+        int c = heightvideo.getCurrentFrame();
+        int frame = c+50;
+        if (frame > t) {
+            frame = 0;
+        }
+        heightvideo.setFrame(frame);
+        imagevideo.setFrame(frame);
+        
     }
 
 }

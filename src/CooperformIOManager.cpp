@@ -21,7 +21,7 @@ void CooperformIOManager::configureBoards() {
     
     // set up coordinates for 
     for (int i = 0; i < NUM_ARDUINOS; i++) {
-        int rowIndex = i / 4;
+        int rowIndex = (int)i / 4;
         int currentRow = rowOrder[rowIndex];
 
         // one every module, the modules on the second row

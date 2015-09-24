@@ -22,14 +22,14 @@ void AppManager::setup(){
     // initialize shape display and set up helper objects
     setupShapeDisplayManagement();
 
-    // initialize kinect
-    kinectManager = new KinectManager();
-
-    // allocate kinect images
-    colorPixels.allocate(kinectManager->getImageWidth(), kinectManager->getImageHeight(), OF_IMAGE_COLOR);
-    colorPixels.set(0);
-    depthPixels.allocate(kinectManager->getImageWidth(), kinectManager->getImageHeight(), OF_IMAGE_GRAYSCALE);
-    depthPixels.set(0);
+//    // initialize kinect
+//    kinectManager = new KinectManager();
+//
+//    // allocate kinect images
+//    colorPixels.allocate(kinectManager->getImageWidth(), kinectManager->getImageHeight(), OF_IMAGE_COLOR);
+//    colorPixels.set(0);
+//    depthPixels.allocate(kinectManager->getImageWidth(), kinectManager->getImageHeight(), OF_IMAGE_GRAYSCALE);
+//    depthPixels.set(0);
 
     // zero timeOfLastUpdate tracker
     timeOfLastUpdate = elapsedTimeInSeconds();
@@ -65,7 +65,7 @@ void AppManager::setup(){
         Application *app = iter->second;
 
         // kinect color and depth data
-        app->setPixelsFromKinectRefs(&colorPixels, &depthPixels);
+        //app->setPixelsFromKinectRefs(&colorPixels, &depthPixels);
 
         // shape display heights, if they are accessible
         if (shapeIOManager->heightsFromShapeDisplayAvailable) {
@@ -74,7 +74,7 @@ void AppManager::setup(){
     }
 
     // set default application
-    setCurrentApplication("simpleWave");
+    setCurrentApplication("video");
 }
 
 // initialize the shape display and set up shape display helper objects
@@ -128,12 +128,12 @@ void AppManager::setupShapeDisplayManagement() {
 }
 
 void AppManager::update(){
-    kinectManager->update();
-
-    if (kinectManager->isFrameNew()) {
-        kinectManager->getColorPixels(colorPixels);
-        kinectManager->getDepthPixels(depthPixels);
-    }
+//    kinectManager->update();
+//
+//    if (kinectManager->isFrameNew()) {
+//        kinectManager->getColorPixels(colorPixels);
+//        kinectManager->getDepthPixels(depthPixels);
+//    }
 
     // time elapsed since last update
     float currentTime = elapsedTimeInSeconds();
@@ -280,7 +280,7 @@ void AppManager::updateDepthInputBoundaries() {
         far = KINECT_FAR_CLIP_DEFAULT;
     }
 
-    kinectManager->setDepthClipping(near, far);
+    //kinectManager->setDepthClipping(near, far);
 }
 
 void AppManager::exit() {
