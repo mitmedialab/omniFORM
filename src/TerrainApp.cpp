@@ -34,12 +34,17 @@ TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
 void TerrainApp::update(float dt) {
     
 }
+
 void TerrainApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
+    ofPixels &currentLayer = layers[layerNumber];
     
+    ofSetColor(ofColor::blue);
+    
+    ofImage(currentLayer).draw(x, y, width, height);
 }
+
 void TerrainApp::drawDebugGui(int x, int y) {
     
 }
 void TerrainApp::keyPressed(int key) {
-    
 }
