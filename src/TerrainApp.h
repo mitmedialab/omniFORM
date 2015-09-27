@@ -26,7 +26,9 @@ private:
     int layerNumber;
     int layerCount;
     
-    vector<ofImage> layers;
+    vector<ofPixels> layers;
+    
+    ofPixels currentImage;;
     
     int noiseSeed;
 };
