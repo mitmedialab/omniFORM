@@ -23,7 +23,7 @@ TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
             for (unsigned int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = layerImage.getPixelIndex(x,y);
                 
-                layerImage[xy] = 127 + 127 * 2 * (-0.5 + ofNoise(x,y, layer*1000));
+                layerImage[xy] = 127 + 127 * 2 * (-0.5 + ofNoise(0.1*x, 0.1*y, layer*1000));
             }
         }
         
@@ -32,15 +32,13 @@ TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
 }
 
 void TerrainApp::update(float dt) {
-    
+    ofPixels &currentLayer = layers[layerNumber];
+    heightsForShapeDisplay = currentLayer;
 }
 
 void TerrainApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
-    ofPixels &currentLayer = layers[layerNumber];
-    
-    ofSetColor(ofColor::blue);
-    
-    ofImage(currentLayer).draw(x, y, width, height);
+    ofSetColor(ofColor::white);
+    ofImage(heightsForShapeDisplay).draw(x, y, width, height);
 }
 
 void TerrainApp::drawDebugGui(int x, int y) {
