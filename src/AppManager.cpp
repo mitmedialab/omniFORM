@@ -53,6 +53,11 @@ void AppManager::setup(){
     applications["water"] = waterApp;
     stretchyApp = new StretchyApp();
     applications["stretchy"] = stretchyApp;
+    stretchyApp = new StretchyApp();
+    applications["stretchy"] = stretchyApp;
+    
+    terrainApp = new TerrainApp(1, 1337);
+    applications["terrain"] = terrainApp;
     
     // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
@@ -72,7 +77,7 @@ void AppManager::setup(){
     }
 
     // set default application
-    setCurrentApplication("simpleWave");
+    setCurrentApplication("terrain");
 }
 
 // initialize the shape display and set up shape display helper objects
