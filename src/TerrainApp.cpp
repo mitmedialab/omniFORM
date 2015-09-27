@@ -47,4 +47,12 @@ void TerrainApp::drawDebugGui(int x, int y) {
     
 }
 void TerrainApp::keyPressed(int key) {
+    if (key == 'q') {
+        if (layerNumber + 1 < layerCount)
+            layerNumber++;
+    }
+    if (key == 'a') {
+        if (layerNumber - 1 >= 0)
+            layerNumber--;
+    }
 }
