@@ -11,7 +11,8 @@
 #include "Application.h"
 
 class TerrainApp : public Application {
-    TerrainApp();
+public:
+    TerrainApp(int layerCount, int noiseSeed);
     
     void update(float dt);
     void drawGraphicsForShapeDisplay(int x, int y, int width, int height);
@@ -20,5 +21,13 @@ class TerrainApp : public Application {
     void keyPressed(int key);
     
     string getName() { return "Terrain App"; };
+    
+private:
+    int layerNumber;
+    int layerCount;
+    
+    vector<ofImage> layers;
+    
+    int noiseSeed;
 };
 
