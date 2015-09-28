@@ -21,14 +21,17 @@ OSCInterface::OSCInterface(string host, int port) {
     }
 }
 
-void OSCInterface::sendModeChange(string newMode) {
+void OSCInterface::sendMessage(string address, vector<string> parameters) {
     
     if(!connected)
         return;
     
     ofxOscMessage message;
-    message.setAddress("/inform/mode");
-    message.addStringArg(newMode);
+    message.setAddress(address);
+    for (unsigned int i = 0; i < parameters.size(); i++) {
+        message.addStringArg(parameters[i]);
+    }
+    
     try {
         sender.sendMessage(message);
     } catch (...) {

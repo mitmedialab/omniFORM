@@ -18,9 +18,8 @@ class OSCInterface {
 public:
     OSCInterface(string host, int port);
     
-    // inform the other computer that
-    // there's been a mode change
-    void sendModeChange(string newMode);
+    // send a message over ethernet
+    void sendMessage(string address, vector<string> parameters);
     
 private:
     string host;
