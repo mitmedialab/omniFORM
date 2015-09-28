@@ -9,7 +9,7 @@
 #include "TerrainApp.h"
 
 TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
-    oscInterface = OSCInterface("172.18.65.192", 4444);
+    oscInterface = OSCInterface("169.254.167.104", 5555);
     
     this->layerCount = layerCount;
     this->noiseSeed = noiseSeed;
@@ -21,6 +21,18 @@ TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
     const float layerFreq = 1000;
     const int restHeight = 127;
     const int noiseAmplitude = 127;
+    
+    vector<string> parameters(8);
+    parameters[0] = layerCount;
+    parameters[1] = xFreq;
+    parameters[2] = yFreq;
+    parameters[3] = layerFreq;
+    parameters[4] = restHeight;
+    parameters[5] = noiseAmplitude;
+    parameters[6] = noiseSeed;
+    parameters[7] = SHAPE_DISPLAY_SIZE_X;
+    // tell the other computer to generate its layers
+    oscInterface.sendMessage("/cts/generate", parameters);
     
     ofSeedRandom(noiseSeed);
     for (unsigned int layer = 0; layer < layerCount; layer++) {
@@ -66,6 +78,7 @@ void TerrainApp::drawDebugGui(int x, int y) {
     
 }
 void TerrainApp::keyPressed(int key) {
+    int oldLayer = layerNumber;
     if (key == 'q') {
         if (layerNumber + 1 < layerCount)
             layerNumber++;
@@ -73,5 +86,11 @@ void TerrainApp::keyPressed(int key) {
     if (key == 'a') {
         if (layerNumber - 1 >= 0)
             layerNumber--;
+    }
+    if (oldLayer != layerNumber) {
+        // tell computer to update its layers
+        vector<string> parameter(1);
+        parameter[0] = layerNumber;
+        oscInterface.sendMessage("/cts/layer", parameter);
     }
 }

@@ -14,7 +14,8 @@ OSCInterface::OSCInterface(string host, int port) {
     connected = false;
     
     this->host = host;
-    this->port = port;try {
+    this->port = port;
+    try {
         sender.setup(host, port);
         connected = true;
         cout << "connected to back display computer" << endl;
