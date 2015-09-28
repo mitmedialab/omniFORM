@@ -28,7 +28,7 @@ private:
     
     vector<ofPixels> layers;
     
-    ofPixels currentImage;;
+    ofPixels currentImage;
     
     int noiseSeed;
 };
