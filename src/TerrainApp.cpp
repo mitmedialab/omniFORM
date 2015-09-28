@@ -9,6 +9,8 @@
 #include "TerrainApp.h"
 
 TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
+    oscInterface = OSCInterface("172.18.65.192", 4444);
+    
     this->layerCount = layerCount;
     this->noiseSeed = noiseSeed;
     layerNumber = 0;

@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Application.h"
+#include "OSCInterface.h"
 
 class TerrainApp : public Application {
 public:
@@ -31,5 +32,8 @@ private:
     ofPixels currentImage;
     
     int noiseSeed;
+
+    // for sending messages to the back display
+    OSCInterface oscInterface;
 };
 

@@ -7,6 +7,9 @@
 //
 
 #include "OSCInterface.h"
+OSCInterface::OSCInterface() {
+    connected = false;
+}
 OSCInterface::OSCInterface(string host, int port) {
     connected = false;
     

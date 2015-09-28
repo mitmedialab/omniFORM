@@ -16,6 +16,7 @@
 // mac connected to the back display
 class OSCInterface {
 public:
+    OSCInterface();
     OSCInterface(string host, int port);
     
     // send a message over ethernet
