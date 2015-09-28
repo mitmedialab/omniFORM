@@ -220,6 +220,7 @@
 		8972575C69AE8DCC6BFB1908 /* btConvexInternalShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA65FFAA32AC6FBC97AC3586 /* btConvexInternalShape.cpp */; };
 		89F31F234274A62F3501E2EE /* b2Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B868B25E5784F27CBC75D45 /* b2Draw.cpp */; };
 		8A9F08AE1BB89E18001E41B0 /* TerrainApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A9F08AC1BB89E18001E41B0 /* TerrainApp.cpp */; };
+		8A9F08B21BB8CCB4001E41B0 /* OSCInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A9F08B01BB8CCB4001E41B0 /* OSCInterface.cpp */; };
 		8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */; };
 		8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB602081BA21FB700B492C6 /* WaterApp.cpp */; };
 		8AB6021D1BA377D800B492C6 /* TouchMaterialApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */; };
@@ -1002,6 +1003,8 @@
 		8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvShortImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp; sourceTree = SOURCE_ROOT; };
 		8A9F08AC1BB89E18001E41B0 /* TerrainApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TerrainApp.cpp; sourceTree = "<group>"; };
 		8A9F08AD1BB89E18001E41B0 /* TerrainApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerrainApp.h; sourceTree = "<group>"; };
+		8A9F08B01BB8CCB4001E41B0 /* OSCInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OSCInterface.cpp; sourceTree = "<group>"; };
+		8A9F08B11BB8CCB4001E41B0 /* OSCInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCInterface.h; sourceTree = "<group>"; };
 		8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StretchyApp.cpp; sourceTree = "<group>"; };
 		8AA4193C1BAA226300F1DD50 /* StretchyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StretchyApp.h; sourceTree = "<group>"; };
 		8AB602081BA21FB700B492C6 /* WaterApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WaterApp.cpp; sourceTree = "<group>"; };
@@ -2230,6 +2233,8 @@
 		65DA217E1B543D7F00D31BD4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				8A9F08B01BB8CCB4001E41B0 /* OSCInterface.cpp */,
+				8A9F08B11BB8CCB4001E41B0 /* OSCInterface.h */,
 				65D1BE5F1B5033530080F4DD /* utils.cpp */,
 				65D1BE5E1B50334A0080F4DD /* utils.h */,
 				65CC07981B7115A900F89B9B /* ObjectDetector.cpp */,
@@ -3807,6 +3812,7 @@
 				5A4349E9754D6FA14C0F2A3A /* tinyxmlparser.cpp in Sources */,
 				65CC08001B73D10B00F89B9B /* ofxGuiScope.cpp in Sources */,
 				52C77060FBB9307AEFDAE8C6 /* ofxAnimatable.cpp in Sources */,
+				8A9F08B21BB8CCB4001E41B0 /* OSCInterface.cpp in Sources */,
 				5D067CF087427621DD1E64B8 /* ofxAnimatableFloat.cpp in Sources */,
 				74D31933EE82E12834DB3B06 /* ofxAnimatableOfColor.cpp in Sources */,
 				65CC07F91B73D10B00F89B9B /* ofxGuiGlobals.cpp in Sources */,
