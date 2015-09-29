@@ -24,14 +24,30 @@ public:
     string getName() { return "Terrain App"; };
     
 private:
+    struct TerrainInfo {
+        int layerCount;
+        float xFreq;
+        float yFreq;
+        float layerFreq;
+        int restHeight;
+        int noiseAmplitude;
+        int noiseSeed;
+        int shapeDisplayWidth;
+        
+        float xOffset;
+        float yOffset;
+    };
+    TerrainInfo terrainInfo;
+    
+    void regenerateTerrain(TerrainInfo terrainInfo);
+    
     int layerNumber = -1;
-    int layerCount;
+    
+    float xOffset, yOffset;
     
     vector<ofPixels> layers;
     
     ofPixels currentImage;
-    
-    int noiseSeed;
 
     // for sending messages to the back display
     OSCInterface oscInterface;

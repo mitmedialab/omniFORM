@@ -18,32 +18,55 @@ std::string toString(const T& value) {
 TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
     oscInterface = OSCInterface("169.254.255.255", 9000); // 169.254.248.248
     
-    this->layerCount = layerCount;
-    this->noiseSeed = noiseSeed;
-    
     // initialize the layers
-    const float xFreq = 0.1;
-    const float yFreq = 0.1;
-    const float layerFreq = 1000;
-    const int restHeight = 127;
-    const int noiseAmplitude = 127;
+    TerrainInfo terrainInfo;
+    terrainInfo.layerCount = layerCount;
+    terrainInfo.xFreq = 0.1;
+    terrainInfo.yFreq = 0.1;
+    terrainInfo.layerFreq = 1000;
+    terrainInfo.restHeight = 127;
+    terrainInfo.noiseAmplitude = 127;
+    terrainInfo.noiseSeed = noiseSeed;
+    terrainInfo.shapeDisplayWidth = SHAPE_DISPLAY_SIZE_X;
+    terrainInfo.xOffset = 0;
+    terrainInfo.yOffset = 0;
     
+    regenerateTerrain(terrainInfo);
+    
+    setLayer(layerCount-1);
+    currentImage = layers[layerNumber];
+}
+
+void TerrainApp::regenerateTerrain(TerrainInfo terrainInfo) {
+    this->terrainInfo = terrainInfo;
     ofxOscMessage generateMessage;
     generateMessage.setAddress("/cts/generate");
-    generateMessage.addIntArg(layerCount);
-    generateMessage.addFloatArg(xFreq);
-    generateMessage.addFloatArg(yFreq);
-    generateMessage.addFloatArg(layerFreq);
-    generateMessage.addIntArg(restHeight);
-    generateMessage.addIntArg(noiseAmplitude);
-    generateMessage.addIntArg(noiseSeed);
-    generateMessage.addIntArg(SHAPE_DISPLAY_SIZE_X);
+    generateMessage.addIntArg(terrainInfo.layerCount);
+    generateMessage.addFloatArg(terrainInfo.xFreq);
+    generateMessage.addFloatArg(terrainInfo.yFreq);
+    generateMessage.addFloatArg(terrainInfo.layerFreq);
+    generateMessage.addIntArg(terrainInfo.restHeight);
+    generateMessage.addIntArg(terrainInfo.noiseAmplitude);
+    generateMessage.addIntArg(terrainInfo.noiseSeed);
+    generateMessage.addIntArg(terrainInfo.shapeDisplayWidth);
+    
+    cout << terrainInfo.layerCount << " " << terrainInfo.xFreq << " " << terrainInfo.yFreq
+    << " " << terrainInfo.layerFreq << " " << terrainInfo.restHeight << " " <<
+    terrainInfo.noiseAmplitude << " " << terrainInfo.noiseSeed << " " << terrainInfo.shapeDisplayWidth
+    << " " << terrainInfo.xOffset << " " << terrainInfo.yOffset;
     
     // tell the other computer to generate its layers
     oscInterface.sendMessage(generateMessage);
     
-    ofSeedRandom(noiseSeed);
-    for (unsigned int layer = 0; layer < layerCount; layer++) {
+    ofxOscMessage offsetMessage;
+    offsetMessage.setAddress("/cts/offset");
+    offsetMessage.addFloatArg(terrainInfo.xOffset);
+    offsetMessage.addFloatArg(terrainInfo.yOffset);
+    oscInterface.sendMessage(offsetMessage);
+
+    ofSeedRandom(terrainInfo.noiseSeed);
+    layers.clear();
+    for (unsigned int layer = 0; layer < terrainInfo.layerCount; layer++) {
         ofPixels layerImage;
         layerImage.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
         
@@ -51,17 +74,17 @@ TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
             for (unsigned int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = layerImage.getPixelIndex(x,y);
                 
-                float noiseValue = 2 * (-0.5 + ofNoise(xFreq*x, yFreq*y, layer*layerFreq));
+                float noiseX = terrainInfo.xFreq*(x + terrainInfo.xOffset);
+                float noiseY = terrainInfo.yFreq*(y + terrainInfo.yOffset);
+                float noiseZ = layer*terrainInfo.layerFreq;
+                float noiseValue = 2 * (-0.5 + ofNoise(noiseX, noiseY, noiseZ));
                 
-                layerImage[xy] = restHeight + noiseAmplitude * noiseValue;
+                layerImage[xy] = terrainInfo.restHeight + terrainInfo.noiseAmplitude * noiseValue;
             }
         }
         
         layers.push_back(layerImage);
     }
-    
-    setLayer(layerCount-1);
-    currentImage = layers[layerNumber];
 }
 
 void TerrainApp::update(float dt) {
@@ -88,11 +111,26 @@ void TerrainApp::drawDebugGui(int x, int y) {
 }
 void TerrainApp::keyPressed(int key) {
     int newLayer = layerNumber;
-    if (key == 'q') {
-        if (newLayer + 1 < layerCount)
-            newLayer++;
+    TerrainInfo terrainInfo = this->terrainInfo;
+    if (key == 'w') {
+        terrainInfo.yOffset += 3;
     }
     if (key == 'a') {
+        terrainInfo.xOffset -= 3;
+    }
+    if (key == 's') {
+        terrainInfo.yOffset -= 3;
+    }
+    if (key == 'd') {
+        terrainInfo.xOffset += 3;
+    }
+    regenerateTerrain(terrainInfo);
+    
+    if (key == 'r') {
+        if (newLayer + 1 < terrainInfo.layerCount)
+            newLayer++;
+    }
+    if (key == 'f') {
         if (newLayer - 1 >= 0)
             newLayer--;
     }
