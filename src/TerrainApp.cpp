@@ -8,8 +8,15 @@
 
 #include "TerrainApp.h"
 
+template<typename T>
+std::string toString(const T& value) {
+    std::ostringstream oss;
+    oss << value;
+    return oss.str();
+}
+
 TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
-    oscInterface = OSCInterface("169.254.167.104", 5555);
+    oscInterface = OSCInterface("169.254.255.255", 9000); // 169.254.248.248
     
     this->layerCount = layerCount;
     this->noiseSeed = noiseSeed;
@@ -22,17 +29,19 @@ TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
     const int restHeight = 127;
     const int noiseAmplitude = 127;
     
-    vector<string> parameters(8);
-    parameters[0] = layerCount;
-    parameters[1] = xFreq;
-    parameters[2] = yFreq;
-    parameters[3] = layerFreq;
-    parameters[4] = restHeight;
-    parameters[5] = noiseAmplitude;
-    parameters[6] = noiseSeed;
-    parameters[7] = SHAPE_DISPLAY_SIZE_X;
+    ofxOscMessage generateMessage;
+    generateMessage.setAddress("/cts/generate");
+    generateMessage.addIntArg(layerCount);
+    generateMessage.addFloatArg(xFreq);
+    generateMessage.addFloatArg(yFreq);
+    generateMessage.addFloatArg(layerFreq);
+    generateMessage.addIntArg(restHeight);
+    generateMessage.addIntArg(noiseAmplitude);
+    generateMessage.addIntArg(noiseSeed);
+    generateMessage.addIntArg(SHAPE_DISPLAY_SIZE_X);
+    
     // tell the other computer to generate its layers
-    oscInterface.sendMessage("/cts/generate", parameters);
+    oscInterface.sendMessage(generateMessage);
     
     ofSeedRandom(noiseSeed);
     for (unsigned int layer = 0; layer < layerCount; layer++) {
@@ -41,7 +50,8 @@ TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
         
         for (unsigned int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
             for (unsigned int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-                int xy = layerImage.getPixelIndex(x,y);
+                // flip y so it lines up with the screen
+                int xy = layerImage.getPixelIndex(x,SHAPE_DISPLAY_SIZE_Y-y-1);
                 
                 float noiseValue = 2 * (-0.5 + ofNoise(xFreq*x, yFreq*y, layer*layerFreq));
                 
@@ -62,7 +72,7 @@ void TerrainApp::update(float dt) {
         for (unsigned int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             int xy = currentImage.getPixelIndex(x,y);
             
-            currentImage[xy] = currentImage[xy] * 0.9 + currentLayer[xy] * 0.1;
+            currentImage[xy] = currentImage[xy] * 0.7 + currentLayer[xy] * 0.3;
         }
     }
     
@@ -89,8 +99,9 @@ void TerrainApp::keyPressed(int key) {
     }
     if (oldLayer != layerNumber) {
         // tell computer to update its layers
-        vector<string> parameter(1);
-        parameter[0] = layerNumber;
-        oscInterface.sendMessage("/cts/layer", parameter);
+        ofxOscMessage layerMessage;
+        layerMessage.setAddress("/cts/layer");
+        layerMessage.addIntArg(layerNumber);
+        oscInterface.sendMessage(layerMessage);
     }
 }

@@ -5,9 +5,7 @@
 //  Created by Tangible Media Group on 10/14/14.
 //
 //
-
-#ifndef __cooperFORM__OSCInterface__
-#define __cooperFORM__OSCInterface__
+#pragma once
 
 #include <iostream>
 #include "ofxOSC.h"
@@ -20,7 +18,7 @@ public:
     OSCInterface(string host, int port);
     
     // send a message over ethernet
-    void sendMessage(string address, vector<string> parameters);
+    void sendMessage(ofxOscMessage message);
     
 private:
     string host;
@@ -28,5 +26,3 @@ private:
     ofxOscSender sender;
     bool connected;
 };
-
-#endif /* defined(__cooperFORM__OSCInterface__) */
