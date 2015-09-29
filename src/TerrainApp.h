@@ -24,7 +24,7 @@ public:
     string getName() { return "Terrain App"; };
     
 private:
-    int layerNumber;
+    int layerNumber = -1;
     int layerCount;
     
     vector<ofPixels> layers;
@@ -35,5 +35,7 @@ private:
 
     // for sending messages to the back display
     OSCInterface oscInterface;
+    
+    void setLayer(int layerNum);
 };
 

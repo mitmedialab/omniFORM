@@ -20,7 +20,6 @@ TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
     
     this->layerCount = layerCount;
     this->noiseSeed = noiseSeed;
-    layerNumber = 0;
     
     // initialize the layers
     const float xFreq = 0.1;
@@ -62,6 +61,7 @@ TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
         layers.push_back(layerImage);
     }
     
+    setLayer(0);
     currentImage = layers[layerNumber];
 }
 
@@ -88,20 +88,27 @@ void TerrainApp::drawDebugGui(int x, int y) {
     
 }
 void TerrainApp::keyPressed(int key) {
-    int oldLayer = layerNumber;
+    int newLayer = layerNumber;
     if (key == 'q') {
-        if (layerNumber + 1 < layerCount)
-            layerNumber++;
+        if (newLayer + 1 < layerCount)
+            newLayer++;
     }
     if (key == 'a') {
-        if (layerNumber - 1 >= 0)
-            layerNumber--;
+        if (newLayer - 1 >= 0)
+            newLayer--;
     }
-    if (oldLayer != layerNumber) {
-        // tell computer to update its layers
-        ofxOscMessage layerMessage;
-        layerMessage.setAddress("/cts/layer");
-        layerMessage.addIntArg(layerNumber);
-        oscInterface.sendMessage(layerMessage);
-    }
+    setLayer(newLayer);
+}
+
+void TerrainApp::setLayer(int newLayer) {
+    if (newLayer == layerNumber)
+        return;
+    
+    layerNumber = newLayer;
+    
+    // report the layer change
+    ofxOscMessage layerMessage;
+    layerMessage.setAddress("/cts/layer");
+    layerMessage.addIntArg(layerNumber);
+    oscInterface.sendMessage(layerMessage);
 }
