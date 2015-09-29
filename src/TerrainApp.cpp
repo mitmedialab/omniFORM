@@ -49,8 +49,7 @@ TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
         
         for (unsigned int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
             for (unsigned int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-                // flip y so it lines up with the screen
-                int xy = layerImage.getPixelIndex(x,SHAPE_DISPLAY_SIZE_Y-y-1);
+                int xy = layerImage.getPixelIndex(x,y);
                 
                 float noiseValue = 2 * (-0.5 + ofNoise(xFreq*x, yFreq*y, layer*layerFreq));
                 
@@ -61,7 +60,7 @@ TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
         layers.push_back(layerImage);
     }
     
-    setLayer(0);
+    setLayer(layerCount-1);
     currentImage = layers[layerNumber];
 }
 

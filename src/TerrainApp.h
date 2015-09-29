@@ -17,7 +17,7 @@ public:
     
     void update(float dt);
     void drawGraphicsForShapeDisplay(int x, int y, int width, int height);
-    string appInstructionsText() {return "arrow keys";};
+    string appInstructionsText() {return "q and a to change layers";};
     void drawDebugGui(int x, int y);
     void keyPressed(int key);
     
