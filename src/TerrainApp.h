@@ -51,5 +51,7 @@ private:
     OSCInterface oscInterface;
     
     void setLayer(int layerNum);
+    
+    void scale(float amount);
 };
 
