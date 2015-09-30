@@ -17,6 +17,8 @@ void AppManager::setup(){
     ofSetWindowShape(MONITOR_SCREEN_RESOLUTION_X + SHAPE_DISPLAY_PROJECTOR_RAW_RESOLUTION_X, SHAPE_DISPLAY_PROJECTOR_RAW_RESOLUTION_Y);
     projectorOffsetX = MONITOR_SCREEN_RESOLUTION_X + SHAPE_DISPLAY_PROJECTOR_OFFSET_X;
     ofSetWindowPosition(0, 0);
+    #elif SHAPE_DISPLAY_IN_USE==COOPERFORM_DISPLAY
+    projectorOffsetX = SHAPE_DISPLAY_PROJECTOR_OFFSET_X;
     #endif
 
     // initialize shape display and set up helper objects
@@ -244,9 +246,13 @@ void AppManager::draw(){
     }
 
     // draw graphics onto projector
-    bool shouldDrawProjectorGraphics = SHAPE_DISPLAY_IN_USE == INFORM_DISPLAY;
+    bool shouldDrawProjectorGraphics = SHAPE_DISPLAY_IN_USE == INFORM_DISPLAY
+                                    || SHAPE_DISPLAY_IN_USE == COOPERFORM_DISPLAY;
     if (shouldDrawProjectorGraphics) {
-        graphicsForShapeDisplay.draw(projectorOffsetX, SHAPE_DISPLAY_PROJECTOR_OFFSET_Y, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_X, SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_Y);
+        graphicsForShapeDisplay.draw(projectorOffsetX,
+                                     SHAPE_DISPLAY_PROJECTOR_OFFSET_Y,
+                                     SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_X,
+                                     SHAPE_DISPLAY_PROJECTOR_SCALED_SIZE_Y);
     };
 }
 
