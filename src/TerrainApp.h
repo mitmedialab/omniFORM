@@ -43,8 +43,6 @@ private:
     
     int layerNumber = -1;
     
-    float xOffset, yOffset;
-    
     vector<ofPixels> layers;
     
     ofPixels currentImage;
