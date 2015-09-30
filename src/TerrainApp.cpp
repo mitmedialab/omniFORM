@@ -113,16 +113,16 @@ void TerrainApp::keyPressed(int key) {
     int newLayer = layerNumber;
     TerrainInfo terrainInfo = this->terrainInfo;
     if (key == 'w') {
-        terrainInfo.yOffset += 3;
+        terrainInfo.yOffset += 1;
     }
     if (key == 'a') {
-        terrainInfo.xOffset -= 3;
+        terrainInfo.xOffset -= 1;
     }
     if (key == 's') {
-        terrainInfo.yOffset -= 3;
+        terrainInfo.yOffset -= 1;
     }
     if (key == 'd') {
-        terrainInfo.xOffset += 3;
+        terrainInfo.xOffset += 1;
     }
     regenerateTerrain(terrainInfo);
     
