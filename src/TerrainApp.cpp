@@ -78,11 +78,18 @@ void TerrainApp::regenerateTerrain(TerrainInfo terrainInfo) {
                 float noiseX = terrainInfo.xFreq*(x + terrainInfo.xOffset);
                 float noiseY = terrainInfo.yFreq*(y + terrainInfo.yOffset);
                 float noiseZ = layer*terrainInfo.layerFreq;
-                float noiseValue1 = 2 * (-0.5 + ofNoise(noiseX, noiseY, noiseZ)); // -1...1
-                float noiseValue2 = 2 * (-0.5 + ofNoise(2.f*noiseX, 2.f*noiseY, 2.f*noiseZ)) / 2.f; // -0.5...0.5
-                float noiseValue3 = 2 * (-0.5 + ofNoise(4.f*noiseX, 4.f*noiseY, 4.f*noiseZ)) / 4.f; // -0.25...0.25
-                float noiseValue4 = 2 * (-0.5 + ofNoise(8.f*noiseX, 8.f*noiseY, 8.f*noiseZ)) / 8.f; // -0.125...0.125
-                float height = terrainInfo.restHeight + terrainInfo.noiseAmplitude * (noiseValue1 + noiseValue2 + noiseValue3 + noiseValue4) / 2.f;
+                
+                float noiseValue;
+                for (int i = 0; i < 6; i++) {
+                    float factor = pow(3.f, (float)i);
+                    noiseValue += 2 * (-0.5 + ofNoise(factor * noiseX,
+                                                      factor * noiseY,
+                                                      factor * noiseZ)) / factor;
+                }
+                // since noiseValue -2...2
+                noiseValue /= 2.f;
+                
+                float height = terrainInfo.restHeight + terrainInfo.noiseAmplitude * noiseValue;
                 height = max(height, 0.f);
                 height = min(height, 255.f);
                 layerImage[xy] = height;

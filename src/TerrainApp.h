@@ -17,7 +17,7 @@ public:
     
     void update(float dt);
     void drawGraphicsForShapeDisplay(int x, int y, int width, int height);
-    string appInstructionsText() {return "q and a to change layers";};
+    string appInstructionsText() {return "r and f to change layers, wasd to move, and t and g to scale ";};
     void drawDebugGui(int x, int y);
     void keyPressed(int key);
     

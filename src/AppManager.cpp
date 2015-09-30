@@ -58,7 +58,7 @@ void AppManager::setup(){
     stretchyApp = new StretchyApp();
     applications["stretchy"] = stretchyApp;
     
-    terrainApp = new TerrainApp(10, 1337999);
+    terrainApp = new TerrainApp(10, 1337777);
     applications["terrain"] = terrainApp;
     
     // and the debugging apps, too
