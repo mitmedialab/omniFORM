@@ -16,14 +16,15 @@ std::string toString(const T& value) {
 }
 
 TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
-    oscInterface = OSCInterface("169.254.255.255", 9000); // 169.254.248.248
+    // connect to broadcasting IP
+    oscInterface = OSCInterface("169.254.255.255", 9000);
     
     // initialize the layers
     TerrainInfo terrainInfo;
     terrainInfo.layerCount = layerCount;
     terrainInfo.xFreq = 0.1;
     terrainInfo.yFreq = 0.1;
-    terrainInfo.layerFreq = 1000;
+    terrainInfo.layerFreq = 0.25;
     terrainInfo.restHeight = 127;
     terrainInfo.noiseAmplitude = 127;
     terrainInfo.noiseSeed = noiseSeed;
