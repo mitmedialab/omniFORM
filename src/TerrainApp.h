@@ -10,6 +10,8 @@
 
 #include "Application.h"
 #include "OSCInterface.h"
+#include "ObjectDetector.h"
+
 
 class TerrainApp : public Application {
 public:
@@ -43,12 +45,22 @@ private:
     
     int layerNumber = -1;
     
-    vector<ofPixels> layers;
+    //kinect
+    void updateKinect();
+    ObjectDetector *objectDetector;
+    int initialPos = 0;
+    int newPos = 0;
+    bool gestureComplete = true;
+    bool startDelay = false;
+    int delayCounter = 0;    
     
+    vector<ofPixels> layers;
     ofPixels currentImage;
 
     // for sending messages to the back display
     OSCInterface oscInterface;
+    
+
     
     void setLayer(int layerNum);
     

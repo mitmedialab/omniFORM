@@ -15,7 +15,18 @@ std::string toString(const T& value) {
     return oss.str();
 }
 
+
+//
+//TerrainApp::~TerrainApp() {
+//    delete objectDetector;
+//}
+
+
+
 TerrainApp::TerrainApp(int layerCount, int noiseSeed) {
+    
+    objectDetector = new ObjectDetector();
+    
     // connect to broadcasting IP
     oscInterface = OSCInterface("169.254.255.255", 9000);
     
@@ -100,13 +111,21 @@ void TerrainApp::regenerateTerrain(TerrainInfo terrainInfo) {
     }
 }
 
+
+
 void TerrainApp::update(float dt) {
+    
     ofPixels &currentLayer = layers[layerNumber];
     
+    if (hasPixelsFromKinect) {
+        objectDetector->update(*colorPixelsFromKinect, *depthPixelsFromKinect);
+    }
+    
+    updateKinect();
+
     for (unsigned int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (unsigned int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             int xy = currentImage.getPixelIndex(x,y);
-            
             currentImage[xy] = currentImage[xy] * 0.7 + currentLayer[xy] * 0.3;
         }
     }
@@ -114,9 +133,133 @@ void TerrainApp::update(float dt) {
     heightsForShapeDisplay = currentImage;
 }
 
+void TerrainApp::updateKinect() {
+        
+    const ofPixels &depthPixels = objectDetector->depthPixels();
+
+    //Terrain shizzle
+    int newLayer = layerNumber;
+    TerrainInfo terrainInfo = this->terrainInfo;
+
+    //Mask out table region (pins + white table)
+    int screenMaskLine = KINECT_Y - 200;
+    int tableMaskLine = 100;
+    int leftMaskLine = 120;
+    int rightMaskLine = KINECT_X - 150;
+    
+    int gestureOffset = 15; //Vertical distance travelled to change layers
+    int moveHorzZone = 25; //Range from the masklines to shift horizontally
+    
+    int closestY = -1;
+    int closestX = KINECT_X / 2;
+    
+    // Get cloestY pixel:
+    for (int y = tableMaskLine; y < screenMaskLine; y++) {
+        for (int x = leftMaskLine; x < rightMaskLine; x++) {
+            if (depthPixels[x + (y * KINECT_X)] > 0){
+                closestY = y;
+                closestX = x;
+                break;
+            }
+        }
+        if (closestY > -1) {
+            break;
+        }
+    }
+
+    int pixDepth = depthPixels[closestX + (closestY  * KINECT_X)];
+    
+    //Set the initial closestY depth value:
+    if (pixDepth > 1 && gestureComplete == true){
+        initialPos = pixDepth;
+        cout << "HAND! \n";
+        gestureComplete = false;
+    }
+    
+    if (pixDepth == 0 ){
+        //cout << "NO HAND \n";
+        gestureComplete = true;
+    }
+    
+    //Move Layers up and down
+    if (pixDepth > (initialPos + gestureOffset) && gestureComplete == false && startDelay == false){
+            if (newLayer + 1 < terrainInfo.layerCount){
+                newLayer++;
+                setLayer(newLayer);
+                cout << "UP LAYER! \n";
+                startDelay = true;
+            }
+    }
+    
+    if (pixDepth < (initialPos - gestureOffset) && gestureComplete == false && startDelay == false){
+            if (newLayer - 1 >= 0){
+                newLayer--;
+                setLayer(newLayer);
+                cout << "DOWN LAYER! \n";
+                startDelay = true;
+            }
+    }
+    
+    //Move Horizontallly with speed variation:
+    if (closestX < rightMaskLine && closestX > (rightMaskLine-moveHorzZone)){
+        terrainInfo.xOffset += 1;
+        regenerateTerrain(terrainInfo);
+    }
+    
+    if (closestX < (rightMaskLine-moveHorzZone) && closestX > (rightMaskLine-(moveHorzZone*2))){
+        terrainInfo.xOffset += 0.5;
+        regenerateTerrain(terrainInfo);
+    }
+    
+    if (closestX < (rightMaskLine-(moveHorzZone*2)) && closestX > (rightMaskLine-(moveHorzZone*3))){
+        terrainInfo.xOffset += 0.2;
+            regenerateTerrain(terrainInfo);
+    }
+    
+    if (closestX > leftMaskLine && closestX < (leftMaskLine+moveHorzZone)){
+        terrainInfo.xOffset -= 1;
+        regenerateTerrain(terrainInfo);
+    }
+    
+    if (closestX > leftMaskLine+moveHorzZone && closestX < (leftMaskLine+(moveHorzZone*2))){
+        terrainInfo.xOffset -= 0.5;
+        regenerateTerrain(terrainInfo);
+    }
+
+    if (closestX > leftMaskLine+(moveHorzZone*2) && closestX < (leftMaskLine+(moveHorzZone*3))){
+        terrainInfo.xOffset -= 0.2;
+        regenerateTerrain(terrainInfo);
+    }
+    
+
+    
+    if(startDelay == true && gestureComplete == false){
+        delayCounter++;
+        if(delayCounter > 2){
+            delayCounter = 0;
+            startDelay = false;
+            gestureComplete = true;
+        }
+    }
+    
+    cout << "X:"  << closestX << "   Y:" << closestY << "    Z:" << pixDepth << endl;
+    
+    if(startDelay == true)
+        cout << "DELAY RUNNING \n";
+    
+    if(gestureComplete == false)
+        cout << "GESTURE RUNNING \n";
+
+    
+}
+
 void TerrainApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
     ofSetColor(ofColor::white);
     ofImage(heightsForShapeDisplay).draw(x, y, width, height);
+    ofSetColor(ofColor::red);
+    heightsForShapeDisplay.mirror(false, true);
+    ofImage(heightsForShapeDisplay).draw(x, 455, width, height);
+
 }
 
 void TerrainApp::drawDebugGui(int x, int y) {
