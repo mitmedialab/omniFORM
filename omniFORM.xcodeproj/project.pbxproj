@@ -4736,7 +4736,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
-					/Users/daniel/Documents/TMG/of_v0.8.0_osx_phil/addons/ofxLibwebsockets/libs/libwebsockets/lib/osx,
+					/Users/tmg/Documents/of_v0.8.0_osx_release/addons/ofxLibwebsockets/libs/libwebsockets/lib/osx,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxLibwebsockets/libs/jsoncpp/json ../../../addons/ofxLibwebsockets/libs/jsoncpp ../../../addons/ofxLibwebsockets/libs/libwebsockets/include ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src ../../../addons/ofxLibwebsockets/libs/libwebsockets/include/ ../../../addons/ofxLibwebsockets/src ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/";
@@ -4823,7 +4823,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
-					/Users/daniel/Documents/TMG/of_v0.8.0_osx_phil/addons/ofxLibwebsockets/libs/libwebsockets/lib/osx,
+					/Users/tmg/Documents/of_v0.8.0_osx_release/addons/ofxLibwebsockets/libs/libwebsockets/lib/osx,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxLibwebsockets/libs/jsoncpp/json ../../../addons/ofxLibwebsockets/libs/jsoncpp ../../../addons/ofxLibwebsockets/libs/libwebsockets/include ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src ../../../addons/ofxLibwebsockets/libs/libwebsockets/include/ ../../../addons/ofxLibwebsockets/src ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/";

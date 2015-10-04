@@ -8,7 +8,6 @@
 
 #include "AppManager.h"
 
-
 void AppManager::setup(){
     ofSetFrameRate(30);
 

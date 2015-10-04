@@ -39,6 +39,9 @@
 // debugging applications
 #include "AxisCheckerApp.h"
 
+//websockets
+#include "ofxLibwebsockets.h"
+
 
 class AppManager : public ofBaseApp {
     
