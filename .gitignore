@@ -2,8 +2,13 @@
 localConfigs.h
 
 #
-bin/data/*y
 .gitignore
+
+# ignores everything in bin except website served by OpenFrameworks app
+
+!bin/data/
+bin/data/*
+!bin/data/web/
 
 #########################
 # openFrameworks patterns
