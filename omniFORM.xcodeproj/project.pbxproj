@@ -140,6 +140,8 @@
 		655A75081BC17E1D00C61D76 /* Reactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 655A74FF1BC17E1D00C61D76 /* Reactor.cpp */; };
 		655A75091BC17E1D00C61D76 /* Server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 655A75001BC17E1D00C61D76 /* Server.cpp */; };
 		655A750A1BC17E1D00C61D76 /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 655A75011BC17E1D00C61D76 /* Util.cpp */; };
+		655A752A1BC33A8100C61D76 /* ofxJSONElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 655A75201BC33A8100C61D76 /* ofxJSONElement.cpp */; };
+		655A752B1BC33A8100C61D76 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 655A75291BC33A8100C61D76 /* jsoncpp.cpp */; };
 		6572FCAA1B3CA8EE001BBF38 /* AppManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCA91B3CA8EE001BBF38 /* AppManager.cpp */; };
 		6572FCB11B3CB10F001BBF38 /* TunableWaveApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCB01B3CB10F001BBF38 /* TunableWaveApp.cpp */; };
 		6572FCBE1B3DD616001BBF38 /* InformIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6572FCBD1B3DD616001BBF38 /* InformIOManager.cpp */; };
@@ -790,6 +792,12 @@
 		655A74FF1BC17E1D00C61D76 /* Reactor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Reactor.cpp; sourceTree = "<group>"; };
 		655A75001BC17E1D00C61D76 /* Server.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Server.cpp; sourceTree = "<group>"; };
 		655A75011BC17E1D00C61D76 /* Util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Util.cpp; sourceTree = "<group>"; };
+		655A751F1BC33A8100C61D76 /* ofxJSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxJSON.h; sourceTree = "<group>"; };
+		655A75201BC33A8100C61D76 /* ofxJSONElement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxJSONElement.cpp; sourceTree = "<group>"; };
+		655A75211BC33A8100C61D76 /* ofxJSONElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxJSONElement.h; sourceTree = "<group>"; };
+		655A75261BC33A8100C61D76 /* json-forwards.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "json-forwards.h"; sourceTree = "<group>"; };
+		655A75271BC33A8100C61D76 /* json.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
+		655A75291BC33A8100C61D76 /* jsoncpp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jsoncpp.cpp; sourceTree = "<group>"; };
 		6572FCA71B3C961B001BBF38 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		6572FCA81B3C962E001BBF38 /* localConfigs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localConfigs.h; sourceTree = "<group>"; };
 		6572FCA91B3CA8EE001BBF38 /* AppManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = AppManager.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -2167,6 +2175,69 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		655A751D1BC33A8100C61D76 /* ofxJSON */ = {
+			isa = PBXGroup;
+			children = (
+				655A751E1BC33A8100C61D76 /* src */,
+				655A75221BC33A8100C61D76 /* libs */,
+			);
+			name = ofxJSON;
+			sourceTree = "<group>";
+		};
+		655A751E1BC33A8100C61D76 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				655A751F1BC33A8100C61D76 /* ofxJSON.h */,
+				655A75201BC33A8100C61D76 /* ofxJSONElement.cpp */,
+				655A75211BC33A8100C61D76 /* ofxJSONElement.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxJSON/src;
+			sourceTree = "<group>";
+		};
+		655A75221BC33A8100C61D76 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				655A75231BC33A8100C61D76 /* jsoncpp */,
+			);
+			name = libs;
+			path = ../../../addons/ofxJSON/libs;
+			sourceTree = "<group>";
+		};
+		655A75231BC33A8100C61D76 /* jsoncpp */ = {
+			isa = PBXGroup;
+			children = (
+				655A75241BC33A8100C61D76 /* include */,
+				655A75281BC33A8100C61D76 /* src */,
+			);
+			path = jsoncpp;
+			sourceTree = "<group>";
+		};
+		655A75241BC33A8100C61D76 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				655A75251BC33A8100C61D76 /* json */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		655A75251BC33A8100C61D76 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				655A75261BC33A8100C61D76 /* json-forwards.h */,
+				655A75271BC33A8100C61D76 /* json.h */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
+		655A75281BC33A8100C61D76 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				655A75291BC33A8100C61D76 /* jsoncpp.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		65726280742CD54BF368BDB8 /* libusb-1.0 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3091,6 +3162,7 @@
 				50DCAC921AE5B231D261BBE4 /* ofxMovieExporter */,
 				A492CE86424AB8905550BFD8 /* ofxUI */,
 				655A74C91BC17E1D00C61D76 /* ofxLibwebsockets */,
+				655A751D1BC33A8100C61D76 /* ofxJSON */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -3986,6 +4058,7 @@
 				BC054B7D3B48B395B1D87F2E /* ofxAnimatableOfPoint.cpp in Sources */,
 				B16C89D9CA996CA8FD860D81 /* ofxBox2d.cpp in Sources */,
 				F2FF2F9D6699B4B328CB6BE3 /* ofxBox2dBaseShape.cpp in Sources */,
+				655A752A1BC33A8100C61D76 /* ofxJSONElement.cpp in Sources */,
 				6572FCBE1B3DD616001BBF38 /* InformIOManager.cpp in Sources */,
 				AE9254BC31C3409899D28DC9 /* ofxBox2dCircle.cpp in Sources */,
 				4D09B9611BCF4603581DFEE4 /* ofxBox2dEdge.cpp in Sources */,
@@ -4233,6 +4306,7 @@
 				655A75091BC17E1D00C61D76 /* Server.cpp in Sources */,
 				4B3ED367CA852D522E2EE996 /* ofxUI2DPad.cpp in Sources */,
 				F1E8DE8734BA6F69A5112FA8 /* ofxUIBaseDraws.cpp in Sources */,
+				655A752B1BC33A8100C61D76 /* jsoncpp.cpp in Sources */,
 				C381F2B7CFD84C0E540EB4BC /* ofxUIBiLabelSlider.cpp in Sources */,
 				7D393646FB859A930EF58917 /* ofxUIButton.cpp in Sources */,
 				7BE46522B64E24FAEDE1A25D /* ofxUICanvas.cpp in Sources */,
@@ -4745,7 +4819,7 @@
 					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/osx,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
-				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxLibwebsockets/libs/jsoncpp/json ../../../addons/ofxLibwebsockets/libs/jsoncpp ../../../addons/ofxLibwebsockets/libs/libwebsockets/include ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src ../../../addons/ofxLibwebsockets/libs/libwebsockets/include/ ../../../addons/ofxLibwebsockets/src ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/";
+				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxLibwebsockets/libs/jsoncpp/json ../../../addons/ofxLibwebsockets/libs/jsoncpp ../../../addons/ofxLibwebsockets/libs/libwebsockets/include ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src ../../../addons/ofxLibwebsockets/libs/libwebsockets/include/ ../../../addons/ofxJSON/libs/jsoncpp/include/ ../../../addons/ofxLibwebsockets/src ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4832,7 +4906,7 @@
 					../../../addons/ofxLibwebsockets/libs/libwebsockets/lib/osx,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxLibwebsockets/libs/jsoncpp/json ../../../addons/ofxLibwebsockets/libs/jsoncpp ../../../addons/ofxLibwebsockets/libs/libwebsockets/include ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src ../../../addons/ofxLibwebsockets/libs/libwebsockets/include/ ../../../addons/ofxLibwebsockets/src ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/";
+				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxLibwebsockets/libs/jsoncpp/json ../../../addons/ofxLibwebsockets/libs/jsoncpp ../../../addons/ofxLibwebsockets/libs/libwebsockets/include ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/src ../../../addons/ofxLibwebsockets/libs/libwebsockets/include/ ../../../addons/ofxJSON/libs/jsoncpp/include/ ../../../addons/ofxLibwebsockets/src ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets ../../../addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
