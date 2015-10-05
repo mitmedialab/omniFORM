@@ -52,6 +52,8 @@ void AppManager::setup(){
     applications["water"] = waterApp;
     stretchyApp = new StretchyApp();
     applications["stretchy"] = stretchyApp;
+    macroScopeApp = new MacroScopeApp();
+    applications["macroScope"] = macroScopeApp;
     
     // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
@@ -71,9 +73,22 @@ void AppManager::setup(){
     }
 
     // set default application
-    setCurrentApplication("simpleWave");
+    setCurrentApplication("macroScope");
+    
+    setupWebSockets();
 }
 
+void AppManager::setupWebSockets() {
+    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
+    options.port = 9092;
+	options.bUseSSL = false; // you'll have to manually accept this self-signed cert if 'true'!
+    bSetup = server.setup( options );
+    
+    // this adds your app as a listener for the server
+    server.addListener(this);
+
+}
+    
 // initialize the shape display and set up shape display helper objects
 void AppManager::setupShapeDisplayManagement() {
     // initialize communication with the shape display
@@ -137,6 +152,7 @@ void AppManager::update(){
     double dt = currentTime - timeOfLastUpdate;
     timeOfLastUpdate = currentTime;
 
+    string socketMsg = "[";
     // copy heights from shape display to pixels object
     if (shapeIOManager->heightsFromShapeDisplayAvailable) {
         shapeIOManager->getHeightsFromShapeDisplay(heightsFromShapeDisplay);
@@ -148,9 +164,16 @@ void AppManager::update(){
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = heightPixelsFromShapeDisplay.getPixelIndex(x, y);
                 heightPixelsFromShapeDisplay[xy] = heightsFromShapeDisplay[x][y];
+                int h = heightsFromShapeDisplay[x][y] - '0';
+                socketMsg += "{\"x\":" + ofToString(x) + ",\"y\":" + ofToString(y) + ",\"h\":" + ofToString(h) + "},";
+                
             }
         }
     }
+    socketMsg = socketMsg.substr(0, socketMsg.size()-1);
+    socketMsg += "]";
+    //cout << socketMsg + "\n";
+    server.send(socketMsg);
 
     // copy heights and pin configs from application
     bool pinConfigsAreStale;
@@ -279,9 +302,9 @@ void AppManager::exit() {
 // application.
 void AppManager::keyPressed(int key) {
     // keys used by app manager must be registered as reserved keys
-    const int reservedKeysLength = 13;
+    const int reservedKeysLength = 14;
     const int reservedKeys[reservedKeysLength] = {
-        '/', '?', '.', ' ', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+        '/', '?', '.', ' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'm'
     };
     const int *reservedKeysEnd = reservedKeys + reservedKeysLength;
 
@@ -311,6 +334,13 @@ void AppManager::keyPressed(int key) {
             setCurrentApplication("water");
         } else if (key == '9') {
             setCurrentApplication("stretchy");
+        } else if (key == 'm') {
+            setCurrentApplication("macroScope");
+            cout << "HELLOOOOOOOOOO \n";
+            string toSend = "foobar";
+            server.send( toSend );
+            //messages.push_back("Sent: '" + toSend + "' to "+ ofToString(server.getConnections().size())+" websockets" );
+
         }
 
     // forward unreserved keys to the application
@@ -327,3 +357,48 @@ void AppManager::mouseReleased(int x, int y, int button) {};
 void AppManager::windowResized(int w, int h) {};
 void AppManager::gotMessage(ofMessage msg) {};
 void AppManager::dragEvent(ofDragInfo dragInfo) {};
+
+//WebSocket Methods
+//--------------------------------------------------------------
+void AppManager::onConnect( ofxLibwebsockets::Event& args ){
+    cout<<"on connected"<<endl;
+}
+
+//--------------------------------------------------------------
+void AppManager::onOpen( ofxLibwebsockets::Event& args ){
+    cout<<"new connection open"<<endl;
+    messages.push_back("New connection from " + args.conn.getClientIP() + ", " + args.conn.getClientName() );
+}
+
+//--------------------------------------------------------------
+void AppManager::onClose( ofxLibwebsockets::Event& args ){
+    cout<<"on close"<<endl;
+    messages.push_back("Connection closed");
+}
+
+//--------------------------------------------------------------
+void AppManager::onIdle( ofxLibwebsockets::Event& args ){
+    cout<<"on idle"<<endl;
+}
+
+//--------------------------------------------------------------
+void AppManager::onMessage( ofxLibwebsockets::Event& args ){
+    cout<<"got message "<<args.message<<endl;
+    
+    // trace out string messages or JSON messages!
+    if ( !args.json.isNull() ){
+        messages.push_back("New message: " + args.json.toStyledString() + " from " + args.conn.getClientName() );
+    } else {
+        messages.push_back("New message: " + args.message + " from " + args.conn.getClientName() );
+    }
+    
+    // echo server = send message right back!
+    args.conn.send( args.message );
+}
+
+//--------------------------------------------------------------
+void AppManager::onBroadcast( ofxLibwebsockets::Event& args ){
+    cout<<"got broadcast "<<args.message<<endl;
+}
+
+//--------------------------------------------------------------

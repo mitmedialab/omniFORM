@@ -228,6 +228,7 @@
 		890FEAB62511C010A6CE0502 /* btEmptyShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E935BD041847C8DBD0268D2 /* btEmptyShape.cpp */; };
 		8972575C69AE8DCC6BFB1908 /* btConvexInternalShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA65FFAA32AC6FBC97AC3586 /* btConvexInternalShape.cpp */; };
 		89F31F234274A62F3501E2EE /* b2Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B868B25E5784F27CBC75D45 /* b2Draw.cpp */; };
+		8A3511AD1BC20C47003D6D5E /* MacroScopeApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A3511AB1BC20C47003D6D5E /* MacroScopeApp.cpp */; };
 		8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */; };
 		8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB602081BA21FB700B492C6 /* WaterApp.cpp */; };
 		8AB6021D1BA377D800B492C6 /* TouchMaterialApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */; };
@@ -1031,6 +1032,8 @@
 		892D95875430C1A060CBC20C /* btAlignedAllocator.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = btAlignedAllocator.cpp; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/LinearMath/btAlignedAllocator.cpp; sourceTree = SOURCE_ROOT; };
 		8948367193E123EBE2ABE5C3 /* ofxBulletConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletConstants.h; path = ../../../addons/ofxBullet/src/ofxBulletConstants.h; sourceTree = SOURCE_ROOT; };
 		89E0E31FD053C3EEAD793170 /* btSolveProjectedGaussSeidel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btSolveProjectedGaussSeidel.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletDynamics/MLCPSolvers/btSolveProjectedGaussSeidel.h; sourceTree = SOURCE_ROOT; };
+		8A3511AB1BC20C47003D6D5E /* MacroScopeApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MacroScopeApp.cpp; sourceTree = "<group>"; };
+		8A3511AC1BC20C47003D6D5E /* MacroScopeApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacroScopeApp.h; sourceTree = "<group>"; };
 		8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvShortImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp; sourceTree = SOURCE_ROOT; };
 		8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StretchyApp.cpp; sourceTree = "<group>"; };
 		8AA4193C1BAA226300F1DD50 /* StretchyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StretchyApp.h; sourceTree = "<group>"; };
@@ -2378,6 +2381,8 @@
 				8AB602081BA21FB700B492C6 /* WaterApp.cpp */,
 				8AB602091BA21FB700B492C6 /* WaterApp.h */,
 				65CAFD781B7D1072002DA575 /* DebuggingApps */,
+				8A3511AB1BC20C47003D6D5E /* MacroScopeApp.cpp */,
+				8A3511AC1BC20C47003D6D5E /* MacroScopeApp.h */,
 			);
 			name = Applications;
 			sourceTree = "<group>";
@@ -4058,6 +4063,7 @@
 				4A9D4749BB6EB5B7E79BC206 /* btAxisSweep3.cpp in Sources */,
 				F5F07D23AB07B4CDBDE57453 /* btBroadphaseProxy.cpp in Sources */,
 				32FEA744CD4CCCA656A89F7C /* btCollisionAlgorithm.cpp in Sources */,
+				8A3511AD1BC20C47003D6D5E /* MacroScopeApp.cpp in Sources */,
 				65CC08051B73D10B00F89B9B /* CPUImageFilter.cpp in Sources */,
 				CCEAE4C8DC718ABBA8889AFC /* btDbvt.cpp in Sources */,
 				A58CC4081B5ED98D00125458 /* BOSApp.cpp in Sources */,
