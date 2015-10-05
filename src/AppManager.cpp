@@ -378,7 +378,7 @@ void AppManager::onClose( ofxLibwebsockets::Event& args ){
 
 //--------------------------------------------------------------
 void AppManager::onIdle( ofxLibwebsockets::Event& args ){
-    cout<<"on idle"<<endl;
+    //cout<<"on idle"<<endl;
 }
 
 //--------------------------------------------------------------
@@ -387,7 +387,7 @@ void AppManager::onMessage( ofxLibwebsockets::Event& args ){
     
     // trace out string messages or JSON messages!
     if ( !args.json.isNull() ){
-        messages.push_back("New message: " + args.json.toStyledString() + " from " + args.conn.getClientName() );
+        messages.push_back("JSON message: " + args.json.toStyledString() + " from " + args.conn.getClientName() );
     } else {
         messages.push_back("New message: " + args.message + " from " + args.conn.getClientName() );
     }
