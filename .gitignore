@@ -1,6 +1,10 @@
 # machine-specific configurations
 localConfigs.h
 
+#
+bin/data/*y
+.gitignore
+
 #########################
 # openFrameworks patterns
 #########################
