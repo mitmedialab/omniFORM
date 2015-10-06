@@ -54,7 +54,7 @@ void MacroScopeApp::updateHeights() {
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
             
             // this is the line that sets a pin's height
-            heightsForShapeDisplay[xy] = heightScalar * height + heightOffset;
+            heightsForShapeDisplay[xy] = 100; //heightScalar * height + heightOffset;
         }
     }
 }

@@ -1,5 +1,5 @@
 function ShapeDisplay(xWidth, yWidth, height, scene) {
-    this.pinSize = 0.3;
+    this.pinSize = 0.5;
     this.inBetween = .05;
     this.xWidth = xWidth;
     this.yWidth = yWidth;

@@ -31,10 +31,9 @@
   <script>
   var scene, camera, renderer, element, container, effect, controls, clock;
   var shapeDisplay;
+  var sendToPhysical = false;
 
   init();
-  animate();
-
   function init() {
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.001, 700);
@@ -91,7 +90,7 @@
 
   var sqrt, maxDistance;
   var normalizedPhase = 0;
-  var speed = 0.03;
+  var speed = 0.01;
   var crests = 2;
   var distanceScalar = Math.PI * (crests * 2 - 1) / maxDistance;
   var distanceOffset = 2 * Math.PI;
@@ -118,7 +117,7 @@
   function animate() {
     requestAnimationFrame(animate);
 
-    //updateDisplay();
+    updateDisplay();
     update(clock.getDelta());
     effect.render(scene, camera);
   }
@@ -140,6 +139,7 @@
     controls.update(dt);
   }
 
+  var hack = false;
   function updateDisplay() {
     var time = Date.now();
     var frequency = 0.5;
@@ -147,14 +147,27 @@
     normalizedPhase += speed;
     var phase = 2 * Math.PI * normalizedPhase;
 
+    var msg = "";
     for (var x = 0; x < shapeDisplay.xWidth; x++) {
       for (var y = 0; y < shapeDisplay.yWidth; y++) {
         var d = sqrt[x*30 + y];
         distance = distanceScalar * d + distanceOffset;
         var height = Math.sin(distance - phase) / distance;
-        shapeDisplay.setPinHeight(x, y, heightScalar * height + heightOffset);
+        var h = heightScalar * height + heightOffset;
+
+        shapeDisplay.setPinHeight(x, y, h);
+
+        // GOTTA SCALE HEIGHT TO SHAPE DISPLAY!
+        var hsend = (height * 100 + 80) * 1.5;
+        msg += x + "," + y + "," + Math.abs(hsend) + "-";
       }
     }
+
+    if (sendToPhysical && hack) {
+      msg = msg.substring(0, msg.length - 1);
+      socket.send(msg);
+    }
+    hack = !hack;
   }
 
   function renderPhysical(data) {
@@ -197,6 +210,7 @@
     try {
       socket.onopen = function() {
         console.log("Websocket connection OPEN");
+        animate();
       }
       socket.onmessage = function got_packet(msg) {
         var data = JSON.parse(msg.data);
@@ -213,16 +227,14 @@
   addEventListener("keydown", function(event) {
     console.log("KeyDown: " + event.keyCode);
     switch(event.keyCode) {
-        case 32:
-        var msg = {
-          type: "message",
-          text: "whatttt",
-          id:   2,
-          date: Date.now()
-        };
-
-        socket.send(JSON.stringify(msg));
+        case 32:  // SPACE
+          var msg = "0,0,100.5-0,1,10.0";
+          socket.send(msg);
         break;
+        case 13:  // ENTER
+          sendToPhysical = !sendToPhysical;
+          console.log("Send To Physical: " + sendToPhysical);
+          break;
     }
   });
 

@@ -187,7 +187,7 @@ void AppManager::update(){
         for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = heightPixelsForShapeDisplay.getPixelIndex(x, y);
-                heightsForShapeDisplay[x][y] = heightPixelsForShapeDisplay[xy];
+                //heightsForShapeDisplay[x][y] = 200; //heightPixelsForShapeDisplay[xy];
             }
         }
 
@@ -384,16 +384,15 @@ void AppManager::onIdle( ofxLibwebsockets::Event& args ){
 //--------------------------------------------------------------
 void AppManager::onMessage( ofxLibwebsockets::Event& args ){
     cout<<"got message "<<args.message<<endl;
-    
-    // trace out string messages or JSON messages!
-    if ( !args.json.isNull() ){
-        messages.push_back("JSON message: " + args.json.toStyledString() + " from " + args.conn.getClientName() );
-    } else {
-        messages.push_back("New message: " + args.message + " from " + args.conn.getClientName() );
+    vector<string> pins = ofSplitString(args.message, "-");
+    for (int i = 0; i < pins.size(); i++) {
+        vector<string> xyh = ofSplitString(pins[i], ",");
+        cout << "xyh: " + xyh[0] + ", " + xyh[1] + ", " + xyh[2] + "\n";
+        int x = ofToInt(xyh[0]);
+        int y = ofToInt(xyh[1]);
+
+        heightsForShapeDisplay[x][y] = ofToFloat(xyh[2]);
     }
-    
-    // echo server = send message right back!
-    args.conn.send( args.message );
 }
 
 //--------------------------------------------------------------
