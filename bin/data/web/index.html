@@ -90,7 +90,7 @@
 
   var sqrt, maxDistance;
   var normalizedPhase = 0;
-  var speed = 0.01;
+  var speed = 0.02;
   var crests = 2;
   var distanceScalar = Math.PI * (crests * 2 - 1) / maxDistance;
   var distanceOffset = 2 * Math.PI;
@@ -139,7 +139,7 @@
     controls.update(dt);
   }
 
-  var hack = false;
+  var fpsHack = 0;  // dirty hack to make shape display handle frame rate :-P
   function updateDisplay() {
     var time = Date.now();
     var frequency = 0.5;
@@ -163,11 +163,11 @@
       }
     }
 
-    if (sendToPhysical && hack) {
+    if (sendToPhysical && fpsHack%3 == 0) {
       msg = msg.substring(0, msg.length - 1);
       socket.send(msg);
     }
-    hack = !hack;
+    fpsHack ++;
   }
 
   function renderPhysical(data) {

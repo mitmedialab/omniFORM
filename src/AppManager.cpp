@@ -187,7 +187,7 @@ void AppManager::update(){
         for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = heightPixelsForShapeDisplay.getPixelIndex(x, y);
-                //heightsForShapeDisplay[x][y] = 200; //heightPixelsForShapeDisplay[xy];
+                //heightsForShapeDisplay[x][y] = heightPixelsForShapeDisplay[xy];
             }
         }
 
