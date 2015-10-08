@@ -32,7 +32,7 @@ void AppManager::setup(){
 
     // zero timeOfLastUpdate tracker
     timeOfLastUpdate = elapsedTimeInSeconds();
-
+    
     // set up applications
     simpleWaveApp = new SimpleWaveApp();
     applications["simpleWave"] = simpleWaveApp;
@@ -75,19 +75,10 @@ void AppManager::setup(){
     // set default application
     setCurrentApplication("macroScope");
     
-    setupWebSockets();
+    // setup websocket to connect with JS scripting/simulation environment
+    //setupWebSockets();
 }
 
-void AppManager::setupWebSockets() {
-    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
-    options.port = 9092;
-	options.bUseSSL = false; // you'll have to manually accept this self-signed cert if 'true'!
-    bSetup = server.setup( options );
-    
-    // this adds your app as a listener for the server
-    server.addListener(this);
-
-}
     
 // initialize the shape display and set up shape display helper objects
 void AppManager::setupShapeDisplayManagement() {
@@ -152,7 +143,6 @@ void AppManager::update(){
     double dt = currentTime - timeOfLastUpdate;
     timeOfLastUpdate = currentTime;
 
-    string socketMsg = "[";
     // copy heights from shape display to pixels object
     if (shapeIOManager->heightsFromShapeDisplayAvailable) {
         shapeIOManager->getHeightsFromShapeDisplay(heightsFromShapeDisplay);
@@ -165,15 +155,15 @@ void AppManager::update(){
                 int xy = heightPixelsFromShapeDisplay.getPixelIndex(x, y);
                 heightPixelsFromShapeDisplay[xy] = heightsFromShapeDisplay[x][y];
                 int h = heightsFromShapeDisplay[x][y] - '0';
-                socketMsg += "{\"x\":" + ofToString(x) + ",\"y\":" + ofToString(y) + ",\"h\":" + ofToString(h) + "},";
+                //socketMsg += "{\"x\":" + ofToString(x) + ",\"y\":" + ofToString(y) + ",\"h\":" + ofToString(h) + "},";
                 
             }
         }
     }
-    socketMsg = socketMsg.substr(0, socketMsg.size()-1);
-    socketMsg += "]";
+    //socketMsg = socketMsg.substr(0, socketMsg.size()-1);
+    //socketMsg += "]";
     //cout << socketMsg + "\n";
-    server.send(socketMsg);
+    //server.send(socketMsg);
 
     // copy heights and pin configs from application
     bool pinConfigsAreStale;
@@ -187,7 +177,7 @@ void AppManager::update(){
         for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = heightPixelsForShapeDisplay.getPixelIndex(x, y);
-                //heightsForShapeDisplay[x][y] = heightPixelsForShapeDisplay[xy];
+                heightsForShapeDisplay[x][y] = heightPixelsForShapeDisplay[xy];
             }
         }
 
@@ -359,45 +349,45 @@ void AppManager::gotMessage(ofMessage msg) {};
 void AppManager::dragEvent(ofDragInfo dragInfo) {};
 
 //WebSocket Methods
-//--------------------------------------------------------------
-void AppManager::onConnect( ofxLibwebsockets::Event& args ){
-    cout<<"on connected"<<endl;
-}
-
-//--------------------------------------------------------------
-void AppManager::onOpen( ofxLibwebsockets::Event& args ){
-    cout<<"new connection open"<<endl;
-    messages.push_back("New connection from " + args.conn.getClientIP() + ", " + args.conn.getClientName() );
-}
-
-//--------------------------------------------------------------
-void AppManager::onClose( ofxLibwebsockets::Event& args ){
-    cout<<"on close"<<endl;
-    messages.push_back("Connection closed");
-}
-
-//--------------------------------------------------------------
-void AppManager::onIdle( ofxLibwebsockets::Event& args ){
-    //cout<<"on idle"<<endl;
-}
-
-//--------------------------------------------------------------
-void AppManager::onMessage( ofxLibwebsockets::Event& args ){
-    cout<<"got message "<<args.message<<endl;
-    vector<string> pins = ofSplitString(args.message, "-");
-    for (int i = 0; i < pins.size(); i++) {
-        vector<string> xyh = ofSplitString(pins[i], ",");
-        cout << "xyh: " + xyh[0] + ", " + xyh[1] + ", " + xyh[2] + "\n";
-        int x = ofToInt(xyh[0]);
-        int y = ofToInt(xyh[1]);
-
-        heightsForShapeDisplay[x][y] = ofToFloat(xyh[2]);
-    }
-}
-
-//--------------------------------------------------------------
-void AppManager::onBroadcast( ofxLibwebsockets::Event& args ){
-    cout<<"got broadcast "<<args.message<<endl;
-}
-
-//--------------------------------------------------------------
+////--------------------------------------------------------------
+//void AppManager::onConnect( ofxLibwebsockets::Event& args ){
+//    cout<<"on connected"<<endl;
+//}
+//
+////--------------------------------------------------------------
+//void AppManager::onOpen( ofxLibwebsockets::Event& args ){
+//    cout<<"new connection open"<<endl;
+//    messages.push_back("New connection from " + args.conn.getClientIP() + ", " + args.conn.getClientName() );
+//}
+//
+////--------------------------------------------------------------
+//void AppManager::onClose( ofxLibwebsockets::Event& args ){
+//    cout<<"on close"<<endl;
+//    messages.push_back("Connection closed");
+//}
+//
+////--------------------------------------------------------------
+//void AppManager::onIdle( ofxLibwebsockets::Event& args ){
+//    //cout<<"on idle"<<endl;
+//}
+//
+////--------------------------------------------------------------
+//void AppManager::onMessage( ofxLibwebsockets::Event& args ){
+//    cout<<"got message "<<args.message<<endl;
+//    vector<string> pins = ofSplitString(args.message, "-");
+//    for (int i = 0; i < pins.size(); i++) {
+//        vector<string> xyh = ofSplitString(pins[i], ",");
+//        cout << "xyh: " + xyh[0] + ", " + xyh[1] + ", " + xyh[2] + "\n";
+//        int x = ofToInt(xyh[0]);
+//        int y = ofToInt(xyh[1]);
+//
+//        heightsForShapeDisplay[x][y] = ofToFloat(xyh[2]);
+//    }
+//}
+//
+////--------------------------------------------------------------
+//void AppManager::onBroadcast( ofxLibwebsockets::Event& args ){
+//    cout<<"got broadcast "<<args.message<<endl;
+//}
+//
+////--------------------------------------------------------------

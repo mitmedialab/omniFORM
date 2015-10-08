@@ -13,7 +13,6 @@
 #include "utils.h"
 #include "PinConfigs.h"
 
-
 class Application {
 public:
     Application();
@@ -36,7 +35,7 @@ public:
     virtual pair<int, int> getDepthInputBoundaries() {return pair<int, int>(-1, -1);};
 
     double timeOfLastPinConfigsUpdate = -1;
-
+    
 protected:
     ofPixels heightsForShapeDisplay;
     PinConfigs pinConfigsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];

@@ -10,6 +10,7 @@
 
 #include "Application.h"
 #include "TouchDetector.h"
+#include "ofxLibwebsockets.h"
 
 
 // This code is meant as an easy-to-understand example of an Application. Feel
@@ -29,6 +30,25 @@ public:
     
     void drawDebugGui(int x, int y);
     
+    // WEBSOCKETS
+    ofxLibwebsockets::Server server;
+    
+    bool bSetup;
+    
+    //queue of rec'd messages
+    vector<string> messages;
+    
+    //string to send to clients
+    string toSend;
+    
+    // websocket methods
+    void onConnect( ofxLibwebsockets::Event& args );
+    void onOpen( ofxLibwebsockets::Event& args );
+    void onClose( ofxLibwebsockets::Event& args );
+    void onIdle( ofxLibwebsockets::Event& args );
+    void onMessage( ofxLibwebsockets::Event& args );
+    void onBroadcast( ofxLibwebsockets::Event& args );
+    
 private:
     void updateHeights();
     
@@ -38,4 +58,5 @@ private:
     float frequency = 0.5;
     float numCrests = 4;
     ofColor color;
+    
 };

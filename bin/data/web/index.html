@@ -163,7 +163,7 @@
       }
     }
 
-    if (sendToPhysical && fpsHack%3 == 0) {
+    if (sendToPhysical && fpsHack%4 == 0) {
       msg = msg.substring(0, msg.length - 1);
       socket.send(msg);
     }

@@ -17,6 +17,15 @@ MacroScopeApp::MacroScopeApp() {
     touchDetector = new TouchDetector();
     touchDetector->setDepressionSignificanceThreshold(30);
     touchDetector->setStabilityTimeThreshold(0.2);
+    
+    // websockets
+    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
+    options.port = 9092;
+	options.bUseSSL = false; // you'll have to manually accept this self-signed cert if 'true'!
+    bSetup = server.setup( options );
+    
+    // this adds your app as a listener for the server
+    server.addListener(this);
 }
 
 void MacroScopeApp::update(float dt) {
@@ -26,38 +35,7 @@ void MacroScopeApp::update(float dt) {
     updateHeights();
 }
 
-void MacroScopeApp::updateHeights() {
-    float phase = 2 * pi * normalizedPhase;
-    
-    // some parameters we'll be using
-    ofPoint center(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2);
-    float maxDistance = center.distance(ofPoint(0, 0));
-    float distanceScalar = pi * (numCrests * 2 - 1) / maxDistance;
-    float distanceOffset = 2 * pi;
-    float maxAmplitude = 0.15;
-    float heightScalar = HEIGHT_RANGE / (2 * maxAmplitude);
-    int heightOffset = HEIGHT_RANGE / 2 + HEIGHT_MIN;
-    
-    // here's a bunch of math to produce a nicely-proportioned wave from the
-    // available parameters.
-    //
-    // sinc math function sin(x+k)/x where:
-    //   x is normalized distance from display center plus an offset
-    //   k is a time-varying phase
-    //   heights are arranged to produce values within the valid output range
-    //   the math has been arranged to easily tune how many wave crests you get
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
-        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-            float distance = center.distance(ofPoint(x, y));
-            distance = distanceScalar * distance + distanceOffset;
-            float height = sin(distance - phase) / distance;
-            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-            
-            // this is the line that sets a pin's height
-            heightsForShapeDisplay[xy] = 100; //heightScalar * height + heightOffset;
-        }
-    }
-}
+void MacroScopeApp::updateHeights() {}
 
 void MacroScopeApp::drawDebugGui(int x, int y) {
     ofImage(touchDetector->depressionPixels()).draw(x, y, 300, 300);
@@ -97,3 +75,48 @@ void MacroScopeApp::keyPressed(int key) {
         numCrests += 0.5;
     }
 }
+
+//WebSocket Methods
+//--------------------------------------------------------------
+void MacroScopeApp::onConnect( ofxLibwebsockets::Event& args ){
+    cout<<"on connected"<<endl;
+}
+
+//--------------------------------------------------------------
+void MacroScopeApp::onOpen( ofxLibwebsockets::Event& args ){
+    cout<<"new connection open"<<endl;
+    messages.push_back("New connection from " + args.conn.getClientIP() + ", " + args.conn.getClientName() );
+}
+
+//--------------------------------------------------------------
+void MacroScopeApp::onClose( ofxLibwebsockets::Event& args ){
+    cout<<"on close"<<endl;
+    messages.push_back("Connection closed");
+}
+
+//--------------------------------------------------------------
+void MacroScopeApp::onIdle( ofxLibwebsockets::Event& args ){
+    //cout<<"on idle"<<endl;
+}
+
+//--------------------------------------------------------------
+void MacroScopeApp::onMessage( ofxLibwebsockets::Event& args ){
+    cout<<"got message "<<args.message<<endl;
+    vector<string> pins = ofSplitString(args.message, "-");
+    for (int i = 0; i < pins.size(); i++) {
+        vector<string> xyh = ofSplitString(pins[i], ",");
+        cout << "xyh: " + xyh[0] + ", " + xyh[1] + ", " + xyh[2] + "\n";
+        int x = ofToInt(xyh[0]);
+        int y = ofToInt(xyh[1]);
+        
+        int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+        heightsForShapeDisplay[xy] = ofToFloat(xyh[2]);
+    }
+}
+
+//--------------------------------------------------------------
+void MacroScopeApp::onBroadcast( ofxLibwebsockets::Event& args ){
+    cout<<"got broadcast "<<args.message<<endl;
+}
+
+//--------------------------------------------------------------
