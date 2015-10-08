@@ -76,7 +76,18 @@ void AppManager::setup(){
     setCurrentApplication("macroScope");
     
     // setup websocket to connect with JS scripting/simulation environment
-    //setupWebSockets();
+    setupWebSocket();
+}
+
+void AppManager::setupWebSocket() {
+    // websockets
+    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
+    options.port = 9092;
+	options.bUseSSL = false; // you'll have to manually accept this self-signed cert if 'true'!
+    bSetup = server.setup( options );
+    
+    // this adds your app as a listener for the server
+    server.addListener(this);
 }
 
     
@@ -143,6 +154,7 @@ void AppManager::update(){
     double dt = currentTime - timeOfLastUpdate;
     timeOfLastUpdate = currentTime;
 
+    string socketMsg = "";
     // copy heights from shape display to pixels object
     if (shapeIOManager->heightsFromShapeDisplayAvailable) {
         shapeIOManager->getHeightsFromShapeDisplay(heightsFromShapeDisplay);
@@ -155,15 +167,12 @@ void AppManager::update(){
                 int xy = heightPixelsFromShapeDisplay.getPixelIndex(x, y);
                 heightPixelsFromShapeDisplay[xy] = heightsFromShapeDisplay[x][y];
                 int h = heightsFromShapeDisplay[x][y] - '0';
-                //socketMsg += "{\"x\":" + ofToString(x) + ",\"y\":" + ofToString(y) + ",\"h\":" + ofToString(h) + "},";
-                
+                socketMsg += ofToString(x) + "," + ofToString(y) + "," + ofToString(h) + "-";
             }
         }
     }
-    //socketMsg = socketMsg.substr(0, socketMsg.size()-1);
-    //socketMsg += "]";
-    //cout << socketMsg + "\n";
-    //server.send(socketMsg);
+    socketMsg = socketMsg.substr(0, socketMsg.size()-1);
+    server.send(socketMsg);
 
     // copy heights and pin configs from application
     bool pinConfigsAreStale;
@@ -326,11 +335,6 @@ void AppManager::keyPressed(int key) {
             setCurrentApplication("stretchy");
         } else if (key == 'm') {
             setCurrentApplication("macroScope");
-            cout << "HELLOOOOOOOOOO \n";
-            string toSend = "foobar";
-            server.send( toSend );
-            //messages.push_back("Sent: '" + toSend + "' to "+ ofToString(server.getConnections().size())+" websockets" );
-
         }
 
     // forward unreserved keys to the application
@@ -349,45 +353,30 @@ void AppManager::gotMessage(ofMessage msg) {};
 void AppManager::dragEvent(ofDragInfo dragInfo) {};
 
 //WebSocket Methods
-////--------------------------------------------------------------
-//void AppManager::onConnect( ofxLibwebsockets::Event& args ){
-//    cout<<"on connected"<<endl;
-//}
-//
-////--------------------------------------------------------------
-//void AppManager::onOpen( ofxLibwebsockets::Event& args ){
-//    cout<<"new connection open"<<endl;
-//    messages.push_back("New connection from " + args.conn.getClientIP() + ", " + args.conn.getClientName() );
-//}
-//
-////--------------------------------------------------------------
-//void AppManager::onClose( ofxLibwebsockets::Event& args ){
-//    cout<<"on close"<<endl;
-//    messages.push_back("Connection closed");
-//}
-//
-////--------------------------------------------------------------
-//void AppManager::onIdle( ofxLibwebsockets::Event& args ){
-//    //cout<<"on idle"<<endl;
-//}
-//
-////--------------------------------------------------------------
-//void AppManager::onMessage( ofxLibwebsockets::Event& args ){
-//    cout<<"got message "<<args.message<<endl;
-//    vector<string> pins = ofSplitString(args.message, "-");
-//    for (int i = 0; i < pins.size(); i++) {
-//        vector<string> xyh = ofSplitString(pins[i], ",");
-//        cout << "xyh: " + xyh[0] + ", " + xyh[1] + ", " + xyh[2] + "\n";
-//        int x = ofToInt(xyh[0]);
-//        int y = ofToInt(xyh[1]);
-//
-//        heightsForShapeDisplay[x][y] = ofToFloat(xyh[2]);
-//    }
-//}
-//
-////--------------------------------------------------------------
-//void AppManager::onBroadcast( ofxLibwebsockets::Event& args ){
-//    cout<<"got broadcast "<<args.message<<endl;
-//}
-//
-////--------------------------------------------------------------
+void AppManager::onConnect( ofxLibwebsockets::Event& args ){
+    cout<<"on connected"<<endl;
+}
+
+void AppManager::onOpen( ofxLibwebsockets::Event& args ){
+    cout<<"new connection open"<<endl;
+}
+
+void AppManager::onClose( ofxLibwebsockets::Event& args ){
+    cout<<"on close"<<endl;
+}
+
+void AppManager::onIdle( ofxLibwebsockets::Event& args ){
+    //cout<<"on idle"<<endl;
+}
+
+void AppManager::onMessage( ofxLibwebsockets::Event& args ){
+    cout<<"got message "<<args.message<<endl;
+    if (currentApplication->bUseWebSocket) {
+        currentApplication->onMessage(args);
+    }
+}
+
+void AppManager::onBroadcast( ofxLibwebsockets::Event& args ){
+    cout<<"got broadcast "<<args.message<<endl;
+}
+

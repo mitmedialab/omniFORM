@@ -12,6 +12,7 @@
 #include "constants.h"
 #include "utils.h"
 #include "PinConfigs.h"
+#include "ofxLibwebsockets.h"
 
 class Application {
 public:
@@ -35,6 +36,15 @@ public:
     virtual pair<int, int> getDepthInputBoundaries() {return pair<int, int>(-1, -1);};
 
     double timeOfLastPinConfigsUpdate = -1;
+    
+    //websocket stuff
+    bool bUseWebSocket = true;
+    virtual void onConnect( ofxLibwebsockets::Event& args );
+    virtual void onOpen( ofxLibwebsockets::Event& args );
+    virtual void onClose( ofxLibwebsockets::Event& args );
+    virtual void onIdle( ofxLibwebsockets::Event& args );
+    virtual void onMessage( ofxLibwebsockets::Event& args );
+    virtual void onBroadcast( ofxLibwebsockets::Event& args );
     
 protected:
     ofPixels heightsForShapeDisplay;

@@ -86,7 +86,7 @@ private:
     void setupShapeDisplayManagement();
     void setCurrentApplication(string appName);
     void updateDepthInputBoundaries();
-    void setupWebSockets();
+    void setupWebSocket();
 
     // interfaces to the peripherals
     ShapeIOManager *shapeIOManager;

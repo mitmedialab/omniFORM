@@ -34,3 +34,30 @@ void Application::setPixelsFromKinectRefs(const ofPixels *colorPixels, const ofP
     depthPixelsFromKinect = depthPixels;
     hasPixelsFromKinect = true;
 };
+
+//WebSocket Methods
+//--------------------------------------------------------------
+void Application::onConnect( ofxLibwebsockets::Event& args ){
+    cout<<"on connected"<<endl;
+}
+
+void Application::onOpen( ofxLibwebsockets::Event& args ){
+    cout<<"new connection open"<<endl;
+}
+
+void Application::onClose( ofxLibwebsockets::Event& args ){
+    cout<<"on close"<<endl;
+}
+
+
+void Application::onIdle( ofxLibwebsockets::Event& args ){
+    cout<<"on idle"<<endl;
+}
+
+void Application::onMessage( ofxLibwebsockets::Event& args ){
+    cout<<"got message "<<args.message<<endl;
+}
+
+void Application::onBroadcast( ofxLibwebsockets::Event& args ){
+    cout<<"got broadcast "<<args.message<<endl;
+}

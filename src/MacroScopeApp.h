@@ -30,18 +30,6 @@ public:
     
     void drawDebugGui(int x, int y);
     
-    // WEBSOCKETS
-    ofxLibwebsockets::Server server;
-    
-    bool bSetup;
-    
-    //queue of rec'd messages
-    vector<string> messages;
-    
-    //string to send to clients
-    string toSend;
-    
-    // websocket methods
     void onConnect( ofxLibwebsockets::Event& args );
     void onOpen( ofxLibwebsockets::Event& args );
     void onClose( ofxLibwebsockets::Event& args );

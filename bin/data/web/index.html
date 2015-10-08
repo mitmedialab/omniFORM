@@ -31,7 +31,8 @@
   <script>
   var scene, camera, renderer, element, container, effect, controls, clock;
   var shapeDisplay;
-  var sendToPhysical = false;
+  var bSendToPhysical = false;
+  var bRenderPhysical = true;
 
   init();
   function init() {
@@ -117,7 +118,8 @@
   function animate() {
     requestAnimationFrame(animate);
 
-    updateDisplay();
+    if (!bRenderPhysical)
+      updateDisplay();
     update(clock.getDelta());
     effect.render(scene, camera);
   }
@@ -163,7 +165,7 @@
       }
     }
 
-    if (sendToPhysical && fpsHack%4 == 0) {
+    if (bSendToPhysical && fpsHack%4 == 0) {
       msg = msg.substring(0, msg.length - 1);
       socket.send(msg);
     }
@@ -172,7 +174,7 @@
 
   function renderPhysical(data) {
     for (var i = 0; i < data.length; i++) {
-      shapeDisplay.setPinHeight(data[i].x, data[i].y, data[i].h/255*4 -4);
+      shapeDisplay.setPinHeight(data[i][0], data[i][1], data[i][2]/255*4 -4);
     }
   }
 
@@ -213,7 +215,9 @@
         animate();
       }
       socket.onmessage = function got_packet(msg) {
-        var data = JSON.parse(msg.data);
+        if (!bRenderPhysical)
+          return;
+        var data = parseMsg(msg.data);
         renderPhysical(data);
       }
       socket.onclose = function(){
@@ -224,16 +228,27 @@
     }
   }
 
+  function parseMsg(msg) {
+      pins = msg.split("-");
+      for (var i = 0; i < pins.length; i++) {
+        pins[i] = pins[i].split(",");
+        pins[i][0] = pins[i][0] - 0;
+        pins[i][1] = pins[i][1] - 0;
+        pins[i][2] = pins[i][2] - 0;
+      }
+      return pins;
+  }
+
   addEventListener("keydown", function(event) {
     console.log("KeyDown: " + event.keyCode);
     switch(event.keyCode) {
         case 32:  // SPACE
-          var msg = "0,0,100.5-0,1,10.0";
-          socket.send(msg);
+          bRenderPhysical = !bRenderPhysical;
+          console.log("Render Physical:  " + bRenderPhysical)
         break;
         case 13:  // ENTER
-          sendToPhysical = !sendToPhysical;
-          console.log("Send To Physical: " + sendToPhysical);
+          bSendToPhysical = !bSendToPhysical;
+          console.log("Send To Physical: " + bSendToPhysical);
           break;
     }
   });

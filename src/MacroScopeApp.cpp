@@ -17,15 +17,7 @@ MacroScopeApp::MacroScopeApp() {
     touchDetector = new TouchDetector();
     touchDetector->setDepressionSignificanceThreshold(30);
     touchDetector->setStabilityTimeThreshold(0.2);
-    
-    // websockets
-    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
-    options.port = 9092;
-	options.bUseSSL = false; // you'll have to manually accept this self-signed cert if 'true'!
-    bSetup = server.setup( options );
-    
-    // this adds your app as a listener for the server
-    server.addListener(this);
+    bool bUseWebSocket = true;
 }
 
 void MacroScopeApp::update(float dt) {
@@ -82,24 +74,18 @@ void MacroScopeApp::onConnect( ofxLibwebsockets::Event& args ){
     cout<<"on connected"<<endl;
 }
 
-//--------------------------------------------------------------
 void MacroScopeApp::onOpen( ofxLibwebsockets::Event& args ){
     cout<<"new connection open"<<endl;
-    messages.push_back("New connection from " + args.conn.getClientIP() + ", " + args.conn.getClientName() );
 }
 
-//--------------------------------------------------------------
 void MacroScopeApp::onClose( ofxLibwebsockets::Event& args ){
     cout<<"on close"<<endl;
-    messages.push_back("Connection closed");
 }
 
-//--------------------------------------------------------------
 void MacroScopeApp::onIdle( ofxLibwebsockets::Event& args ){
     //cout<<"on idle"<<endl;
 }
 
-//--------------------------------------------------------------
 void MacroScopeApp::onMessage( ofxLibwebsockets::Event& args ){
     cout<<"got message "<<args.message<<endl;
     vector<string> pins = ofSplitString(args.message, "-");
@@ -114,9 +100,7 @@ void MacroScopeApp::onMessage( ofxLibwebsockets::Event& args ){
     }
 }
 
-//--------------------------------------------------------------
 void MacroScopeApp::onBroadcast( ofxLibwebsockets::Event& args ){
     cout<<"got broadcast "<<args.message<<endl;
 }
 
-//--------------------------------------------------------------
