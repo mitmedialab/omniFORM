@@ -46,6 +46,8 @@ public:
     virtual void onMessage( ofxLibwebsockets::Event& args );
     virtual void onBroadcast( ofxLibwebsockets::Event& args );
     
+    virtual string getTouchMsg();
+    
 protected:
     ofPixels heightsForShapeDisplay;
     PinConfigs pinConfigsForShapeDisplay[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];

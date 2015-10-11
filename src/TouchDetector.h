@@ -28,7 +28,6 @@ public:
     const ofPixels &significantDepressionPixels();
     const ofPixels &significantDepressionAmidstStabilityPixels();
 
-
 private:
     void calculateTouches();
 

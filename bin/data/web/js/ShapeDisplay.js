@@ -1,16 +1,18 @@
 function ShapeDisplay(xWidth, yWidth, height, scene) {
-    this.pinSize = 0.5;
-    this.inBetween = .05;
+    this.pinSize = 0.9525;
+    this.inBetween = .0525;
     this.xWidth = xWidth;
     this.yWidth = yWidth;
     this.height = height;
     this.container = new THREE.Mesh();
     this.pins = new Array(xWidth * yWidth);
+    this.shadowPins = [];
 
-    var material = new THREE.MeshLambertMaterial( { color: 0xdddddd, shading: THREE.SmoothShading } );
+    this.material = new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.SmoothShading } );
+    this.darkMaterial = new THREE.MeshLambertMaterial( { color: 0x111111, shading: THREE.SmoothShading } );
 
     for (var i = 0; i < xWidth * yWidth; i++) {
-        var pin = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
+        var pin = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), this.material);
         pin.position.set(i% xWidth * (this.pinSize + this.inBetween) + this.pinSize/2,
                         this.height, Math.floor(i/xWidth) * (this.pinSize + this.inBetween) + this.pinSize/2);
         pin.scale.set(1, 4, 1);
@@ -23,18 +25,21 @@ function ShapeDisplay(xWidth, yWidth, height, scene) {
 ShapeDisplay.prototype.addToScene = function(scene) {
     scene.add(this.container);
 }
+ShapeDisplay.prototype.getIndex = function(x, y) {
+  return  y * this.xWidth + x;
+}
 ShapeDisplay.prototype.setPosition = function(x, y) {
     this.container.position.x = x;
     this.container.position.z = y;
 }
 ShapeDisplay.prototype.getPinHeight = function(x, y){
-    var index = y * this.xWidth + x;
+    var index = this.getIndex(x, y);
     if (index < this.pins.length)
         return this.pins[index].position.y;
     return null;
 }
 ShapeDisplay.prototype.setPinHeight = function(x, y, height) {
-    var index = y * this.xWidth + x;
+    var index = this.getIndex(x, y);
     if (index < this.pins.length) {
         this.pins[index].position.y = height + this.height;
     }
@@ -44,6 +49,10 @@ ShapeDisplay.prototype.getActualWidth = function() {
 }
 ShapeDisplay.prototype.getActualHeight = function() {
     return (this.pinSize + this.inBetween) * (this.yWidth - 1) + this.pinSize;
+}
+ShapeDisplay.prototype.setPinMaterial = function(index, bShadow) {
+    if (index < this.pins.length)
+      this.pins[index].material = bShadow ? this.darkMaterial : this.material;
 }
 
 function Transform(scene) {

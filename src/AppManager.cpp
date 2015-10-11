@@ -9,7 +9,7 @@
 #include "AppManager.h"
 
 void AppManager::setup(){
-    ofSetFrameRate(30);
+    ofSetFrameRate(24);
 
     // inFORM screen setup
     #if SHAPE_DISPLAY_IN_USE==INFORM_DISPLAY
@@ -154,7 +154,7 @@ void AppManager::update(){
     double dt = currentTime - timeOfLastUpdate;
     timeOfLastUpdate = currentTime;
 
-    string socketMsg = "";
+    string heightsMsg = "H";
     // copy heights from shape display to pixels object
     if (shapeIOManager->heightsFromShapeDisplayAvailable) {
         shapeIOManager->getHeightsFromShapeDisplay(heightsFromShapeDisplay);
@@ -167,13 +167,14 @@ void AppManager::update(){
                 int xy = heightPixelsFromShapeDisplay.getPixelIndex(x, y);
                 heightPixelsFromShapeDisplay[xy] = heightsFromShapeDisplay[x][y];
                 int h = heightsFromShapeDisplay[x][y] - '0';
-                socketMsg += ofToString(x) + "," + ofToString(y) + "," + ofToString(h) + "-";
+                heightsMsg += ofToString(x) + "," + ofToString(y) + "," + ofToString(h) + "-";
             }
         }
     }
-    socketMsg = socketMsg.substr(0, socketMsg.size()-1);
-    server.send(socketMsg);
+    heightsMsg = heightsMsg.substr(0, heightsMsg.size()-1);
+    server.send(heightsMsg);
 
+    string handMsg = "";
     // copy heights and pin configs from application
     bool pinConfigsAreStale;
     if (!paused) {
@@ -187,6 +188,10 @@ void AppManager::update(){
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = heightPixelsForShapeDisplay.getPixelIndex(x, y);
                 heightsForShapeDisplay[x][y] = heightPixelsForShapeDisplay[xy];
+                
+                int h = heightsForShapeDisplay[x][y];
+                handMsg += ofToString(x) + "," + ofToString(y) + "," + ofToString(h) + "-";
+                
             }
         }
 
@@ -195,7 +200,17 @@ void AppManager::update(){
             currentApplication->getPinConfigsForShapeDisplay(pinConfigsForShapeDisplay);
         }
     }
+    if (handMsg.size() > 0) {
+        handMsg = "S" + handMsg;
+        server.send(handMsg);
+    }
 
+    string touchedMsg = currentApplication->getTouchMsg();
+    if (touchedMsg.size() > 32) {                               // the 32 is a hack for Cooperform. get rid of pixels always down.
+        touchedMsg = "T" + touchedMsg;
+        server.send(touchedMsg);
+    }
+    
     // render graphics
     graphicsForShapeDisplay.begin();
     ofBackground(0);

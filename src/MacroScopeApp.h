@@ -30,6 +30,7 @@ public:
     
     void drawDebugGui(int x, int y);
     
+    bool bSendTouchMsg = true;
     void onConnect( ofxLibwebsockets::Event& args );
     void onOpen( ofxLibwebsockets::Event& args );
     void onClose( ofxLibwebsockets::Event& args );
@@ -37,14 +38,19 @@ public:
     void onMessage( ofxLibwebsockets::Event& args );
     void onBroadcast( ofxLibwebsockets::Event& args );
     
+    virtual string getTouchMsg();
+    
 private:
     void updateHeights();
     
     TouchDetector *touchDetector;
+    ofPixels depression;
+    bool isTouchedLastFrame[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     
     float normalizedPhase = 0;
     float frequency = 0.5;
     float numCrests = 4;
     ofColor color;
     
+    string touchedMsg = "";
 };

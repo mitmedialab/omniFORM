@@ -21,7 +21,7 @@
 <body>
   <div id="webglviewer"></div>
 
-  <script src="js/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r72/three.min.js"></script>
   <script src="js/StereoEffect.js"></script>
   <script src="js/DeviceOrientationControls.js"></script>
   <script src="js/OrbitControls.js"></script>
@@ -37,8 +37,8 @@
   init();
   function init() {
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.001, 700);
-    camera.position.set(0, 15, 0);
+    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.001, 700);
+    camera.position.set(-30, 30, 5);
     scene.add(camera);
 
     renderer = new THREE.WebGLRenderer();
@@ -91,7 +91,7 @@
 
   var sqrt, maxDistance;
   var normalizedPhase = 0;
-  var speed = 0.02;
+  var speed = 0.06;
   var crests = 2;
   var distanceScalar = Math.PI * (crests * 2 - 1) / maxDistance;
   var distanceOffset = 2 * Math.PI;
@@ -115,13 +115,16 @@
     }
   }
 
+  var fps = 24;
   function animate() {
-    requestAnimationFrame(animate);
+    setTimeout(function() {
+      requestAnimationFrame(animate);
 
-    if (!bRenderPhysical)
-      updateDisplay();
-    update(clock.getDelta());
-    effect.render(scene, camera);
+      if (!bRenderPhysical)
+        updateDisplay();
+      update(clock.getDelta());
+      effect.render(scene, camera);
+    }, 1000/fps);
   }
 
   function resize() {
@@ -141,7 +144,6 @@
     controls.update(dt);
   }
 
-  var fpsHack = 0;  // dirty hack to make shape display handle frame rate :-P
   function updateDisplay() {
     var time = Date.now();
     var frequency = 0.5;
@@ -165,16 +167,9 @@
       }
     }
 
-    if (bSendToPhysical && fpsHack%4 == 0) {
+    if (bSendToPhysical ) {
       msg = msg.substring(0, msg.length - 1);
       socket.send(msg);
-    }
-    fpsHack ++;
-  }
-
-  function renderPhysical(data) {
-    for (var i = 0; i < data.length; i++) {
-      shapeDisplay.setPinHeight(data[i][0], data[i][1], data[i][2]/255*4 -4);
     }
   }
 
@@ -217,8 +212,7 @@
       socket.onmessage = function got_packet(msg) {
         if (!bRenderPhysical)
           return;
-        var data = parseMsg(msg.data);
-        renderPhysical(data);
+        var data = handleMsg(msg.data);
       }
       socket.onclose = function(){
         console.log("websocket connection CLOSED");
@@ -228,15 +222,54 @@
     }
   }
 
-  function parseMsg(msg) {
-      pins = msg.split("-");
-      for (var i = 0; i < pins.length; i++) {
-        pins[i] = pins[i].split(",");
-        pins[i][0] = pins[i][0] - 0;
-        pins[i][1] = pins[i][1] - 0;
-        pins[i][2] = pins[i][2] - 0;
+  function handleMsg(msg) {
+      var type = msg[0];
+      pins = msg.substring(1).split("-");
+
+      if (type == "T") {
+        console.log("touch");
+        for (var i = 0; i < pins.length; i++) {
+          pins[i] = pins[i].split(",");
+          pins[i][0] = pins[i][0] - 0;
+          pins[i][1] = pins[i][1] - 0;
+          var index = shapeDisplay.getIndex(pins[i][0], pins[i][1]);
+          shapeDisplay.shadowPins.push(index);
+          console.log(shapeDisplay.shadowPins);
+        }
       }
-      return pins;
+
+      if (type == "S") {
+        //console.log("shadow");
+        for (var i = 0; i < pins.length; i++) {
+          pins[i] = pins[i].split(",");
+          pins[i][0] = pins[i][0] - 0;
+          pins[i][1] = pins[i][1] - 0;
+          pins[i][2] = pins[i][2] - 0;
+
+          // set the dark ones based on hand shadow
+          var index = shapeDisplay.getIndex(pins[i][0], pins[i][1]);
+
+          if (shapeDisplay.shadowPins.indexOf(index) > 0)
+          //if ((pins[i][2] > 0) || shapeDisplay.shadowPins.indexOf(index) > 0)
+            shapeDisplay.setPinMaterial(index, true);
+          else
+            shapeDisplay.setPinMaterial(index, false);
+        }
+        shapeDisplay.shadowPins = [];
+      }
+
+      else if (type == "H") {
+        //console.log("heights");
+        for (var i = 0; i < pins.length; i++) {
+          pins[i] = pins[i].split(",");
+          pins[i][0] = pins[i][0] - 0;
+          pins[i][1] = pins[i][1] - 0;
+          pins[i][2] = pins[i][2] - 0;
+
+          // set heights from physical display
+          shapeDisplay.setPinHeight(pins[i][0], pins[i][1], pins[i][2]/255*4 -4);
+        }
+      }
   }
 
   addEventListener("keydown", function(event) {

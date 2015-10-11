@@ -58,8 +58,7 @@ void TouchDetector::update(const ofPixels &heightsForShapeDisplay, const ofPixel
             }
         }
     }
-    
-    
+
     float currentTime = elapsedTimeInSeconds();
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
@@ -162,3 +161,4 @@ const ofPixels &TouchDetector::significantDepressionPixels() {
 const ofPixels &TouchDetector::significantDepressionAmidstStabilityPixels() {
     return significantDepressionsAmidstStability;
 }
+

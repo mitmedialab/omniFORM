@@ -15,19 +15,67 @@
 
 MacroScopeApp::MacroScopeApp() {
     touchDetector = new TouchDetector();
-    touchDetector->setDepressionSignificanceThreshold(30);
+    touchDetector->setDepressionSignificanceThreshold(0.5);
     touchDetector->setStabilityTimeThreshold(0.2);
     bool bUseWebSocket = true;
+    
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            isTouchedLastFrame[x][y] = false;
+            
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            heightsForShapeDisplay[xy] = 100;
+        }
+    }
 }
 
 void MacroScopeApp::update(float dt) {
     touchDetector->update(heightsForShapeDisplay, *heightsFromShapeDisplay);
     
+    
+    touchedMsg = "";
+    depression = touchDetector->significantDepressionAmidstStabilityPixels();
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_Y; x++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            
+            int depressionPin = depression.getColor(x,y).r;
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            if (depressionPin != 0 || isTouchedLastFrame[x][y] == true)
+            {
+                if (heightsForShapeDisplay[xy] - heightsFromShapeDisplay->getColor(x,y).r < 30) {
+                    isTouchedLastFrame[x][y] = false;
+                } else {
+                    isTouchedLastFrame[x][y] = true;
+                    touchedMsg += ofToString(x) + "," + ofToString(y) + "-";
+                }
+            } else {
+                isTouchedLastFrame[x][y] = false;
+            }
+            if (depressionPin == 0){
+                isTouchedLastFrame[x][y] = false;
+            } else{
+                isTouchedLastFrame[x][y] = true;
+            }
+        }
+    }
+    touchedMsg = touchedMsg.substr(0, touchedMsg.size()-1);
+
     normalizedPhase += dt * frequency;
     updateHeights();
 }
 
-void MacroScopeApp::updateHeights() {}
+string MacroScopeApp::getTouchMsg() {
+    return touchedMsg;
+}
+
+void MacroScopeApp::updateHeights() {
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            heightsForShapeDisplay[xy] = 200;
+        }
+    }
+}
 
 void MacroScopeApp::drawDebugGui(int x, int y) {
     ofImage(touchDetector->depressionPixels()).draw(x, y, 300, 300);

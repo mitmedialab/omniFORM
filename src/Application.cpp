@@ -61,3 +61,7 @@ void Application::onMessage( ofxLibwebsockets::Event& args ){
 void Application::onBroadcast( ofxLibwebsockets::Event& args ){
     cout<<"got broadcast "<<args.message<<endl;
 }
+
+string Application::getTouchMsg() {
+    return "";
+}
