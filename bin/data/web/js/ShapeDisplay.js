@@ -7,6 +7,7 @@ function ShapeDisplay(xWidth, yWidth, height, scene) {
     this.container = new THREE.Mesh();
     this.pins = new Array(xWidth * yWidth);
     this.shadowPins = [];
+    this.lastPositions = new Array(xWidth & yWidth);
 
     this.material = new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.SmoothShading } );
     this.darkMaterial = new THREE.MeshLambertMaterial( { color: 0x111111, shading: THREE.SmoothShading } );
@@ -18,6 +19,8 @@ function ShapeDisplay(xWidth, yWidth, height, scene) {
         pin.scale.set(1, 4, 1);
         this.container.add(pin);
         this.pins[i] = pin;
+
+        this.lastPositions[i] = 0;
     }
     if (scene)
         this.addToScene(scene);
@@ -53,6 +56,18 @@ ShapeDisplay.prototype.getActualHeight = function() {
 ShapeDisplay.prototype.setPinMaterial = function(index, bShadow) {
     if (index < this.pins.length)
       this.pins[index].material = bShadow ? this.darkMaterial : this.material;
+}
+ShapeDisplay.prototype.setLastPinHeight = function(x, y, height) {
+    var index = this.getIndex(x, y);
+    if (index < this.lastPositions.length) {
+      this.lastPositions[index] = height;
+    }
+}
+ShapeDisplay.prototype.getLastPinHeight = function(x, y, height) {
+  var index = this.getIndex(x, y);
+  if (index < this.lastPositions.length)
+      return this.lastPositions[index];
+  return null;
 }
 
 function Transform(scene) {
