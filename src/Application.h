@@ -47,6 +47,7 @@ public:
     virtual void onBroadcast( ofxLibwebsockets::Event& args );
     
     virtual string getTouchMsg();
+    virtual string getArmShadowMsg();
     
 protected:
     ofPixels heightsForShapeDisplay;

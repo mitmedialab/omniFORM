@@ -7,10 +7,12 @@ function ShapeDisplay(xWidth, yWidth, height, scene) {
     this.container = new THREE.Mesh();
     this.pins = new Array(xWidth * yWidth);
     this.shadowPins = [];
+    this.touchPins = [];
     this.lastPositions = new Array(xWidth & yWidth);
 
     this.material = new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.SmoothShading } );
-    this.darkMaterial = new THREE.MeshLambertMaterial( { color: 0x111111, shading: THREE.SmoothShading } );
+    this.darkMaterial = new THREE.MeshLambertMaterial( { color: 0x222222, shading: THREE.SmoothShading } );
+    this.touchMaterial = new THREE.MeshLambertMaterial( {color: 0xdd1111, shading: THREE.SmoothShading });
 
     for (var i = 0; i < xWidth * yWidth; i++) {
         var pin = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), this.material);
@@ -53,9 +55,15 @@ ShapeDisplay.prototype.getActualWidth = function() {
 ShapeDisplay.prototype.getActualHeight = function() {
     return (this.pinSize + this.inBetween) * (this.yWidth - 1) + this.pinSize;
 }
-ShapeDisplay.prototype.setPinMaterial = function(index, bShadow) {
-    if (index < this.pins.length)
-      this.pins[index].material = bShadow ? this.darkMaterial : this.material;
+ShapeDisplay.prototype.setPinMaterial = function(index, type) {
+    if (index < this.pins.length) {
+    if (type == 0)
+      this.pins[index].material = this.material;
+    else if (type == 1)
+      this.pins[index].material = this.darkMaterial;
+    else if (type == 2)
+      this.pins[index].material = this.touchMaterial;
+    }
 }
 ShapeDisplay.prototype.setLastPinHeight = function(x, y, height) {
     var index = this.getIndex(x, y);

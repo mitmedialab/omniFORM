@@ -65,3 +65,6 @@ void Application::onBroadcast( ofxLibwebsockets::Event& args ){
 string Application::getTouchMsg() {
     return "";
 }
+string Application::getArmShadowMsg() {
+    return "";
+}

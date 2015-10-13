@@ -227,14 +227,13 @@
       pins = msg.substring(1).split("-");
 
       if (type == "T") {
-        console.log("touch");
+        //console.log("touch");
         for (var i = 0; i < pins.length; i++) {
           pins[i] = pins[i].split(",");
           var x = pins[i][0] - 0;
           var y = pins[i][1] - 0;
           var index = shapeDisplay.getIndex(x, y);
-          shapeDisplay.shadowPins.push(index);
-          //console.log(shapeDisplay.shadowPins);
+          shapeDisplay.touchPins.push(index);
         }
       }
 
@@ -248,14 +247,8 @@
 
           // set the dark ones based on hand shadow
           var index = shapeDisplay.getIndex(x, y);
-
-          if (shapeDisplay.shadowPins.indexOf(index) > 0)
-          //if ((pins[i][2] > 0) || shapeDisplay.shadowPins.indexOf(index) > 0)
-            shapeDisplay.setPinMaterial(index, true);
-          else
-            shapeDisplay.setPinMaterial(index, false);
+          shapeDisplay.shadowPins.push(index);
         }
-        shapeDisplay.shadowPins = [];
       }
 
       else if (type == "H") {
@@ -267,7 +260,6 @@
           var h = pins[i][2] - 0;
 
           // set heights from physical display
-
             var oldHeight = shapeDisplay.getLastPinHeight(x, y);
             var diff = Math.abs(h - oldHeight);
 
@@ -275,7 +267,18 @@
             shapeDisplay.setPinHeight(x, y, h/255*4 -4);
           }
           shapeDisplay.setLastPinHeight(x, y, h);
+
+          // set shadow
+          var index = shapeDisplay.getIndex(x, y);
+          if (shapeDisplay.touchPins.indexOf(index) >= 0)
+            shapeDisplay.setPinMaterial(index, 2);
+          else if (shapeDisplay.shadowPins.indexOf(index) >= 0)
+            shapeDisplay.setPinMaterial(index, 1);
+          else
+            shapeDisplay.setPinMaterial(index, 0);
         }
+        shapeDisplay.shadowPins = [];
+        shapeDisplay.touchPins = [];
       }
   }
 

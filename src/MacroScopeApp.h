@@ -40,7 +40,8 @@ public:
     void onMessage( ofxLibwebsockets::Event& args );
     void onBroadcast( ofxLibwebsockets::Event& args );
     
-    virtual string getTouchMsg();
+    string getTouchMsg();
+    string getArmShadowMsg();
     
 private:
     void updateHeights();
@@ -66,4 +67,5 @@ private:
     ofPixels armDetectionPixels;
     void getArmDetection();
     bool isArmPixel(int r, int g, int b);
+    string armShadowMsg = "";
 };
