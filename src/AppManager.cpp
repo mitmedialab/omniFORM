@@ -30,6 +30,11 @@ void AppManager::setup(){
     depthPixels.allocate(kinectManager->getImageWidth(), kinectManager->getImageHeight(), OF_IMAGE_GRAYSCALE);
     depthPixels.set(0);
 
+    cout << "\n color pixels width ";
+    cout << colorPixels.getWidth();
+    cout << "\n color pixels height ";
+    cout << colorPixels.getHeight();
+    
     // zero timeOfLastUpdate tracker
     timeOfLastUpdate = elapsedTimeInSeconds();
     
@@ -240,8 +245,10 @@ void AppManager::draw(){
     ofRect(609, 1, 302, 302);
     graphicsForShapeDisplay.draw(610, 2, 300, 300);
     
-    ofRect(913, 1, 302, 302);
-    ofImage(colorPixels).draw(914, 2, 300, 300);
+    //ofRect(913, 1, 302, 302);
+    //ofImage(colorPixels).draw(914, 2, 300, 300);
+    ofRect(913, 1, 642, 482);
+    ofImage(colorPixels).draw(914, 2, 640, 480);
 
     // draw this app's debugging gui, if selected
     if (showDebugGui) {

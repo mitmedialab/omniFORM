@@ -10,6 +10,7 @@
 
 #include "Application.h"
 #include "TouchDetector.h"
+#include "ObjectDetector.h"
 #include "ofxLibwebsockets.h"
 
 
@@ -20,6 +21,7 @@
 class MacroScopeApp : public Application {
 public:
     MacroScopeApp();
+    ~MacroScopeApp();
     
     void update(float dt);
     void drawGraphicsForShapeDisplay(int x, int y, int width, int height);
@@ -43,14 +45,25 @@ public:
 private:
     void updateHeights();
     
-    TouchDetector *touchDetector;
-    ofPixels depression;
-    bool isTouchedLastFrame[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
-    
     float normalizedPhase = 0;
     float frequency = 0.5;
     float numCrests = 4;
     ofColor color;
     
+    
+    TouchDetector *touchDetector;
+    ofPixels depression;
+    bool isTouchedLastFrame[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     string touchedMsg = "";
+    
+    ObjectDetector *objectDetector;
+    const int roiX = 205;
+    const int roiY = 87;
+    const int roiX2 = 393;
+    const int roiY2 = 283;
+    const float pinWidth = (roiX2 - roiX)/SHAPE_DISPLAY_SIZE_X;
+    const float pinHeight = (roiY2 - roiY)/SHAPE_DISPLAY_SIZE_Y;
+    ofPixels armDetectionPixels;
+    void getArmDetection();
+    bool isArmPixel(int r, int g, int b);
 };
