@@ -263,7 +263,7 @@
             var oldHeight = shapeDisplay.getLastPinHeight(x, y);
             var diff = Math.abs(h - oldHeight);
 
-          if (!isNaN(h) && (diff > 3)) {
+          if (!isNaN(h) && (diff > 5)) {
             shapeDisplay.setPinHeight(x, y, h/255*4 -4);
           }
           shapeDisplay.setLastPinHeight(x, y, h);
