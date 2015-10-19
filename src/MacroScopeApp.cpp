@@ -115,41 +115,10 @@ string MacroScopeApp::getArmShadowMsg() {
 }
 
 void MacroScopeApp::updateHeights() {
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
-        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-            heightsForShapeDisplay[xy] = 200;
-        }
-    }
-    
-//    float phase = 2 * pi * normalizedPhase;
-//    
-//    // some parameters we'll be using
-//    ofPoint center(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2);
-//    float maxDistance = center.distance(ofPoint(0, 0));
-//    float distanceScalar = pi * (numCrests * 2 - 1) / maxDistance;
-//    float distanceOffset = 2 * pi;
-//    float maxAmplitude = 0.15;
-//    float heightScalar = HEIGHT_RANGE / (2 * maxAmplitude);
-//    int heightOffset = HEIGHT_RANGE / 2 + HEIGHT_MIN;
-//    
-//    // here's a bunch of math to produce a nicely-proportioned wave from the
-//    // available parameters.
-//    //
-//    // sinc math function sin(x+k)/x where:
-//    //   x is normalized distance from display center plus an offset
-//    //   k is a time-varying phase
-//    //   heights are arranged to produce values within the valid output range
-//    //   the math has been arranged to easily tune how many wave crests you get
 //    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
 //        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-//            float distance = center.distance(ofPoint(x, y));
-//            distance = distanceScalar * distance + distanceOffset;
-//            float height = sin(distance - phase) / distance;
 //            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-//            
-//            // this is the line that sets a pin's height
-//            heightsForShapeDisplay[xy] = heightScalar * height + heightOffset;
+//            heightsForShapeDisplay[xy] = 200;
 //        }
 //    }
 }
