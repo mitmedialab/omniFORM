@@ -80,8 +80,6 @@ void MacroScopeApp::update(float dt) {
 void MacroScopeApp::getArmDetection() {
     const ofPixels &colorPixels = objectDetector->colorPixels();
 
-    vector<int> armPixels;
-    
     armShadowMsg = "";
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
