@@ -390,9 +390,23 @@ void AppManager::onIdle( ofxLibwebsockets::Event& args ){
 }
 
 void AppManager::onMessage( ofxLibwebsockets::Event& args ){
-    cout<<"got message "<<args.message<<endl;
-    if (currentApplication->bUseWebSocket) {
-        currentApplication->onMessage(args);
+    //cout<<"got message "<<args.message<<endl;
+    
+    // first check type of message
+    string type = args.message.substr(0, 1);
+    string msg = args.message.substr(1, args.message.length());
+    
+    // if it's heights for the physical shape display
+    // give it to the current app if the app cares
+    if (type == "P") {
+        if (currentApplication->bUseWebSocket) {
+            currentApplication->onMessage(args);
+        }
+    }
+    
+    // for all other messages, broadcast
+    else {
+        server.send(args.message);
     }
 }
 

@@ -184,11 +184,15 @@ void MacroScopeApp::onIdle( ofxLibwebsockets::Event& args ){
 }
 
 void MacroScopeApp::onMessage( ofxLibwebsockets::Event& args ){
-    cout<<"got message "<<args.message<<endl;
-    vector<string> pins = ofSplitString(args.message, "-");
+    //cout<<"got message "<<args.message<<endl;
+    
+    string msg = args.message.substr(1, args.message.length());
+    
+    
+    vector<string> pins = ofSplitString(msg, "-");
     for (int i = 0; i < pins.size(); i++) {
         vector<string> xyh = ofSplitString(pins[i], ",");
-        cout << "xyh: " + xyh[0] + ", " + xyh[1] + ", " + xyh[2] + "\n";
+        // cout << "xyh: " + xyh[0] + ", " + xyh[1] + ", " + xyh[2] + "\n";
         int x = ofToInt(xyh[0]);
         int y = ofToInt(xyh[1]);
         
