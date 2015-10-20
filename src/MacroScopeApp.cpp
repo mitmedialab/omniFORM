@@ -115,12 +115,12 @@ string MacroScopeApp::getArmShadowMsg() {
 }
 
 void MacroScopeApp::updateHeights() {
-//    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
-//        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-//            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-//            heightsForShapeDisplay[xy] = 200;
-//        }
-//    }
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            heightsForShapeDisplay[xy] = 200;
+        }
+    }
 }
 
 void MacroScopeApp::drawDebugGui(int x, int y) {
