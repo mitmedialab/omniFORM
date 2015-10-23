@@ -159,7 +159,7 @@ void AppManager::update(){
     double dt = currentTime - timeOfLastUpdate;
     timeOfLastUpdate = currentTime;
 
-    string heightsMsg = "heights-";
+    string heightsMsg = "H";
     // copy heights from shape display to pixels object
     if (shapeIOManager->heightsFromShapeDisplayAvailable) {
         shapeIOManager->getHeightsFromShapeDisplay(heightsFromShapeDisplay);
@@ -204,13 +204,13 @@ void AppManager::update(){
     
     string armShadowMsg = currentApplication->getArmShadowMsg();
     if (armShadowMsg.size() > 10) {
-        armShadowMsg = "shadow-" + armShadowMsg;
+        armShadowMsg = "S" + armShadowMsg;
         server.send(armShadowMsg);
     }
         
     string touchedMsg = currentApplication->getTouchMsg();
     if (touchedMsg.size() > 32) {                               // the 32 is a hack for Cooperform. get rid of pixels always down.
-        touchedMsg = "touch-" + touchedMsg;
+        touchedMsg = "T" + touchedMsg;
         server.send(touchedMsg);
     }
     

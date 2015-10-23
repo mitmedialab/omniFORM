@@ -117,7 +117,7 @@ void TouchDetector::calculateTouches() {
                 stable = false;
             }
             
-             //stable = currentTime - timeOfLastUpdate[x][y] > stabilityTimeThreshold;
+            stable = currentTime - timeOfLastUpdate[x][y] > stabilityTimeThreshold;
             if (!significant) {
                 significantDepressions[xy] = 0;
             }

@@ -16,7 +16,7 @@
 MacroScopeApp::MacroScopeApp() {
     touchDetector = new TouchDetector();
     touchDetector->setDepressionSignificanceThreshold(0.1);
-    touchDetector->setStabilityTimeThreshold(0.2);
+    touchDetector->setStabilityTimeThreshold(1);
     bool bUseWebSocket = true;
     
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
@@ -73,7 +73,6 @@ void MacroScopeApp::update(float dt) {
     }
     touchedMsg = touchedMsg.substr(0, touchedMsg.size()-1);
 
-    normalizedPhase += dt * frequency;
     updateHeights();
 }
 
@@ -115,11 +114,25 @@ string MacroScopeApp::getArmShadowMsg() {
 }
 
 void MacroScopeApp::updateHeights() {
-    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
-        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+    // if there are messages in the queue, take the top one
+    
+    if (receivedMessages.size() > 0) {
+        string msg = receivedMessages[0];
+    
+        // get the heights from it
+        vector<string> pins = ofSplitString(msg, "-");
+        for (int i = 0; i < pins.size(); i++) {
+            vector<string> xyh = ofSplitString(pins[i], ",");
+            // cout << "xyh: " + xyh[0] + ", " + xyh[1] + ", " + xyh[2] + "\n";
+            int x = ofToInt(xyh[0]);
+            int y = ofToInt(xyh[1]);
+        
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-            heightsForShapeDisplay[xy] = 200;
+            heightsForShapeDisplay[xy] = ofToFloat(xyh[2]);
         }
+        
+        // remove it
+        receivedMessages.erase(receivedMessages.begin());
     }
 }
 
@@ -188,17 +201,7 @@ void MacroScopeApp::onMessage( ofxLibwebsockets::Event& args ){
     
     string msg = args.message.substr(1, args.message.length());
     
-    
-    vector<string> pins = ofSplitString(msg, "-");
-    for (int i = 0; i < pins.size(); i++) {
-        vector<string> xyh = ofSplitString(pins[i], ",");
-        // cout << "xyh: " + xyh[0] + ", " + xyh[1] + ", " + xyh[2] + "\n";
-        int x = ofToInt(xyh[0]);
-        int y = ofToInt(xyh[1]);
-        
-        int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-        heightsForShapeDisplay[xy] = ofToFloat(xyh[2]);
-    }
+    receivedMessages.push_back(msg);
 }
 
 void MacroScopeApp::onBroadcast( ofxLibwebsockets::Event& args ){

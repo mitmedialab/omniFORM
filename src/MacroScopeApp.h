@@ -68,4 +68,6 @@ private:
     void getArmDetection();
     bool isArmPixel(int r, int g, int b);
     string armShadowMsg = "";
+    
+    vector<string> receivedMessages;
 };
