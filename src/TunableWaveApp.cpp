@@ -61,6 +61,8 @@ void TunableWaveApp::updateHeights() {
     //   k is a time-varying phase
     //   heights are arranged to produce values within the valid output range
     //   the math has been arranged to easily tune how many wave crests you get
+    
+    
     ofPoint center(SHAPE_DISPLAY_SIZE_X / 2, SHAPE_DISPLAY_SIZE_Y / 2);
     float maxDistance = center.distance(ofPoint(0, 0));
     float distanceScalar = pi * (numCrests * 2 - 1) / maxDistance;
@@ -68,15 +70,23 @@ void TunableWaveApp::updateHeights() {
     float maxAmplitude = 0.15;
     float heightScalar = HEIGHT_RANGE / (2 * maxAmplitude);
     int heightOffset = HEIGHT_RANGE / 2 + HEIGHT_MIN;
+    
+    
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            
             float distance = center.distance(ofPoint(x, y));
             distance = distanceScalar * distance + distanceOffset;
             float height = sin(distance - phase) / distance;
+            
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
             heightsForShapeDisplay[xy] = heightScalar * height + heightOffset;
+            
         }
     }
+    
+    
+    
 };
 
 void TunableWaveApp::drawDebugGui(int x, int y){

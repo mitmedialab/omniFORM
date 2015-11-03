@@ -39,20 +39,17 @@ void AppManager::setup(){
     applications["simpleWave"] = simpleWaveApp;
     tunableWaveApp = new TunableWaveApp();
     applications["tunableWave"] = tunableWaveApp;
-    leverApp = new LeverApp();
-    applications["lever"] = leverApp;
-    metaMaterialsApp = new MetaMaterialsApp();
-    applications["metaMaterials"] = metaMaterialsApp;
-    bosApp = new BOSApp();
-    applications["BOS"] = bosApp;
     teleoperationApp = new TeleoperationApp();
     applications["teleoperation"] = teleoperationApp;
     touchMaterialApp = new TouchMaterialApp();
     applications["touchMaterial"] = touchMaterialApp;
-    waterApp = new WaterApp();
-    applications["water"] = waterApp;
-    stretchyApp = new StretchyApp();
-    applications["stretchy"] = stretchyApp;
+    
+    // WORKSHOP: Create your application object here:
+    // (** Note the difference in capitalization)
+    //
+    //   myApp = new MyApp();
+    //   applications["myApp"] = myApp;
+    
     
     // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
@@ -230,7 +227,7 @@ void AppManager::draw(){
     menuHeight += 30;
 
     // if there isn't already a debug gui, draw some more information
-    if (!showDebugGui || currentApplication == applications["water"] || currentApplication == applications["stretchy"]) {
+    if (!showDebugGui) {
         ofRect(913, 305, 302, 302);
         ofImage(depthPixels).draw(914, 306, 300, 300);
 
@@ -297,23 +294,21 @@ void AppManager::keyPressed(int key) {
         } else if (key == '1') {
             setCurrentApplication("tunableWave");
         } else if (key == '2') {
-            setCurrentApplication("lever");
-        } else if (key == '3') {
-            setCurrentApplication("BOS");
-        } else if (key == '4') {
-            setCurrentApplication("metaMaterials");
-        } else if (key == '5') {
             setCurrentApplication("teleoperation");
-        } else if (key == '6') {
+        } else if (key == '3') {
             setCurrentApplication("simpleWave");
-        } else if (key == '7') {
+        } else if (key == '4') {
             setCurrentApplication("touchMaterial");
-        } else if (key == '8') {
-            setCurrentApplication("water");
-        } else if (key == '9') {
-            setCurrentApplication("stretchy");
         }
-
+        
+        // WORKSHOP: Add a number key to switch to your app here
+        // (** Note the difference in capitalization)
+        //
+        //   else if (key == '5') {
+        //      setCurrentApplication("myApp");
+        //   }
+    
+        
     // forward unreserved keys to the application
     } else {
         currentApplication->keyPressed(key);

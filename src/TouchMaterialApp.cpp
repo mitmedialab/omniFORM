@@ -145,11 +145,15 @@ void TouchMaterialApp::elasticSurfaceEmulation(){
     defaultHeight = HEIGHT_MAX;
     
     for (int x = 0; x <  SHAPE_DISPLAY_SIZE_X; x++) {
-        for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
+        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+            
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
             heightsForShapeDisplay[xy] = defaultHeight;
         }
     }
+    
+    
+    
     
     int rangeDef = 10; //range of deformation
     for(int x = 0; x< SHAPE_DISPLAY_SIZE_X; x++){

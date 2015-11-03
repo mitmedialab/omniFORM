@@ -170,7 +170,6 @@
 		65D1BE601B5033530080F4DD /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D1BE5F1B5033530080F4DD /* utils.cpp */; };
 		65D85FDB1B46E1C200212690 /* SerialShapeIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D85FDA1B46E1C200212690 /* SerialShapeIO.cpp */; };
 		65DA78921B438B5A008F98F4 /* SerialShapeIOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65DA78911B438B5A008F98F4 /* SerialShapeIOManager.cpp */; };
-		65E8204D1B5D434A007FC2AA /* LeverApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65E8204C1B5D434A007FC2AA /* LeverApp.cpp */; };
 		65EBD67E1B5040050011F279 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65EBD67D1B5040050011F279 /* Application.cpp */; };
 		65EBD6841B51BB010011F279 /* KinectManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65EBD6831B51BB010011F279 /* KinectManager.cpp */; };
 		665F78A820EA2D9F938D6AA8 /* btDefaultCollisionConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51582A6ED5B9BE7C59A62DF5 /* btDefaultCollisionConfiguration.cpp */; };
@@ -219,8 +218,6 @@
 		890FEAB62511C010A6CE0502 /* btEmptyShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E935BD041847C8DBD0268D2 /* btEmptyShape.cpp */; };
 		8972575C69AE8DCC6BFB1908 /* btConvexInternalShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA65FFAA32AC6FBC97AC3586 /* btConvexInternalShape.cpp */; };
 		89F31F234274A62F3501E2EE /* b2Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B868B25E5784F27CBC75D45 /* b2Draw.cpp */; };
-		8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */; };
-		8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB602081BA21FB700B492C6 /* WaterApp.cpp */; };
 		8AB6021D1BA377D800B492C6 /* TouchMaterialApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */; };
 		8AEAD939664A354013C11990 /* btPolyhedralConvexShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A087F04909E756F31844F75E /* btPolyhedralConvexShape.cpp */; };
 		8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDE55D82BD962DAC0E94B708 /* ofxAssimpModelLoader.cpp */; };
@@ -250,7 +247,6 @@
 		A29D8C96AE042ECEAA1BD4F3 /* NetworkingUtilsWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A5B1FAD3F30C8065C396ACB /* NetworkingUtilsWin.cpp */; };
 		A2E3224BF9B63DAA802A0F18 /* b2Distance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83DBE901C4B79B39C15DC46 /* b2Distance.cpp */; };
 		A2E6B252D682A7FB048A1644 /* b2RevoluteJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D48FA57F2101B998AFF455C /* b2RevoluteJoint.cpp */; };
-		A58CC4081B5ED98D00125458 /* BOSApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A58CC4061B5ED98D00125458 /* BOSApp.cpp */; };
 		A5906E581B7D487200C06C0D /* MetaMaterialsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5906E571B7D487200C06C0D /* MetaMaterialsApp.cpp */; };
 		A6C06E9FD6A3797307495948 /* btDbvtBroadphase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E50115CC9A65604366E2A0A4 /* btDbvtBroadphase.cpp */; };
 		AA96B9029B06C36D86624217 /* btGeneric6DofConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CE87390D9B0F491A48A60 /* btGeneric6DofConstraint.cpp */; };
@@ -852,8 +848,6 @@
 		65D85FE21B4750E200212690 /* keycodeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keycodeConstants.h; sourceTree = "<group>"; };
 		65DA78911B438B5A008F98F4 /* SerialShapeIOManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SerialShapeIOManager.cpp; sourceTree = "<group>"; };
 		65DA78931B438B66008F98F4 /* SerialShapeIOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerialShapeIOManager.h; sourceTree = "<group>"; };
-		65E8204C1B5D434A007FC2AA /* LeverApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeverApp.cpp; sourceTree = "<group>"; };
-		65E8204E1B5D4353007FC2AA /* LeverApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeverApp.h; sourceTree = "<group>"; };
 		65EBD67D1B5040050011F279 /* Application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
 		65EBD6831B51BB010011F279 /* KinectManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KinectManager.cpp; sourceTree = "<group>"; };
 		65EBD6851B51BB080011F279 /* KinectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KinectManager.h; sourceTree = "<group>"; };
@@ -999,10 +993,6 @@
 		8948367193E123EBE2ABE5C3 /* ofxBulletConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletConstants.h; path = ../../../addons/ofxBullet/src/ofxBulletConstants.h; sourceTree = SOURCE_ROOT; };
 		89E0E31FD053C3EEAD793170 /* btSolveProjectedGaussSeidel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btSolveProjectedGaussSeidel.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletDynamics/MLCPSolvers/btSolveProjectedGaussSeidel.h; sourceTree = SOURCE_ROOT; };
 		8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvShortImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp; sourceTree = SOURCE_ROOT; };
-		8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StretchyApp.cpp; sourceTree = "<group>"; };
-		8AA4193C1BAA226300F1DD50 /* StretchyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StretchyApp.h; sourceTree = "<group>"; };
-		8AB602081BA21FB700B492C6 /* WaterApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WaterApp.cpp; sourceTree = "<group>"; };
-		8AB602091BA21FB700B492C6 /* WaterApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterApp.h; sourceTree = "<group>"; };
 		8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchMaterialApp.cpp; sourceTree = "<group>"; };
 		8AB6021C1BA377D800B492C6 /* TouchMaterialApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchMaterialApp.h; sourceTree = "<group>"; };
 		8AD61EE39BD51B3221FFC009 /* gim_geom_types.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = gim_geom_types.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletCollision/Gimpact/gim_geom_types.h; sourceTree = SOURCE_ROOT; };
@@ -1098,8 +1088,6 @@
 		A53D126FAA18A596595C0C6F /* b2Math.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = b2Math.h; path = ../../../addons/ofxBox2d/libs/Box2D/Common/b2Math.h; sourceTree = SOURCE_ROOT; };
 		A5663FFE9C8ACE440C6C4946 /* FTPoint.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = FTPoint.h; path = ../../../addons/ofxFTGL/libs/FTGL/include/FTGL/FTPoint.h; sourceTree = SOURCE_ROOT; };
 		A58B4921777493FB8B87E964 /* btShapeHull.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = btShapeHull.cpp; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletCollision/CollisionShapes/btShapeHull.cpp; sourceTree = SOURCE_ROOT; };
-		A58CC4061B5ED98D00125458 /* BOSApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BOSApp.cpp; sourceTree = "<group>"; };
-		A58CC4071B5ED98D00125458 /* BOSApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOSApp.h; sourceTree = "<group>"; };
 		A5906E571B7D487200C06C0D /* MetaMaterialsApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MetaMaterialsApp.cpp; sourceTree = "<group>"; };
 		A5906E591B7D487B00C06C0D /* MetaMaterialsApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetaMaterialsApp.h; sourceTree = "<group>"; };
 		A5ABFE78A4763CEE5578021C /* mat_aos.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = mat_aos.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/vectormath/sse/mat_aos.h; sourceTree = SOURCE_ROOT; };
@@ -2194,18 +2182,10 @@
 				658894FB1B70051300715CDA /* SimpleWaveApp.h */,
 				6572FCB01B3CB10F001BBF38 /* TunableWaveApp.cpp */,
 				6572FCB21B3CB119001BBF38 /* TunableWaveApp.h */,
-				65E8204C1B5D434A007FC2AA /* LeverApp.cpp */,
-				65E8204E1B5D4353007FC2AA /* LeverApp.h */,
 				A5906E571B7D487200C06C0D /* MetaMaterialsApp.cpp */,
 				A5906E591B7D487B00C06C0D /* MetaMaterialsApp.h */,
-				A58CC4061B5ED98D00125458 /* BOSApp.cpp */,
-				A58CC4071B5ED98D00125458 /* BOSApp.h */,
-				8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */,
-				8AA4193C1BAA226300F1DD50 /* StretchyApp.h */,
 				65CC080E1B73DCBE00F89B9B /* TeleoperationApp.cpp */,
 				65CC08101B73DCCE00F89B9B /* TeleoperationApp.h */,
-				8AB602081BA21FB700B492C6 /* WaterApp.cpp */,
-				8AB602091BA21FB700B492C6 /* WaterApp.h */,
 				65CAFD781B7D1072002DA575 /* DebuggingApps */,
 			);
 			name = Applications;
@@ -3812,7 +3792,6 @@
 				AE9254BC31C3409899D28DC9 /* ofxBox2dCircle.cpp in Sources */,
 				4D09B9611BCF4603581DFEE4 /* ofxBox2dEdge.cpp in Sources */,
 				65CC07F21B73D10B00F89B9B /* Calibration.cpp in Sources */,
-				8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */,
 				12548B44285B5C07EEA5379C /* ofxBox2dJoint.cpp in Sources */,
 				DFACEC3A1E9D23315321D7EA /* ofxBox2dPolygon.cpp in Sources */,
 				B103DF2084E0F38D03E0E6F1 /* ofxBox2dRect.cpp in Sources */,
@@ -3856,7 +3835,6 @@
 				2A5D09413FD64EB3AF88EF02 /* b2GearJoint.cpp in Sources */,
 				14D76FD1B7F190398D120FA4 /* b2Joint.cpp in Sources */,
 				C1DDE2EB6202440187690701 /* b2MotorJoint.cpp in Sources */,
-				8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */,
 				D2969DE2782BAE96A0C7ADC1 /* b2MouseJoint.cpp in Sources */,
 				64F975DC016F17834FBB9F01 /* b2PrismaticJoint.cpp in Sources */,
 				9F9D49CFC30BA1589822E7AB /* b2PulleyJoint.cpp in Sources */,
@@ -3886,7 +3864,6 @@
 				32FEA744CD4CCCA656A89F7C /* btCollisionAlgorithm.cpp in Sources */,
 				65CC08051B73D10B00F89B9B /* CPUImageFilter.cpp in Sources */,
 				CCEAE4C8DC718ABBA8889AFC /* btDbvt.cpp in Sources */,
-				A58CC4081B5ED98D00125458 /* BOSApp.cpp in Sources */,
 				A6C06E9FD6A3797307495948 /* btDbvtBroadphase.cpp in Sources */,
 				36BBEA581081D7DD198EB5B7 /* btDispatcher.cpp in Sources */,
 				D596B4C0EA4546DB259B3326 /* btMultiSapBroadphase.cpp in Sources */,
@@ -4018,7 +3995,6 @@
 				6572FCB11B3CB10F001BBF38 /* TunableWaveApp.cpp in Sources */,
 				72880FEA522506DC6CC5EA95 /* btMultiBodyJointLimitConstraint.cpp in Sources */,
 				2ED8CD6FF7F5E60BD74E6AEA /* btMultiBodyJointMotor.cpp in Sources */,
-				65E8204D1B5D434A007FC2AA /* LeverApp.cpp in Sources */,
 				2802A7D943DBC69BD751B66E /* btMultiBodyPoint2Point.cpp in Sources */,
 				C4359BFDD11D7BFEBBD56FCA /* btDantzigLCP.cpp in Sources */,
 				9C434D3A308002B8B4AD6A45 /* btMLCPSolver.cpp in Sources */,
@@ -4259,7 +4235,7 @@
 					../../../addons/ofxUI/libs,
 					../../../addons/ofxUI/src,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -4442,7 +4418,7 @@
 					../../../addons/ofxUI/libs,
 					../../../addons/ofxUI/src,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -4657,7 +4633,7 @@
 				E4B69B4F0A3A1720003C02F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "omniFORM" */ = {
 			isa = XCConfigurationList;
@@ -4666,7 +4642,7 @@
 				E4B69B610A3A1757003C02F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

@@ -28,13 +28,12 @@
 // applications
 #include "SimpleWaveApp.h"
 #include "TunableWaveApp.h"
-#include "LeverApp.h"
-#include "MetaMaterialsApp.h"
-#include "BOSApp.h"
 #include "TeleoperationApp.h"
 #include "TouchMaterialApp.h"
-#include "WaterApp.h"
-#include "StretchyApp.h"
+
+// WORKSHOP: Add your applications .h file here:
+// #include "MyApp.h"
+
 
 // debugging applications
 #include "AxisCheckerApp.h"
@@ -75,14 +74,14 @@ private:
     Application *currentApplication;
     SimpleWaveApp *simpleWaveApp;
     TunableWaveApp *tunableWaveApp;
-    LeverApp *leverApp;
-    MetaMaterialsApp *metaMaterialsApp;
-    BOSApp *bosApp;
     TeleoperationApp *teleoperationApp;
     TouchMaterialApp *touchMaterialApp;
-    WaterApp *waterApp;
-    StretchyApp *stretchyApp;
-
+    
+    // WORKSHOP: Create your app here (take note of captilization syntax):
+    //  MyApp *myApp;
+    
+    
+    
     // debugging applications
     AxisCheckerApp *axisCheckerApp;
 
