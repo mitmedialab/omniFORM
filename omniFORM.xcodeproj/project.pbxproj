@@ -4265,7 +4265,7 @@
 					../../../addons/ofxMovieExporter/libs/libav/lib/osx/libavutil.a,
 					../../../addons/ofxMovieExporter/libs/libav/lib/osx/libswscale.a,
 				);
-				SDKROOT = macosx;
+				SDKROOT = macosx10.9;
 			};
 			name = Debug;
 		};
@@ -4448,7 +4448,7 @@
 					../../../addons/ofxMovieExporter/libs/libav/lib/osx/libavutil.a,
 					../../../addons/ofxMovieExporter/libs/libav/lib/osx/libswscale.a,
 				);
-				SDKROOT = macosx;
+				SDKROOT = macosx10.9;
 			};
 			name = Release;
 		};
