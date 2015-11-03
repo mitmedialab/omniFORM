@@ -262,8 +262,7 @@ void AppManager::keyPressed(int key) {
             currentApplication = applications["lever"];
         } else if (key == '3') {
             currentApplication = applications["BOS"];
-        }
-        else if (key == '3') {
+        } else if (key == '4') {
             currentApplication = applications["FFT"];
         }
 

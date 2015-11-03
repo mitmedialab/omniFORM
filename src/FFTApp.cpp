@@ -21,9 +21,9 @@ FFTApp::FFTApp(KinectManager *manager) : Application(manager) {
 
     
     soundStream.listDevices();
-    soundStream.setDeviceID(0);
+    soundStream.setDeviceID(1);
     soundStream.setup(FFTApp::baseApp, 0, 2, 44100, BUFFER_SIZE, 4);
-    
+
     left = new float[BUFFER_SIZE];
     right = new float[BUFFER_SIZE];
     
@@ -42,8 +42,8 @@ FFTApp::FFTApp(KinectManager *manager) : Application(manager) {
 void FFTApp::update(float dt) {
     heightsForShapeDisplay.set(0);
     updateScaleParametersWithKinect();
-    drawBodyLine();
-    return;
+//    drawBodyLine();
+//    return;
     
     //check for BOS
     if(leftHandClosed || rightHandClosed){
@@ -90,7 +90,7 @@ void FFTApp::drawFFT(){
      
         
         
-        cout << "\n FFT: ";
+//        cout << "\n FFT: ";
 
         
         /* ACTUAL - FFT produces 0 magnitude */
@@ -98,7 +98,7 @@ void FFTApp::drawFFT(){
         /* and discard the upper half of the buffer */
         for(int j=1; j < BUFFER_SIZE/2; j++) {
             freq[index][j] = magnitude[j];
-          cout << (int)(magnitude[j]*10.0f) << " | ";
+//          cout << (int)(magnitude[j]*10.0f) << " | ";
 
         }
         
@@ -208,9 +208,9 @@ void FFTApp::updateScaleParametersWithKinect() {
         cout << kinectCenterX << "] : [" << kinectCenterY << "]";
 
     } else {
-        cout << "\n NO HUMAN VISIBLE";
-        kinectCenterX = KINECT_X/2;
-        kinectCenterY = KINECT_Y/2;
+//        cout << "\n NO HUMAN VISIBLE";
+//        kinectCenterX = KINECT_X/2;
+//        kinectCenterY = KINECT_Y/2;
     }
     
     relativeCenterX = ofMap(kinectCenterX, 200, 370, 0.0, 48.0);
