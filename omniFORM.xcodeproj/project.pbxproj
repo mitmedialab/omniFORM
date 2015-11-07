@@ -220,6 +220,7 @@
 		8972575C69AE8DCC6BFB1908 /* btConvexInternalShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA65FFAA32AC6FBC97AC3586 /* btConvexInternalShape.cpp */; };
 		89F31F234274A62F3501E2EE /* b2Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B868B25E5784F27CBC75D45 /* b2Draw.cpp */; };
 		8AA4193D1BAA226300F1DD50 /* StretchyApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */; };
+		8AB57E781BEE9574005E056F /* XFormApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB57E761BEE9574005E056F /* XFormApp.cpp */; };
 		8AB6020A1BA21FB700B492C6 /* WaterApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB602081BA21FB700B492C6 /* WaterApp.cpp */; };
 		8AB6021D1BA377D800B492C6 /* TouchMaterialApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */; };
 		8AEAD939664A354013C11990 /* btPolyhedralConvexShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A087F04909E756F31844F75E /* btPolyhedralConvexShape.cpp */; };
@@ -1001,6 +1002,8 @@
 		8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvShortImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp; sourceTree = SOURCE_ROOT; };
 		8AA4193B1BAA226300F1DD50 /* StretchyApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StretchyApp.cpp; sourceTree = "<group>"; };
 		8AA4193C1BAA226300F1DD50 /* StretchyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StretchyApp.h; sourceTree = "<group>"; };
+		8AB57E761BEE9574005E056F /* XFormApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XFormApp.cpp; sourceTree = "<group>"; };
+		8AB57E771BEE9574005E056F /* XFormApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XFormApp.h; sourceTree = "<group>"; };
 		8AB602081BA21FB700B492C6 /* WaterApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WaterApp.cpp; sourceTree = "<group>"; };
 		8AB602091BA21FB700B492C6 /* WaterApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterApp.h; sourceTree = "<group>"; };
 		8AB6021B1BA377D800B492C6 /* TouchMaterialApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchMaterialApp.cpp; sourceTree = "<group>"; };
@@ -2206,6 +2209,8 @@
 				65CC08101B73DCCE00F89B9B /* TeleoperationApp.h */,
 				8AB602081BA21FB700B492C6 /* WaterApp.cpp */,
 				8AB602091BA21FB700B492C6 /* WaterApp.h */,
+				8AB57E761BEE9574005E056F /* XFormApp.cpp */,
+				8AB57E771BEE9574005E056F /* XFormApp.h */,
 				65CAFD781B7D1072002DA575 /* DebuggingApps */,
 			);
 			name = Applications;
@@ -3834,6 +3839,7 @@
 				CB503B33759F22A302B8FC6E /* b2Settings.cpp in Sources */,
 				0C7BD977292F7D20B41DF594 /* b2StackAllocator.cpp in Sources */,
 				1BE4156E2DF3B30461C48C70 /* b2Timer.cpp in Sources */,
+				8AB57E781BEE9574005E056F /* XFormApp.cpp in Sources */,
 				3E76A164B41BCEB11B15C175 /* b2Body.cpp in Sources */,
 				C3D8EF14A387EA959014AD91 /* b2ContactManager.cpp in Sources */,
 				FA7300BAC71DAC1ABAF6EE15 /* b2Fixture.cpp in Sources */,

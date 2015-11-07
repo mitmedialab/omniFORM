@@ -35,6 +35,7 @@
 #include "TouchMaterialApp.h"
 #include "WaterApp.h"
 #include "StretchyApp.h"
+#include "XFormApp.h"
 
 // debugging applications
 #include "AxisCheckerApp.h"
@@ -82,6 +83,7 @@ private:
     TouchMaterialApp *touchMaterialApp;
     WaterApp *waterApp;
     StretchyApp *stretchyApp;
+    XFormApp *xFormApp;
 
     // debugging applications
     AxisCheckerApp *axisCheckerApp;

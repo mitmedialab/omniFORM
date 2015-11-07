@@ -53,6 +53,8 @@ void AppManager::setup(){
     applications["water"] = waterApp;
     stretchyApp = new StretchyApp();
     applications["stretchy"] = stretchyApp;
+    xFormApp = new XFormApp();
+    applications["xForm"] = xFormApp;
     
     // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
@@ -72,7 +74,7 @@ void AppManager::setup(){
     }
 
     // set default application
-    setCurrentApplication("simpleWave");
+    setCurrentApplication("xForm");
 }
 
 // initialize the shape display and set up shape display helper objects
