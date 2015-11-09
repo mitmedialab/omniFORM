@@ -13,6 +13,8 @@ XFormApp::XFormApp() {
     touchDetector->setDepressionSignificanceThreshold(30);
     touchDetector->setStabilityTimeThreshold(0.2);
     
+    depression.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
+    
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
             isTouchedLastFrame[x][y] = false;
@@ -29,6 +31,8 @@ XFormApp::XFormApp() {
 void XFormApp::update(float dt) {
     touchDetector->update(heightsForShapeDisplay, *heightsFromShapeDisplay);
     
+    // Deal with height messages from OSC
+    
     while(oscReceiver.hasWaitingMessages()) {
         //cout << "has message \n";
         ofxOscMessage m;
@@ -44,36 +48,25 @@ void XFormApp::update(float dt) {
         
     }
     
+    // Get the pins that are touched
+    ofxOscMessage touchMsg;
+    touchMsg.setAddress("/touch");
     
     touchDetector->update(heightsForShapeDisplay, *heightsFromShapeDisplay);
-    
-//    string touchedMsg = "";
-//    depression = touchDetector->significantDepressionAmidstStabilityPixels();
-//    for (int x = 0; x < SHAPE_DISPLAY_SIZE_Y; x++) {
-//        for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-//            
-//            int depressionPin = depression.getColor(x,y).r;
-//            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-//            if (depressionPin != 0 || isTouchedLastFrame[x][y] == true)
-//            {
-//                if (heightsForShapeDisplay[xy] - heightsFromShapeDisplay->getColor(x,y).r < 30) {
-//                    isTouchedLastFrame[x][y] = false;
-//                } else {
-//                    isTouchedLastFrame[x][y] = true;
-//                    touchedMsg += ofToString(x) + "," + ofToString(y) + "-";
-//                }
-//            } else {
-//                isTouchedLastFrame[x][y] = false;
-//            }
-//            if (depressionPin == 0){
-//                isTouchedLastFrame[x][y] = false;
-//            } else{
-//                isTouchedLastFrame[x][y] = true;
-//            }
-//        }
-//    }
-//    touchedMsg = touchedMsg.substr(0, touchedMsg.size()-1);
-//    
+    depression = touchDetector->significantDepressionAmidstStabilityPixels();
+    for (int x = 0; x <  SHAPE_DISPLAY_SIZE_X; x++) {
+        for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            int touchAmount = depression.getColor(x, y).r;
+            if (touchAmount != 0)  {
+                touchMsg.addIntArg(xy);
+                
+                cout << "Pin " + ofToString(xy) + " Touch Amount : " + ofToString(touchAmount) + "\n";
+                touchMsg.addIntArg(touchAmount);
+            }
+        }
+    }
+    oscSender.sendMessage(touchMsg);
     
     updateHeights();
 }
