@@ -33,6 +33,8 @@ private:
     void updateHeights();
     
     TouchDetector *touchDetector;
+    ofPixels depression;
+    bool isTouchedLastFrame[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     
     ofxOscSender oscSender;
     ofxOscReceiver oscReceiver;
