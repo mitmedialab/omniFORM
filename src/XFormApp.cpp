@@ -11,16 +11,16 @@
 XFormApp::XFormApp() {
     touchDetector = new TouchDetector();
     touchDetector->setDepressionSignificanceThreshold(30);
-    touchDetector->setStabilityTimeThreshold(0.2);
+    touchDetector->setStabilityTimeThreshold(5);
     
     depression.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
     
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
-            isTouchedLastFrame[x][y] = false;
+            prevFramesTouches[x][y] = 0;
             
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-            heightsForShapeDisplay[xy] = 100;
+            heightsForShapeDisplay[xy] = 200;
         }
     }
     
@@ -29,7 +29,7 @@ XFormApp::XFormApp() {
 }
 
 void XFormApp::update(float dt) {
-    touchDetector->update(heightsForShapeDisplay, *heightsFromShapeDisplay);
+    updateHeights();
     
     // Deal with height messages from OSC
     
@@ -56,19 +56,26 @@ void XFormApp::update(float dt) {
     depression = touchDetector->significantDepressionAmidstStabilityPixels();
     for (int x = 0; x <  SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
-            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            
             int touchAmount = depression.getColor(x, y).r;
-            if (touchAmount != 0)  {
-                touchMsg.addIntArg(xy);
-                
-                cout << "Pin " + ofToString(xy) + " Touch Amount : " + ofToString(touchAmount) + "\n";
-                touchMsg.addIntArg(touchAmount);
+            if (touchAmount > 30) {
+                if (prevFramesTouches[x][y] > frameToCountTouch) {
+                    int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+                    int originalHeight = heightsForShapeDisplay[xy];
+                    int touchedHeight = originalHeight - touchAmount;
+                    
+                    touchMsg.addIntArg(xy);
+                    cout << "Pin " + ofToString(xy) + " Touched Height : " + ofToString(touchedHeight) + "\n";
+                    touchMsg.addIntArg(touchedHeight);
+                }
+                prevFramesTouches[x][y] ++;
+            } else {
+                prevFramesTouches[x][y] = 0;
             }
+            
         }
     }
     oscSender.sendMessage(touchMsg);
-    
-    updateHeights();
 }
 
 void XFormApp::updateHeights() {

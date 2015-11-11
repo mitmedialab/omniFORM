@@ -34,7 +34,8 @@ private:
     
     TouchDetector *touchDetector;
     ofPixels depression;
-    bool isTouchedLastFrame[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
+    int prevFramesTouches[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
+    int frameToCountTouch = 4;
     
     ofxOscSender oscSender;
     ofxOscReceiver oscReceiver;

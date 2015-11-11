@@ -314,6 +314,8 @@ void AppManager::keyPressed(int key) {
             setCurrentApplication("water");
         } else if (key == '9') {
             setCurrentApplication("stretchy");
+        } else if (key == 'x') {
+            setCurrentApplication("xForm");
         }
 
     // forward unreserved keys to the application
