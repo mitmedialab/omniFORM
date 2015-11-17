@@ -32,50 +32,59 @@ void XFormApp::update(float dt) {
     updateHeights();
     
     // Deal with height messages from OSC
-    
+
     while(oscReceiver.hasWaitingMessages()) {
         //cout << "has message \n";
         ofxOscMessage m;
         oscReceiver.getNextMessage(&m);
         
         int nArgs = m.getNumArgs();
+        string address = m.getAddress();
         //cout << m.getAddress() + "\n";
         
-        for (int i = 0; i < nArgs; i++) {
-            //cout << m.getArgAsInt32(i);
-            heightsForShapeDisplay[i] = m.getArgAsFloat(i);
+        if (address == "/height") {
+            for (int i = 0; i < nArgs; i++) {
+                //cout << m.getArgAsInt32(i);
+                heightsForShapeDisplay[i] = m.getArgAsFloat(i);
+            }
+        }
+        else if (address == "/height2") {
+            for (int i = 0; i < nArgs; i++) {
+                //cout << m.getArgAsInt32(i);
+                heightsForShapeDisplay[i+576] = m.getArgAsFloat(i);
+            }
         }
         
     }
     
     // Get the pins that are touched
-    ofxOscMessage touchMsg;
-    touchMsg.setAddress("/touch");
-    
-    touchDetector->update(heightsForShapeDisplay, *heightsFromShapeDisplay);
-    depression = touchDetector->significantDepressionAmidstStabilityPixels();
-    for (int x = 0; x <  SHAPE_DISPLAY_SIZE_X; x++) {
-        for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
-            
-            int touchAmount = depression.getColor(x, y).r;
-            if (touchAmount > 30) {
-                if (prevFramesTouches[x][y] > frameToCountTouch) {
-                    int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-                    int originalHeight = heightsForShapeDisplay[xy];
-                    int touchedHeight = originalHeight - touchAmount;
-                    
-                    touchMsg.addIntArg(xy);
-                    cout << "Pin " + ofToString(xy) + " Touched Height : " + ofToString(touchedHeight) + "\n";
-                    touchMsg.addIntArg(touchedHeight);
-                }
-                prevFramesTouches[x][y] ++;
-            } else {
-                prevFramesTouches[x][y] = 0;
-            }
-            
-        }
-    }
-    oscSender.sendMessage(touchMsg);
+//    ofxOscMessage touchMsg;
+//    touchMsg.setAddress("/touch");
+//    
+//    touchDetector->update(heightsForShapeDisplay, *heightsFromShapeDisplay);
+//    depression = touchDetector->significantDepressionAmidstStabilityPixels();
+//    for (int x = 0; x <  SHAPE_DISPLAY_SIZE_X; x++) {
+//        for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
+//            
+//            int touchAmount = depression.getColor(x, y).r;
+//            if (touchAmount > 30) {
+//                if (prevFramesTouches[x][y] > frameToCountTouch) {
+//                    int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+//                    int originalHeight = heightsForShapeDisplay[xy];
+//                    int touchedHeight = originalHeight - touchAmount;
+//                    
+//                    touchMsg.addIntArg(xy);
+//                    cout << "Pin " + ofToString(xy) + " Touched Height : " + ofToString(touchedHeight) + "\n";
+//                    touchMsg.addIntArg(touchedHeight);
+//                }
+//                prevFramesTouches[x][y] ++;
+//            } else {
+//                prevFramesTouches[x][y] = 0;
+//            }
+//            
+//        }
+//    }
+    //oscSender.sendMessage(touchMsg);
 }
 
 void XFormApp::updateHeights() {
