@@ -10,6 +10,7 @@
 
 #include "Application.h"
 #include "TouchDetector.h"
+#include "KinectManager.h"
 #include "ofxOsc.h"
 
 // This code is meant as an easy-to-understand example of an Application. Feel
@@ -34,6 +35,10 @@ private:
     
     TouchDetector *touchDetector;
     ofPixels depression;
+
+    KinectManager *kinectManager;
+    ofPixels kinect;
+
     int prevFramesTouches[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     int frameToCountTouch = 4;
     

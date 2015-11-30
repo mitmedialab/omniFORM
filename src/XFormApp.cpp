@@ -14,6 +14,13 @@ XFormApp::XFormApp() {
     touchDetector->setStabilityTimeThreshold(5);
     
     depression.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
+
+    /*
+    kinectManager = new KinectManager();
+    kinectManager->setDepthClipping(1000, 3000);
+
+    kinect.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
+    */
     
     for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
@@ -85,6 +92,28 @@ void XFormApp::update(float dt) {
 //        }
 //    }
     //oscSender.sendMessage(touchMsg);
+
+    /*
+    //Get the pins that are hovered over by the Kinect
+    //TODO, fuse this loop with above
+    ofxOscMessage kinectMsg;
+    kinectMsg.setAddress("/kinect");
+    //TODO set this number to a reasonable amount
+    int kinectThreshold = 30;
+    kinectManager->update;
+    kinectManager->getDepthPixels(&kinect);
+    for (int x = 0; x < SHAPE_DISPLAY_SIZE_X; x++) {
+      for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
+        int kinectAmount = kinect.getColor(x, y).r;
+        if (kinectAmount > kinectThreshold) {
+          int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+          kinectMsg.addIntArg(xy);
+          cout << "Pin " ofToString(xy) + " is hovered over by a hand \n";
+        }
+      }
+    }
+    oscSender.sendMessage(kinectMsg);
+    */
 }
 
 void XFormApp::updateHeights() {
