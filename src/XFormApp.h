@@ -44,5 +44,7 @@ private:
     
     ofxOscSender oscSender;
     ofxOscReceiver oscReceiver;
+    
+    int counter = 0;
 };
 

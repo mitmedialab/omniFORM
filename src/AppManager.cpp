@@ -10,7 +10,7 @@
 
 
 void AppManager::setup(){
-    ofSetFrameRate(30);
+    ofSetFrameRate(24);
 
     // inFORM screen setup
     #if SHAPE_DISPLAY_IN_USE==INFORM_DISPLAY

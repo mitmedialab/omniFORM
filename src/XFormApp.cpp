@@ -27,7 +27,7 @@ XFormApp::XFormApp() {
             prevFramesTouches[x][y] = 0;
             
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-            heightsForShapeDisplay[xy] = 200;
+            heightsForShapeDisplay[xy] = 0;
         }
     }
     
@@ -36,7 +36,7 @@ XFormApp::XFormApp() {
 }
 
 void XFormApp::update(float dt) {
-    updateHeights();
+    //updateHeights();
     
     // Deal with height messages from OSC
 
@@ -63,7 +63,7 @@ void XFormApp::update(float dt) {
         }
         
     }
-    
+//
     // Get the pins that are touched
 //    ofxOscMessage touchMsg;
 //    touchMsg.setAddress("/touch");
@@ -117,7 +117,6 @@ void XFormApp::update(float dt) {
 }
 
 void XFormApp::updateHeights() {
-    
 }
 
 void XFormApp::drawDebugGui(int x, int y) {
