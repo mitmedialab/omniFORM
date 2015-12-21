@@ -36,7 +36,6 @@
 
 // debugging applications
 #include "AxisCheckerApp.h"
-#include "CharacterizingIoApp.h"
 
 
 class AppManager : public ofBaseApp {
@@ -84,7 +83,6 @@ private:
 
     // debugging applications
     AxisCheckerApp *axisCheckerApp;
-    CharacterizingIoApp *characterizingIoApp;
 
     // program state
     bool paused = false;

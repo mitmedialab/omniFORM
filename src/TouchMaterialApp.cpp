@@ -18,18 +18,7 @@ TouchMaterialApp::TouchMaterialApp() {
         }
     }
     
-    
-    for(int i = 0 ; i < NUM_WAVE_FRAME ; i++ ){
-        depressionStore[i].allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
-    for(int x = 0; x< SHAPE_DISPLAY_SIZE_X; x++){
-        for (int y =0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
-            int xy = depressionStore[i].getPixelIndex(x, y);
-    
-        depressionStore[i][xy] = HEIGHT_MIN;
-    
-        }
-    }
-    }
+
     
     touchDetector = new TouchDetector();
     touchDetector->setDepressionSignificanceThreshold(15);
@@ -81,7 +70,6 @@ void TouchMaterialApp::drawDebugGui(int x, int y) {
     }
     ofPopMatrix();
     
-    touchDetector->drawStoredInputOutput(x, y+305);
 }
 
 void TouchMaterialApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
@@ -98,13 +86,10 @@ string TouchMaterialApp::appInstructionsText() {
 
 
 void TouchMaterialApp::waveSurfaceEmulation(){
-     depression = touchDetector->significantDepressionAmidstStabilityPixels();
+     depression = touchDetector->depressionPixels();
     int defaultHeight = HEIGHT_MIN;
     
-    
-    for(int i = NUM_WAVE_FRAME -1; i > 0 ; i--){
-        depressionStore[i] = depressionStore[i-1];
-    }
+
     
 //    for(int x = 0; x< SHAPE_DISPLAY_SIZE_X; x++){
 //        for (int y =0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
@@ -118,9 +103,26 @@ void TouchMaterialApp::waveSurfaceEmulation(){
 //            }
 //        }
 //    }
-    depressionStore[0] = depression;
     
-    for (int x = 0; x <  SHAPE_DISPLAY_SIZE_X; x++) {
+    for (int x = 0; x <  16; x++) {
+        for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            heightsForShapeDisplay[xy] = HEIGHT_MAX;
+        }
+    }
+    
+    
+    
+    
+    for (int x = 16; x <  32; x++) {
+        for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
+            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+            
+            heightsForShapeDisplay[xy] = defaultHeight+depression.getColor(x-16, y).r;
+        }
+    }
+    
+    for (int x = 32; x <  SHAPE_DISPLAY_SIZE_X; x++) {
         for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
             int xy = heightsForShapeDisplay.getPixelIndex(x, y);
             heightsForShapeDisplay[xy] = defaultHeight;
@@ -128,37 +130,40 @@ void TouchMaterialApp::waveSurfaceEmulation(){
     }
     
     
-    for (int x = 0; x <  SHAPE_DISPLAY_SIZE_X; x++) {
-        for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
-            for (int i = 1; i < NUM_WAVE_FRAME ; i++) {
-                int receiveHeight = depressionStore[i].getColor(x, y).r;
-            if ( receiveHeight > 0 ) {
-                for (int j = MAX(0, x-i); j<MIN(SHAPE_DISPLAY_SIZE_X, x+i+1); j++) {
-                    for (int k = MAX(0, y-i); k<MIN(SHAPE_DISPLAY_SIZE_Y, y+i+1); k++) {
-                        int d = ofDist(x, y, j, k);
-                        int jk = heightsForShapeDisplay.getPixelIndex(j, k);
-                        int receiveHeight_ = (heightsForShapeDisplay.getColor(j, k)).r;
-                        if (d==i) {
-                            heightsForShapeDisplay[jk] =
-                            MIN(HEIGHT_MAX, receiveHeight_ + ((depressionStore[i].getColor(x, y)).r)/2);
-                        }
-                    }
-                }
-                }
-            }
-            
-        }
-    }
     
     
-    for (int x = 0; x <  SHAPE_DISPLAY_SIZE_X; x++) {
-        for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
-            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
-            if (depression.getColor(x, y).r != 0) {
-                heightsForShapeDisplay[xy] = defaultHeight;
-            }
-        }
-    }
+    
+//    for (int x = 0; x <  SHAPE_DISPLAY_SIZE_X; x++) {
+//        for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
+//            for (int i = 1; i < NUM_WAVE_FRAME ; i++) {
+//                int receiveHeight = depressionStore[i].getColor(x, y).r;
+//            if ( receiveHeight > 0 ) {
+//                for (int j = MAX(0, x-i); j<MIN(SHAPE_DISPLAY_SIZE_X, x+i+1); j++) {
+//                    for (int k = MAX(0, y-i); k<MIN(SHAPE_DISPLAY_SIZE_Y, y+i+1); k++) {
+//                        int d = ofDist(x, y, j, k);
+//                        int jk = heightsForShapeDisplay.getPixelIndex(j, k);
+//                        int receiveHeight_ = (heightsForShapeDisplay.getColor(j, k)).r;
+//                        if (d==i) {
+//                            heightsForShapeDisplay[jk] =
+//                            MIN(HEIGHT_MAX, receiveHeight_ + ((depressionStore[i].getColor(x, y)).r)/2);
+//                        }
+//                    }
+//                }
+//                }
+//            }
+//            
+//        }
+//    }
+//    
+//    
+//    for (int x = 0; x <  SHAPE_DISPLAY_SIZE_X; x++) {
+//        for (int y = 0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
+//            int xy = heightsForShapeDisplay.getPixelIndex(x, y);
+//            if (depression.getColor(x, y).r != 0) {
+//                heightsForShapeDisplay[xy] = defaultHeight;
+//            }
+//        }
+//    }
     
     
 }
