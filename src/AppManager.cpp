@@ -54,6 +54,8 @@ void AppManager::setup(){
     // and the debugging apps, too
     axisCheckerApp = new AxisCheckerApp();
     applications["axisChecker"] = axisCheckerApp;
+    characterizingIoApp = new CharacterizingIoApp();
+    applications["CharacterizingIO"] = characterizingIoApp;
 
     // give applications read access to input data
     for (map<string, Application *>::iterator iter = applications.begin(); iter != applications.end(); iter++) {
@@ -305,6 +307,8 @@ void AppManager::keyPressed(int key) {
             setCurrentApplication("simpleWave");
         } else if (key == '7') {
             setCurrentApplication("touchMaterial");
+        } else if (key == '8') {
+            setCurrentApplication("CharacterizingIO");
         }
 
     // forward unreserved keys to the application

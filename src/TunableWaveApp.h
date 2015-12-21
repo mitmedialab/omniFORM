@@ -11,6 +11,8 @@
 #include "Application.h"
 #include "ObjectDetector.h"
 
+#include "TouchDetector.h"
+
 
 enum TuningMethod {KEY_PRESS_TUNING, KINECT_LOCATION_TUNING};
 
@@ -22,6 +24,8 @@ public:
     void update(float dt);
     void drawGraphicsForShapeDisplay(int x, int y, int width, int height);
     string appInstructionsText();
+    void drawDebugGui(int x, int y);
+    
     void keyPressed(int key);
 
     string getName() {return "Tunable Wave";};
@@ -38,4 +42,7 @@ private:
     float frequency;
     float numCrests;
     ofColor color;
+    
+    
+    TouchDetector *touchDetector;
 };

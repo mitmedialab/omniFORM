@@ -219,6 +219,8 @@
 		890FEAB62511C010A6CE0502 /* btEmptyShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E935BD041847C8DBD0268D2 /* btEmptyShape.cpp */; };
 		8972575C69AE8DCC6BFB1908 /* btConvexInternalShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA65FFAA32AC6FBC97AC3586 /* btConvexInternalShape.cpp */; };
 		89F31F234274A62F3501E2EE /* b2Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B868B25E5784F27CBC75D45 /* b2Draw.cpp */; };
+		8A50517E1C2761C00050500F /* CharacterizingIoApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A50517A1C2761C00050500F /* CharacterizingIoApp.cpp */; };
+		8A50517F1C2761C00050500F /* TouchMaterialApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A50517C1C2761C00050500F /* TouchMaterialApp.cpp */; };
 		8AEAD939664A354013C11990 /* btPolyhedralConvexShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A087F04909E756F31844F75E /* btPolyhedralConvexShape.cpp */; };
 		8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDE55D82BD962DAC0E94B708 /* ofxAssimpModelLoader.cpp */; };
 		8E85002F011615370741EE0E /* btPoint2PointConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C08F4628EB1392AEE93DC9D9 /* btPoint2PointConstraint.cpp */; };
@@ -996,6 +998,10 @@
 		8948367193E123EBE2ABE5C3 /* ofxBulletConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletConstants.h; path = ../../../addons/ofxBullet/src/ofxBulletConstants.h; sourceTree = SOURCE_ROOT; };
 		89E0E31FD053C3EEAD793170 /* btSolveProjectedGaussSeidel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btSolveProjectedGaussSeidel.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletDynamics/MLCPSolvers/btSolveProjectedGaussSeidel.h; sourceTree = SOURCE_ROOT; };
 		8A4DD23693DFAB8EC05FAA5D /* ofxCvShortImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvShortImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp; sourceTree = SOURCE_ROOT; };
+		8A50517A1C2761C00050500F /* CharacterizingIoApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CharacterizingIoApp.cpp; path = src/CharacterizingIoApp.cpp; sourceTree = "<group>"; };
+		8A50517B1C2761C00050500F /* CharacterizingIoApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharacterizingIoApp.h; path = src/CharacterizingIoApp.h; sourceTree = "<group>"; };
+		8A50517C1C2761C00050500F /* TouchMaterialApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TouchMaterialApp.cpp; path = src/TouchMaterialApp.cpp; sourceTree = "<group>"; };
+		8A50517D1C2761C00050500F /* TouchMaterialApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchMaterialApp.h; path = src/TouchMaterialApp.h; sourceTree = "<group>"; };
 		8AD61EE39BD51B3221FFC009 /* gim_geom_types.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = gim_geom_types.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletCollision/Gimpact/gim_geom_types.h; sourceTree = SOURCE_ROOT; };
 		8B25248CC7F2228B1CEF2EB1 /* libusb.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = libusb.h; path = "../../../addons/ofxKinect/libs/libusb-1.0/include/libusb-1.0/libusb.h"; sourceTree = SOURCE_ROOT; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
@@ -3412,6 +3418,10 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				8A50517A1C2761C00050500F /* CharacterizingIoApp.cpp */,
+				8A50517B1C2761C00050500F /* CharacterizingIoApp.h */,
+				8A50517C1C2761C00050500F /* TouchMaterialApp.cpp */,
+				8A50517D1C2761C00050500F /* TouchMaterialApp.h */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -3861,6 +3871,7 @@
 				27D2B9D0A2AA385576903C22 /* ofxBulletCustomShape.cpp in Sources */,
 				4A1476D56D01EE9A7F8DC778 /* ofxBulletCylinder.cpp in Sources */,
 				4D06C9AB19F309C053E6E14A /* ofxBulletSphere.cpp in Sources */,
+				8A50517E1C2761C00050500F /* CharacterizingIoApp.cpp in Sources */,
 				F339BE01E26C23969AD466D8 /* ofxBulletStaticPlane.cpp in Sources */,
 				65CC07FD1B73D10B00F89B9B /* ofxGuiPanel.cpp in Sources */,
 				DC00E7641367A7E2381373EC /* ofxBulletTriMeshShape.cpp in Sources */,
@@ -3940,6 +3951,7 @@
 				C387D62C44C032BB7B950F00 /* btStaticPlaneShape.cpp in Sources */,
 				1D209B4E4AAA703227570B0C /* btStridingMeshInterface.cpp in Sources */,
 				B75013A0364FF11A0E5874F6 /* btTetrahedronShape.cpp in Sources */,
+				8A50517F1C2761C00050500F /* TouchMaterialApp.cpp in Sources */,
 				88C3BC62F05B80E295F6AF70 /* btTriangleBuffer.cpp in Sources */,
 				341677E415F88E404B7F932D /* btTriangleCallback.cpp in Sources */,
 				B68A789D3C215D6412CB0100 /* btTriangleIndexVertexArray.cpp in Sources */,

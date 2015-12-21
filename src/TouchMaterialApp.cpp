@@ -10,7 +10,6 @@
 
 
 TouchMaterialApp::TouchMaterialApp() {
-    ofSetFrameRate(60);
     depression.allocate(SHAPE_DISPLAY_SIZE_X, SHAPE_DISPLAY_SIZE_Y, OF_IMAGE_GRAYSCALE);
     for(int x = 0; x< SHAPE_DISPLAY_SIZE_X; x++){
         for (int y =0; y<SHAPE_DISPLAY_SIZE_Y; y++) {
@@ -33,14 +32,13 @@ TouchMaterialApp::TouchMaterialApp() {
     }
     
     touchDetector = new TouchDetector();
-    touchDetector->setDepressionSignificanceThreshold(30);
-    touchDetector->setStabilityTimeThreshold(0.2);
+    touchDetector->setDepressionSignificanceThreshold(15);
+    touchDetector->setStabilityTimeThreshold(0.3);
 }
 
 void TouchMaterialApp::update(float dt) {
     touchDetector->update(heightsForShapeDisplay, *heightsFromShapeDisplay);
     
-    normalizedPhase += dt * frequency;
     updateHeights();
 }
 
@@ -63,23 +61,36 @@ void TouchMaterialApp::drawDebugGui(int x, int y) {
     ofImage(touchDetector->depressionPixels()).draw(x, y, 300, 300);
     ofImage(touchDetector->significantDepressionPixels()).draw(x + 302, y, 300, 300);
     ofImage(touchDetector->significantDepressionAmidstStabilityPixels()).draw(x + 604, y, 300, 300);
+    
+    
+    ofNoFill();
+    ofSetColor(255, 0, 0);
+    ofPushMatrix();
+    ofTranslate(x+604, y);
+    int boxSizeX = 300/SHAPE_DISPLAY_SIZE_X;
+    int boxSizeY = 300/SHAPE_DISPLAY_SIZE_Y;
+    for (int i = 0; i < SHAPE_DISPLAY_SIZE_X; i++) {
+        for (int j = 0; j < SHAPE_DISPLAY_SIZE_Y; j++) {
+            
+            if ( depression.getColor(i, j).r != 0){
+            
+            ofRect(i*boxSizeX, j*boxSizeY, boxSizeX, boxSizeY);
+            }
+            
+        }
+    }
+    ofPopMatrix();
+    
+    touchDetector->drawStoredInputOutput(x, y+305);
 }
 
 void TouchMaterialApp::drawGraphicsForShapeDisplay(int x, int y, int width, int height) {
-    color.setHsb(fmod(normalizedPhase * 180, 180), 255, 255);
-    ofSetColor(color);
-    ofImage(heightsForShapeDisplay).draw(x, y, width, height);
 }
 
 string TouchMaterialApp::appInstructionsText() {
     string instructions = (string) "" +
-    "Waves propagate from the display center.\n" +
-    "\n" +
-    "You can adjust the waves' frequency and wavelength using the\n" +
-    "'a', 's', 'd', and 'f' keys.\n" +
-    "\n" +
-    "frequency: " + ofToString(frequency, 2) + "\n" +
-    "number of waves: " + ofToString(numCrests, 1) + "\n" +
+    "Touch Material App.\n" +
+    "Instruction to be updated\n" +
     "";
     
     return instructions;
@@ -91,7 +102,7 @@ void TouchMaterialApp::waveSurfaceEmulation(){
     int defaultHeight = HEIGHT_MIN;
     
     
-    for(int i = NUM_WAVE_FRAME -1; i >0 ; i--){
+    for(int i = NUM_WAVE_FRAME -1; i > 0 ; i--){
         depressionStore[i] = depressionStore[i-1];
     }
     
@@ -162,11 +173,5 @@ void TouchMaterialApp::keyPressed(int key) {
         }
         
         
-    } else if (key == 's') {
-        frequency *= 1.26;
-    } else if (key == 'd') {
-        numCrests -= 0.5;
-    } else if (key == 'f') {
-        numCrests += 0.5;
     }
 }

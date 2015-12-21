@@ -36,6 +36,7 @@
 
 // debugging applications
 #include "AxisCheckerApp.h"
+#include "CharacterizingIoApp.h"
 
 
 class AppManager : public ofBaseApp {
@@ -83,6 +84,7 @@ private:
 
     // debugging applications
     AxisCheckerApp *axisCheckerApp;
+    CharacterizingIoApp *characterizingIoApp;
 
     // program state
     bool paused = false;
@@ -91,7 +93,7 @@ private:
 
     // gui state
     bool showGlobalGuiInstructions = false;
-    bool showDebugGui = false;
+    bool showDebugGui = true;
 
     // projector configs
     int projectorOffsetX = 1000;
@@ -105,4 +107,11 @@ private:
     ofFbo graphicsForShapeDisplay;
     ofPixels colorPixels;
     ofPixels depthPixels;
+    
+    
+    
+
+
+    
+    
 };
