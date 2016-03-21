@@ -8,6 +8,7 @@
 
 #include "WaterApp.h"
 
+
 WaterApp::WaterApp() {
     
     // initialize densities and velocities arrays
@@ -41,7 +42,7 @@ void WaterApp::update(float dt) {
             
             
             int depressionPin = depression.getColor(x,y).r;
-
+            
             
             if (depressionPin != 0 && isTouchedLastFrame[x][y] == false)
             {
@@ -128,6 +129,7 @@ void WaterApp::update(float dt) {
     }
     //Wall
     
+    
     if(setWall){
     for (int x = cropX_MIN; x < cropX_MAX; x++) {
         int xy = heightsForShapeDisplay.getPixelIndex(x, 0);
@@ -172,6 +174,9 @@ string WaterApp::appInstructionsText() {
     "'c' to clear history of sample tested\n" +
     
     "'z' to set the pinHeight to neutral\n" +
+    
+    "\n"
+    "']' to place wall\n" +
     "";
 
     
@@ -288,7 +293,7 @@ void WaterApp::keyPressed(int key) {
             testedSamples[i]= false;
         }
         
-    } else if (key == ']'){  //reset boolean for random
+    } else if (key == ']'){  //place wall
         setWall = !setWall;
         
     }

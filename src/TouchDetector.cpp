@@ -52,7 +52,6 @@ void TouchDetector::update(const ofPixels &heightsForShapeDisplay, const ofPixel
             int xy = depressions.getPixelIndex(x, y);
             if( significantDepressionsAmidstStability[xy] != 0){
                 for (int i = 0; i<STORE_FRAME; i++) {
-                    
                     storeHeightsForShapeDisplay[x][y][i] = heightsForShapeDisplay[xy];
                 }
             }

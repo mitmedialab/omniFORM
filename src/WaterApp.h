@@ -51,7 +51,7 @@ private:
     
     void drawDebugGui(int x, int y);
     
-    int cropX_MAX = SHAPE_DISPLAY_SIZE_X;
+    int cropX_MAX = SHAPE_DISPLAY_SIZE_X; //16
     int cropX_MIN = 0;
     
     

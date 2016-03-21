@@ -8,6 +8,11 @@
 
 #include "StretchyApp.h"
 
+// adjustment for demo and filming
+int processTimePerFrame = 10; // 4;
+float enhanceForce = 3; // 1.0;
+
+
 StretchyApp::StretchyApp() {
     
     // initialize densities and velocities arrays
@@ -51,12 +56,12 @@ void StretchyApp::update(float dt) {
                 //addForceAt(x, y, 4, -addForceRatio*(depression.getColor(x,y).r-touchThreshold));
                 
                 
-                if (heightsForShapeDisplay[xy] - heightsFromShapeDisplay->getColor(x,y).r < 30) {
+                if (heightsForShapeDisplay[xy] - heightsFromShapeDisplay->getColor(x,y).r < touchThreshold+5) {
                     
                    
                    isTouchedLastFrame[x][y] = false;
                 } else {
-                     addForceAt(x, y, radiousRatio, -addForceRatio*(neutralHeight-heightsFromShapeDisplay->getColor(x,y).r));
+                     addForceAt(x, y, radiousRatio, -addForceRatio*(neutralHeight-heightsFromShapeDisplay->getColor(x,y).r)*enhanceForce);
                     
                     isTouchedLastFrame[x][y] = true;
                 }
@@ -84,7 +89,7 @@ void StretchyApp::update(float dt) {
 //    float blurFactor = 0.9;
 //    float springFactor = 0.1;
     
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < processTimePerFrame; i++) {
         // compute new densities/velocities
         float densitySum = 0;
         for (int x = cropX_MIN; x < cropX_MAX; x++) {
@@ -133,7 +138,7 @@ void StretchyApp::update(float dt) {
             for (int y = 0; y < SHAPE_DISPLAY_SIZE_Y; y++) {
                 int xy = heightsForShapeDisplay.getPixelIndex(x, y);
                 if(depression.getColor(x,y).r != 0){
-                    int k = MIN(HEIGHT_MAX,heightsFromShapeDisplay->getColor(x,y).r + 30);
+                    int k = MIN(HEIGHT_MAX,heightsFromShapeDisplay->getColor(x,y).r + touchThreshold + 5);
                     heightsForShapeDisplay[xy] = k; //(unsigned char) k; //(heightsFromShapeDisplay[xy] + 20);
     
                 }

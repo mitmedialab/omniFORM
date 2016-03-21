@@ -40,7 +40,7 @@ private:
     float blurFactor = 0.9;
     float springFactor = 0.01;
     
-    int touchThreshold = 25;
+    int touchThreshold = 17;
     
     bool isTouchedLastFrame[SHAPE_DISPLAY_SIZE_X][SHAPE_DISPLAY_SIZE_Y];
     
