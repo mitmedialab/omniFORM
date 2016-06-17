@@ -230,7 +230,7 @@ void AppManager::draw(){
     if (!showDebugGui) {
         ofRect(913, 305, 302, 302);
         ofImage(depthPixels).draw(914, 306, 300, 300);
-
+ 
         ofDrawBitmapString(currentApplication->appInstructionsText(), menuLeftCoordinate, menuHeight);
         menuHeight += 20;
     }
